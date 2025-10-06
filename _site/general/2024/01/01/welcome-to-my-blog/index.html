@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My Tech Blog</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <!-- Prism.js CSS - GitHub 테마 (최신 버전) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-github.min.css" rel="stylesheet" />
+    <!-- Prism.js 플러그인 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Welcome to My Tech Blog</h1>
+        <p class="post-meta">
+            <time datetime="2024-01-01T10:00:00+09:00">
+                January 01, 2024
+            </time>
+             • jeongcool
+            
+                • Categories: 
+                
+                    <span class="category">general</span>
+                
+            
+        </p>
+    </header>
+
+    <div class="post-content">
+        <p>안녕하세요! 제 기술 블로그에 오신 것을 환영합니다.</p>
+
+<p>이 블로그에서는 다음과 같은 내용을 다룰 예정입니다:</p>
+
+<ul>
+  <li>프로그래밍 튜토리얼</li>
+  <li>기술 트렌드 분석</li>
+  <li>개발 경험 공유</li>
+</ul>
+
+<p>앞으로 유용한 콘텐츠로 찾아뵙겠습니다!</p>
+
+    </div>
+
+    <footer class="post-footer">
+        
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript - 최신 버전, 순서 중요 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/show-language/prism-show-language.min.js"></script>
+    
+    <!-- Prism.js 초기화 스크립트 (성능 최적화) -->
+    <script>
+        // Prism.js autoloader 설정 (최신 CDN 경로)
+        if (typeof Prism !== 'undefined' && Prism.plugins && Prism.plugins.autoloader) {
+            Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/';
+        }
+        
+        // DOM 로드 후 실행 (성능 최적화)
+        document.addEventListener('DOMContentLoaded', function() {
+            // 모든 코드 블록에 라인 번호 추가
+            const codeBlocks = document.querySelectorAll('pre code[class*="language-"]');
+            codeBlocks.forEach(function(code) {
+                const pre = code.parentElement;
+                if (!pre.classList.contains('line-numbers')) {
+                    pre.classList.add('line-numbers');
+                }
+            });
+            
+            // Prism.js 실행
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+        });
+    </script>
+</body>
+</html>
