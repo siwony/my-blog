@@ -26,7 +26,7 @@ node_modules/                       # npm 패키지들
 npm-debug.log*                      # npm 디버그 로그
 yarn-debug.log*                     # yarn 디버그 로그
 yarn-error.log*                     # yarn 에러 로그
-package-lock.json                   # npm lock 파일 (선택적)
+# package-lock.json                 # CI/CD를 위해 추적하도록 변경
 .npm                                # npm 캐시 디렉토리
 
 # =============
