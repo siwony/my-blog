@@ -1,0 +1,50 @@
+title: My Tech Blog
+description: A technical blog sharing programming insights and tutorials
+author: jeongcool
+email: your-email@example.com
+url: ""
+baseurl: ""
+
+markdown: kramdown
+highlighter: none
+
+# Kramdown 설정 - syntax highlighting 완전 비활성화
+kramdown:
+  syntax_highlighter: none
+  syntax_highlighter_opts:
+    disable: true
+  input: GFM
+  hard_wrap: false
+
+# Disable incremental builds to avoid stale/duplicated output
+incremental: false
+
+plugins:
+  - jekyll-feed
+
+permalink: /:categories/:year/:month/:day/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "jeongcool"
+
+# Exclude from processing (include build folders so they are never considered as source)
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - node_modules/
+  - "*.scss"
+  - "_sass/"
+  - _site
+  - .jekyll-cache
+  - node_modules/
+  - "*.scss"
+  - "_sass/"
+  - _site
+  - .jekyll-cache

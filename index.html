@@ -1,0 +1,26 @@
+---
+layout: default
+title: Home
+---
+
+<h1>Welcome to My Tech Blog</h1>
+
+<p>공부한 내용을 기록하는 공간입니다.</p>
+
+<h2>Recent Posts</h2>
+
+<div class="post-list">
+{% if site.posts.size > 0 %}
+  {% for post in site.posts limit:3 %}
+  <article class="post-preview" style="margin-bottom: 20px;">
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
+    <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+  </article>
+  {% endfor %}
+{% else %}
+  <p>아직 포스트가 없습니다.</p>
+{% endif %}
+</div>
+
+<p><a href="{{ '/blog/' | relative_url }}">모든 포스트 보기 →</a></p>

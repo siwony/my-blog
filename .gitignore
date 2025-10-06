@@ -1,0 +1,129 @@
+# ==============================================================================
+# .gitignore for Jekyll Blog with Prism.js and Jest Testing
+# Generated: 2025-10-07
+# ==============================================================================
+
+# =============
+# Jekyll Files
+# =============
+_site/                              # Jekyll 빌드 결과물
+.sass-cache/                        # Sass 캐시
+.jekyll-cache/                      # Jekyll 캐시
+.jekyll-metadata                    # Jekyll 메타데이터
+vendor/                             # Bundler vendor 디렉토리
+
+# =============
+# Ruby/Bundler
+# =============
+*.gem                               # 빌드된 gem 파일
+.bundle/                            # Bundler 설정
+Gemfile.lock                        # Lock 파일 (환경별로 다를 수 있음)
+
+# =============
+# Node.js/npm
+# =============
+node_modules/                       # npm 패키지들
+npm-debug.log*                      # npm 디버그 로그
+yarn-debug.log*                     # yarn 디버그 로그
+yarn-error.log*                     # yarn 에러 로그
+package-lock.json                   # npm lock 파일 (선택적)
+.npm                                # npm 캐시 디렉토리
+
+# =============
+# Testing/Coverage
+# =============
+coverage/                           # Jest 커버리지 리포트
+*.lcov                              # LCOV 커버리지 파일
+.nyc_output                         # NYC 테스트 커버리지
+tests/coverage/                     # 테스트 커버리지 폴더
+
+# =============
+# IDE/Editor
+# =============
+.vscode/                            # VS Code 설정
+.idea/                              # IntelliJ IDEA 설정
+*.swp                               # Vim swap 파일
+*.swo                               # Vim swap 파일
+*~                                  # Vim 백업 파일
+.sublime-project                    # Sublime Text 프로젝트
+.sublime-workspace                  # Sublime Text 워크스페이스
+
+# =============
+# OS Files
+# =============
+# macOS
+.DS_Store                           # macOS 폴더 메타데이터
+.DS_Store?                          # macOS 폴더 메타데이터 (백업)
+._*                                 # macOS 리소스 포크
+.Spotlight-V100                     # macOS 스포트라이트 인덱스
+.Trashes                            # macOS 휴지통 파일
+
+# Windows
+ehthumbs.db                         # Windows 썸네일 캐시
+Thumbs.db                           # Windows 썸네일 캐시
+Desktop.ini                         # Windows 폴더 설정
+
+# Linux
+.directory                          # KDE 폴더 설정
+
+# =============
+# Logs
+# =============
+*.log                               # 모든 로그 파일
+logs/                               # 로그 디렉토리
+pids                                # PID 파일들
+*.pid                               # PID 파일
+*.seed                              # 시드 파일
+*.pid.lock                          # PID 락 파일
+
+# =============
+# Runtime/Temp
+# =============
+tmp/                                # 임시 파일들
+temp/                               # 임시 파일들
+.tmp/                               # 숨겨진 임시 파일들
+
+# =============
+# Environment
+# =============
+.env                                # 환경 변수 파일
+.env.local                          # 로컬 환경 변수
+.env.development.local              # 개발 환경 변수
+.env.test.local                     # 테스트 환경 변수
+.env.production.local               # 프로덕션 환경 변수
+
+# =============
+# Archives
+# =============
+*.zip                               # ZIP 파일
+*.tar.gz                            # TAR.GZ 파일
+*.rar                               # RAR 파일
+*.7z                                # 7Z 파일
+
+# =============
+# Optional: 개발 중 생성되는 파일들
+# =============
+.sass-cache/                        # Sass 컴파일 캐시
+.jekyll-cache/                      # Jekyll 캐시
+.jekyll-metadata                    # Jekyll 메타데이터
+
+# =============
+# Project-specific (현재 프로젝트 기준)
+# =============
+# 스크립트 생성 임시 파일들이 있다면
+scripts/temp/                       # 스크립트 임시 파일
+scripts/*.tmp                       # 스크립트 임시 파일
+
+# 테스트 관련 임시 파일들
+tests/temp/                         # 테스트 임시 파일
+tests/*.tmp                         # 테스트 임시 파일
+
+# Prism.js 관련 다운로드 파일들 (CDN 사용하므로 불필요)
+assets/js/prism/                    # 로컬 Prism.js 파일들 (CDN 사용 중)
+
+# ==============================================================================
+# 주의사항:
+# - 필요에 따라 Gemfile.lock, package-lock.json 포함 여부를 결정하세요
+# - 환경변수 파일(.env)은 절대 커밋하지 마세요
+# - IDE 설정은 팀 프로젝트의 경우 일부 포함할 수도 있습니다
+# ==============================================================================
