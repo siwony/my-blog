@@ -1,54 +1,104 @@
-# ==============================================================================
-# .gitignore for Jekyll Blog with Prism.js and Jest Testing
-# Generated: 2025-10-07
-# ==============================================================================
+# Jekyll# ==============================================================================
+
+_site/# .gitignore for Jekyll Blog with Prism.js and Jest Testing
+
+.sass-cache/# Generated: 2025-10-07
+
+.jekyll-cache/# ==============================================================================
+
+.jekyll-metadata
 
 # =============
-# Jekyll Files
-# =============
-_site/                              # Jekyll 빌드 결과물
-.sass-cache/                        # Sass 캐시
+
+# Ruby# Jekyll Files
+
+*.gem# =============
+
+.bundle/_site/                              # Jekyll 빌드 결과물
+
+vendor/.sass-cache/                        # Sass 캐시
+
 .jekyll-cache/                      # Jekyll 캐시
-.jekyll-metadata                    # Jekyll 메타데이터
-vendor/                             # Bundler vendor 디렉토리
+
+# Node.js.jekyll-metadata                    # Jekyll 메타데이터
+
+node_modules/vendor/                             # Bundler vendor 디렉토리
+
+npm-debug.log*
+
+yarn-debug.log*# =============
+
+yarn-error.log*# Ruby/Bundler
 
 # =============
-# Ruby/Bundler
-# =============
-*.gem                               # 빌드된 gem 파일
-.bundle/                            # Bundler 설정
-Gemfile.lock                        # Lock 파일 (환경별로 다를 수 있음)
+
+# Testing*.gem                               # 빌드된 gem 파일
+
+coverage/.bundle/                            # Bundler 설정
+
+tests/coverage/Gemfile.lock                        # Lock 파일 (환경별로 다를 수 있음)
+
+*.lcov
 
 # =============
-# Node.js/npm
-# =============
-node_modules/                       # npm 패키지들
-npm-debug.log*                      # npm 디버그 로그
-yarn-debug.log*                     # yarn 디버그 로그
+
+# IDE# Node.js/npm
+
+.vscode/# =============
+
+.idea/node_modules/                       # npm 패키지들
+
+*.swpnpm-debug.log*                      # npm 디버그 로그
+
+*.swoyarn-debug.log*                     # yarn 디버그 로그
+
 yarn-error.log*                     # yarn 에러 로그
-# package-lock.json                 # CI/CD를 위해 추적하도록 변경
-.npm                                # npm 캐시 디렉토리
 
-# =============
-# Testing/Coverage
-# =============
+# OS# package-lock.json                 # CI/CD를 위해 추적하도록 변경
+
+.DS_Store.npm                                # npm 캐시 디렉토리
+
+.DS_Store?
+
+._*# =============
+
+Thumbs.db# Testing/Coverage
+
+Desktop.ini# =============
+
 coverage/                           # Jest 커버리지 리포트
-*.lcov                              # LCOV 커버리지 파일
-.nyc_output                         # NYC 테스트 커버리지
-tests/coverage/                     # 테스트 커버리지 폴더
+
+# Logs*.lcov                              # LCOV 커버리지 파일
+
+*.log.nyc_output                         # NYC 테스트 커버리지
+
+logs/tests/coverage/                     # 테스트 커버리지 폴더
+
+
+
+# Environment# =============
+
+.env*# IDE/Editor
 
 # =============
-# IDE/Editor
-# =============
-.vscode/                            # VS Code 설정
-.idea/                              # IntelliJ IDEA 설정
-*.swp                               # Vim swap 파일
-*.swo                               # Vim swap 파일
+
+# Temporary files.vscode/                            # VS Code 설정
+
+tmp/.idea/                              # IntelliJ IDEA 설정
+
+temp/*.swp                               # Vim swap 파일
+
+.tmp/*.swo                               # Vim swap 파일
+
 *~                                  # Vim 백업 파일
-.sublime-project                    # Sublime Text 프로젝트
-.sublime-workspace                  # Sublime Text 워크스페이스
 
-# =============
+# Archives.sublime-project                    # Sublime Text 프로젝트
+
+*.zip.sublime-workspace                  # Sublime Text 워크스페이스
+
+*.tar.gz
+
+*.rar# =============
 # OS Files
 # =============
 # macOS
@@ -127,3 +177,4 @@ assets/js/prism/                    # 로컬 Prism.js 파일들 (CDN 사용 중)
 # - 환경변수 파일(.env)은 절대 커밋하지 마세요
 # - IDE 설정은 팀 프로젝트의 경우 일부 포함할 수도 있습니다
 # ==============================================================================
+
