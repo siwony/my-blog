@@ -1,55 +1,106 @@
-# Jekyll# ==============================================================================
+# Jekyll# Jekyll# ==============================================================================
 
-_site/# .gitignore for Jekyll Blog with Prism.js and Jest Testing
+_site/
 
-.sass-cache/# Generated: 2025-10-07
+.sass-cache/_site/# .gitignore for Jekyll Blog with Prism.js and Jest Testing
 
-.jekyll-cache/# ==============================================================================
+.jekyll-cache/
 
-.jekyll-metadata
+.jekyll-metadata.sass-cache/# Generated: 2025-10-07
 
-# =============
 
-# Ruby# Jekyll Files
 
-*.gem# =============
+# Ruby.jekyll-cache/# ==============================================================================
 
-.bundle/_site/                              # Jekyll 빌드 결과물
+*.gem
 
-vendor/.sass-cache/                        # Sass 캐시
+.bundle/.jekyll-metadata
 
-.jekyll-cache/                      # Jekyll 캐시
+vendor/
 
-# Node.js.jekyll-metadata                    # Jekyll 메타데이터
+Gemfile.lock# =============
 
-node_modules/vendor/                             # Bundler vendor 디렉토리
 
-npm-debug.log*
 
-yarn-debug.log*# =============
+# Node.js# Ruby# Jekyll Files
 
-yarn-error.log*# Ruby/Bundler
+node_modules/
 
-# =============
+npm-debug.log**.gem# =============
 
-# Testing*.gem                               # 빌드된 gem 파일
+yarn-debug.log*
 
-coverage/.bundle/                            # Bundler 설정
+yarn-error.log*.bundle/_site/                              # Jekyll 빌드 결과물
 
-tests/coverage/Gemfile.lock                        # Lock 파일 (환경별로 다를 수 있음)
+
+
+# Testingvendor/.sass-cache/                        # Sass 캐시
+
+coverage/
+
+tests/coverage/.jekyll-cache/                      # Jekyll 캐시
 
 *.lcov
 
+# Node.js.jekyll-metadata                    # Jekyll 메타데이터
+
+# IDE
+
+.vscode/node_modules/vendor/                             # Bundler vendor 디렉토리
+
+.idea/
+
+*.swpnpm-debug.log*
+
+*.swo
+
+yarn-debug.log*# =============
+
+# OS
+
+.DS_Storeyarn-error.log*# Ruby/Bundler
+
+.DS_Store?
+
+._*# =============
+
+Thumbs.db
+
+Desktop.ini# Testing*.gem                               # 빌드된 gem 파일
+
+
+
+# Logscoverage/.bundle/                            # Bundler 설정
+
+*.log
+
+logs/tests/coverage/Gemfile.lock                        # Lock 파일 (환경별로 다를 수 있음)
+
+
+
+# Environment*.lcov
+
+.env*
+
 # =============
 
-# IDE# Node.js/npm
+# Temporary files
 
-.vscode/# =============
+tmp/# IDE# Node.js/npm
 
-.idea/node_modules/                       # npm 패키지들
+temp/
 
-*.swpnpm-debug.log*                      # npm 디버그 로그
+.tmp/.vscode/# =============
 
+
+
+# Archives.idea/node_modules/                       # npm 패키지들
+
+*.zip
+
+*.tar.gz*.swpnpm-debug.log*                      # npm 디버그 로그
+
+*.rar
 *.swoyarn-debug.log*                     # yarn 디버그 로그
 
 yarn-error.log*                     # yarn 에러 로그
