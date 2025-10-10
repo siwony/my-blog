@@ -1,0 +1,69 @@
+---
+layout: default
+---
+
+<div class="category-page">
+  <header class="category-header">
+    <h1>{{ page.category | capitalize }} Posts</h1>
+    <p class="category-description">
+      {% assign category_posts = site.categories[page.category] %}
+      {% if category_posts %}
+        {% assign post_count = category_posts.size %}
+      {% else %}
+        {% assign post_count = 0 %}
+      {% endif %}
+      {{ post_count }} post{% if post_count != 1 %}s{% endif %} in this category
+    </p>
+  </header>
+
+  <div class="category-content">
+    <div class="posts-grid">
+      {% assign category_posts = site.categories[page.category] %}
+      {% if category_posts and category_posts.size > 0 %}
+        {% assign posts = category_posts | sort: 'date' | reverse %}
+        {% for post in posts %}
+          <article class="post-card">
+            <div class="post-card-content">
+              <h2 class="post-title">
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              </h2>
+              <div class="post-meta">
+                <time datetime="{{ post.date | date_to_xmlschema }}">
+                  {{ post.date | date: "%B %d, %Y" }}
+                </time>
+                {% if post.categories.size > 1 %}
+                  <span class="post-categories">
+                    {% for cat in post.categories %}
+                      {% unless cat == page.category %}
+                        <span class="category-tag">{{ cat }}</span>
+                      {% endunless %}
+                    {% endfor %}
+                  </span>
+                {% endif %}
+              </div>
+              <p class="post-excerpt">
+                {{ post.excerpt | strip_html | truncatewords: 25 }}
+              </p>
+              <a href="{{ post.url | relative_url }}" class="read-more">
+                Read more →
+              </a>
+            </div>
+          </article>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% unless category_posts and category_posts.size > 0 %}
+      <div class="empty-category">
+        <h3>No posts in this category yet</h3>
+        <p>Check back later for new content!</p>
+        <a href="{{ '/' | relative_url }}" class="back-home">← Back to Home</a>
+      </div>
+    {% endunless %}
+  </div>
+
+  <nav class="category-navigation-bottom">
+    <a href="{{ '/' | relative_url }}" class="nav-link">← Back to Home</a>
+    <a href="{{ '/blog/' | relative_url }}" class="nav-link">All Posts →</a>
+  </nav>
+</div>

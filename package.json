@@ -1,7 +1,7 @@
 {
   "name": "my-tech-blog-tests",
   "version": "1.0.0",
-  "description": "Test suite for Prism.js syntax highlighting",
+  "description": "Test suite for My Tech Blog features including Prism.js, command palette, and category navigation",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -15,15 +15,25 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.js"
+    ],
     "testMatch": [
       "<rootDir>/tests/**/*.test.js"
     ],
     "collectCoverageFrom": [
       "assets/js/**/*.js",
+      "scripts/**/*.rb",
       "!assets/js/prism-test.js"
     ],
     "coverageDirectory": "tests/coverage",
-    "coverageReporters": ["text", "lcov", "html"]
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ]
+  },
+  "dependencies": {
+    "ninja-keys": "^1.2.2"
   }
 }
