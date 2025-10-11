@@ -57,6 +57,20 @@
                 }
             });
             
+            // HTML 코드 블록 특별 처리
+            const htmlCodeBlocks = document.querySelectorAll('pre code.language-html');
+            htmlCodeBlocks.forEach(function(code) {
+                // HTML 코드가 제대로 escape되어 있는지 확인
+                if (code.textContent.includes('<') && !code.innerHTML.includes('&lt;')) {
+                    code.innerHTML = code.textContent
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#039;');
+                }
+            });
+            
             // Prism.js 실행
             if (typeof Prism !== 'undefined') {
                 Prism.highlightAll();
@@ -66,5 +80,11 @@
     
     <!-- Command Palette (Ninja Keys) -->
     <script src="{{ '/assets/js/command-palette.js' | relative_url }}"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="{{ '/assets/js/category-sidebar.js' | relative_url }}"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="{{ '/assets/js/post-metadata.js' | relative_url }}"></script>
 </body>
 </html>

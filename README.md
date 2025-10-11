@@ -1,8 +1,17 @@
-# 🚀 My Tech Blog
+# 🚀## 📖 주요 문서
+
+- 📝 **[Markdown 메타데이터 작성 규칙](docs/MARKDOWN_METADATA.md)** - Jekyll Front Matter 작성 가이드
+- 🧩 **[웹 컴포넌트 아키텍처](docs/WEB_COMPONENTS.md)** - 모듈식 컴포넌트 구현 내용
+- 🛡️ **[CSS 충돌 방지 가이드](docs/CSS_CONFLICT_PREVENTION.md)** - 라이브러리 간 CSS 충돌 방지 전략Tech Blog
 
 바이브코딩(Vibe Coding)으로 만든 개인 기술 블로그입니다.
 
-## 📚 기술 스택
+## � 주요 문서
+
+- 📝 **[Markdown 메타데이터 작성 규칙](docs/MARKDOWN_METADATA.md)** - Jekyll Front Matter 작성 가이드
+- 🧩 **[웹 컴포넌트 아키텍처](docs/WEB_COMPONENTS.md)** - 모듈식 컴포넌트 구현 내용
+
+## �📚 기술 스택
 
 ### 핵심 기술
 - **Jekyll 3.9.5** - 정적 사이트 생성기
@@ -11,6 +20,11 @@ ruby scripts/generate_search_data.rb
 ```
 
 ## 🏷️ 카테고리 관리
+
+### 📝 Markdown 메타데이터 작성 규칙
+
+Jekyll Front Matter 작성 방법과 규칙은 별도 문서를 참조하세요:  
+👉 **[Markdown 메타데이터 작성 규칙](docs/MARKDOWN_METADATA.md)**
 
 ### 새 카테고리 생성
 
@@ -49,7 +63,46 @@ categories: 카테고리명
 ---
 ```
 
-## 🔧 개발 환경 Jekyll 런타임 환경
+## 🧩 웹 컴포넌트 아키텍처
+
+이 블로그는 모던한 웹 컴포넌트 기술을 활용하여 구축되었습니다.
+
+### CategorySidebar 컴포넌트
+
+카테고리 사이드바는 커스텀 웹 컴포넌트로 구현되어 재사용성과 유지보수성을 향상시켰습니다.
+
+#### 특징
+- ✨ **자동 렌더링** - Jekyll 데이터를 동적으로 받아 카테고리 목록 생성
+- 🎯 **타입 안전성** - JSON 스키마 검증 및 에러 핸들링
+- � **반응형 디자인** - 기존 CSS와 완벽 호환
+- 🔄 **실시간 업데이트** - 속성 변경 시 자동 리렌더링
+
+#### 사용법
+```html
+```
+
+## 🧩 웹 컴포넌트 아키텍처
+
+이 블로그는 모던한 웹 컴포넌트 기술을 활용한 모듈식 아키텍처로 구축되었습니다.  
+자세한 구현 내용과 사용법은 별도 문서를 참조하세요:  
+👉 **[웹 컴포넌트 아키텍처](docs/WEB_COMPONENTS.md)**
+
+## 🔧 개발 환경
+```
+
+#### 파일 구조
+```
+assets/js/
+├── category-sidebar.js    # 웹 컴포넌트 구현
+├── command-palette.js     # 명령 팔레트
+└── blog-pagination.js     # 페이지네이션
+
+tests/
+├── category-sidebar.test.js  # 컴포넌트 테스트
+└── ...
+```
+
+## 🔧 개발 환경
 - **Prism.js 1.29.0** - 구문 하이라이팅 (200+ 언어 지원)
 
 ### 개발 & 테스트
@@ -62,6 +115,7 @@ categories: 카테고리명
 - **반응형 디자인** - 모바일 친화적
 - **라인 번호 & 복사 버튼** - 코드 블록 기능
 - **Ninja Keys** - 명령 팔레트 (Command+K 검색)
+- **Web Components** - 모듈식 카테고리 사이드바
 
 ## ⚡ Quick Start
 
@@ -108,6 +162,7 @@ npm run test:ci
 ### 테스트 범위
 - ✅ **Prism.js 구문 하이라이팅** - 코드 블록 렌더링 및 기능 테스트
 - ✅ **블로그 기능** - 카테고리 시스템, 명령 팔레트, 레이아웃 검증
+- ✅ **웹 컴포넌트** - CategorySidebar 컴포넌트 로직 및 렌더링 테스트
 - ✅ **파일 구조** - 필수 파일 존재 및 구조 검증
 - ✅ **설정 검증** - Jekyll 설정 및 front matter 검증
 
@@ -116,6 +171,7 @@ npm run test:ci
 - 검색 데이터 생성 및 구조
 - 카테고리 생성 스크립트
 - 명령 팔레트 통합
+- 웹 컴포넌트 로직 (카테고리 사이드바)
 - 반응형 레이아웃
 
 ## 📁 프로젝트 구조
@@ -127,6 +183,9 @@ npm run test:ci
 ├── assets/              # 정적 자산
 │   ├── css/            # 스타일시트
 │   └── js/             # JavaScript (명령 팔레트 포함)
+├── docs/                # 프로젝트 문서
+│   ├── MARKDOWN_METADATA.md  # 메타데이터 작성 규칙
+│   └── WEB_COMPONENTS.md      # 웹 컴포넌트 아키텍처
 ├── tests/               # Jest 테스트
 ├── scripts/             # 빌드 스크립트
 │   ├── generate_posts.rb      # 포스트 생성
@@ -141,6 +200,8 @@ npm run test:ci
 - 🔍 **검색 엔진 최적화** - SEO 친화적
 - 🧪 **완전한 테스트 커버리지** - Jest로 검증된 코드
 - 🚀 **자동 배포** - GitHub Actions CI/CD
+- 🧩 **웹 컴포넌트** - 모듈식 아키텍처
+- ⚡ **VS Code 스타일 검색** - 명령 팔레트 (Cmd+K)
 
 ## 📝 포스트 작성
 

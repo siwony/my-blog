@@ -3,6 +3,7 @@ layout: post
 title: "Prism.js Syntax Highlighting 테스트"
 date: 2024-10-07 12:00:00 +0900
 categories: programming
+tags: [javascript, python, java, prism, syntax-highlighting]
 ---
 
 이 포스트는 새로 적용된 Prism.js syntax highlighting을 테스트하기 위한 글입니다.

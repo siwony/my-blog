@@ -3,6 +3,7 @@ layout: post
 title: "Welcome to My Tech Blog"
 date: 2024-01-01 10:00:00 +0900
 categories: general
+tags: [welcome, introduction, blog]
 ---
 
 안녕하세요! 제 기술 블로그에 오신 것을 환영합니다.

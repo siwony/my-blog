@@ -3,6 +3,11 @@
  * DOM 환경과 Prism.js를 모킹합니다.
  */
 
+// TextEncoder/TextDecoder polyfill for JSDOM
+const { TextEncoder, TextDecoder } = require('util');
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+
 // Mock Prism.js 객체
 global.Prism = {
     plugins: {

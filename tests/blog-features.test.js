@@ -106,7 +106,7 @@ describe('Blog Features', () => {
       const content = fs.readFileSync(indexPath, 'utf8');
       expect(content).toContain('home-layout');
       expect(content).toContain('sidebar');
-      expect(content).toContain('category-navigation');
+      expect(content).toContain('category-sidebar');
     });
 
     test('should have proper CSS for layout', () => {

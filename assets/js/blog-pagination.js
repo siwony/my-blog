@@ -28,8 +28,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const meta = document.createElement('p');
     meta.className = 'post-meta';
     meta.textContent = post.date;
+
+    // Create metadata web component for categories and tags
+    const metadataComponent = document.createElement('post-metadata');
     if (post.categories && post.categories.length) {
-      meta.textContent += ' • ' + post.categories.join(', ');
+      metadataComponent.setAttribute('categories', JSON.stringify(post.categories));
+    }
+    if (post.tags && post.tags.length) {
+      metadataComponent.setAttribute('tags', JSON.stringify(post.tags));
     }
 
     const excerpt = document.createElement('p');
@@ -37,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     article.appendChild(h2);
     article.appendChild(meta);
+    article.appendChild(metadataComponent);
     article.appendChild(excerpt);
     return article;
   }

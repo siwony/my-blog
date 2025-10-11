@@ -7,7 +7,12 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --watchAll=false",
-    "test:report": "node scripts/test-runner.js"
+    "test:report": "node scripts/test-runner.js",
+    "css:check": "node scripts/css-conflict-detector.js",
+    "css:check-safe": "node scripts/css-conflict-detector.js || echo 'CSS conflicts detected but continuing...'",
+    "prebuild": "npm run css:check-safe",
+    "build": "bundle exec jekyll build",
+    "serve": "bundle exec jekyll serve"
   },
   "devDependencies": {
     "jest": "^29.7.0",

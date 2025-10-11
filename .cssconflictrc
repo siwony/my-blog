@@ -1,0 +1,37 @@
+{
+  "rules": {
+    "class-prefix": {
+      "enabled": true,
+      "prefixes": ["blog-", "post-", "category-", "sidebar-", "navigation-", "metadata-"],
+      "exceptions": ["container", "main", "header", "footer", "nav"]
+    },
+    "dangerous-classes": {
+      "enabled": true,
+      "classes": [
+        "token", "keyword", "string", "comment", "number", "operator",
+        "punctuation", "tag", "attr-name", "attr-value", "namespace",
+        "deleted", "inserted", "line-numbers", "button", "input", "form",
+        "modal", "dropdown", "navbar", "btn", "nav", "tab", "fade",
+        "show", "active", "disabled", "text", "bg", "border", "shadow",
+        "rounded", "flex", "grid", "block", "inline", "hidden", "visible"
+      ]
+    },
+    "short-names": {
+      "enabled": true,
+      "minLength": 4,
+      "exceptions": ["js", "css", "url", "id"]
+    },
+    "bem-style": {
+      "enabled": false,
+      "blockPattern": "^[a-z][a-z0-9-]*$",
+      "elementPattern": "^[a-z][a-z0-9-]*__[a-z][a-z0-9-]*$",
+      "modifierPattern": "^[a-z][a-z0-9-]*--[a-z][a-z0-9-]*$"
+    }
+  },
+  "ignore": [
+    "node_modules/**",
+    "_site/**",
+    "*.min.css"
+  ],
+  "reportFormat": "detailed"
+}

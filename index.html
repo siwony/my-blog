@@ -17,6 +17,13 @@ title: Home
       <article class="post-preview" style="margin-bottom: 20px;">
         <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
         <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
+        
+        <!-- Category and Tags using Web Component -->
+        <post-metadata 
+          categories='{{ post.categories | jsonify }}'
+          tags='{{ post.tags | jsonify }}'>
+        </post-metadata>
+        
         <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
       </article>
       {% endfor %}
@@ -28,27 +35,9 @@ title: Home
     <p><a href="{{ '/blog/' | relative_url }}">모든 포스트 보기 →</a></p>
   </main>
 
-  <aside class="sidebar">
-    <div class="category-navigation">
-      <h3>Categories</h3>
-      <ul class="category-list">
-        {% assign categories = site.categories | sort %}
-        {% for category in categories %}
-          {% assign category_name = category[0] %}
-          {% assign posts = category[1] %}
-          <li class="category-item">
-            <a href="{{ '/category/' | append: category_name | relative_url }}" class="category-link">
-              <span class="category-name">{{ category_name | capitalize }}</span>
-              <span class="category-count">{{ posts.size }}</span>
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-      
-      <div class="total-posts">
-        <span class="total-label">Total Posts</span>
-        <span class="total-count">{{ site.posts.size }}</span>
-      </div>
-    </div>
-  </aside>
+  <!-- Category Sidebar Web Component -->
+  <category-sidebar 
+    categories-data='[{% assign categories = site.categories | sort %}{% for category in categories %}{% unless forloop.first %},{% endunless %}{"name":"{{ category[0] }}","count":{{ category[1].size }}}{% endfor %}]'
+    total-posts="{{ site.posts.size }}">
+  </category-sidebar>
 </div>
