@@ -933,3 +933,144 @@ ninja-keys .ninja-action:last-child {
     padding: calc(var(--blog-spacing-xs) - 0.05rem) calc(var(--blog-spacing-sm) - 0.1rem);
   }
 }
+
+/* Enhanced Post Metadata Styles (Badge Layout) */
+.post-metadata-enhanced {
+  display: flex;
+  flex-direction: column;
+  gap: var(--blog-spacing-sm);
+  margin: var(--blog-spacing-sm) 0;
+}
+
+.category-badge {
+  display: inline-block;
+  margin-bottom: var(--blog-spacing-xs);
+}
+
+.category-badge a {
+  display: inline-block;
+  background: var(--blog-primary-color);
+  color: white;
+  padding: var(--blog-spacing-xs) var(--blog-spacing-sm);
+  border-radius: var(--blog-border-radius-lg);
+  text-decoration: none;
+  font-size: var(--blog-font-size-sm);
+  font-weight: var(--blog-font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+}
+
+.category-badge a:hover {
+  background: var(--blog-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--blog-shadow-sm);
+}
+
+/* Category-specific colors */
+.category-badge[data-category="programming"] a {
+  background: #007bff;
+}
+.category-badge[data-category="programming"] a:hover {
+  background: #0056b3;
+}
+
+.category-badge[data-category="general"] a {
+  background: #6c757d;
+}
+.category-badge[data-category="general"] a:hover {
+  background: #545b62;
+}
+
+.category-badge[data-category="tutorial"] a {
+  background: #28a745;
+}
+.category-badge[data-category="tutorial"] a:hover {
+  background: #1e7e34;
+}
+
+.category-badge[data-category="test"] a {
+  background: #ffc107;
+  color: #212529;
+}
+.category-badge[data-category="test"] a:hover {
+  background: #e0a800;
+}
+
+.post-meta-inline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: var(--blog-font-size-sm);
+  color: var(--blog-text-muted);
+  margin-bottom: var(--blog-spacing-xs);
+}
+
+.meta-separator {
+  margin: 0 var(--blog-spacing-xs);
+  color: var(--blog-text-muted);
+}
+
+.post-date {
+  color: var(--blog-text-muted);
+}
+
+.reading-time {
+  color: var(--blog-text-muted);
+}
+
+.post-tags-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--blog-spacing-xs);
+}
+
+.post-tag-inline {
+  display: inline-block;
+  background: var(--blog-tag-bg);
+  color: var(--blog-tag-color);
+  padding: 2px var(--blog-spacing-xs);
+  border-radius: var(--blog-border-radius-sm);
+  font-size: calc(var(--blog-font-size-sm) - 0.1rem);
+  font-weight: var(--blog-font-weight-medium);
+}
+
+/* Inline Layout Styles */
+.post-metadata-inline {
+  font-size: var(--blog-font-size-sm);
+  color: var(--blog-text-muted);
+  margin: var(--blog-spacing-xs) 0;
+}
+
+.category-link-inline {
+  color: var(--blog-primary-color);
+  text-decoration: none;
+  font-weight: var(--blog-font-weight-medium);
+}
+
+.category-link-inline:hover {
+  color: var(--blog-primary-hover);
+  text-decoration: underline;
+}
+
+/* Responsive adjustments for enhanced metadata */
+@media (max-width: 768px) {
+  .post-meta-inline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--blog-spacing-xs);
+  }
+  
+  .meta-separator {
+    display: none;
+  }
+  
+  .post-tags-inline {
+    margin-top: var(--blog-spacing-xs);
+  }
+  
+  .category-badge a {
+    font-size: calc(var(--blog-font-size-sm) - 0.05rem);
+    padding: calc(var(--blog-spacing-xs) - 0.05rem) calc(var(--blog-spacing-sm) - 0.1rem);
+  }
+}

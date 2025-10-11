@@ -29,6 +29,9 @@ describe('PostMetadata Web Component', () => {
       expect(componentCode).toContain("'tags'");
       expect(componentCode).toContain("'show-labels'");
       expect(componentCode).toContain("'compact'");
+      expect(componentCode).toContain("'layout'");
+      expect(componentCode).toContain("'reading-time'");
+      expect(componentCode).toContain("'date'");
     });
   });
 
@@ -46,6 +49,9 @@ describe('PostMetadata Web Component', () => {
       expect(componentCode).toContain('get tags()');
       expect(componentCode).toContain('get showLabels()');
       expect(componentCode).toContain('get compact()');
+      expect(componentCode).toContain('get layout()');
+      expect(componentCode).toContain('get readingTime()');
+      expect(componentCode).toContain('get date()');
     });
   });
 
@@ -68,13 +74,30 @@ describe('PostMetadata Web Component', () => {
       expect(componentCode).toContain('class="category-tag"');
     });
 
-    test('should generate tag spans', () => {
+    test('should generate tag spans with # prefix', () => {
       expect(componentCode).toContain('class="post-tag"');
+      expect(componentCode).toContain('#${tag}');
     });
 
     test('should handle empty categories and tags', () => {
       expect(componentCode).toContain("this.innerHTML = '';");
       expect(componentCode).toContain('!categories.length && !tags.length');
+    });
+
+    test('should support badge layout', () => {
+      expect(componentCode).toContain('renderBadgeLayout');
+      expect(componentCode).toContain('category-badge');
+      expect(componentCode).toContain('post-meta-inline');
+    });
+
+    test('should support inline layout', () => {
+      expect(componentCode).toContain('renderInlineLayout');
+      expect(componentCode).toContain('post-metadata-inline');
+    });
+
+    test('should include reading time and date in badge layout', () => {
+      expect(componentCode).toContain('reading-time');
+      expect(componentCode).toContain('min read');
     });
   });
 });

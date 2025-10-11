@@ -52,6 +52,15 @@ describe('Categories and Tags Display', () => {
       expect(content).toContain('post.tags');
     });
 
+    test('should include reading time calculation', () => {
+      const blogPath = path.join(__dirname, '..', 'blog.html');
+      const content = fs.readFileSync(blogPath, 'utf8');
+      
+      expect(content).toContain('"readingTime"');
+      expect(content).toContain('number_of_words');
+      expect(content).toContain('divided_by: 200');
+    });
+
     test('should have blog pagination JavaScript with web component support', () => {
       const blogJsPath = path.join(__dirname, '..', 'assets', 'js', 'blog-pagination.js');
       expect(fs.existsSync(blogJsPath)).toBe(true);
@@ -62,6 +71,8 @@ describe('Categories and Tags Display', () => {
       expect(content).toContain("createElement('post-metadata')");
       expect(content).toContain("setAttribute('categories'");
       expect(content).toContain("setAttribute('tags'");
+      expect(content).toContain("setAttribute('layout', 'badge')");
+      expect(content).toContain('post.readingTime');
     });
   });
 

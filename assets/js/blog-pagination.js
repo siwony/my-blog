@@ -25,24 +25,22 @@ document.addEventListener('DOMContentLoaded', function () {
     a.textContent = post.title;
     h2.appendChild(a);
 
-    const meta = document.createElement('p');
-    meta.className = 'post-meta';
-    meta.textContent = post.date;
-
     // Create metadata web component for categories and tags
     const metadataComponent = document.createElement('post-metadata');
+    metadataComponent.setAttribute('layout', 'badge');
     if (post.categories && post.categories.length) {
       metadataComponent.setAttribute('categories', JSON.stringify(post.categories));
     }
     if (post.tags && post.tags.length) {
       metadataComponent.setAttribute('tags', JSON.stringify(post.tags));
     }
+    metadataComponent.setAttribute('date', post.date);
+    metadataComponent.setAttribute('reading-time', post.readingTime || '5');
 
     const excerpt = document.createElement('p');
     excerpt.innerHTML = post.excerpt;
 
     article.appendChild(h2);
-    article.appendChild(meta);
     article.appendChild(metadataComponent);
     article.appendChild(excerpt);
     return article;
