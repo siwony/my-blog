@@ -44,9 +44,6 @@ layout: default
               <p class="post-excerpt">
                 {{ post.excerpt | strip_html | truncatewords: 25 }}
               </p>
-              <a href="{{ post.url | relative_url }}" class="read-more">
-                Read more →
-              </a>
             </div>
           </article>
         {% endfor %}

@@ -81,14 +81,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const excerpt = document.createElement('p');
     excerpt.innerHTML = post.excerpt;
 
-    const read = document.createElement('a');
-    read.href = post.url;
-    read.textContent = 'Read more →';
-
     article.appendChild(h2);
     article.appendChild(meta);
     article.appendChild(excerpt);
-    article.appendChild(read);
     return article;
   }
 
