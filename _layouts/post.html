@@ -5,32 +5,44 @@ layout: default
 <article class="post">
     <header class="post-header">
         <h1 class="post-title">{{ page.title }}</h1>
-        <p class="post-meta">
-            <time datetime="{{ page.date | date_to_xmlschema }}">
-                {{ page.date | date: "%B %d, %Y" }}
-            </time>
-            {% if page.author %} • {{ page.author }}{% endif %}
-            {% if page.categories.size > 0 %}
-                • Categories: 
-                {% for category in page.categories %}
-                    <span class="category">{{ category }}</span>
-                {% endfor %}
-            {% endif %}
-        </p>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='{{ page.categories | jsonify }}'
+          tags='{{ page.tags | jsonify }}'
+          date="{{ page.date | date: '%B %d, %Y' }}"
+          reading-time="{{ page.content | strip_html | number_of_words | divided_by: 200 | plus: 1 }}"
+          compact="false">
+        </post-metadata>
+        
+        {% if page.author %}
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">{{ page.author }}</span>
+        </div>
+        {% endif %}
     </header>
 
     <div class="post-content">
         {{ content }}
     </div>
-
+    
     <footer class="post-footer">
-        {% if page.tags.size > 0 %}
-        <div class="post-tags">
-            <strong>Tags:</strong>
-            {% for tag in page.tags %}
-                <span class="tag">#{{ tag }}</span>
-            {% endfor %}
+        <div class="post-navigation">
+            {% if page.previous %}
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="{{ page.previous.url | relative_url }}" class="nav-link">{{ page.previous.title }}</a>
+            </div>
+            {% endif %}
+            
+            {% if page.next %}
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="{{ page.next.url | relative_url }}" class="nav-link">{{ page.next.title }}</a>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
     </footer>
 </article>
