@@ -1075,3 +1075,73 @@ ninja-keys .ninja-action:last-child {
     justify-self: stretch;
   }
 }
+
+/* ======================================
+   INLINE CODE STYLES
+   Notion-style inline code
+   ====================================== */
+
+/* General inline code (without language class) */
+code:not([class*="language-"]) {
+  background: #f7f6f3;
+  color: #eb5757;
+  padding: 0.2em 0.4em;
+  border-radius: 0.3em;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Consolas', 'Courier New', monospace;
+  font-size: 0.85em;
+  font-weight: 500;
+  border: none;
+  white-space: nowrap;
+  word-break: break-word;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Inline code hover effect - subtle Notion-style */
+code:not([class*="language-"]):hover {
+  background: #f1f0ed;
+  transition: background-color 0.15s ease;
+}
+
+/* Inline code inside links */
+a code:not([class*="language-"]) {
+  color: #eb5757;
+  text-decoration: none;
+}
+
+a:hover code:not([class*="language-"]) {
+  background: #f1f0ed;
+}
+
+/* Inline code inside headings */
+h1 code:not([class*="language-"]),
+h2 code:not([class*="language-"]),
+h3 code:not([class*="language-"]),
+h4 code:not([class*="language-"]),
+h5 code:not([class*="language-"]),
+h6 code:not([class*="language-"]) {
+  font-size: 0.9em;
+  vertical-align: baseline;
+}
+
+/* Dark mode support for Notion-style inline code */
+@media (prefers-color-scheme: dark) {
+  code:not([class*="language-"]) {
+    background: rgba(255, 255, 255, 0.055);
+    color: #ff6b6b;
+  }
+  
+  code:not([class*="language-"]):hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Responsive adjustments for inline code */
+@media (max-width: 768px) {
+  code:not([class*="language-"]) {
+    font-size: 0.8em;
+    padding: 0.15em 0.3em;
+    word-break: break-all;
+    white-space: normal;
+  }
+}

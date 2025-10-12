@@ -37,8 +37,33 @@ pre[class*="language-"] ::selection {
 
 :not(pre) > code[class*="language-"] {
 	white-space: normal;
-	border-radius: 0.2em;
-	padding: 0.1em;
+	border-radius: 0.3em;
+	padding: 0.2em 0.4em;
+	background: #f7f6f3;
+	color: #eb5757;
+	font-weight: 500;
+}
+
+/* Enhanced inline code styles for Notion-style theme */
+:not(pre) > code {
+	background: #f7f6f3;
+	color: #eb5757;
+	padding: 0.2em 0.4em;
+	border-radius: 0.3em;
+	font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Consolas', 'Courier New', monospace;
+	font-size: 0.85em;
+	font-weight: 500;
+	border: none;
+	white-space: nowrap;
+	word-break: break-word;
+	box-decoration-break: clone;
+	-webkit-box-decoration-break: clone;
+}
+
+/* Inline code hover effect */
+:not(pre) > code:hover {
+	background: #f1f0ed;
+	transition: background-color 0.15s ease;
 }
 
 pre[class*="language-"] {
