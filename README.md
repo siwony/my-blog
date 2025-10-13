@@ -1,4 +1,60 @@
-# 🚀## 📖 주요 문서
+# 🚀 Tech Blog
+
+바이브코딩(Vibe Coding)으로 만든 개인 기술 블로그입니다.
+
+## 🛠️ 개발 스크립트
+
+빠른 개발을 위한 편의 스크립트들을 제공합니다:
+
+### 🚀 서버 실행
+```bash
+# 기본 서버 실행 (포트: 4000)
+./serve.sh
+
+# 특정 포트로 실행
+./serve.sh --port 3000
+
+# 초안 포함 + 라이브 리로드
+./serve.sh --drafts --livereload
+
+# 프로덕션 모드
+./serve.sh --production
+```
+
+### 🔨 빌드
+```bash
+# 개발 빌드
+./build.sh
+
+# 프로덕션 빌드
+./build.sh --production
+
+# 캐시 정리 후 빌드
+./build.sh --clean --production
+```
+
+### 🛠️ 개발 도구
+```bash
+# 종합 개발 도구 (추천)
+./dev.sh
+
+# 블로그 통계 확인
+./dev.sh stats
+
+# 새 포스트 생성
+./dev.sh new-post
+
+# 새 카테고리 생성
+./dev.sh new-category
+
+# 캐시 정리
+./dev.sh clean
+
+# 의존성 업데이트
+./dev.sh deps
+```
+
+## 📖 주요 문서
 
 - 📝 **[Markdown 메타데이터 작성 규칙](docs/MARKDOWN_METADATA.md)** - Jekyll Front Matter 작성 가이드
 - 🧩 **[웹 컴포넌트 아키텍처](docs/WEB_COMPONENTS.md)** - 모듈식 컴포넌트 구현 내용
