@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  blog:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    container_name: my-tech-blog-prod
+    
+    # Production health check with longer intervals
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    
+    # Production volumes
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./logs:/var/log/caddy
+    
+    # Production environment variables
+    environment:
+      - CADDY_ADMIN=off
+      - TZ=Asia/Seoul
+    
+    # Resource limits for production
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+# Named volumes for persistent data
+volumes:
+  caddy_data:
+    external: true
+  caddy_config:

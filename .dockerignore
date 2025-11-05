@@ -1,0 +1,51 @@
+# Docker ignore file for Jekyll blog
+.git
+.gitignore
+README.md
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Jekyll build artifacts (exclude cache but include _site for deployment)
+# _site/  # Keep _site for Docker build
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ruby
+.bundle/
+vendor/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Test coverage
+tests/coverage/
+test-report.html
+
+# Temporary files
+*.tmp
+*.temp
