@@ -1,0 +1,62 @@
+# Caddyfile for serving Jekyll static site
+
+# Global options
+{
+    admin off
+}
+
+:80 {
+    # Serve static files from the document root
+    root * /usr/share/caddy
+    
+    # Enable file server
+    file_server
+    
+    # Enable gzip compression
+    encode gzip
+    
+    # Set proper cache headers for static assets
+    @static {
+        path *.css *.js *.png *.jpg *.jpeg *.gif *.ico *.svg *.woff *.woff2 *.ttf
+    }
+    header @static Cache-Control "public, max-age=31536000"
+    
+    # Set cache headers for HTML files (shorter cache)
+    @html {
+        path *.html
+    }
+    header @html Cache-Control "public, max-age=3600"
+    
+    # Custom 404 page
+    handle_errors {
+        rewrite * /404.html
+        file_server
+    }
+    
+    # Security headers
+    header {
+        # Prevent MIME type sniffing
+        X-Content-Type-Options nosniff
+        
+        # Prevent clickjacking
+        X-Frame-Options DENY
+        
+        # Referrer Policy
+        Referrer-Policy strict-origin-when-cross-origin
+        
+        # Enhanced Content Security Policy for development
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net; connect-src 'self' https: ws: wss:; media-src 'self'; object-src 'none'; child-src 'none'; worker-src 'self';"
+        
+        # Cross-Origin Resource Policy (more permissive for development)
+        Cross-Origin-Resource-Policy cross-origin
+        
+        # Remove server information
+        -Server
+    }
+    
+    # Access logging (optional)
+    log {
+        output stdout
+        format console
+    }
+}
