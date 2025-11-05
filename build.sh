@@ -115,6 +115,14 @@ echo ""
 # 빌드 시작 시간 기록
 START_TIME=$(date +%s)
 
+echo -e "${YELLOW}🔍 검색 데이터 생성 중...${NC}"
+ruby scripts/generate_search_data.rb
+if [ $? -eq 0 ]; then
+    echo -e "${GREEN}✅ 검색 데이터 생성 완료${NC}"
+else
+    echo -e "${YELLOW}⚠️ 검색 데이터 생성에 실패했지만 빌드를 계속합니다.${NC}"
+fi
+
 echo -e "${YELLOW}⚡ 빌드를 시작합니다...${NC}"
 echo "=================================="
 

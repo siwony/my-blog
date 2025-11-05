@@ -9,7 +9,7 @@ Jekyll에서 사용하는 **Front Matter**는 YAML 형식으로 작성되며, �
 layout: post                    # 필수: 사용할 레이아웃 (post, page, category)
 title: "포스트 제목"            # 필수: 포스트 제목 (따옴표 권장)
 date: 2024-01-01               # 필수: 발행 날짜 (YYYY-MM-DD 형식)
-categories: programming        # 필수: 카테고리 (단일 또는 배열)
+categories: programming        # 필수: 카테고리 (단일)
 excerpt: "포스트 요약"         # 선택: 포스트 요약문
 author: "작성자명"             # 선택: 작성자
 tags: [javascript, tutorial]  # 선택: 태그 배열
