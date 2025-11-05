@@ -62,16 +62,30 @@ class CommandPalette {
   updateNinjaData() {
     if (!this.ninja) return;
 
-    const ninjaActions = this.searchData.map(post => ({
-      id: `post-${post.url}`,
-      title: post.title,
-      subtitle: `${post.category} • ${this.formatDate(post.date)}`,
-      section: this.formatCategory(post.category),
-      keywords: `${post.title} ${post.content} ${post.category}`.toLowerCase(),
-      handler: () => {
-        window.location.href = post.url;
-      }
-    }));
+    const ninjaActions = this.searchData.map(post => {
+      // Create comprehensive keywords for better search
+      const tags = Array.isArray(post.tags) ? post.tags.join(' ') : '';
+      const keywords = [
+        post.title,
+        post.category,
+        post.excerpt,
+        tags,
+        // Add Korean and English terms for better search
+        this.generateSearchTerms(post.title),
+        this.generateSearchTerms(post.excerpt)
+      ].filter(Boolean).join(' ').toLowerCase();
+
+      return {
+        id: `post-${post.url}`,
+        title: post.title,
+        subtitle: `${post.category} • ${this.formatDate(post.date)}${tags ? ` • ${tags}` : ''}`,
+        section: this.formatCategory(post.category),
+        keywords: keywords,
+        handler: () => {
+          window.location.href = post.url;
+        }
+      };
+    });
 
     // Add some default actions
     const defaultActions = [
@@ -80,7 +94,7 @@ class CommandPalette {
         title: 'Home',
         subtitle: 'Go to homepage',
         section: 'Navigation',
-        keywords: 'home homepage main',
+        keywords: 'home homepage main 홈 메인',
         handler: () => {
           window.location.href = '/';
         }
@@ -90,7 +104,7 @@ class CommandPalette {
         title: 'All Posts',
         subtitle: 'View all blog posts',
         section: 'Navigation', 
-        keywords: 'blog posts all articles',
+        keywords: 'blog posts all articles 블로그 포스트 글 전체',
         handler: () => {
           window.location.href = '/blog.html';
         }
@@ -98,6 +112,19 @@ class CommandPalette {
     ];
 
     this.ninja.data = [...defaultActions, ...ninjaActions];
+  }
+
+  generateSearchTerms(text) {
+    if (!text) return '';
+    
+    // Extract meaningful terms from text
+    const terms = text
+      .replace(/[^\w\s가-힣]/g, ' ') // Remove special characters except Korean
+      .split(/\s+/)
+      .filter(term => term.length > 1) // Filter out single characters
+      .slice(0, 10); // Limit to first 10 terms to avoid too long keywords
+    
+    return terms.join(' ');
   }
 
   setupKeyboardShortcuts() {
@@ -143,10 +170,29 @@ class CommandPalette {
       'test': '🧪 Test',
       'tutorial': '📚 Tutorial',
       'review': '⭐ Review',
-      'thoughts': '💭 Thoughts'
+      'thoughts': '💭 Thoughts',
+      'database': '🗄️ Database',
+      'devops': '⚙️ DevOps',
+      'algorithm': '🧮 Algorithm',
+      'java': '☕ Java',
+      'javascript': '🟨 JavaScript',
+      'python': '🐍 Python',
+      'css': '🎨 CSS',
+      'html': '🌐 HTML',
+      'docker': '🐳 Docker',
+      'aws': '☁️ AWS',
+      'git': '📋 Git',
+      'spring': '🍃 Spring',
+      'mysql': '🐬 MySQL',
+      'linux': '🐧 Linux',
+      'network': '🌐 Network',
+      'security': '🔒 Security',
+      'react': '⚛️ React',
+      'vue': '💚 Vue',
+      'node': '🟢 Node.js'
     };
     
-    return categoryMap[category] || `📂 ${category}`;
+    return categoryMap[category] || `📂 ${category.charAt(0).toUpperCase() + category.slice(1)}`;
   }
 
   // Public API for external access
