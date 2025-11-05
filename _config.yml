@@ -43,8 +43,27 @@ exclude:
   - "_sass/"
   - _site
   - .jekyll-cache
-  - node_modules/
-  - "*.scss"
-  - "_sass/"
-  - _site
-  - .jekyll-cache
+  - .jekyll-metadata
+  # Development and build files
+  - package.json
+  - package-lock.json
+  - "*.py"
+  - "*.log"
+  - "*.sh"
+  - README.md
+  - JEST_TEST_GUIDE.md
+  - TIL_*.md
+  - test-report.html
+  - tests/
+  - archive/
+  - .venv/
+  - .git/
+  - .gitignore
+  # Development scripts and documentation
+  - scripts/
+  - docs/
+  # Node.js and testing files
+  - jest.config.js
+  - "**/*test.js"
+  - "**/*spec.js"
+  - coverage/
