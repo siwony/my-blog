@@ -3,127 +3,89 @@
 # Generated: 2025-11-07
 # ==============================================================================
 
-# =============
-# Jekyll
-# =============
-_site/                              # Jekyll 빌드 결과물
-.sass-cache/                        # Sass 캐시
-.jekyll-cache/                      # Jekyll 캐시
-.jekyll-metadata                    # Jekyll 메타데이터
+# Jekyll Files
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
 
-# =============
 # Ruby/Bundler
-# =============
-*.gem                               # 빌드된 gem 파일
-.bundle/                            # Bundler 설정
-vendor/                             # Bundler vendor 디렉토리
-Gemfile.lock                        # Lock 파일 (환경별로 다를 수 있음)
+*.gem
+.bundle/
+vendor/
+Gemfile.lock
 
-# =============
 # Node.js/npm
-# =============
-node_modules/                       # npm 패키지들
-npm-debug.log*                      # npm 디버그 로그
-yarn-debug.log*                     # yarn 디버그 로그
-yarn-error.log*                     # yarn 에러 로그
-.npm                                # npm 캐시 디렉토리
-# package-lock.json                 # CI/CD를 위해 추적하도록 변경
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
 
-# =============
 # Testing/Coverage
-# =============
-coverage/                           # Jest 커버리지 리포트
-*.lcov                              # LCOV 커버리지 파일
-.nyc_output                         # NYC 테스트 커버리지
-tests/coverage/                     # 테스트 커버리지 폴더
+coverage/
+*.lcov
+.nyc_output
+tests/coverage/
 
-# =============
 # IDE/Editor
-# =============
-.vscode/                            # VS Code 설정
-.idea/                              # IntelliJ IDEA 설정
-*.swp                               # Vim swap 파일
-*.swo                               # Vim swap 파일
-*~                                  # Vim 백업 파일
-.sublime-project                    # Sublime Text 프로젝트
-.sublime-workspace                  # Sublime Text 워크스페이스
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.sublime-project
+.sublime-workspace
 
-# =============
 # OS Files
-# =============
 # macOS
-.DS_Store                           # macOS 폴더 메타데이터
-.DS_Store?                          # macOS 폴더 메타데이터 (백업)
-._*                                 # macOS 리소스 포크
-.Spotlight-V100                     # macOS 스포트라이트 인덱스
-.Trashes                            # macOS 휴지통 파일
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 
 # Windows
-ehthumbs.db                         # Windows 썸네일 캐시
-Thumbs.db                           # Windows 썸네일 캐시
-Desktop.ini                         # Windows 폴더 설정
+ehthumbs.db
+Thumbs.db
+Desktop.ini
 
 # Linux
-.directory                          # KDE 폴더 설정
+.directory
 
-# =============
 # Logs
-# =============
-*.log                               # 모든 로그 파일
-logs/                               # 로그 디렉토리
-pids                                # PID 파일들
-*.pid                               # PID 파일
-*.seed                              # 시드 파일
-*.pid.lock                          # PID 락 파일
+*.log
+logs/
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# =============
 # Runtime/Temp
-# =============
-tmp/                                # 임시 파일들
-temp/                               # 임시 파일들
-.tmp/                               # 숨겨진 임시 파일들
+tmp/
+temp/
+.tmp/
 
-# =============
 # Environment
-# =============
-.env                                # 환경 변수 파일
-.env.local                          # 로컬 환경 변수
-.env.development.local              # 개발 환경 변수
-.env.test.local                     # 테스트 환경 변수
-.env.production.local               # 프로덕션 환경 변수
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# =============
 # Archives
-# =============
-*.zip                               # ZIP 파일
-*.tar.gz                            # TAR.GZ 파일
-*.rar                               # RAR 파일
-*.7z                                # 7Z 파일
+*.zip
+*.tar.gz
+*.rar
+*.7z
 
-# =============
 # Project-specific
-# =============
-# Development and debugging files
-debug.html                          # Jekyll 디버그 페이지
-test-report.html                    # 테스트 결과 리포트
-
-# Virtual environments
-.venv/                              # Python virtual environment
-venv/                               # Python virtual environment
-
-# Archive and migration files
-archive/migration/logs/             # 마이그레이션 로그들
-
-# Temporary script files
-scripts/temp/                       # 스크립트 임시 파일
-scripts/*.tmp                       # 스크립트 임시 파일
-tests/temp/                         # 테스트 임시 파일
-tests/*.tmp                         # 테스트 임시 파일
-
-# ==============================================================================
-# 주의사항:
-# - Gemfile.lock과 package-lock.json은 버전 관리를 위해 포함됨
-# - 환경변수 파일(.env)은 절대 커밋하지 않음
-# - 빌드 관련 파일들(Docker, Makefile, 스크립트)은 버전 관리됨
-# - Jekyll exclude 설정으로 빌드 파일들이 _site에서 제외됨
-# ==============================================================================
+debug.html
+test-report.html
+.venv/
+venv/
+archive/migration/logs/
+scripts/temp/
+scripts/*.tmp
+tests/temp/
+tests/*.tmp
