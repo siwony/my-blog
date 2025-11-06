@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  web:
+    image: caddy:latest
+    container_name: jekyll-homeserver
+    restart: unless-stopped
+    ports:
+      - "8443:443"       # External port → internal HTTPS (TLS-ALPN-01)
+      - "8080:80"        # Optional HTTP port for redirects
+    volumes:
+      - ./_site:/srv:ro
+      - ./Caddyfile.homeserver:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./logs:/var/log/caddy
+    environment:
+      - TZ=Asia/Seoul
+      - CADDY_ADMIN=off
+    
+    # Health check for homeserver deployment
+    healthcheck:
+      test: ["CMD", "caddy", "version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Resource limits for homeserver
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 256M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
+
+volumes:
+  caddy_data:
+    driver: local
+  caddy_config:
+    driver: local
