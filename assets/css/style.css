@@ -90,40 +90,133 @@ nav a { text-decoration: none; color: #333; }
 }
 
 
-/* Pagination: 단순 텍스트 기반, 탭 수준 간격 */
+/* Pagination: 버튼 기반 디자인 */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;              /* 탭 정도의 간격 */
+  gap: 0.25rem;
   margin: 2rem 0;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   font-family: inherit;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.5rem;
+}
+
+.pagination::-webkit-scrollbar {
+  display: none;
 }
 
 .pagination .page-link {
-  color: #2c3e50;
+  color: var(--blog-text-color);
   text-decoration: none;
-  padding: 0.5rem;        /* 클릭 영역 확보 */
+  padding: 0.4rem 0.6rem;
   cursor: pointer;
-  font-size: 1rem;
-  background: transparent;
-  border: none;
+  font-size: 0.85rem;
+  background: var(--blog-bg-color);
+  border: 1px solid var(--blog-border-color);
+  border-radius: var(--blog-border-radius-sm);
+  transition: all 0.2s ease;
+  min-width: 2.2rem;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.pagination .page-link:hover {
-  text-decoration: underline;
+.pagination .page-link:hover:not(.disabled) {
+  background: var(--blog-primary-color);
+  color: white;
+  border-color: var(--blog-primary-color);
+  text-decoration: none;
 }
 
 .pagination .page-link.disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   pointer-events: none;
   cursor: default;
+  background: #f8f9fa;
+  color: #6c757d;
 }
 
 .pagination .page-link.current {
-  font-weight: bold;
-  text-decoration: underline;
+  background: var(--blog-primary-color);
+  color: white;
+  border-color: var(--blog-primary-color);
+  font-weight: var(--blog-font-weight-medium);
+}
+
+/* 네비게이션 버튼 스타일 */
+.pagination .page-link.nav-btn {
+  font-weight: var(--blog-font-weight-medium);
+  min-width: auto;
+  padding: 0.4rem 0.8rem;
+}
+
+/* 반응형 페이지네이션 */
+@media (max-width: 1024px) {
+  .pagination {
+    gap: 0.2rem;
+    padding: 0.25rem;
+  }
+  
+  .pagination .page-link {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.8rem;
+    min-width: 2rem;
+  }
+  
+  .pagination .page-link.nav-btn {
+    padding: 0.35rem 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    gap: 0.15rem;
+    padding: 0.25rem;
+  }
+  
+  .pagination .page-link {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+    min-width: 1.8rem;
+  }
+  
+  .pagination .page-link.nav-btn {
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .home-layout .pagination {
+    margin: 1rem auto;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    gap: 0.1rem;
+    padding: 0.25rem;
+  }
+  
+  .pagination .page-link {
+    padding: 0.25rem 0.4rem;
+    font-size: 0.7rem;
+    min-width: 1.6rem;
+  }
+  
+  .pagination .page-link.nav-btn {
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .home-layout .pagination {
+    padding: 0 0.5rem;
+  }
 }
 
 /* 페이지 크기 선택기 */
@@ -253,18 +346,33 @@ ninja-keys .ninja-item.ninja-selected .ninja-item-description {
 .home-layout {
   display: grid;
   grid-template-columns: 1fr 200px;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "main sidebar"
+    "pagination pagination";
   gap: 2rem;
   margin-top: 1rem;
 }
 
 .main-content {
+  grid-area: main;
   min-width: 0; /* Prevent content overflow */
 }
 
-.sidebar {
+.sidebar,
+category-sidebar {
+  grid-area: sidebar;
   position: sticky;
   top: 1rem;
   height: fit-content;
+}
+
+/* Pagination positioned below main and sidebar */
+.home-layout .pagination {
+  grid-area: pagination;
+  margin: 2rem auto 1rem auto;
+  width: 100%;
+  max-width: 800px;
 }
 
 /* Category Navigation */
@@ -346,12 +454,20 @@ ninja-keys .ninja-item.ninja-selected .ninja-item-description {
 @media (max-width: 768px) {
   .home-layout {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "sidebar"
+      "main"
+      "pagination";
     gap: 2rem;
   }
   
-  .sidebar {
+  .sidebar,
+  category-sidebar {
     position: static;
-    order: -1; /* Move sidebar above main content on mobile */
+  }
+  
+  .home-layout .pagination {
+    margin: 1rem auto;
   }
   
   .category-navigation {
