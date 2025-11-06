@@ -2,11 +2,27 @@
 description: Perform a non-destructive cross-artifact consistency and quality analysis across spec.md, plan.md, and tasks.md after task generation.
 ---
 
+**⚠️ MANDATORY: Before proceeding, read and follow `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` for all development work.**
+
 The user input to you can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
 
 User input:
 
 $ARGUMENTS
+
+## Prerequisites Check
+
+1. **REQUIRED**: Read `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` and ensure compliance with:
+   - Guidelines adherence protocols
+   - Atomic commit strategies  
+   - Architecture documentation requirements
+
+2. **REQUIRED**: Review related documentation:
+   - `docs/guidelines/PROJECT_CONSTITUTION.md` - Core project principles
+   - `docs/architecture/SYSTEM_ARCHITECTURE.md` - Current system state
+   - `docs/guidelines/TESTING_STRATEGY.md` - Testing standards
+
+## Analysis Workflow
 
 Goal: Identify inconsistencies, duplications, ambiguities, and underspecified items across the three core artifacts (`spec.md`, `plan.md`, `tasks.md`) before implementation. This command MUST run only after `/tasks` has successfully produced a complete `tasks.md`.
 
@@ -97,5 +113,12 @@ Behavior rules:
 - KEEP findings deterministic: if rerun without changes, produce consistent IDs and counts.
 - LIMIT total findings in the main table to 50; aggregate remainder in a summarized overflow note.
 - If zero issues found, emit a success report with coverage statistics and proceed recommendation.
+
+## Post-Analysis Actions
+
+**MANDATORY** (per AI_DEVELOPMENT_GUIDELINES.md):
+- If critical issues found, recommend specific remediation steps
+- Reference relevant guidelines documentation for issue resolution
+- Ensure analysis follows project constitution principles
 
 Context: $ARGUMENTS

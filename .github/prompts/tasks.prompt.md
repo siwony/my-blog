@@ -2,11 +2,27 @@
 description: Generate an actionable, dependency-ordered tasks.md for the feature based on available design artifacts.
 ---
 
+**⚠️ MANDATORY: Before proceeding, read and follow `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` for all development work.**
+
 The user input to you can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
 
 User input:
 
 $ARGUMENTS
+
+## Prerequisites Check
+
+1. **REQUIRED**: Read `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` and ensure compliance with:
+   - Guidelines adherence protocols
+   - Atomic commit strategies  
+   - Architecture documentation requirements
+
+2. **REQUIRED**: Review related documentation:
+   - `docs/guidelines/TESTING_STRATEGY.md` - Testing approaches
+   - `docs/guidelines/PERFORMANCE_GUIDELINES.md` - Performance standards
+   - `docs/architecture/SYSTEM_ARCHITECTURE.md` - Current system state
+
+## Task Generation Workflow
 
 1. Run `.specify/scripts/bash/check-prerequisites.sh --json` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute.
 2. Load and analyze available design documents:
@@ -56,6 +72,15 @@ $ARGUMENTS
    - Clear file paths for each task
    - Dependency notes
    - Parallel execution guidance
+
+7. **MANDATORY Post-Work Actions** (per AI_DEVELOPMENT_GUIDELINES.md):
+   - Commit task breakdown atomically
+   - Ensure tasks align with testing strategy from `docs/guidelines/TESTING_STRATEGY.md`
+   - Verify tasks follow performance guidelines
+
+8. Report completion with:
+   - Task count and organization summary
+   - Confirmation of guideline compliance
 
 Context for task generation: $ARGUMENTS
 

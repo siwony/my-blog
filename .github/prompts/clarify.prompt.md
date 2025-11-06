@@ -2,11 +2,26 @@
 description: Identify underspecified areas in the current feature spec by asking up to 5 highly targeted clarification questions and encoding answers back into the spec.
 ---
 
+**⚠️ MANDATORY: Before proceeding, read and follow `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` for all development work.**
+
 The user input to you can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
 
 User input:
 
 $ARGUMENTS
+
+## Prerequisites Check
+
+1. **REQUIRED**: Read `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` and ensure compliance with:
+   - Guidelines adherence protocols
+   - Atomic commit strategies  
+   - Architecture documentation requirements
+
+2. **REQUIRED**: Review related documentation:
+   - `docs/guidelines/PROJECT_CONSTITUTION.md` - Core project principles
+   - `docs/architecture/SYSTEM_ARCHITECTURE.md` - Current system state
+
+## Clarification Workflow
 
 Goal: Detect and reduce ambiguity or missing decision points in the active feature specification and record the clarifications directly in the spec file.
 
@@ -138,10 +153,16 @@ Execution steps:
 
 7. Write the updated spec back to `FEATURE_SPEC`.
 
-8. Report completion (after questioning loop ends or early termination):
-   - Number of questions asked & answered.
-   - Path to updated spec.
-   - Sections touched (list names).
+8. **MANDATORY Post-Work Actions** (per AI_DEVELOPMENT_GUIDELINES.md):
+   - Commit clarification updates atomically
+   - Ensure clarifications align with project constitution
+   - Reference relevant guidelines where applicable
+
+9. Report completion (after questioning loop ends or early termination):
+   - Number of questions asked & answered
+   - Path to updated spec
+   - Sections touched (list names)
+   - Confirmation of guideline compliance
    - Coverage summary table listing each taxonomy category with Status: Resolved (was Partial/Missing and addressed), Deferred (exceeds question quota or better suited for planning), Clear (already sufficient), Outstanding (still Partial/Missing but low impact).
    - If any Outstanding or Deferred remain, recommend whether to proceed to `/plan` or run `/clarify` again later post-plan.
    - Suggested next command.

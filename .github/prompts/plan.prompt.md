@@ -2,11 +2,27 @@
 description: Execute the implementation planning workflow using the plan template to generate design artifacts.
 ---
 
+**⚠️ MANDATORY: Before proceeding, read and follow `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` for all development work.**
+
 The user input to you can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
 
 User input:
 
 $ARGUMENTS
+
+## Prerequisites Check
+
+1. **REQUIRED**: Read `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` and ensure compliance with:
+   - Guidelines adherence protocols
+   - Atomic commit strategies  
+   - Architecture documentation requirements
+
+2. **REQUIRED**: Review related documentation:
+   - `docs/guidelines/PROJECT_CONSTITUTION.md` - Core project principles
+   - `docs/architecture/SYSTEM_ARCHITECTURE.md` - Current system state
+   - `docs/guidelines/PERFORMANCE_GUIDELINES.md` - Performance standards
+
+## Planning Workflow
 
 Given the implementation details provided as an argument, do this:
 
@@ -38,6 +54,14 @@ Given the implementation details provided as an argument, do this:
    - Ensure all required artifacts were generated
    - Confirm no ERROR states in execution
 
-6. Report results with branch name, file paths, and generated artifacts.
+6. **MANDATORY Post-Work Actions** (per AI_DEVELOPMENT_GUIDELINES.md):
+   - Commit planning artifacts atomically
+   - Update `docs/architecture/SYSTEM_ARCHITECTURE.md` if new architecture decisions
+   - Update relevant feature documentation in `docs/features/`
+
+7. Report results with:
+   - Branch name and file paths
+   - Generated artifacts summary
+   - Confirmation of guideline compliance
 
 Use absolute paths with the repository root for all file operations to avoid path issues.

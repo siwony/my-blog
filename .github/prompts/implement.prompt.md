@@ -2,11 +2,27 @@
 description: Execute the implementation plan by processing and executing all tasks defined in tasks.md
 ---
 
+**⚠️ MANDATORY: Before proceeding, read and follow `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` for all development work.**
+
 The user input can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
 
 User input:
 
 $ARGUMENTS
+
+## Prerequisites Check
+
+1. **REQUIRED**: Read `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` and ensure compliance with:
+   - Guidelines adherence protocols
+   - Atomic commit strategies  
+   - Architecture documentation requirements
+
+2. **REQUIRED**: Review related documentation:
+   - `docs/guidelines/TESTING_STRATEGY.md` - Testing approaches
+   - `docs/guidelines/PERFORMANCE_GUIDELINES.md` - Performance standards
+   - `docs/architecture/SYSTEM_ARCHITECTURE.md` - Current system state
+
+## Implementation Workflow
 
 1. Run `.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute.
 
@@ -51,6 +67,16 @@ $ARGUMENTS
    - Check that implemented features match the original specification
    - Validate that tests pass and coverage meets requirements
    - Confirm the implementation follows the technical plan
-   - Report final status with summary of completed work
+
+8. **MANDATORY Post-Work Actions** (per AI_DEVELOPMENT_GUIDELINES.md):
+   - Commit changes atomically by logical units
+   - Update `docs/architecture/SYSTEM_ARCHITECTURE.md` if architecture changed
+   - Update `docs/features/` documentation for new features
+   - Run tests and ensure they pass
+
+9. Report final status with:
+   - Summary of completed work
+   - Confirmation of guideline compliance
+   - Links to updated documentation
 
 Note: This command assumes a complete task breakdown exists in tasks.md. If tasks are incomplete or missing, suggest running `/tasks` first to regenerate the task list.

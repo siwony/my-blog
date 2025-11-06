@@ -2,11 +2,25 @@
 description: Create or update the project constitution from interactive or provided principle inputs, ensuring all dependent templates stay in sync.
 ---
 
+**⚠️ MANDATORY: Before proceeding, read and follow `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` for all development work.**
+
 The user input to you can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
 
 User input:
 
 $ARGUMENTS
+
+## Prerequisites Check
+
+1. **REQUIRED**: Read `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` and ensure compliance with:
+   - Guidelines adherence protocols
+   - Atomic commit strategies  
+   - Architecture documentation requirements
+
+2. **REQUIRED**: Review related documentation:
+   - `docs/guidelines/PROJECT_CONSTITUTION.md` - Core project principles
+   - `docs/architecture/SYSTEM_ARCHITECTURE.md` - Current system state
+   - `docs/guidelines/PERFORMANCE_GUIDELINES.md` - Performance standards
 
 You are updating the project constitution at `.specify/memory/constitution.md`. This file is a TEMPLATE containing placeholder tokens in square brackets (e.g. `[PROJECT_NAME]`, `[PRINCIPLE_1_NAME]`). Your job is to (a) collect/derive concrete values, (b) fill the template precisely, and (c) propagate any amendments across dependent artifacts.
 
@@ -55,9 +69,15 @@ Follow this execution flow:
 
 7. Write the completed constitution back to `.specify/memory/constitution.md` (overwrite).
 
-8. Output a final summary to the user with:
+8. **MANDATORY Post-Work Actions** (per AI_DEVELOPMENT_GUIDELINES.md):
+   - Commit changes atomically with descriptive message
+   - Update `docs/architecture/SYSTEM_ARCHITECTURE.md` if system principles changed
+   - Update `docs/guidelines/PROJECT_CONSTITUTION.md` to reflect new constitution
+
+9. Output a final summary to the user with:
    - New version and bump rationale.
    - Any files flagged for manual follow-up.
+   - Confirmation of guideline compliance.
    - Suggested commit message (e.g., `docs: amend constitution to vX.Y.Z (principle additions + governance update)`).
 
 Formatting & Style Requirements:
