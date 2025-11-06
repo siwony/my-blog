@@ -1,58 +1,52 @@
 # 📚 Documentation
 
-This directory contains comprehensive documentation for the Jekyll tech blog project.
+이 디렉토리는 Jekyll 기술 블로그 프로젝트의 종합적인 문서를 포함합니다.
 
-## 📖 Documentation Index
+## 📖 문서 구조
 
-### 🏗️ Architecture & System Design
-- [`SYSTEM_ARCHITECTURE.md`](./SYSTEM_ARCHITECTURE.md) - Overall system architecture and design patterns
-- [`PROJECT_CONSTITUTION.md`](./PROJECT_CONSTITUTION.md) - Core principles and project guidelines
+### � [Features](./features/)
+시스템의 다양한 기능들에 대한 문서
+- Prism.js 구문 강조 기능
+- 웹 컴포넌트 및 호스팅 기능
 
-### 🎨 Features & Components
-- [`PRISM_FEATURES.md`](./PRISM_FEATURES.md) - Prism.js syntax highlighting features
-- [`WEB_COMPONENTS.md`](./WEB_COMPONENTS.md) - Custom web components documentation
-- [`CSS_CONFLICT_PREVENTION.md`](./CSS_CONFLICT_PREVENTION.md) - CSS conflict prevention strategies
+### �️ [Architecture](./architecture/)
+시스템 아키텍처와 배포 관련 문서
+- 시스템 설계 및 구조
+- 배포 환경 및 보안 구성
 
-### 🚀 Deployment & Hosting
-- [`DEPLOYMENT_ENVIRONMENTS.md`](./DEPLOYMENT_ENVIRONMENTS.md) - Deployment environment configurations
-- [`HOMESERVER_DEPLOYMENT.md`](./HOMESERVER_DEPLOYMENT.md) - Home server deployment guide
-- [`PRISM_DEPLOYMENT.md`](./PRISM_DEPLOYMENT.md) - Prism.js deployment guide
-- [`HOSTING_FEATURE.md`](./HOSTING_FEATURE.md) - Hosting features and capabilities
+### � [Guidelines](./guidelines/)
+개발, 성능, 테스팅 가이드라인
+- 프로젝트 원칙 및 개발 표준
+- 성능 최적화 및 테스팅 전략
 
-### 🔧 Development & Testing
-- [`TESTING_STRATEGY.md`](./TESTING_STRATEGY.md) - Jest testing strategy and guidelines
-- [`PERFORMANCE_GUIDELINES.md`](./PERFORMANCE_GUIDELINES.md) - Performance optimization guidelines
+## 🎯 빠른 시작
 
-### 📋 Specifications & Metadata
-- [`SPEC_PRISM_HIGHLIGHTING.md`](./SPEC_PRISM_HIGHLIGHTING.md) - Prism syntax highlighting specification
-- [`MARKDOWN_METADATA.md`](./MARKDOWN_METADATA.md) - Markdown metadata standards
-- [`PRISM_PROJECT_SUMMARY.md`](./PRISM_PROJECT_SUMMARY.md) - Complete Prism.js project summary
+1. **AI 작업자**: [Guidelines](./guidelines/) → [`AI_DEVELOPMENT_GUIDELINES.md`](./guidelines/AI_DEVELOPMENT_GUIDELINES.md)에서 필수 준수 사항 확인 ⚠️
+2. **개발자용**: [Architecture](./architecture/) → [`SYSTEM_ARCHITECTURE.md`](./architecture/SYSTEM_ARCHITECTURE.md)에서 전체 시스템 이해
+3. **배포용**: [Architecture](./architecture/) → [`DEPLOYMENT_ENVIRONMENTS.md`](./architecture/DEPLOYMENT_ENVIRONMENTS.md)에서 배포 옵션 확인
+4. **기능 확인**: [Features](./features/) → [`PRISM_FEATURES.md`](./features/PRISM_FEATURES.md)에서 구문 강조 기능 검토
+5. **테스팅**: [Guidelines](./guidelines/) → [`TESTING_STRATEGY.md`](./guidelines/TESTING_STRATEGY.md)에서 테스트 접근법 학습
 
-### 🔒 Security
-- [`SECURITY_HEADERS.md`](./SECURITY_HEADERS.md) - Security headers configuration
+## 📝 기여 가이드
 
-## 🎯 Quick Start
+새로운 문서를 추가할 때:
+1. 적절한 카테고리 디렉토리 선택 (features/architecture/guidelines)
+2. 기존 네이밍 컨벤션 따르기 (UPPER_SNAKE_CASE.md)
+3. 해당 카테고리의 README 인덱스 업데이트
+4. 명확한 섹션 구성 및 적절한 마크다운 형식 사용
+5. 다른 문서와의 크로스 레퍼런스 추가
 
-1. **For Developers**: Start with [`SYSTEM_ARCHITECTURE.md`](./SYSTEM_ARCHITECTURE.md) to understand the overall system
-2. **For Deployment**: Check [`DEPLOYMENT_ENVIRONMENTS.md`](./DEPLOYMENT_ENVIRONMENTS.md) for deployment options
-3. **For Features**: Review [`PRISM_FEATURES.md`](./PRISM_FEATURES.md) for syntax highlighting capabilities
-4. **For Testing**: Refer to [`TESTING_STRATEGY.md`](./TESTING_STRATEGY.md) for testing approaches
+## 🔗 관련 디렉토리
 
-## 📝 Contributing
+- [`/scripts/`](../scripts/) - 유틸리티 스크립트 및 자동화 도구
+- [`/_plugins/`](../_plugins/) - Jekyll 플러그인 및 생성기
+- [`/tests/`](../tests/) - 테스트 파일 및 테스팅 유틸리티
+- [`/assets/`](../assets/) - 정적 자산, CSS, JavaScript 파일
 
-When adding new documentation:
-1. Follow the existing naming convention (UPPER_SNAKE_CASE.md)
-2. Update this README index
-3. Include clear sections and proper markdown formatting
-4. Add relevant cross-references to other documents
+## 📋 프로젝트 요약
 
-## 🔗 Related Directories
-
-- [`/scripts/`](../scripts/) - Utility scripts and automation tools
-- [`/_plugins/`](../_plugins/) - Jekyll plugins and generators
-- [`/tests/`](../tests/) - Test files and testing utilities
-- [`/assets/`](../assets/) - Static assets, CSS, and JavaScript files
+추가 컨텍스트는 [`PRISM_PROJECT_SUMMARY.md`](./PRISM_PROJECT_SUMMARY.md)에서 확인하세요.
 
 ---
 
-📅 Last updated: November 2025
+📅 마지막 업데이트: 2025년 11월
