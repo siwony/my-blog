@@ -47,7 +47,27 @@ exclude:
   # Development and build files
   - package.json
   - package-lock.json
+  - gulpfile.js
   - "*.py"
+  # Docker and deployment files
+  - Dockerfile
+  - docker-compose*.yml
+  - Caddyfile*
+  - DOCKER_DEPLOYMENT.md
+  - Makefile
+  # Build and deployment scripts
+  - "*.sh"
+  - build.sh
+  - deploy.sh
+  - deploy-homeserver.sh
+  - dev.sh
+  - serve.sh
+  # Development and testing
+  - debug.html
+  - test-report.html
+  - tests/
+  - logs/
+  - scripts/
   - "*.log"
   - "*.sh"
   - README.md
