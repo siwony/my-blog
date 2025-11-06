@@ -34,11 +34,12 @@ const paths = {
   }
 };
 
-// Clean task
+// Clean task - preserve Jekyll-generated files
 function clean() {
   return del([
-    '_site/assets/js/',
-    '_site/assets/css/'
+    '_site/assets/js/**/*.js',
+    '!_site/assets/js/search-data.json', // Preserve Jekyll-generated search data
+    '_site/assets/css/**/*.css'
   ]);
 }
 
