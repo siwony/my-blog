@@ -14,7 +14,7 @@ title: Home
     <div class="post-list">
     {% if site.posts.size > 0 %}
       {% for post in site.posts limit:3 %}
-      <article class="post-preview" style="margin-bottom: 20px;">
+      <article class="post-preview">
         <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
         
         <!-- Enhanced Category and Tags using Web Component -->
