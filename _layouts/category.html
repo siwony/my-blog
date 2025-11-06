@@ -17,34 +17,24 @@ layout: default
   </header>
 
   <div class="category-content">
-    <div class="posts-grid">
+    <div class="post-list">
       {% assign category_posts = site.categories[page.category] %}
       {% if category_posts and category_posts.size > 0 %}
         {% assign posts = category_posts | sort: 'date' | reverse %}
         {% for post in posts %}
-          <article class="post-card">
-            <div class="post-card-content">
-              <h2 class="post-title">
-                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-              </h2>
-              <div class="post-meta">
-                <time datetime="{{ post.date | date_to_xmlschema }}">
-                  {{ post.date | date: "%B %d, %Y" }}
-                </time>
-                {% if post.categories.size > 1 %}
-                  <span class="post-categories">
-                    {% for cat in post.categories %}
-                      {% unless cat == page.category %}
-                        <span class="category-tag">{{ cat }}</span>
-                      {% endunless %}
-                    {% endfor %}
-                  </span>
-                {% endif %}
-              </div>
-              <p class="post-excerpt">
-                {{ post.excerpt | strip_html | truncatewords: 25 }}
-              </p>
-            </div>
+          <article class="post-preview">
+            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+            
+            <!-- Enhanced Category and Tags using Web Component -->
+            <post-metadata 
+              layout="badge"
+              categories='{{ post.categories | jsonify }}'
+              tags='{{ post.tags | jsonify }}'
+              date="{{ post.date | date: '%B %d, %Y' }}"
+              reading-time="{{ post.content | strip_html | number_of_words | divided_by: 200 | plus: 1 }}">
+            </post-metadata>
+            
+            <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
           </article>
         {% endfor %}
       {% endif %}
