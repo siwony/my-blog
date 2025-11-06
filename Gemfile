@@ -15,3 +15,8 @@ group :jekyll_plugins do
   gem "jekyll-sitemap", "~> 1.4"
   gem "jekyll-sass-converter", "~> 1.5"
 end
+
+# 개발 도구 (프로덕션에서만 사용)
+group :production do
+  gem "uglifier", "~> 4.2"
+end

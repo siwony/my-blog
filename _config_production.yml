@@ -1,0 +1,22 @@
+# Production environment configuration
+# This file overrides _config.yml for production environment
+
+# Enable full compression in production
+assets:
+  compression: true
+  source_maps: false
+  gzip: true
+  plugins:
+    js:
+      - uglifier
+    css:
+      - autoprefixer
+
+# Production specific settings
+url: ""  # Set your production URL here
+show_drafts: false
+incremental: false
+
+# Optimization settings
+future: false
+unpublished: false

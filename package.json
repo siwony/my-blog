@@ -12,11 +12,23 @@
     "css:check-safe": "node scripts/css-conflict-detector.js || echo 'CSS conflicts detected but continuing...'",
     "prebuild": "npm run css:check-safe",
     "build": "bundle exec jekyll build",
-    "serve": "bundle exec jekyll serve"
+    "build:dev": "gulp build:dev && bundle exec jekyll build --config _config.yml,_config_development.yml",
+    "build:prod": "gulp build:prod && bundle exec jekyll build --config _config.yml,_config_production.yml",
+    "minify": "gulp build:prod",
+    "serve": "bundle exec jekyll serve",
+    "clean": "gulp clean"
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0"
+    "jest-environment-jsdom": "^29.7.0",
+    "gulp": "^4.0.2",
+    "gulp-uglify": "^3.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-if": "^3.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "del": "^6.1.1",
+    "yargs": "^17.7.2"
   },
   "jest": {
     "testEnvironment": "jsdom",

@@ -31,6 +31,7 @@ PRODUCTION=""
 DRAFTS=""
 CLEAN=""
 BUNDLE_CMD="bundle exec jekyll build"
+NPM_BUILD_CMD=""
 
 # 인자 파싱
 while [[ $# -gt 0 ]]; do
@@ -98,10 +99,15 @@ fi
 # 프로덕션 모드 설정
 if [ "$PRODUCTION" = "1" ]; then
     export JEKYLL_ENV=production
-    echo -e "${GREEN}🏭 프로덕션 모드로 빌드합니다.${NC}"
+    export NODE_ENV=production
+    CONFIG_FILES="_config.yml,_config_production.yml"
+    NPM_BUILD_CMD="npm run build:prod"
+    echo -e "${GREEN}🏭 프로덕션 모드로 빌드합니다 (JS/CSS minification 활성화).${NC}"
 else
     export JEKYLL_ENV=development
-    echo -e "${GREEN}🔧 개발 모드로 빌드합니다.${NC}"
+    CONFIG_FILES="_config.yml,_config_development.yml"
+    NPM_BUILD_CMD="npm run build:dev"
+    echo -e "${GREEN}🔧 개발 모드로 빌드합니다 (JS/CSS minification 비활성화).${NC}"
 fi
 
 # 빌드 정보 출력
@@ -126,8 +132,26 @@ fi
 echo -e "${YELLOW}⚡ 빌드를 시작합니다...${NC}"
 echo "=================================="
 
+# Node.js 의존성 확인 및 JS/CSS minification
+if command -v npm &> /dev/null && [ -f "package.json" ]; then
+    echo -e "${YELLOW}📦 Node.js 의존성 확인 중...${NC}"
+    if [ ! -d "node_modules" ]; then
+        echo -e "${YELLOW}⬇️ Node.js 의존성 설치 중...${NC}"
+        npm install
+    fi
+    
+    echo -e "${YELLOW}🗜️ JS/CSS 최적화 중...${NC}"
+    $NPM_BUILD_CMD
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}❌ JS/CSS 최적화에 실패했습니다.${NC}"
+        exit 1
+    fi
+else
+    echo -e "${YELLOW}⚠️ Node.js/npm을 찾을 수 없어 JS/CSS 최적화를 건너뜁니다.${NC}"
+fi
+
 # Jekyll 빌드 실행
-CMD="$BUNDLE_CMD $DRAFTS"
+CMD="$BUNDLE_CMD --config $CONFIG_FILES $DRAFTS"
 $CMD
 
 # 빌드 결과 확인

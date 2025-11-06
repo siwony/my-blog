@@ -54,23 +54,36 @@ jekyll-build: ## Build Jekyll site locally (without Docker)
 	@echo "🔨 Building Jekyll site locally..."
 	bundle exec jekyll build
 
+jekyll-build-dev: ## Build Jekyll site for development (no minification)
+	@echo "🔨 Building Jekyll site for development..."
+	npm run build:dev
+
+jekyll-build-prod: ## Build Jekyll site for production (with minification)
+	@echo "🔨 Building Jekyll site for production..."
+	npm run build:prod
+
 jekyll-serve: ## Serve Jekyll site locally (without Docker)
 	@echo "🚀 Serving Jekyll site locally..."
 	bundle exec jekyll serve
 
+jekyll-serve-dev: ## Serve Jekyll site in development mode (no minification)
+	@echo "🚀 Serving Jekyll site in development mode..."
+	bundle exec jekyll serve --config _config.yml,_config_development.yml
+
 jekyll-clean: ## Clean Jekyll build artifacts
 	@echo "🧹 Cleaning Jekyll artifacts..."
 	bundle exec jekyll clean
+	npm run clean
 
 ##@ Quick Actions
-deploy: jekyll-build build up ## Build Jekyll site, then build and deploy Docker container
+deploy: jekyll-build-prod build up ## Build Jekyll site for production with minification, then build and deploy Docker container
 	@echo "🎉 Deployment complete! Visit http://localhost:8081"
 
 restart: down up ## Restart containers quickly
 
-dev: ## Start development mode (local Jekyll server)
+dev: ## Start development mode (local Jekyll server with no minification)
 	@echo "🛠️ Starting development server..."
-	bundle exec jekyll serve --watch --drafts
+	bundle exec jekyll serve --config _config.yml,_config_development.yml --watch --drafts
 
 ##@ Homeserver Deployment
 homeserver-deploy: ## Deploy to homeserver (full process)
