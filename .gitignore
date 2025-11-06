@@ -1,155 +1,54 @@
-# Jekyll# Jekyll# ==============================================================================
-
-_site/
-
-.sass-cache/_site/# .gitignore for Jekyll Blog with Prism.js and Jest Testing
-
-.jekyll-cache/
-
-.jekyll-metadata.sass-cache/# Generated: 2025-10-07
-
-
-
-# Ruby.jekyll-cache/# ==============================================================================
-
-*.gem
-
-.bundle/.jekyll-metadata
-
-vendor/
-
-Gemfile.lock# =============
-
-
-
-# Node.js# Ruby# Jekyll Files
-
-node_modules/
-
-npm-debug.log**.gem# =============
-
-yarn-debug.log*
-
-yarn-error.log*.bundle/_site/                              # Jekyll 빌드 결과물
-
-
-
-# Testingvendor/.sass-cache/                        # Sass 캐시
-
-coverage/
-
-tests/coverage/.jekyll-cache/                      # Jekyll 캐시
-
-*.lcov
-
-# Node.js.jekyll-metadata                    # Jekyll 메타데이터
-
-# IDE
-
-.vscode/node_modules/vendor/                             # Bundler vendor 디렉토리
-
-.idea/
-
-*.swpnpm-debug.log*
-
-*.swo
-
-yarn-debug.log*# =============
-
-# OS
-
-.DS_Storeyarn-error.log*# Ruby/Bundler
-
-.DS_Store?
-
-._*# =============
-
-Thumbs.db
-
-Desktop.ini# Testing*.gem                               # 빌드된 gem 파일
-
-
-
-# Logscoverage/.bundle/                            # Bundler 설정
-
-*.log
-
-logs/tests/coverage/Gemfile.lock                        # Lock 파일 (환경별로 다를 수 있음)
-
-
-
-# Environment*.lcov
-
-.env*
+# ==============================================================================
+# .gitignore for Jekyll Blog with Node.js Build Pipeline
+# Generated: 2025-11-07
+# ==============================================================================
 
 # =============
+# Jekyll
+# =============
+_site/                              # Jekyll 빌드 결과물
+.sass-cache/                        # Sass 캐시
+.jekyll-cache/                      # Jekyll 캐시
+.jekyll-metadata                    # Jekyll 메타데이터
 
-# Temporary files
+# =============
+# Ruby/Bundler
+# =============
+*.gem                               # 빌드된 gem 파일
+.bundle/                            # Bundler 설정
+vendor/                             # Bundler vendor 디렉토리
+Gemfile.lock                        # Lock 파일 (환경별로 다를 수 있음)
 
-tmp/# IDE# Node.js/npm
-
-temp/
-
-.tmp/.vscode/# =============
-
-
-
-# Archives.idea/node_modules/                       # npm 패키지들
-
-*.zip
-
-*.tar.gz*.swpnpm-debug.log*                      # npm 디버그 로그
-
-*.rar
-*.swoyarn-debug.log*                     # yarn 디버그 로그
-
+# =============
+# Node.js/npm
+# =============
+node_modules/                       # npm 패키지들
+npm-debug.log*                      # npm 디버그 로그
+yarn-debug.log*                     # yarn 디버그 로그
 yarn-error.log*                     # yarn 에러 로그
-
-# OS# package-lock.json                 # CI/CD를 위해 추적하도록 변경
-
-.DS_Store.npm                                # npm 캐시 디렉토리
-
-.DS_Store?
-
-._*# =============
-
-Thumbs.db# Testing/Coverage
-
-Desktop.ini# =============
-
-coverage/                           # Jest 커버리지 리포트
-
-# Logs*.lcov                              # LCOV 커버리지 파일
-
-*.log.nyc_output                         # NYC 테스트 커버리지
-
-logs/tests/coverage/                     # 테스트 커버리지 폴더
-
-
-
-# Environment# =============
-
-.env*# IDE/Editor
+.npm                                # npm 캐시 디렉토리
+# package-lock.json                 # CI/CD를 위해 추적하도록 변경
 
 # =============
+# Testing/Coverage
+# =============
+coverage/                           # Jest 커버리지 리포트
+*.lcov                              # LCOV 커버리지 파일
+.nyc_output                         # NYC 테스트 커버리지
+tests/coverage/                     # 테스트 커버리지 폴더
 
-# Temporary files.vscode/                            # VS Code 설정
-
-tmp/.idea/                              # IntelliJ IDEA 설정
-
-temp/*.swp                               # Vim swap 파일
-
-.tmp/*.swo                               # Vim swap 파일
-
+# =============
+# IDE/Editor
+# =============
+.vscode/                            # VS Code 설정
+.idea/                              # IntelliJ IDEA 설정
+*.swp                               # Vim swap 파일
+*.swo                               # Vim swap 파일
 *~                                  # Vim 백업 파일
+.sublime-project                    # Sublime Text 프로젝트
+.sublime-workspace                  # Sublime Text 워크스페이스
 
-# Archives.sublime-project                    # Sublime Text 프로젝트
-
-*.zip.sublime-workspace                  # Sublime Text 워크스페이스
-
-*.tar.gz
-
-*.rar# =============
+# =============
 # OS Files
 # =============
 # macOS
@@ -202,35 +101,31 @@ temp/                               # 임시 파일들
 *.7z                                # 7Z 파일
 
 # =============
-# Optional: 개발 중 생성되는 파일들
+# Project-specific
 # =============
-.sass-cache/                        # Sass 컴파일 캐시
-.jekyll-cache/                      # Jekyll 캐시
-.jekyll-metadata                    # Jekyll 메타데이터
-
-# =============
-# Project-specific (현재 프로젝트 기준)
-# =============
-# 스크립트 생성 임시 파일들이 있다면
-scripts/temp/                       # 스크립트 임시 파일
-scripts/*.tmp                       # 스크립트 임시 파일
-
-# 테스트 관련 임시 파일들
-tests/temp/                         # 테스트 임시 파일
-tests/*.tmp                         # 테스트 임시 파일
-
-# Prism.js 관련 다운로드 파일들 (CDN 사용하므로 불필요)
-assets/js/prism/                    # 로컬 Prism.js 파일들 (CDN 사용 중)
-
 # Development and debugging files
 debug.html                          # Jekyll 디버그 페이지
 test-report.html                    # 테스트 결과 리포트
 
+# Virtual environments
+.venv/                              # Python virtual environment
+venv/                               # Python virtual environment
+
+# Archive and migration files
+archive/migration/logs/             # 마이그레이션 로그들
+
+# Temporary script files
+scripts/temp/                       # 스크립트 임시 파일
+scripts/*.tmp                       # 스크립트 임시 파일
+tests/temp/                         # 테스트 임시 파일
+tests/*.tmp                         # 테스트 임시 파일
+
 # ==============================================================================
 # 주의사항:
-# - 필요에 따라 Gemfile.lock, package-lock.json 포함 여부를 결정하세요
-# - 환경변수 파일(.env)은 절대 커밋하지 마세요
-# - IDE 설정은 팀 프로젝트의 경우 일부 포함할 수도 있습니다
+# - Gemfile.lock과 package-lock.json은 버전 관리를 위해 포함됨
+# - 환경변수 파일(.env)은 절대 커밋하지 않음
+# - 빌드 관련 파일들(Docker, Makefile, 스크립트)은 버전 관리됨
+# - Jekyll exclude 설정으로 빌드 파일들이 _site에서 제외됨
 # ==============================================================================
 
-.jekyll-metadata
+node_modules
