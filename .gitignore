@@ -222,6 +222,10 @@ tests/*.tmp                         # 테스트 임시 파일
 # Prism.js 관련 다운로드 파일들 (CDN 사용하므로 불필요)
 assets/js/prism/                    # 로컬 Prism.js 파일들 (CDN 사용 중)
 
+# Development and debugging files
+debug.html                          # Jekyll 디버그 페이지
+test-report.html                    # 테스트 결과 리포트
+
 # ==============================================================================
 # 주의사항:
 # - 필요에 따라 Gemfile.lock, package-lock.json 포함 여부를 결정하세요
