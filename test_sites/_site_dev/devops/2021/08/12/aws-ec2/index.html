@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS EC2</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">AWS EC2</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["devops"]'
+          tags='["aws","TIL"]'
+          date="August 12, 2021"
+          reading-time="3"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="aws-ec2">AWS EC2</h1>
+<h2 id="amazon-ec2">Amazon EC2</h2>
+<p>: <strong>Amazon Elastic Compute CLoud의 줄임말로써 AWS에서 제공하는 클라우드 컴퓨팅</strong></p>
+<blockquote>
+  <p>Amazon EC2는 웹서비스 인터페이스를 사용해 다양한 운영 체제로 인스턴스를 시작하고, 이를 사용자 정의 애플리케이션 환경으로 로드하며, 네트워크의 엑세스 권한을 관리하고, 원하는 수의 시스템을 사용해 이미지를 실행 할 수 있는 진정한 가상 컴퓨팅 환경을 제공한다.</p>
+</blockquote>
+
+<h3 id="장점">장점</h3>
+<ul>
+  <li><strong>하드웨어 투자할 필요가 없어 빠르게 애플리케이션을 개발하고 배포할 수 있다.</strong></li>
+  <li><strong>원하는 만큼 가상 서버를 구축</strong></li>
+  <li><strong>보안 및 네트워크 구성과 스토리지 관리가 가능</strong></li>
+  <li><strong>서버 트래픽 예측 필요성 줄어든다</strong>
+    <blockquote>
+      <p>요구 사항이나 갑작스러운 인기 증대 등 변동 사항에 따라 신속하게 규모를 확장하거나 축소할 수 있음</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="기능">기능</h3>
+<ul>
+  <li><strong>인스턴스(instance)</strong>: 가상 컴퓨팅 환경</li>
+  <li><strong>Amazon 머신 이미지(AMI)</strong>: 서버에 필요한 운영체제와 여러 소프트웨어들이 적절히 구성된 상태로 제공되는 템플릿으로 인스턴스를 쉽게 만들 수 있다.</li>
+  <li><strong>인스턴스 유형</strong>: 인스턴스를 위한 CPU, 메모리, 스토리지, 네트워킹 용량의 여러 가지 구성 제공</li>
+  <li><strong>키 페어를 사용하여 인스턴스 로그인 정보 보호</strong>(AWS는 퍼블릭 키를 저장하고 사용자는 개인 키를 안전한 장소에 보관하는 방식)</li>
+  <li><strong>인스턴스 스토어 볼륨</strong>: 임시 데이터를 저장하는 스토리지 볼륨으로 인스턴스 중단, 최대 절전 모드로 전환 또는 종료 시 삭제됨</li>
+  <li>
+    <dl>
+      <dt><strong>Amazon Elastic Block Store(Amazon EBS)</strong></dt>
+      <dd>Amazon EBS 볼륨을 사용해 영구 스토리지 볼륨에 데이터 저장</dd>
+    </dl>
+  </li>
+  <li>인스턴스와 Amazon EBS 볼륨 등의 <strong>리소스를 다른 물리적 장소에서 액세스할 수 있는 리전 및 가용 영역</strong></li>
+  <li>보안 그룹을 사용해 인스턴스에 연결할 수 있는 <strong>프로토콜, 포트, 소스 IP 범위를 지정하는 방화벽 기능</strong></li>
+  <li><strong>탄력적 IP 주소(EIP)</strong>: 동적 클라우드 컴퓨팅을 위한 고정 IPv4 주소</li>
+  <li><strong>태그</strong>: 사용자가 생성하여 Amazon EC2 리소스에 할당할 수 있는 메타데이터</li>
+  <li><strong>Virtual Private Clouds(VPC)</strong> : AWS 클라우드에서는 논리적으로 격리되어 있지만 원할 때마다 고객의 네트워크와 간편히 연결할 수 있는 가상 네트워크</li>
+</ul>
+
+<h2 id="간단하게-spring-boot-서버를-열기위한-instance-생성하기">간단하게 Spring Boot 서버를 열기위한 Instance 생성하기</h2>
+<blockquote>
+  <p>본인은 SpringBoot로 만든 서버를 이용하여 AWS EC2 에 돌릴 예정이기때문에 SpringBoot 배포환경 기반으로 글을 작성할 것이다.</p>
+  <h3 id="instance-만들기">Instance 만들기</h3>
+  <ol>
+    <li><strong>AWS Management Console 에 들어가서 EC2 에 들어간다.</strong></li>
+    <li><strong>인스턴스 시작을 누른다.</strong>
+&lt;img src=./img/instanceStart.png&gt;</li>
+  </ol>
+</blockquote>
+
+<ol>
+  <li><strong>Amazon Machine Image(AMI) 선택 에서</strong> <br />
+ <code>Amazon Linux 2 AMI (HVM), SSD Volume Type - ami-047a51fa27710816e (64비트 x86) / ami-03c5cc3d1425c6d34 (64비트 Arm)</code> 를 선택한다.
+    <blockquote>
+      <p>본인이 원하는 것을 선택해도된다 필자는 이렇게 할것이다.
+&lt;img src=./img/linux2-aws.png&gt;</p>
+    </blockquote>
+  </li>
+  <li><strong>인스턴스 유형 선택 에서 원하는 인스턴스를 선택하고 <code>인스턴스 세부 정보구성</code> 을누른다.</strong>
+    <blockquote>
+      <p>간단한 Back-end서버를 열것이기 때문에 프리티어가 적용되는 <code>t2.micro</code> 를 사용할것이다.</p>
+    </blockquote>
+  </li>
+  <li><strong>3, 4, 5 단계에서 자신이 원하는 설정을 한다.</strong>
+    <blockquote>
+      <p>간단하게 열것이기 때문에 본인은 기본값으로 할것이다.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>다음으로 6단계 보안 그룹 구성 에서 유형을 다음과 같이 추가해준다
+<img width="1000" src="/assets/images/posts/devops/보안그룹구성.png" /></p>
+
+    <ul>
+      <li>소스를 위치 무관으로 해준다.
+        <blockquote>
+          <p>어디서나 접속을 할 것이기 때문</p>
+        </blockquote>
+      </li>
+      <li>유형에서 HTTP를 추가해준다.
+        <blockquote>
+          <p>HTTP통신을 이용한 back-end 서버를 추가 할 것이기 떄문</p>
+        </blockquote>
+      </li>
+      <li>사용자 지정 TCP 를 추가한후 포트 범위를 8080으로 설정한다.
+        <blockquote>
+          <p>본인이 8080 포트에 서버를 열것이기 때문</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li>검토 및 시작을 누른후 확인 후 시작하기를 누른다.</li>
+  <li>그후 키페어 선택창에서 키페어가 있으면 선택하고 없으면 만든다.<br />
+8-1. 키페어가 없는 경우 만들어서 로컬에다가 저장한다
+    <blockquote>
+      <p>따로 폴더에 저장하는것을 권장한다. <strong>이 키는 남에게 넘어가면 큰일난다.</strong></p>
+    </blockquote>
+  </li>
+</ol>
+
+<h3 id="maven-기반-spring-boot-서버-간단하게-배포하기"><a href="./simple-spring-boot-aws.md">Maven 기반 Spring Boot 서버 간단하게 배포하기</a></h3>
+<blockquote>
+  <p>이 글은 간단한 협업과, test를 하려는 목적으로 작성된 글입니다.</p>
+</blockquote>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/os/2021/08/10/%EB%8D%B0%EB%AA%ACdaemon-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4/" class="nav-link">데몬(Daemon) 프로세스</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/devops/2021/08/12/cicd/" class="nav-link">CI/CD</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

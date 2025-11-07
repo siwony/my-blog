@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JVM 구조</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">JVM 구조</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["programming"]'
+          tags='["TIL","coding","JVM","development","java"]'
+          date="March 29, 2022"
+          reading-time="2"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="jvm-구조">JVM 구조</h1>
+<p><img width="600px" src="/assets/images/posts/programming/jvm-structore.png" /></p>
+
+<h3 id="클래스-로더-시스템---class-loader">클래스 로더 시스템 - Class Loader</h3>
+<blockquote>
+  <p>로딩 → 링크 → 초기화</p>
+  <ul>
+    <li><code>.class</code>파일 에서 bytecode를 읽고 메모리에 저장한다.</li>
+    <li>로딩: 클래스를 읽어오는 과정</li>
+    <li>링크: 레퍼런스를 연결하는 과정</li>
+    <li>초기화: static 값을 초기화 및 변수에 할당</li>
+  </ul>
+</blockquote>
+
+<h3 id="메모리---memory">메모리 - Memory</h3>
+<ul>
+  <li>
+    <dl>
+      <dt><strong>메서드 영역 - method</strong></dt>
+      <dd>클래스 수준의 정보(이름, 부모 클래스 이름, 메소드, 변수)저장하고, 해당 자원은 모든 영역에 공유된다.</dd>
+    </dl>
+  </li>
+  <li>
+    <dl>
+      <dt><strong>힙 영역 - heap</strong></dt>
+      <dd>객체를 저장하고, 해당 자원은 모든 영역에 공유된다.</dd>
+    </dl>
+  </li>
+  <li><strong>스텍 영역 - stack</strong>
+    <ul>
+      <li>Thread마다 런타임 stack을 만들고 스텍프레임을 블럭으로 쌓는다.</li>
+      <li>Thread가 종료되면 런타임 스택도 사라진다.
+        <blockquote>
+          <dl>
+            <dt><strong>스텍프레임</strong></dt>
+            <dd>스택 영역에 저장되는 메소드의 호출 정보를 의미한다.<br />
+메서드 하나당 하나의 스택 프레임이 존재한다.</dd>
+          </dl>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <dl>
+      <dt><strong>PC - Program Counter</strong></dt>
+      <dd>스레드 속 현재 실행할 스택 프레임을 가리키는 포인터가 생성한다.</dd>
+    </dl>
+    <ul>
+      <li>thread를 호출할 때 생긴다.</li>
+    </ul>
+  </li>
+  <li>
+    <dl>
+      <dt><strong>네이티브 메서드 스택 - Native Method Stack</strong></dt>
+      <dd>native method를 호출할 때 사용한다.</dd>
+    </dl>
+    <ul>
+      <li>thread를 호출할 때 생긴다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>//todo 여기 보고 좀 더 정리 https://javapapers.com/core-java/java-jvm-run-time-data-areas/#Program_Counter_PC_</p>
+
+<h3 id="실행-엔진---execute-engin">실행 엔진 - Execute Engin</h3>
+<ul>
+  <li>
+    <p><strong>인터프리터 - Interpreter</strong><br />
+byte code를 한줄 씩 실행한다.</p>
+  </li>
+  <li>
+    <p><strong>JIT 컴파일러 - Just In Time Compiler</strong><br />
+인터프리터가 반복되는 코드를 발견하면 JIT 컴파일러로 반복되는 코드를 모두 네이티브 코드로 바꿔둔다. <br />
+→ 인터프리터는 네이티브 코드로 컴파일된 코드를 바로 사용한다</p>
+  </li>
+  <li>
+    <p><strong>GC(Garbage Collector)</strong><br />
+더 이상 참조되지 않는 객체를 모아서 정리한다.</p>
+  </li>
+</ul>
+
+<h3 id="jni---java-native-interface">JNI - Java Native Interface</h3>
+<p>Java application에서 C, C++, 어셈블리 같은 언어로 작성된 함수를 사용할 수 있는 방법을 제공한다.</p>
+<ul>
+  <li>Native 키워드를 사용한 메소드 호출할 수 있다.</li>
+</ul>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/programming/2022/03/29/jvm-jdk-jre/" class="nav-link">JVM, JDK, JRE</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/programming/2022/03/29/jvm/" class="nav-link">JVM</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

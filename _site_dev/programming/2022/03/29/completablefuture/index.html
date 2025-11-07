@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CompletableFuture</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">CompletableFuture</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["programming"]'
+          tags='["concurrent","TIL","coding","development","java"]'
+          date="March 29, 2022"
+          reading-time="6"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="completablefuture">CompletableFuture</h1>
+<p><code>비동기 - Asynchronous</code> 프로그래밍에 대한 여러 기능을 제공하는 인터페이스.</p>
+<blockquote>
+  <p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletionStage.html">공식 문서</a></p>
+</blockquote>
+
+<h4 id="기존-future의-단점">기존 Future의 단점</h4>
+<ul>
+  <li><code>Future</code>를 외부에서 완료 시킬 수 없다.
+    <blockquote>
+      <p>취소하거나 <code>get()</code>에 타임아웃을 설정할 수는 있다.</p>
+    </blockquote>
+  </li>
+  <li>블로킹 코드(<code>Future.get()</code>)를 제외하고 작업이 끝났을 때 콜백을 실행할 수 없다.
+    <blockquote>
+      <p>추가적인 작업이 필요하면 <code>Future.get()</code>뒤에 작업을 해야 한다.</p>
+    </blockquote>
+  </li>
+  <li>여러 <code>Future</code>를 조합할 수 없다.</li>
+  <li>예외 처리용 API를 제공하지 않는다.</li>
+</ul>
+
+<p>JDK8부터 <code>CompletableFuture</code> 인터페이스가 소개되었고, <code>Future</code> 인터페이스를 구현함과 동시에 <code>CompletionStage</code> 인터페이스를 구현한다. <code>CompletionStage</code>는 비동기 연산 Step을 제공해서 계속 <code>매서드 체이닝 - Method Chaining</code> 형태로 조합이 가능하다.</p>
+
+<h4 id="구현된-interface">구현된 interface</h4>
+<ul>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html"><code>Future</code></a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletionStage.html"><code>CompletionStage</code></a></li>
+</ul>
+
+<h4 id="forkjoin-framework">Fork/Join Framework</h4>
+<p><code>CompletableFuture</code>는 <code>Fork/Join</code> 기반으로 만들어졌다.</p>
+
+<p>Fork/Join Framework의 동작 원리는</p>
+<ol>
+  <li>작업을 잘게 나눌 수 있을 때까지 split 하고</li>
+  <li>작업 큐에 있는 tail task를 다른 쓰레드가 나누어 병렬처리한 후,</li>
+  <li>join하여 합산한다.</li>
+</ol>
+
+<p><code>CompletableFuture</code>의 기본 Thread Pool은 Fork/Join Thread Pool (<code>ForkJoinPool.commonPool()</code>)를 사용한다.</p>
+
+<h2 id="사용방법">사용방법</h2>
+<p><strong><code>CompletableFuture</code>도 <code>Future</code>처럼 결과값을 가져오는것(ex. <code>get()</code>)을 하지 않으면 선언해 놓은 작업(Task)은 실행은 되지만 main thread에서는 아무 영향이 없다.</strong></p>
+<h3 id="비동기로-작업-실행하기">비동기로 작업 실행하기</h3>
+<ul>
+  <li>리턴값이 없는 경우: <code>runAsync()</code></li>
+  <li>리턴값이 있는 경우: <code>supplyAsync()</code></li>
+</ul>
+
+<h4 id="runasync--리턴값이-없는-경우"><code>runAsync()</code>- 리턴값이 없는 경우</h4>
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;Void&gt; future = CompletableFuture.runAsync(
+        () -&gt; System.out.println("Hello " + Thread.currentThread().getName())
+);
+
+Void futureValue = future.get();
+System.out.println("void type CompletableFuture: " + futureValue);
+</code></pre>
+<p>출력 예시</p>
+<pre><code class="language-sh">Hello ForkJoinPool.commonPool-worker-19
+void type CompletableFuture: null
+</code></pre>
+<ul>
+  <li>리턴값이 없는 task이므로 <code>future.get()</code>의 결과값은 Void타입에 null이 반환되었다.</li>
+  <li>따로 Thread Pool를 정해주지 않아도 ForkJoinPool를 이용했다.
+    <blockquote>
+      <p><strong><code>Void </code>타입이란?</strong><br />
+void 타입을 클래스로 나타낸 타입이다. 기본생성자가 private로 되어있어 인스턴스를 생성할 수 없으므로 <code>Void</code> 타입으로 선언한 변수의 값은 null이 들어갈 수 밖에 없다. 일부 특수상황(리플렉션, 제네릭)을 제외한 평상시에는 사용하지 않는 게 좋다.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="supplyasync--리턴값이-있는-경우"><code>supplyAsync()</code>- 리턴값이 있는 경우</h4>
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;String&gt; future = CompletableFuture.supplyAsync(
+        () -&gt; {
+            String hello = "Hello ";
+            System.out.println(hello + Thread.currentThread().getName());
+            return hello;
+        }
+);
+
+String futureValue = future.get();
+System.out.println("String type CompletableFuture: " + futureValue);
+</code></pre>
+<p>출력 예시</p>
+<pre><code class="language-sh">Hello ForkJoinPool.commonPool-worker-19
+String type CompletableFuture: Hello 
+</code></pre>
+
+<h4 id="executors-thread-pool-사용하기">Executors Thread Pool 사용하기</h4>
+<ul>
+  <li>runAsync(), supplyAsync()둘다 사용가능하다.</li>
+  <li><code>Runnable</code>, <code>Callable</code>다음 인자로 Executors를 사용해 Thread Pool를 사용할 수 있다,</li>
+</ul>
+
+<p>코드 예제</p>
+<pre><code class="language-java">ExecutorService executorService = Executors.newFixedThreadPool(5); // 추가된 부분!
+
+CompletableFuture&lt;String&gt; future = CompletableFuture.supplyAsync(
+        () -&gt; {
+            String hello = "Hello ";
+            System.out.println(hello + Thread.currentThread().getName());
+            return hello;
+        }, executorService // 추가된 부분!
+);
+
+String futureValue = future.get();
+System.out.println("String type CompletableFuture: " + futureValue);
+</code></pre>
+
+<p>출력 예시</p>
+<pre><code class="language-sh">Hello pool-1-thread-1
+String type CompletableFuture: Hello 
+</code></pre>
+<ul>
+  <li>ForkJoinPool이 아닌 그냥 pool로 출력되는 것을 확인할 수 있다.</li>
+</ul>
+
+<h3 id="콜백-제공하기">콜백 제공하기</h3>
+<blockquote>
+  <p>thenApply(Function), thenAccept(Consumer), thenRun(Runnable)</p>
+  <ul>
+    <li>메서드 체이닝 형태로 콜백을 제공할 수 있다.</li>
+    <li>콜백이 온다 해도 <code>get()</code>를 사용해야 작업의 결과를 얻을 수 있다.</li>
+    <li>콜백 자체를 또 다른 스레드에서 처리할 수 있다.</li>
+  </ul>
+</blockquote>
+
+<h4 id="thenapplyfunction---결과값을-다른-타입으로-변경한다">thenApply(Function) - 결과값을 다른 타입으로 변경한다.</h4>
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;String&gt; future = CompletableFuture.supplyAsync(
+        () -&gt; "Hello"
+).thenApply(
+        String::toUpperCase
+);
+
+String futureValue = future.get();
+System.out.println("thenApply: " + futureValue);
+</code></pre>
+<p>출력 예시</p>
+<pre><code class="language-sh">thenApply: HELLO
+</code></pre>
+
+<h4 id="thenacceptconsumer---결과값을-이용해-반환값이-없이-추가적인-행동만-한다">thenAccept(Consumer) - 결과값을 이용해 반환값이 없이 추가적인 행동만 한다.</h4>
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;Void&gt; future = CompletableFuture.supplyAsync(
+        () -&gt; "Hello"
+).thenAccept((s) -&gt; {
+    System.out.println(s + " thenAccept: " + Thread.currentThread().getName());
+});
+
+Void futureValue = future.get();
+System.out.println("thenApply: " + futureValue);
+</code></pre>
+<p>출력 예시</p>
+<pre><code class="language-sh">Hello thenAccept: main
+thenApply: null
+</code></pre>
+<ul>
+  <li>현 예제의 <code>thenAccept</code>는 main 스레드에서 실행되었지만, ForkJoinPool에 있는 Thread를 사용하기도 한다.</li>
+  <li><code>thenAccept()</code>으로 전달한 콜백 앞선 콜백을 실행한 쓰레드나 그 쓰레드를 파생시킨 부모에서 실행된다.</li>
+</ul>
+
+<h4 id="thenrunrunnable---결과값을-받지-않고-다른-작업을-처리하는-콜백">thenRun(Runnable) - 결과값을 받지 않고 다른 작업을 처리하는 콜백</h4>
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;Void&gt; future = CompletableFuture.supplyAsync(
+        () -&gt; "Hello"
+).thenRun(() -&gt; {
+    System.out.println("thenRun: " + Thread.currentThread().getName());
+});
+
+Void futureValue = future.get();
+System.out.println("thenApply: " + futureValue);
+</code></pre>
+<p>출력 예시</p>
+<pre><code class="language-sh">thenRun: main
+thenApply: null
+</code></pre>
+
+<ul>
+  <li>현 예제의 <code>thenAccept</code>는 main 스레드에서 실행되었지만, ForkJoinPool에 있는 Thread를 사용하기도 한다.</li>
+  <li><code>thenRun()</code>으로 전달한 콜백 앞선 콜백을 실행한 쓰레드나 그 쓰레드를 파생시킨 부모에서 실행된다.</li>
+</ul>
+
+<h3 id="작업-조합하기">작업 조합하기</h3>
+<h4 id="thencompost---두-작업이-서로-이어서-실행하도록-조합한다">thenCompost - 두 작업이 서로 이어서 실행하도록 조합한다.</h4>
+<p>코드 예시</p>
+<pre><code class="language-java">public class CompletableFutureEX {
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        CompletableFuture&lt;String&gt; helloFuture = CompletableFuture.supplyAsync(
+                () -&gt; {
+                    System.out.println("Hello " + Thread.currentThread().getName());
+                    return "Hello ";
+                }
+        ).thenCompose(CompletableFutureEX::getWorldFuture);
+
+        String helloWorldFuture = helloFuture.get();
+        System.out.println("helloWorldFuture = " + helloWorldFuture);
+    }
+
+    // thenCompose의 인수를 메서드 레퍼런스로 넘겨주기 위해 만든 메서드
+    private static CompletableFuture&lt;String&gt; getWorldFuture(String message) {
+        return CompletableFuture.supplyAsync(
+                () -&gt; {
+                    System.out.println("World " + Thread.currentThread().getName());
+                    return message + "World";
+                }
+        );
+    }
+}
+</code></pre>
+<p>출력 예시</p>
+<pre><code class="language-sh">Hello ForkJoinPool.commonPool-worker-19
+World ForkJoinPool.commonPool-worker-5
+helloWorldFuture = Hello World
+</code></pre>
+
+<h4 id="thencombin---두-작업을-독립적으로-실행하고-둘-다-종료-되었을-떄-콜백-실행">thenCombin - 두 작업을 독립적으로 실행하고 둘 다 종료 되었을 떄 콜백 실행</h4>
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;String&gt; helloFuture = CompletableFuture.supplyAsync(
+        () -&gt; {
+                System.out.println("Hello " + Thread.currentThread().getName());
+                return "Hello";
+        }
+);
+
+CompletableFuture&lt;String&gt; worldFuture = CompletableFuture.supplyAsync(
+        () -&gt; {
+                System.out.println("World " + Thread.currentThread().getName());
+                return "World";
+        }
+);
+
+CompletableFuture&lt;String&gt; helloWorldFuture = helloFuture.thenCombine(worldFuture, (hello, world) -&gt; hello + " " + world);
+System.out.println("helloWorldFuture.get() = " + helloWorldFuture.get());
+</code></pre>
+<p>출력 예시</p>
+<pre><code class="language-sh">World ForkJoinPool.commonPool-worker-5
+Hello ForkJoinPool.commonPool-worker-19
+helloWorldFuture.get() = Hello World
+</code></pre>
+
+<h4 id="allof---여러-작업을-모두-실행하고-모든-작업결과에-대해-콜백을-실행한다-completablefuturevoid-반환">allOf() - 여러 작업을 모두 실행하고 모든 작업결과에 대해 콜백을 실행한다. (<code>CompletableFuture&lt;Void&gt;</code> 반환)</h4>
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;String&gt; helloFuture = CompletableFuture.supplyAsync(
+        () -&gt; {
+                System.out.println("Hello " + Thread.currentThread().getName());
+                return "Hello";
+        }
+);
+
+CompletableFuture&lt;String&gt; worldFuture = CompletableFuture.supplyAsync(
+        () -&gt; {
+                System.out.println("World " + Thread.currentThread().getName());
+                return "World";
+        }
+);
+
+CompletableFuture&lt;Void&gt; voidCompletableFuture = CompletableFuture.allOf(helloFuture, worldFuture)
+                .thenAccept(System.out::println);
+
+System.out.println("voidCompletableFuture = " + voidCompletableFuture.get());
+</code></pre>
+<p>출력 예시</p>
+<pre><code class="language-sh">Spring ForkJoinPool.commonPool-worker-23
+Hello ForkJoinPool.commonPool-worker-19
+World ForkJoinPool.commonPool-worker-5
+null
+voidCompletableFuture = null
+</code></pre>
+<p><code>thenAccept</code>를 통해 “Hello”와 “World”가 출력되길 기대했지만 <code>null</code>이 반환되었다. <br />
+왜냐하면 <code>CompletableFuture</code>는 제네릭으로 <code>Void</code>를 받고 있기 떄문이다.</p>
+
+<p>만약 위 예시 코드에서 “Hello”와 “Wold”를 출력하고 싶으면 조금 복잡하지만 앞으로 나올 방식으로 출력할 수 있다.</p>
+
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;String&gt; helloFuture = CompletableFuture.supplyAsync(
+        () -&gt; {
+                System.out.println("Hello " + Thread.currentThread().getName());
+                return "Hello";
+        }
+);
+
+CompletableFuture&lt;String&gt; worldFuture = CompletableFuture.supplyAsync(
+        () -&gt; {
+                System.out.println("World " + Thread.currentThread().getName());
+                return "World";
+        }
+);
+
+// Stream을 사용하기 위해 ArrayList를 생성한다.
+List&lt;CompletableFuture&lt;String&gt;&gt; futuresAsList = Arrays.asList(helloFuture, worldFuture);
+CompletableFuture[] futuresAsArray = futuresAsList.toArray(CompletableFuture[]::new);
+
+CompletableFuture&lt;List&lt;String&gt;&gt; listCompletableFuture = CompletableFuture.allOf(futuresAsArray)
+        .thenApply(v -&gt; futuresAsList.stream()
+                .map(CompletableFuture::join)
+                .collect(Collectors.toList())
+        );
+
+listCompletableFuture.get().forEach(System.out::println);
+</code></pre>
+
+<p>출력 예시</p>
+<pre><code class="language-sh">Hello ForkJoinPool.commonPool-worker-19
+World ForkJoinPool.commonPool-worker-5
+Hello
+World
+</code></pre>
+<ul>
+  <li><code>thenApply</code>인수로 넘겨준 <code>Function</code>이 실행되는 시점은 이미 작업이 완료되는 시점이므로 모든 작업들을 가져올 수 있다.</li>
+  <li>위 방법은 아무것도 <code>블로킹 - blocking</code> 처리가 되지 않는다.
+    <blockquote>
+      <p>이해가 되지 않지만 일단 받아드리자</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="anyof---여러-작업-중에-가장-빨리-끝난-하나의-결과에-콜백-실행">anyOf() - 여러 작업 중에 가장 빨리 끝난 하나의 결과에 콜백 실행</h4>
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;String&gt; helloFuture = CompletableFuture.supplyAsync(
+        () -&gt; {
+                System.out.println("Hello " + Thread.currentThread().getName());
+                return "Hello";
+        }
+);
+
+CompletableFuture&lt;String&gt; worldFuture = CompletableFuture.supplyAsync(
+        () -&gt; {
+                System.out.println("World " + Thread.currentThread().getName());
+                return "World";
+        }
+);
+
+CompletableFuture&lt;Void&gt; voidCompletableFuture = CompletableFuture.anyOf(helloFuture, worldFuture).thenAccept(
+        System.out::println
+);
+voidCompletableFuture.get();
+</code></pre>
+
+<p>출력 예시</p>
+<pre><code class="language-sh">World ForkJoinPool.commonPool-worker-5
+Hello ForkJoinPool.commonPool-worker-19
+World
+</code></pre>
+
+<h3 id="예외-처리하기">예외 처리하기</h3>
+<h4 id="exeptionallyfunction---해당-task에-예외가-발생하면-function를-실행한다">exeptionally(Function) - 해당 task에 예외가 발생하면 Function를 실행한다.</h4>
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;String&gt; helloFuture = CompletableFuture.supplyAsync(
+        () -&gt; {
+                boolean throwError = true;
+
+                if(throwError)
+                throw new IllegalArgumentException();
+
+                System.out.println("Hello " + Thread.currentThread().getName());
+                return "Hello";
+        }
+).exceptionally(
+        (ex) -&gt; { //해당 task에 대한 Exception
+                System.out.println(ex);
+                return "Error!";
+        }
+);
+
+System.out.println(helloFuture.get());
+</code></pre>
+
+<p>출력 예시</p>
+<pre><code class="language-sh">java.util.concurrent.CompletionException: java.lang.IllegalArgumentException
+Error!
+</code></pre>
+
+<h4 id="handlebifunction---해당-task의-정상-결과와-예외-결과를-종합적으로-처리할-수-있다">handle(BiFunction) - 해당 task의 정상 결과와 예외 결과를 종합적으로 처리할 수 있다.</h4>
+<ul>
+  <li>예외 여부에 상관없이 무조건 실행된다.</li>
+</ul>
+
+<p>코드 예시</p>
+<pre><code class="language-java">CompletableFuture&lt;String&gt; helloFuture = CompletableFuture.supplyAsync(
+        () -&gt; {
+                boolean throwError = false; // 해당 변수가 false면 Exception이 발생하지 않는다.
+
+                if(throwError)
+                throw new IllegalArgumentException();
+
+                System.out.println("Hello " + Thread.currentThread().getName());
+                return "Hello";
+        }
+).handle(
+        (result, ex) -&gt;{
+                if(ex != null){
+                return "Error!";
+                }else{
+                return result;
+                }
+        }
+);
+System.out.println(helloFuture.get());
+</code></pre>
+<p>출력 예시</p>
+<pre><code class="language-sh">######### throwError가 false인 경우 ###########
+Hello ForkJoinPool.commonPool-worker-19
+Hello
+
+######### throwError가 true 경우 ###########
+Hello ForkJoinPool.commonPool-worker-19
+Error!
+</code></pre>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/programming/2022/03/29/class-loader-system-%ED%81%B4%EB%9E%98%EC%8A%A4-%EB%A1%9C%EB%8D%94-%EC%8B%9C%EC%8A%A4%ED%85%9C/" class="nav-link">Class Loader System - 클래스 로더 시스템</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/programming/2022/03/29/concurrent-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" class="nav-link">Concurrent 프로그래밍</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

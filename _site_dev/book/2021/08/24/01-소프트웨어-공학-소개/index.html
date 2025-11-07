@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01. 소프트웨어 공학 소개</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">01. 소프트웨어 공학 소개</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["book"]'
+          tags='["쉽게-배우는-소프트웨어-공학.","TIL"]'
+          date="August 24, 2021"
+          reading-time="3"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="01-소프트웨어-공학-소개">01. 소프트웨어 공학 소개</h1>
+<h2 id="01---1-소프트웨어의-이해">01 - 1 소프트웨어의 이해</h2>
+<h3 id="1-소프트웨어란">1. 소프트웨어란?</h3>
+<p>: <strong>프로그램 + 개발 과정에서 생성되는 모든 산출물(자료구조, DB구조, 테스트 결과등…)</strong></p>
+<ul>
+  <li>각 단계에서 만들어지는 문서와 사용자 메뉴얼 등도 포함이다.</li>
+</ul>
+
+<blockquote>
+  <p>프로그램: 프로그래밍한 <code>원시 코드 - source code</code>를 말한다.</p>
+</blockquote>
+
+<h3 id="2-소프트웨어의-분류">2. 소프트웨어의 분류</h3>
+<h4 id="관리-소프트웨어">관리 소프트웨어</h4>
+<p>: 자료를 받아들여 가공 후 정보를 제공하는 소프트웨어이다.</p>
+<ul>
+  <li>주로 DB에 <strong>자료를 저장</strong>후 <strong>검색</strong>을 통해 사용자가 원하는 형태로 제공</li>
+  <li>ex. 인터넷 뱅킹, 대학 종합정보시스템 등..</li>
+</ul>
+
+<h4 id="제어-소프트웨어">제어 소프트웨어</h4>
+<p>: <strong>센서</strong>를 이용하거나 <strong>기기들의 동작</strong>을 <strong>제어</strong>하는 프로그램</p>
+<ul>
+  <li>ex. 교통신호 제어, 의료기기 제어 등…</li>
+</ul>
+
+<h4 id="임베디드-소프트웨어">임베디드 소프트웨어</h4>
+<p>: <strong>장비나 기기에 내장된 형태</strong>의 소프트웨어</p>
+<ul>
+  <li>ex. 가전제품 등…</li>
+</ul>
+
+<h3 id="3-소프트웨어-특징">3. 소프트웨어 특징</h3>
+<h4 id="제조가-아닌-개발">제조가 아닌 개발</h4>
+<ul>
+  <li>SW는 개발이 된다.
+    <blockquote>
+      <p>조립만 하면 끝나는 하드웨어와 다르다.</p>
+    </blockquote>
+  </li>
+  <li>SW는 개발경력에 따라 생성성이 다르다.</li>
+</ul>
+
+<h4 id="소모가-아닌-품질-저하">소모가 아닌 품질 저하</h4>
+<p>하드웨어</p>
+<ul>
+  <li>하드웨어는 초기 실패율이 매우 높지만 오류 해결 후 큰 문제없이 오래 지속된다.</li>
+  <li>마모가 되면 실패율이 높아진다.</li>
+</ul>
+
+<p><img width="300" src="/assets/images/posts/book/hw-fail-curve.png" /></p>
+
+<p>하드웨어의 실패 곡선(<code>욕조 곡선 - bathub curve</code>)</p>
+
+<p>소프트웨어</p>
+<ul>
+  <li>하드웨어와 다르게 닳지 않는다.
+    <blockquote>
+      <p>오류를 해결한 후 사용기간 내 큰 문제없이 사용가능하다.</p>
+    </blockquote>
+  </li>
+  <li>하지만 사용 시작 단계부터 사용자의 요구가 계속 발생한다.
+    <blockquote>
+      <p>운영체제 등, 설치환경도 달라 질 수 있음</p>
+    </blockquote>
+  </li>
+  <li>변경사항이 발생하면 이로 인한 <code>부작용 - side effect</code>으로 인해 오류와 실패률이 올라갈 수 있다.</li>
+</ul>
+
+<p><img width="300" src="/assets/images/posts/book/sw-fail-curve.png" /></p>
+
+<p>소프트웨어의 이상적인/실제 실패 곡선</p>
+
+<h3 id="4-소프트웨어의-당면-문제">4. 소프트웨어의 당면 문제</h3>
+<h4 id="소프트웨어-개발의-느린-발전-속도">소프트웨어 개발의 느린 발전 속도</h4>
+<ul>
+  <li>HW에 비하면 개발속도가 상당히 느리다.
+    <blockquote>
+      <p>개인용 PC성능과 SW발전 속도를 비교하면 차이가 난다.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="새로운-소프트웨어에-대한-사용자-요구의-증가">새로운 소프트웨어에 대한 사용자 요구의 증가</h4>
+<ul>
+  <li>SW는 생산과 같이 공장에서 찍어내는게 아니라 A부터 Z까지 개발 해야 한다.</li>
+  <li>새로운 SW에 대한 사용자 요구가 날로 증가하지만 발전속도는 만족을 못시키고 있다.</li>
+  <li>하드웨어처럼 조립하는 방식으로 개발하기에는 표준화 등 해결해야 하는 문제가 많다.</li>
+</ul>
+
+<p>#### 관리 기술의 부분적 활용</p>
+<ul>
+  <li>관리가 효율적으로 이루어져야 좋은 품질의 SW를 적기에 맞추어 납품가능하다.</li>
+  <li>SW를 개발할 때 주어진 예산내에서 수행할 수 있도록 비용을 관리하고,</li>
+  <li>정해진 기간 내에 마칠 수 있도록 스케줄을 관리해야 한다.</li>
+</ul>
+
+<h3 id="5-소프트웨어-개발의-어려움">5. 소프트웨어 개발의 어려움</h3>
+<blockquote>
+  <p>부제 - SW공학의 필요성</p>
+  <h4 id="개발-과정이-복잡하다">개발 과정이 복잡하다.</h4>
+  <ul>
+    <li>무엇이든지 복잡하면 문제가 많이 발생한다.</li>
+    <li><strong>SW공학은 개발의 복잡함을 줄이기 위한 방법과 기술을 제공한다.</strong></li>
+  </ul>
+</blockquote>
+
+<h4 id="참여-인력이-많다">참여 인력이 많다.</h4>
+<ul>
+  <li>인력이 많으면 의사소통 경로가 많아져 의사 결정 과정이 복잡할 수 있다.</li>
+  <li>인력에 따른 변화가 많이 발생할 수 있다</li>
+  <li><strong>SW공학은 개발에 참여하는 팀을 구성하고 관리하는 효율적인 방법을 제시한다.</strong></li>
+</ul>
+
+<h4 id="개발-기간이-길다">개발 기간이 길다.</h4>
+<ul>
+  <li>개발 기간이 길면 진행 상황을 파학하기 쉽지 않고 개발 비용 산정이 어렵다</li>
+  <li><strong>SW공학에서는 프로젝트를 효율적으로 관리하기 위한 <code>프로젝트관리지식체계 - PMBOK</code>를 소개한다.</strong></li>
+</ul>
+
+<p>## 01 - 2 공학과 소프트웨어 공학의 이해
+ ### 공학</p>
+<ul>
+  <li>정해진 <strong>기간과 주어진 비용</strong>이라는 제안이 생긴다.</li>
+  <li>발전하면 <strong>문제 해결을 위한 기술</strong>이 축적된다.</li>
+  <li>실무에 적용하여 <strong>문제 해결의 절차를</strong> 만든다</li>
+  <li><strong>절차의 개선으로 표준</strong>을 만들어낸다.</li>
+</ul>
+
+<h3 id="소프트웨어-공학">소프트웨어 공학</h3>
+<p>: 품질 좋은 SW를 경제적으로 개발하기 위해 <code>계획을 세우고</code>, <code>개발하며</code>, <code>유지 및 관리</code> 하는 전 과정에서 <code>공학</code>, <code>과학 및 수학적 원리</code>와 <code>방법</code>을 적용하여 필요한 <strong>이론과 기술 및 도구들에 관해 연구</strong>하는 학문이다.</p>
+<ul>
+  <li>SW개발의 어려움 해결한다.</li>
+  <li>효율적인 개발을 통해 생상성을 향상시킨다.</li>
+  <li>사용하자가 만족하는 고품질 SW제품을 만들기 위함이다.</li>
+</ul>
+
+<h4 id="소프트웨어-개발-생명주기---sdlcsoftware-development-life-cycle">소프트웨어 개발 생명주기 - SDLC(Software Development Life Cycle)</h4>
+<p><strong>계획 → 분석 → 설계 → 구현 → 테스트 → 유지보수</strong></p>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/devops/2021/08/12/%EA%B0%84%EB%8B%A8%ED%95%9C-spring-boot-aws-server-%EB%B0%B0%ED%8F%AC/" class="nav-link">간단한 Spring Boot AWS Server 배포</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/devops/2021/12/04/ssh-secure-shell-protocol/" class="nav-link">SSH (Secure Shell Protocol)</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>try-with-resource 구문과 use함수</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">try-with-resource 구문과 use함수</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["programming"]'
+          tags='["kotlin","coding","development","TIL"]'
+          date="May 16, 2022"
+          reading-time="1"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="try-with-resource-구문과-use함수">try-with-resource 구문과 use함수</h1>
+<p>Java에서는 자원을 close를 해야 할 떄 <a href="../java/grammar/try-with-resources.md"><code>try-with-resources</code></a>문으로 자원이 일을 한 후 자동으로 <code>close()</code>를 호출해주는 구문이 있다.</p>
+
+<pre><code class="language-java">... 생략
+private boolean isRunning(Process process) throw Exception {
+    String line;
+    StringBuilder pidInfo = new StringBuilder();
+
+    try (BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+        while ((line = input.readLine()) != null) {
+            pidInfo.append(line);
+        }
+    } 
+    return !StringUtils.isEmpty(pidInfo.toString());
+}
+</code></pre>
+
+<p>그렇다면 이를 어떻게 kotlin으로 사용할 수 있을까? 바로 표준 함수인 <strong>use함수를 이용해 가능하다.</strong></p>
+<pre><code class="language-kotlin">private fun isRunning(process: Process): Boolean {
+    var line: String?
+    val pidInfo = StringBuilder()
+    BufferedReader(InputStreamReader(process.inputStream)).use { input -&gt;
+        while (input.readLine().also { line = it } != null) {
+            pidInfo.append(line)
+            return pidInfo.isNotEmpty() // 여기서도 가능하다!
+        }
+        // return pidInfo.isNotEmpty() 
+    }
+}
+</code></pre>
+<p>여기서 주의해야 하는점은 “람다 본문에서 사용한 <strong>return은 비지역 반환</strong>“이다. 즉, return문은 람다가 아닌 <code>isRunning</code>함수를 끝내며 값을 반환한다.</p>
+
+<h3 id="좀-더-자세히">좀 더 자세히</h3>
+<p>use함수는 <code>kotlin.io</code>패키지에서 확인할 수 있다.</p>
+<pre><code class="language-kotlin">inline fun &lt;T : Closeable?, R&gt; T.use(block: (T) -&gt; R): R
+</code></pre>
+<p>use함수의 body를 보면  <code>Closeable</code>를 상속한 클레스에서만 사용할 수 있고, 함수 시그니처의 block은 24 ~ 30줄에 작성한 람다를 의미한다.</p>
+
+<blockquote>
+  <p>코드: https://github.com/JetBrains/kotlin/blob/6a670dc5f38fc73eb01d754d8f7c158ae0176ceb/libraries/stdlib/jvm/src/kotlin/io/Closeable.kt#L22</p>
+</blockquote>
+
+<h2 id="reference">Reference</h2>
+<p>https://shinjekim.github.io/kotlin/2019/11/01/Kotlin-%EC%9E%90%EB%B0%94%EC%9D%98-try-with-resource-%EA%B5%AC%EB%AC%B8%EA%B3%BC-%EC%BD%94%ED%8B%80%EB%A6%B0%EC%9D%98-use-%ED%95%A8%EC%88%98/</p>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/programming/2022/05/13/%EC%97%98%EB%B9%84%EC%8A%A4-%EC%97%B0%EC%82%B0%EC%9E%90-elvis-operation/" class="nav-link">엘비스 연산자 - Elvis Operation</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/back-end/2022/06/04/bean-validator%EC%97%90%EC%84%9C-%EA%B2%80%EC%A6%9D%EC%97%90-%EC%8B%A4%ED%8C%A8%ED%95%9C-%ED%95%84%EB%93%9C%EB%A5%BC-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8%EC%97%90%EA%B2%8C-%EC%95%8C%EB%A0%A4%EC%A3%BC%EC%9E%90/" class="nav-link">Bean Validator에서 검증에 실패한 필드를 클라이언트에게 알려주자!</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

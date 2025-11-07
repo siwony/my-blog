@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Data JPA</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Spring Data JPA</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["back-end"]'
+          tags='["spring","jpa","data-jpa","TIL"]'
+          date="March 29, 2022"
+          reading-time="3"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="spring-data-jpa">Spring Data JPA</h1>
+<blockquote>
+  <p>이 md는 <a href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-JPA-%EC%8B%A4%EC%A0%84/">김영한씨의 실전! 스프링 데이터 JPA</a> 라는 강의를 보고 정리합니다.</p>
+</blockquote>
+
+<h3 id="이것은-마법같은-기술이다">이것은 마법같은 기술이다</h3>
+<blockquote>
+  <p>기존 Spring + JPA 만으로 생산능력이 높아졌지만 이 기술을 사용함으로써 더욱 생산성이 높아진다.</p>
+  <ul>
+    <li>구현체 없이 Repository 만으로 구현이 가능하다.</li>
+    <li>CRUD는 기본적으로 제공된다. → 개발자는 핵심 비즈니스 로직에만 집중하여 개발하자!</li>
+    <li>선택이 아닌 필수다! 실무에 무조건 적용된다.</li>
+  </ul>
+</blockquote>
+
+<h3 id="하지만">하지만</h3>
+<ul>
+  <li>JPA를 너무 추상화 해버린다.</li>
+  <li>JPA를 몰라도 사용할 수 있다.</li>
+  <li>문제는 문제가 생겨 해결할때 JPA의 기본 원리를 모르면 해결할 수가 없다.</li>
+  <li>결론은 JPA부터 공부하자.</li>
+</ul>
+
+<h2 id="실습환경">실습환경</h2>
+<p>Spring initializer를 통해 실습 환경을 생성한다.<br />
+<a href="https://start.spring.io/#!type=maven-project&amp;language=java&amp;platformVersion=2.4.5.RELEASE&amp;packaging=jar&amp;jvmVersion=11&amp;groupId=com.study&amp;artifactId=data-jpa&amp;name=data-jpa&amp;description=Demo%20project%20for%20Spring%20Boot&amp;packageName=com.study.data-jpa&amp;dependencies=web,data-jpa,h2,lombok">실습 환경 공유</a> ← 링크를 타고들어가면 똑같은 필자와 똑같은 환경제공</p>
+
+<h4 id="java11">Java11</h4>
+
+<h4 id="build-tool">Build Tool</h4>
+<ul>
+  <li>Gradle</li>
+</ul>
+
+<h4 id="dependencies">Dependencies</h4>
+<ul>
+  <li>Spring Web</li>
+  <li><strong>Spring Data JPA</strong></li>
+  <li>H2 Database - 2mb의 메모리를 사용하는 가장 좋은 실습용 DB</li>
+  <li>Lombok - Getter, Setter와 같은것을 어노테이션으로 생성을 해주는 의존성</li>
+</ul>
+
+<p><code>./gradlew dependencies --configuration compileClasspath</code><br />
+프로젝트폴더에서 위와같은 명령어를 사용하면 자신이 사용한 dependencies를 확인할 수 있다.</p>
+
+<h3 id="h2db-설치-및-실행">H2DB 설치 및 실행</h3>
+<ol>
+  <li>
+    <p>현재 추가된 Dependency 버전에 맞는 <a href="https://www.h2database.com/html/main.html">H2DB</a>를 설치한다.</p>
+
+    <p>window유저는 window를 사용하면 되고, mac이나 linux환경을 사용하면 All Platform 을 선택해서 다운로드한 후 압축을 풀면된다.</p>
+
+    <p>h2DB의 Dependency는 intellij ultimate 기준 오른쪽에 다음과 같이 확인할 수 있다.</p>
+
+    <blockquote>
+      <p><img width="350px" src="/assets/images/posts/back-end/data-jpa-gradle-depedency.png" /></p>
+    </blockquote>
+  </li>
+  <li>
+    <p>압축 해제후 <code>/src/bin/</code> 경로로 이동후 <code>./h2.sh</code>를 실행한다. <br />
+만약 permission denied로 실행을 못하면 <code>chmod 755 ./h2.sh</code>를 쉘에 입력한다.</p>
+  </li>
+  <li>실행후 H2 콘솔에 JDBC URL에 <code>jdbc:h2:~/DBname</code> 과 같이 입력한다.<br />
+이는 DB파일을 생성하기 위해 최초 1번만 실행한다.
+    <blockquote>
+      <p>DBname은 자신이 원하는 이름으로 입력해라</p>
+    </blockquote>
+  </li>
+  <li>그후 접속은 <code>jdbc:h2:tcp://localhost/~/DBname</code></li>
+</ol>
+
+<h3 id="application-설정파일">application 설정파일</h3>
+<p><code>application.properties</code> 파일의 이름을 <code>application.yml</code> 이와같이 변경한다. 그후 다음과 같이 입력한다.</p>
+
+<p>설정파일은 프로젝트 상위 폴더기준 <code>/src/main/resources</code>에 있다.</p>
+
+<pre><code class="language-yml">spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/DBname # 위에서 생성한 접속 URL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create # 애플리케이션 실행 시점에 테이블을 drop 하고, 다시 생성한다.
+    properties:
+      hibernate:
+        #show_sql: true
+        format_sql: true # 보여주는 쿼리를 예쁘게 포맷팅 해준다.
+
+  logging.level:
+    org.hibernate.SQL: debug
+    #org.hibernate.type :trace  # 파라미터 바인딩된 부분까지 나온다.
+</code></pre>
+
+<h3 id="spring-data-jpa사용방법">Spring Data JPA사용방법</h3>
+<h4 id="1-entity-생성">1. Entity 생성</h4>
+<p><code>Member</code></p>
+<pre><code class="language-java">@Entity @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"id", "username", "age"})
+public class Member {
+
+    @Id @GeneratedValue
+    @Column(name = "member_id")
+    private Long id;
+    private String username;
+
+    public Member(String username){
+        this.username = username;
+    }
+}
+</code></pre>
+
+<h4 id="2-repository-생성">2. Repository 생성</h4>
+<p><code>MemberRepository</code></p>
+<ul>
+  <li>Repository는 interface로  <code>JpaRepository&lt;Entity, EntityIdType&gt;</code>를 상속 받는다.
+    <pre><code class="language-java">@Repository
+public interface MemberRepository extends JpaRepository&lt;Member, Long&gt;
+</code></pre>
+  </li>
+</ul>
+
+<h4 id="3-test-코드-작성">3. Test 코드 작성</h4>
+<ul>
+  <li>Intellij에서는 테스트 코드를 작성할때 작성하고싶은 클레스에서 <code>cmd + n</code> 누르면 메뉴가 나타나는데 여기에서 test를 만들수 있다.</li>
+  <li>
+    <p>이렇게 만든 Test는 <code>/src/test</code> 에 있다.
+```java
+@SpringBootTest
+@Transactional //JPA를 테스트하려면 트렌젝션 내에서 동작해야 된다. //import는 springframework trancational을 선택한다.
+class MemberRepositoryTest {</p>
+
+    <p>@Autowired MemberRepository memberRepo;</p>
+
+    <p>@Test
+  public void testMember(){
+      Member member = new Member(“memberA”);
+      Member savedMember = memberRepo.save(member);</p>
+
+    <pre><code>  Member findMember = memberRepo.findById(savedMember.getId()).get();
+
+  assertThat(findMember.getId()).isEqualTo(member.getId());
+  assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
+  assertThat(findMember).isEqualTo(member);   }
+</code></pre>
+  </li>
+</ul>
+
+<p>}</p>
+<pre><code>
+### 테스트가 느린이유
+기본적으로 Intllij에서는 gradle를 거쳐 Test밑 빌드를 하기 떄문에 속도가 느리다.  
+
+다음과 같이 설정한다
+1. `Perference`에 들어가서 `build tool`를 검색한다.
+2. 왼쪽 네비게이션 바에서 Build Tool 하위에 Gradle을 선택후
+3. Build and run 에서 `Build and run using`과 `Run tests using` 를 Intllij IDEA로 선택한다.
+
+&lt;img width=500px src="/assets/images/posts/back-end/gradle-setting.png"&gt;
+
+### 쿼리를 더욱 이쁘게 날리자 - 이는 공부용으로 좋다.
+dependency를 `build.gradle`에 `dependencies`안에 다음과 같이 추가한다.  
+
+`build.gradle`
+```gradle
+dependencies {
+ implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+}
+</code></pre>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/programming/2022/03/29/singleton-pattern/" class="nav-link">Singleton Pattern</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/programming/2022/03/29/strategy-pattern%EC%A0%84%EB%9E%B5-%ED%8C%A8%ED%84%B4/" class="nav-link">Strategy Pattern(전략 패턴)</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

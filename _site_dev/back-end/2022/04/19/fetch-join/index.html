@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Join</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Fetch Join</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["back-end"]'
+          tags='["spring","jpa","JPQL","TIL"]'
+          date="April 19, 2022"
+          reading-time="1"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="fetch-join">Fetch Join</h1>
+<p>Fetch Join은 일반적인 SQL JOIN이 아닌 JPQL에서 성능 최적화를 위해 제공하는 기능이다.<br />
+<strong>Fetch Join은 연관된 엔터티 혹은 컬렉션을 한번에 조회하는 기능이다.</strong> (한방쿼리)</p>
+
+<h4 id="fetch-join-예">Fetch Join 예</h4>
+<p>JPQL</p>
+<pre><code class="language-sql">select m from Member m join fetch m.team
+</code></pre>
+<p>select projection에 Member의 m만 적었지만 m에 연관된 team도 같이 SQL문에 조회되는 쿼리가 나간다.</p>
+
+<pre><code class="language-sql">SELECT M.*, T.* FROM MEMBER m 
+INNER JOIN TEAM T ON M.TEAM_ID=T.ID
+</code></pre>
+<blockquote>
+  <p>‘*’ 은 필드를 생략했습니다.</p>
+</blockquote>
+
+<p>즉, 쿼리로 어떠한 객체 그래프를 한번에 조회 하는지 명시하는 방법이 Fetch Join이다.</p>
+
+<h3 id="fetch-join의-특징">Fetch Join의 특징</h3>
+<ul>
+  <li>JPQL은 결과를 반환할 때 연관관계를 고려하지 않는다.</li>
+  <li>일반JOIN은 SELECT절에 지정한 엔티티만 조회하고,<br />
+select절에 지정된 엔터티와 연관관계가 맻어진 엔터티 혹은 컬렉션을 한번에 조회한다.</li>
+</ul>
+
+<h2 id="fetch-join-요약">Fetch Join 요약</h2>
+<ul>
+  <li>N + 1문제를 해결할 수 있다.</li>
+  <li>1 대 N 조회 시 카테시안 곱이 발생한다.
+    <blockquote>
+      <p>distinct를 사용하여 중복을 제거할 수 있다.</p>
+    </blockquote>
+  </li>
+  <li>컬렉션을 Fetch Join하면 페이징 API를 사용할 수 없다.
+    <blockquote>
+      <p>Batch Size를 통해 해결할 수 있다.</p>
+    </blockquote>
+  </li>
+  <li>둘 이상의 컬렉션을 Fetch Join 할 수 없다,
+    <blockquote>
+      <p>Hibernate에서는 경고를 남기고 DB가 아닌 메모리에서 페이징 처리를한다.</p>
+    </blockquote>
+  </li>
+  <li>Fetch Join 대상에는 별칭을 줄 수 없다.
+    <blockquote>
+      <p>하이버네이트의 경우 가능하지만 가급적 사용하지 말자</p>
+    </blockquote>
+  </li>
+</ul>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/programming/2022/04/16/junit5/" class="nav-link">Junit5</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/programming/2022/04/19/%EC%83%9D%EC%84%B1%EC%9E%90-%EB%8C%80%EC%8B%A0-%EC%A0%95%EC%A0%81-%EB%A7%A4%EC%86%8C%EB%93%9C-%EC%82%AC%EC%9A%A9%EC%9D%84-%EA%B3%A0%EB%A0%A4%ED%95%B4%EB%9D%BC/" class="nav-link">생성자 대신 정적 매소드 사용을 고려해라</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

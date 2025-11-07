@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4. 좋은 단위 테스트의 4대요소</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">4. 좋은 단위 테스트의 4대요소</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["book"]'
+          tags='["유닛테스트","TIL"]'
+          date="March 05, 2023"
+          reading-time="2"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="4-좋은-단위-테스트의-4대요소">4. 좋은 단위 테스트의 4대요소</h1>
+<h2 id="요약">요약</h2>
+<p>좋은 단위테스트의 네 가지 특성은 다음과 같다.</p>
+<ol>
+  <li>회귀 방지</li>
+  <li>리팩터링 내성</li>
+  <li>빠른 피드백</li>
+  <li>유지 보수성</li>
+</ol>
+
+<p>이상적인 테스트는 4가지를 모두 만족하는 것이지만 <code>회귀 방지</code>, <code>리팩터링 내성</code>, <code>빠른 피드백</code>은 상호 배타적이므로 달성할 수 없다.</p>
+
+<p>하지만 특정 특성에 집중하고 다른 특성을 버릴 수 없다. 이러한 테스트는 가치가 없다.</p>
+
+<h2 id="1-회귀-방지">1. 회귀 방지</h2>
+<p>코드를 수정한 후 기능이 의도한 대로 작동하지 않는 경우를 의미한다.</p>
+
+<p>코드베이스가 커질수록 잠재적인 버그에 더 많이 노출되므로 회귀에 대해 효과적인 보호를 개발하는게 중요하다.</p>
+
+<h3 id="회귀-방지-지표에-대한-평가-사항">회귀 방지 지표에 대한 평가 사항</h3>
+<ul>
+  <li><code>테스트 중 실행되는 코드의 양</code>
+    <ul>
+      <li>일반적으로 실행되는 코드가 많을수록 테스트에서 회귀가 나타날 가능성이 높다.</li>
+    </ul>
+  </li>
+  <li><code>코드 복잡도</code> 및 <code>코드의 도메인 유의성</code>
+    <ul>
+      <li>복잡한 비즈니스 로직을 나타내는 코드가 <code>보일러플레이트 코드(boilerplate code)</code>보다 훨씬 더 중요하다</li>
+      <li>비즈니스에 중요한 기능에서 발생한 버그가 가장 큰 피해를 입힌다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="etc">ETC</h3>
+<ul>
+  <li>단순한 코드를 테스트 하는 것은 가치가 거의없다.
+    <ul>
+      <li>ex. getter, setter</li>
+    </ul>
+  </li>
+  <li>코드 외에 작성하지 않는 코드(라이브러리, 프레임워크, 외부 시스템)를 테스트 하는것도 중요하다.</li>
+</ul>
+
+<blockquote>
+  <p>회귀 방지 지표를 극대화하려면 테스트가 가능한 한 많은 코드를 실행하는 것을 목표로 해야 한다.</p>
+</blockquote>
+
+<h2 id="2-리팩터링-내성">2. 리팩터링 내성</h2>
+<p>테스트를 실패로 바꾸지 않고 기본 애플리케이션 코드를 피개터링할 수 있는지에 대한 척도이다.</p>
+
+<h3 id="리팩터링-내성에-대한-평가-사항">리팩터링 내성에 대한 평가 사항</h3>
+<ul>
+  <li>거짓 양성의 빈도수(적을수록 좋다.)</li>
+</ul>
+
+<p>테스트가 지속 가능한 성장을 하게 하는 메커니즘은 회귀 없이 주기적으로 리팩터링하고 새로운 기능을 추가하는 것 인데 여기에 대한 장점은 2가지가 있다.</p>
+<ul>
+  <li>기존 기능이 고장났을 때 테스트가 조기 경고를 제공한다.
+    <ul>
+      <li>조기 경고로 결함이 있는 코드가 운영 환경에 배포되기 전에 문제를 해결할 수 있다.</li>
+    </ul>
+  </li>
+  <li>코드 변경이 회귀로 이어지지 않을 것 이라고 확신하게 된다.
+    <ul>
+      <li>확신이 없다면 리팩터링을 주저하게 되고 코드베이스가 나빠질 가능성이 훨씬 높아진다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>하지만 거짓 양성은 이 두 가지 이점을 모두 방해한다.</p>
+<ul>
+  <li>테스트가 타당한 이유 없이 실패하면, 코드 문제에 대응하는 능력과 의지가 희적된다.
+    <ul>
+      <li>실패에 익숙 -&gt; 신경 X -&gt; 타당한 실패도 무시</li>
+    </ul>
+  </li>
+  <li>거짓 양성이 빈번하면 테스트 스위트에 대한 신뢰가 떨어져 더 이상 믿을 만한 안정망으로 인식하지 않는다.
+    <ul>
+      <li>신뢰가 줄어듦 -&gt; 리팩토링이 줄어듦 -&gt; 회귀를 피하려 코드 변경을 최소화</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="거짓-양성의-원인">거짓 양성의 원인</h3>
+<ul>
+  <li>테스트와 SUT의 구현 세부 사항이 많이 결합할수록 허위 경보가 더 많이 생긴다.</li>
+  <li>거짓 양성을 줄이는 방법 : 테스트와 구현 세부 상황을 분리한다.</li>
+</ul>
+
+<h3 id="리팩터링-내성를-높이는-방법">리팩터링 내성를 높이는 방법</h3>
+<ul>
+  <li>코드의 내부 작업과 테스트 사이를 가능 한 멀리 떨어뜨리고 최종 결과를 목표로 한다.</li>
+</ul>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/book/2023/03/02/3-%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B5%AC%EC%A1%B0/" class="nav-link">3 단위테스트 구조</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/book/2023/03/11/%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%8A%A4%ED%83%80%EC%9D%BC/" class="nav-link">단위테스트 스타일</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

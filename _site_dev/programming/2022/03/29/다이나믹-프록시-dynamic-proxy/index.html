@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다이나믹 프록시 - Dynamic Proxy</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">다이나믹 프록시 - Dynamic Proxy</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["programming"]'
+          tags='["TIL","byte-code-controller-way","coding","development","java"]'
+          date="March 29, 2022"
+          reading-time="2"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="다이나믹-프록시---dynamic-proxy">다이나믹 프록시 - Dynamic Proxy</h1>
+<p>런타임에 특정 인터페이스들을 구현하는 클래스 또는 인스턴스를 만드는 기술</p>
+<ul>
+  <li><a href="https://docs.oracle.com/javase/8/docs/technotes/guides/reflection/proxy.html">공식문서</a></li>
+</ul>
+
+<h3 id="proxy-패턴을-정적으로-개발자가-직접-구현-시-단점">Proxy 패턴을 정적으로 개발자가 직접 구현 시 단점</h3>
+<ul>
+  <li>부가적인 기능을 추가할 때 마다 별도의 Proxy를 만들어야 한다.</li>
+  <li>위임하는 코드가 중복해서 발생할 수 있다.</li>
+</ul>
+
+<h4 id="다이나믹-프록시-사용처">다이나믹 프록시 사용처</h4>
+<ul>
+  <li>Spring Data JPA</li>
+  <li>Spring AOP</li>
+  <li>Mockito</li>
+  <li>Hibernate lazy initialization</li>
+</ul>
+
+<h4 id="단점">단점</h4>
+<ul>
+  <li>Class기반 Proxy를 만들 수 없다.</li>
+  <li>코드의 유연성이 떨어진다.</li>
+</ul>
+
+<h2 id="사용-예제">사용 예제</h2>
+<h4 id="클래스-구조">클래스 구조</h4>
+<ul>
+  <li>
+    <p><code>Book</code>, <code>BookService</code>와 이를 구현하고 있는 <code>DefaultBookService</code> 가 있다.
+```java
+public class Book {</p>
+
+    <p>private String title;
+  public Book() {}</p>
+
+    <p>public Book(String title) {
+      this.title = title;
+  }</p>
+
+    <p>public String getTitle() {
+      return title;
+  }</p>
+
+    <p>public void setTitle(String title) {
+      this.title = title;
+  }
+}</p>
+  </li>
+</ul>
+
+<p>public interface BookService {</p>
+
+<pre><code>void rent(Book book);
+void returnBook(Book book); }
+</code></pre>
+
+<p>public class DefaultBookService implements BookService{</p>
+
+<pre><code>@Override
+public void rent(Book book) {
+    System.out.println("rent: " + book.getTitle());
+}
+
+    @Override
+public void returnBook(Book book) {
+    System.out.println("return: " + book.getTitle());
+} } ``` ### 동적으로 Proxy를 생성 &gt; Proxy.newProxyInstance(ClassLoader, Class&lt;?&gt;[], InvocationHandler) 1. 첫 번째 인자로 해당 Class를 불러온 `ClassLoader`를 넘겨준다. 2. 두 번째 인자로 Proxy를 만들 객체의 interface를 Class 배열로 넘겨준다. 3. 세 번째 인자로 이 Proxy의 메서드가 호출이 될 때 어떻게 처리해야 할지에 대한 설명을 넘겨준다.
+</code></pre>
+
+<pre><code class="language-java">    BookService bookService = (BookService) Proxy.newProxyInstance(
+            BookService.class.getClassLoader(), // BookService를 불러온 class loader
+            new Class[]{BookService.class}, // 어떤 interface의 Proxy 타입
+            new InvocationHandler() { // method 타입을 어떻게 처리할 것 인지 정의
+                BookService bookService = new DefaultBookService();
+
+                @Override
+                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                    System.out.println("AAAA");
+                    Object invokeValue = method.invoke(bookService, args);
+                    System.out.println("BBBB");
+                    return invokeValue;
+                }
+            }
+    );
+</code></pre>
+
+<h4 id="java의-다이나믹-프록시의-단점">Java의 다이나믹 프록시의 단점</h4>
+<p>첫 번째로 자바에서 제공하는 동적 프록시는 <strong>유연하지 않다.</strong></p>
+<blockquote>
+  <p>메서드별로 다르게 적용하려고 하면 코드가 엄청 커진다.</p>
+</blockquote>
+
+<p>만약 <code>DefaultBookService</code>의 <code>rent</code>메서드만 따로 다르게 출력하고 싶다면 다음과 같은 방식으로 해야 한다.</p>
+<pre><code class="language-java">    BookService bookService = (BookService) Proxy.newPoxyInstance(
+    BookService.class.getClassLoader(), // BookService를 불러온 class loader
+    new Class[]{BookService.class}, // 어떤 interface의 Proxy 타입
+    new InvocationHandler() { // method 타입을 어떻게 처리할 것 인지 정의
+        BookService bookService = new DefaultBookService();
+
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            if(method.getName().equals("rent"));{
+                System.out.println("AAAA");
+                Object invokeValue = method.invoke(bookService, args);
+                System.out.println("BBBB");
+                return invokeValuer
+            }
+
+
+            return method.invoke(bookService, args);
+        }
+    }
+);
+</code></pre>
+<p>결국 proxy 클래스를 만들지 않는 수고를 덜 수 있지만 유연하지 않아 확장성이 떨어져 코드가 복잡하고 커지게 된다.</p>
+
+<p>두 번째는 <strong>class기반의 프록시를 만들 수 없다.</strong></p>
+<blockquote>
+  <p>class기반의 프록시를 만드는 방법은 <code>ByteBuddy</code>와 <code>CGlib</code>로 만들 수 있다</p>
+</blockquote>
+
+<p><a href="class-base-proxy">다음글 class기반의 프록시 생성방법</a></p>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/programming/2022/03/29/wrapper-class/" class="nav-link">Wrapper class</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/programming/2022/03/29/%EB%94%94%EC%9E%90%EC%9D%B8-%ED%8C%A8%ED%84%B4/" class="nav-link">디자인 패턴</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

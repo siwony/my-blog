@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고급매핑 - 상속관계 매핑</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">고급매핑 - 상속관계 매핑</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["back-end"]'
+          tags='["spring","jpa","TIL"]'
+          date="March 19, 2022"
+          reading-time="3"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="고급매핑---상속관계-매핑">고급매핑 - 상속관계 매핑</h1>
+<blockquote>
+  <p>JPA는 DB의 <strong>슈퍼타입/서브타입</strong> 과 같은 <strong>어떠한 논리적 기법을 어떤 3가지 방법으로 매핑을 하던 모든 매핑을 지원한다.</strong></p>
+  <h3 id="상속관계-매핑">상속관계 매핑</h3>
+  <p>: 객체의 상속과 구조와 DB의 슈퍼타입 서브타입 관계를 매핑하는것 <br />
+&lt;img width=550px src=./img/inheritance-relationship-mapping.png&gt;</p>
+</blockquote>
+
+<p>: 객체의 상속, 구조, DB의 슈퍼타입 서브타입 관계를 매핑한다.</p>
+<ul>
+  <li>객체는 상속관계가 있지만, DB는 상속관계가 없다.</li>
+  <li><strong>슈퍼타입 서브타입 관계라는 모델링 기법</strong>이 객체 상속과 유사하다.</li>
+</ul>
+
+<h3 id="상속관계-매핑의-종류">상속관계 매핑의 종류</h3>
+<ul>
+  <li>
+    <p>조인 전략 → 각각 테이블로 변환</p>
+  </li>
+  <li>단일 테이블 전략 → 통합 테이블로 변환</li>
+  <li>구현 클래스마다 테이블 전략 → 서브타입 테이블로 변환</li>
+</ul>
+
+<h3 id="1-조인-전략">1. 조인 전략</h3>
+<p>: 각각 테이블로 변환한다.</p>
+<blockquote>
+  <p>굉장히 정규화된 방법이다. 설계를 기본적으로 깔고 들어가야 한다.</p>
+</blockquote>
+
+<p>&lt;img width=500px src=./img/join-strategy.png&gt;</p>
+
+<ul>
+  <li><code>@Inheritance(strategy = InheritanceType.JOINED)</code></li>
+  <li>
+    <p>슈퍼타입 테이블의 “기본키”를 서브타입 테이블의 “기본키”겸 “외래키”로 둔다.</p>
+  </li>
+  <li>그후 상위 테이블은 조인할 테이터를 구분할 수 있는 구분 컬럼을 둔다.</li>
+</ul>
+
+<h4 id="장점">장점</h4>
+<ul>
+  <li>테이블을 정규화 할 수 있다</li>
+  <li>FK 참조 무결성 제약조건 활용가능하다</li>
+  <li>저장공간이 효율화 된다.</li>
+</ul>
+
+<h4 id="단점">단점</h4>
+<ul>
+  <li>조회시 조인을 많이 사용한다. → 성능 저하
+    <blockquote>
+      <p>근데 그렇게 크게 문제가 될건 아니다. - 김영한</p>
+    </blockquote>
+  </li>
+  <li>조회 쿼리가 복잡하다.</li>
+  <li>데이터 저장시 <code>INSERT query</code>를 2번 호출한다.</li>
+</ul>
+
+<h4 id="예시-코드">예시 코드</h4>
+<pre><code class="language-java">@Entity
+@Inheritance(strategy = InheritanceType.JOINED) 
+@DiscriminatorColumn // 무슨타입인지 알려주는 DTYPE 컬럼추가
+public abstract class Item{
+
+    @Id @GeneratedValue
+    private Long id;
+
+    private String name;
+    private int price;
+}
+
+@Entity
+@DiscriminatorValue("A") //이렇게 DTYPE을 지정 할 수 있다.
+public class Album extends Item{
+
+    private String artist;
+}
+
+@Entity
+public class Movie extends Item{
+
+    private String director;
+    private String actor;
+}
+
+@Entity
+public class Book extends Item{
+
+    private String author;
+    private String isbn;
+}
+</code></pre>
+
+<h3 id="2-단일-테이블-전략">2. 단일 테이블 전략</h3>
+<p>: 통합 테이블로 변환한다. → 걍 다 합쳐버린다.</p>
+<blockquote>
+  <p>테이블은 단순하지만 객체지향적으로 상속하게 되어있을수 있다.</p>
+</blockquote>
+
+<p>&lt;img width=500px src=./img/single-table-strategy.png&gt;</p>
+
+<ul>
+  <li>성능적으로 좋다. 쿼리도 적게 나간다.</li>
+  <li>테이블이 단일 테이블이라 내가 무슨 타입인지 모르므로 기본으로 DTYPE이 들어간다.
+    <blockquote>
+      <p>조인 전략은 어쨌든 DTYPE없어도 내가 무엇인지 찾을 수 있지만…</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="장점-1">장점</h4>
+<ul>
+  <li>일반적으로 조회 성능이 빠르다. → 조인이 필요 없으므로</li>
+  <li>조회 쿼리가 단순하다.</li>
+</ul>
+
+<h4 id="단점-1">단점</h4>
+<ul>
+  <li>데이터 무결성에 문제가 있다. → 자식 엔티티가 매핑한 컬럼은 모두 null을 허용한다.</li>
+  <li>조회 성능이 오히려 느려질 수 있다. → 단일 테이블에 모든 것을 저장하므로 테이블이 커질 수 있기 때문이다.
+    <blockquote>
+      <p>이 정도 임계점을 넘기가 힘들다.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="예시코드">예시코드</h4>
+<blockquote>
+  <p>그냥 상위 Entity에 <code>Inheritance(strategy = InheritanceType.SINGLE_TABLE)</code> 를 해주면 된다.
+```java
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) 
+//@DiscriminatorColumn // 이거 없어도 DTYPE이 넣어진다. 필수적으로 생성된다.
+public abstract class Item{</p>
+</blockquote>
+
+<pre><code>@Id @GeneratedValue
+private Long id;
+
+private String name;
+private int price; } ```
+</code></pre>
+
+<h3 id="3-구현-클래스마다-테이블-전략">3. 구현 클래스마다 테이블 전략</h3>
+<p>: 서브타입 테이블로 변환한다. → 중복되어도 그대로 사용한다. <br />
+<strong>이 전략은 DB 설계자와 ORM 전문가 둘 다 추천하지 않는다!</strong></p>
+<blockquote>
+  <p>너무 비효율적이다. 모든 테이블을 다 찾아야된다. 이건 쓰면 안된다!</p>
+</blockquote>
+
+<p>&lt;img width=600px src=./img/each-implements-class-table-strategy.png&gt;</p>
+
+<ul>
+  <li>중간의 아이템을 만들지 않고 중복되는 컬럼을 각각의 테이블에 넣는다.</li>
+</ul>
+
+<h4 id="장점-2">장점</h4>
+<ul>
+  <li>서브 타입을 명확하게 구분해서 처리할 때 효과적</li>
+  <li><code>NotNull</code> 제약조건을 사용할 수 있다.</li>
+</ul>
+
+<h4 id="치명적인-단점">치명적인 단점</h4>
+<ul>
+  <li>여러 자식 테이블을 함께 조회할 때 성능이 느리다. → <code>UNION QUERY</code>를 날려야 한다.</li>
+  <li>자식 테이블을 통합해서 쿼리하기 어렵다 → 변경이라는 관점에서 보면 엄청 안좋다.</li>
+</ul>
+
+<h4 id="예시코드-1">예시코드</h4>
+<pre><code class="language-java">@Entity
+@Inheritance(strategy = InheritanceType.TABLE_TER_CLASS) 
+//@DiscriminatorColumn  의미가 없다. 테이블 자체가 다르다.
+public abstract class Item{
+
+    @Id @GeneratedValue
+    private Long id;
+
+    private String name;
+    private int price;
+}
+</code></pre>
+
+<h3 id="dtype">DTYPE</h3>
+<p>: 상속 관계 매핑시 부모 클래스에서 자식 클래스를 구분할 컬럼명이다.</p>
+<ul>
+  <li><code>@DiscriminatorColumn</code></li>
+  <li><code>DTYPE</code>의 기본값은 각 자식의 클래스명이다.</li>
+  <li><code>@DiscriminatorValue("사용자지정값")</code> 처럼 자식테이블에 지정해 줄 수 있다.</li>
+</ul>
+
+<p><strong>DTYPE 필요한 이유</strong></p>
+<ul>
+  <li>객체에서 봤을때는 무엇을 조인해야되는지 알 수 있다.</li>
+  <li>하지만 DB에 쿼리를 날렸을 때 어떠한 테이블로 인하여 값이 들어왔는지 모른다.<br />
+(Album? Movie? Book?)</li>
+  <li><code>DTYPE</code>은 운영상 있는게 좋다.</li>
+</ul>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/back-end/2022/03/19/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%EC%BF%BC%EB%A6%AC-%EC%96%B8%EC%96%B4/" class="nav-link">객체지향 쿼리 언어</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/back-end/2022/03/19/%EA%B3%A0%EC%95%84-%EA%B0%9D%EC%B2%B4orpan/" class="nav-link">고아 객체(ORPAN)</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

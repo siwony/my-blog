@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인덱스 - Index</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">인덱스 - Index</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["database"]'
+          tags='["data-modeling","TIL"]'
+          date="February 22, 2022"
+          reading-time="1"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="인덱스---index">인덱스 - Index</h1>
+<blockquote>
+  <p>핵심을 full scan을 하지 않고 인덱스 테이블을 통해 효율적으로 검색하는 것</p>
+</blockquote>
+
+<p><img width="650" src="/assets/images/posts/database/index-structure.png" /></p>
+
+<h2 id="2-인덱스의-특징">2. 인덱스의 특징</h2>
+<ul>
+  <li>실제 테이블을 Full Scan하지 않고 인덱스 테이블을 검색한다.</li>
+  <li>지나치게 많은 인덱스 생성시 시간 및 공간이 낭비된다.</li>
+  <li>인덱스된 필드의 업데이트시 시간이 증가한다.</li>
+  <li>자동 생성(PK or Unique) / 수동 생성(Create Index 구문)</li>
+  <li>B-tree, B+tree와 같은 자료구조를 활용한다.</li>
+</ul>
+
+<h2 id="1-인덱스의-스캔-구조-이해">1. 인덱스의 스캔 구조 이해</h2>
+
+<h3 id="1-1-인덱스-스캔-방법">1-1. 인덱스 스캔 방법</h3>
+<ul>
+  <li>
+    <p>SELECT 주문단가 FROM 주문목록 WHERE <strong>주문번호 = ‘1002’</strong><br />
+<img width="650" src="/assets/images/posts/database/index-scan-ex.png" /></p>
+  </li>
+  <li>
+    <p>Full Scan을 하지 않고 인덱스 테이블의 주문번호가 1002번인 결과값만 조회했다.</p>
+  </li>
+</ul>
+
+<p>만약 최초의 정렬기준이 아닌 다른 정렬기준으로 조회를 하면 어떻게 될까?</p>
+
+<ul>
+  <li>SELECT 주문단가 FROM 주문목록 WHERE <strong>주문일자=’2008.1.1’</strong><br />
+<img width="650" src="/assets/images/posts/database/index-scan-ex2.png" /></li>
+</ul>
+
+<p>맨 앞에 있는 칼럼이 제외된 상태에서는 데이터를 조회 할 경우 데이터를 비교하는 범위가 매우 넓어지게 되어 성능 저하를 유발하게 된다.</p>
+
+<h4 id="pk의-속성-순서대로-인덱스가-정렬된다">PK의 속성 순서대로 인덱스가 정렬된다.</h4>
+
+<h4 id="fk-인덱스-설정을-통한-성능-향상">FK 인덱스 설정을 통한 성능 향상</h4>
+
+<ul>
+  <li>ex) 고객번호가 <code>1234</code>인 고객의 대여기록 조회
+    <blockquote>
+      <p>고객 테이블에 4천건, 대여 테이블에 1,000만건이 존재하는 경우</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><img src="/assets/images/posts/database/fk-index-setting.png" /></p>
+
+<p>출처: https://youtu.be/mjanSuhnpNw?t=632</p>
+
+<p>→ 대여 테이블의 고객번호에 인텍스를 설정함으로 성능 향상이 가능하다.</p>
+
+<p>이전글: <a href="denormalization.md">3-2. 반정규화</a>
+다음글: <a href="distributed-database.md">3-4. 분산데이터베이스</a></p>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/database/2022/02/22/%EB%B6%84%EC%82%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-distributed-database/" class="nav-link">분산 데이터베이스 - distributed database</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/database/2022/02/24/sql/" class="nav-link">SQL</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

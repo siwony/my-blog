@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>너비 우선 탐색 - Breadth-First Search</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">너비 우선 탐색 - Breadth-First Search</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["algorithm"]'
+          tags='["graph-search","TIL"]'
+          date="March 17, 2022"
+          reading-time="1"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="너비-우선-탐색---breadth-first-search">너비 우선 탐색 - Breadth-First Search</h1>
+<p><strong>루트 노드(혹은 다른 임의의 노드)에서 시작해서 인접한 노드를 먼저 탐색하는 방법이다.</strong></p>
+
+<ul>
+  <li>맹목적인 탐색을 하고자 할 때 사용할 수 있다.</li>
+  <li>주로 두 노드 사이의 최단 경로 혹은 임의의 경로를 찾고 싶을 때 사용한다.</li>
+  <li><code>큐 - Queue</code> 자료구조를 이용해 구현한다.</li>
+</ul>
+
+<h3 id="동작-원리">동작 원리</h3>
+<p>BFS의 동작은 큐를 이용해 지금 위치에서 갈 수 있는 노드를 모두 넣는 방식으로, 큐에 넣는 동시에 방문했다고 체크해야 한다.</p>
+
+<h4 id="준비물">준비물</h4>
+<ul>
+  <li>그래프 혹은 트리</li>
+  <li>Queue</li>
+  <li>방문여부 확인용 배열
+    <blockquote>
+      <p>트리가 아닌 그래프에 꼭 필요하다.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="bfs를-통해-해결할-수-있는-문제의-조건">BFS를 통해 해결할 수 있는 문제의 조건</h3>
+<ol>
+  <li><strong>최소 비용</strong> 문제이어야 한다.</li>
+  <li>간선의 <strong>가중치가 1</strong> 이어야 한다.</li>
+  <li>정점과 간선의 개수가 적어야 한다.</li>
+</ol>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/network/2022/03/17/websocket/" class="nav-link">WebSocket</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/network/2022/03/17/%EB%8D%94-%EB%82%98%EC%9D%80-uri-api%EB%A5%BC-%EC%84%A4%EA%B3%84-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95%EA%B3%BC-http-method/" class="nav-link">더 나은 URI API를 설계 하는 방법과 HTTP method</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

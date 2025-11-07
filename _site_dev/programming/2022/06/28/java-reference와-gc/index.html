@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Reference와 GC</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Java Reference와 GC</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["programming"]'
+          tags='["TIL","coding","memory","development","java"]'
+          date="June 28, 2022"
+          reading-time="4"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="java-reference와-gc">Java Reference와 GC</h1>
+<p>최초의 Java에서는 GC작업에 애플리케이션의 사용자 코드가 관여하지 않도록 구현되어 있었지만 GC작업에서 좀 더 다양한 방법으로 객체를 처리하기 위해 JDK1.2부터 <code>java.lang.ref</code> 패키지를 추가하여 제한적으로 사용자 코드와 GC가 상호작용할 수 있게 되었다.</p>
+
+<h3 id="javalangref">java.lang.ref</h3>
+<p><code>java.lang.ref</code> 패키지는 <code>strong reference</code> 이외에 <code>soft</code>, <code>weak</code>, <code>phantom</code> 3가지의 새로운 참조 방식을 각각 <code>Reference</code> 클래스로 제공한다.</p>
+
+<blockquote>
+  <h4 id="strong-reference-란">strong reference 란?</h4>
+  <p><code>A a = new A()</code>코드에서 변수<code>a</code>가 생성된 <code>A</code>객체를 참조하는 것 과 같이 전형적으로 객체를 참조하는 방식을 의미한다.<br />
+강한 참조를 통해 참조되고 있는 객체는 가비지 컬렉션의 대상에서 제외된다.</p>
+</blockquote>
+
+<h4 id="javalangrefreference는-어떻게-활용할-수-있나요">java.lang.ref.Reference는 어떻게 활용할 수 있나요?</h4>
+<ul>
+  <li>GC에 일정 부분 관여할 수 있다.</li>
+  <li><code>LRU - Least Recently Used</code> 캐시 와 같이 특별한 작업을 하는 애플리케이션 작성</li>
+</ul>
+
+<h2 id="1-가비지-판단-기준">1. 가비지 판단 기준</h2>
+<p><strong>Java GC는 객체가 가비지인지 판별하기 위해 reachability라는 개념을 사용한다.</strong></p>
+<ul>
+  <li>어떤 객체에 유효한 참조가 있으면 <code>reachable</code></li>
+  <li>어떤 객체에 유효한 참조가 없다면 <code>unreachable</code></li>
+</ul>
+
+<p>가비지 판단 기준은 2가지로 나뉘고, <code>unreachable</code>객체를 가비지로 간주해 GC를 수행한다.</p>
+
+<p>한 객체는 여러 다른 객체를 참조하고, 참조된 다른 객체들도 또 다른 객체들을 참조할 수 있으므로 객체들은 참조 사슬을 이룬다. 이 상황에서 <strong>유효한 참조 여부를 파악하려면 유효한 최초의 참조가 있어야 하는데 이를 <code>객체 참조의 root set</code></strong> 이라고 한다.</p>
+
+<h4 id="root-set의-종류">root set의 종류</h4>
+<p>힙에 있는 객체들에 대한 참조는 4가지 종류가 있는데</p>
+<ol>
+  <li>힙 내의 다른 객체에 의한 참조</li>
+  <li><strong>Java 스택, 즉 Java 메서드 실행 시 사용하는 지역 변수와 파라미터들에 의한 참조</strong></li>
+  <li><strong>네이티브 스택, 즉 JNI에 의해 생성된 객체에 대한 참조</strong></li>
+  <li><strong>메서드 여역에 정적 변수에 의한 참조</strong></li>
+</ol>
+
+<p>이들 중 <strong><code>1. 힙 내의 다른 객체에 의한 참조</code>를 제외한 나머지 3개(2, 3, 4)가 root set으로 reachability를 나누는 기준이 된다.</strong></p>
+
+<h2 id="2-soft-weak-phantom-reference와-reachability">2. Soft, Weak, Phantom Reference와 Reachability</h2>
+<p><code>java.lang.ref</code>는 soft/weak/phantom reference를 클래스 형태로 제공한다. <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ref/package-summary.html">java.lang.ref 공식 문서</a></p>
+
+<p>Soft/Weak/Pantom Reference 객체는 다른 객체와 달리 Java GC가 특별하게 취급한다.</p>
+
+<h4 id="weakreference-클래스-예제">WeakReference 클래스 예제</h4>
+<p>다음은 WeakReference의 생성 예제이다.</p>
+<pre><code class="language-java">WeakReference&lt;Sample&gt; wr = new WeakReference&lt;&gt;(new Sample());
+Sample wrGet = wr.get();
+</code></pre>
+
+<p><code>java.lang.ref.WeakReference</code> 클래스는 참조 대상인 객체를 캡슐화 한 <code>WeakReference</code>객체를 생성한다.
+이렇게 생성된 <code>WeakReference</code>객체는 다른 객체와 달리 Java GC가 특별하게 취급된다.</p>
+
+<p><strong>캡슐화된 내부 객체는 weak reference에 의해 참조된다.</strong></p>
+
+<p>위의 코드를 그림으로 나타내면 다음과 같다.<br />
+<img src="/assets/images/posts/programming/weak-ref-ex1.png" /></p>
+
+<p>Root set에서 변수<code>wr</code>는 <code>Simple</code>객체를 캡슐화한 <code>WeakReference</code>를 참조하고 있고, 변수<code>wrGet</code>는 <code>Simple</code>객체를 직접 참조하고 있다.</p>
+
+<p><strong>root set에 있는 변수<code>wrGet</code>가 Simple객체를 직접 참조를 하고 있으므로 <code>Simple</code>은 <code>strongly reachable object</code>이다.</strong></p>
+
+<p>만약 여기서 변수<code>wrGet</code>에 null를 대입하면 어떻게 될까?</p>
+
+<pre><code class="language-java">WeakReference&lt;Sample&gt; wr = new WeakReference&lt;&gt;(new Sample());
+Sample wrGet = wr.get();
+...
+wrGet = null
+</code></pre>
+<p>그림으로 나타내면 다음과 같다.<br />
+<img src="/assets/images/posts/programming/weak-ref-ex2.png" /></p>
+
+<p>이제 root set에서 <code>Simple</code>를 직접 참조하고 있는 객체가 없고 <code>WeakReference</code>를 통해 <strong>변수<code>wr</code>가 WeakReference로 간접적으로 참조하고 있으므로, <code>Simple</code>객체는 <code>Weakly reachable object</code>이다.</strong></p>
+
+<p>만약 <code>WeakReference</code>대신 <code>SoftReference</code>를 사용한다면 <code>Simple</code>객체는 <code>Softly reachable object</code>가 되고, <code>Phantom reachable object</code>가 된다.</p>
+
+<h3 id="2-1-java-스펙에서의-reference-object">2-1. Java 스펙에서의 reference object</h3>
+<p>Java 스펙에서는 <code>SoftReference</code>, <code>WeakReference</code>, <code>PhantomReference</code> 3가지 클래스에 의해 생성된 객체를 <code>reference object</code>라고 부른다.</p>
+
+<ul>
+  <li><code>reference object</code>는 <code>Reference</code> 클래스의 객체에 대해서만 사용하는 용어다.</li>
+  <li><code>reference object</code>에 의해 참조된 객체는 <code>referent</code>라고 부른다.</li>
+  <li>위 코드에서
+    <ul>
+      <li><code>reference object</code>는 <code>new WeakReference()</code> 생성자를 의미하고</li>
+      <li><code>referent</code>는 <code>new Sample()</code>생성자로 생성된 객체를 의미한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="3-strengths-of-reachability">3. Strengths of Reachability</h2>
+<p>앞에서 언급한 것 처럼 reachability는 총 5종류가 있고 이는 GC가 처리하는 기준이 된다.</p>
+
+<p>Java스펙에서 이들 5종류의 <code>reachability</code>를 <code>Strengths of Reachability</code>라고 불린다.</p>
+
+<p>하나의 객체는 여러 strong reference, soft reference, weak reference, phantom reference의 다양한 조합으로 참조될 수 있다.</p>
+
+<p>Java GC는 root set으로부터 시작해서 객체에 대한 모든 경로를 탐색하고 그 경로에 있는 <code>reference object</code>들을 조사하여 그 객체에 대한 <code>reachability</code>를 결정한다. 다양한 참조 관계의 결과, 하나의 객체는 다음 5가지 <code>reachability</code> 중 하나가 될 수 있다.</p>
+
+<h4 id="5가지-reachability">5가지 Reachability</h4>
+<ul>
+  <li><code>strongly reachable</code>: root set으로 시작하여 어떤 <code>reference object</code>가 없는 사슬이 하나라도 있는 객체</li>
+  <li><code>softly reachable</code>: strongly reachable 객체가 아닌 객체 중에 soft reference만 통과하는 참조 사슬이 하나라도 있는 객체</li>
+  <li><code>weakly reachable</code>: strongly reachable 객체가 아닌 객체 중에 weak reference만 통과하는 참조 사슬이 하나라도 있는 객체</li>
+  <li><code>phantomly reachable</code>: strongly reachable 객체, softly reachable 객체, weakly reachable 객체 모두 해당되지 않는 객체. 이 객체는 파이널라이즈(finalize)되었지만 아직 메모리가 회수되지 않은 상태이다.</li>
+  <li>unreachable: root set으로 부터 시작되는 참조 사슬로 참조되지 않는 객체</li>
+</ul>
+
+<p>Reachability에 대해 더 적고 싶지만 길어져 다음 md로 넘기려고 한다.</p>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li>https://d2.naver.com/helloworld/329631</li>
+  <li>https://madplay.github.io/post/java-garbage-collection-and-java-reference</li>
+  <li>https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ref/package-summary.html</li>
+  <li>https://luckydavekim.github.io/development/back-end/java/weak-reference-in-java</li>
+</ul>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/programming/2022/06/26/pojoplain-old-java-object/" class="nav-link">POJO(Plain Old JAVA Object)</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/programming/2022/06/28/weakhashmap/" class="nav-link">WeakHashMap</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

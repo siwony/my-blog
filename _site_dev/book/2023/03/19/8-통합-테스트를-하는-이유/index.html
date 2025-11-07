@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8. 통합 테스트를 하는 이유</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">8. 통합 테스트를 하는 이유</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["book"]'
+          tags='["유닛테스트","TIL"]'
+          date="March 19, 2023"
+          reading-time="5"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="8-통합-테스트를-하는-이유">8. 통합 테스트를 하는 이유</h1>
+
+<h2 id="통합-테스트는-무엇인가">통합 테스트는 무엇인가</h2>
+<p>통합 테스트란 시스템이 프로세스 외부 의존성과 어떻게 통합하는지 검증한다.</p>
+
+<p>단위 테스트의 세 가지 사항을 하나라도 충족하지 못하는 테스트는 통합테스트의 범주에 속한다.</p>
+
+<blockquote>
+  <ul>
+    <li>단일 동작 단위를 검증</li>
+    <li>빠르게 수행</li>
+    <li>다른 테스트와 별도로 처리</li>
+  </ul>
+</blockquote>
+
+<p>통합 테스트는 대부분 시스템이 프로세스 외부 의존성과 통합해 어떻게 작동하는지를 검증한다.</p>
+
+<ul>
+  <li>단위 테스트는 도메인 모델을 다룬다.</li>
+  <li>통합 테스트는 프로세스 외부 의존성과 도메인 모델을 연결하는 코드를 확인한다.</li>
+</ul>
+
+<p><img src="/assets/images/posts/book/통합테스트_단위테스트_사사분면.jpeg" /></p>
+
+<p>통합 테스트는 <code>주요 흐름(happy path)</code>,과 단위 테스트가 다루지 못한 <code>기타 예외 상황(edge case)</code> 를 다룬다.</p>
+
+<blockquote>
+  <h4 id="주요-흐름happy-apth">주요 흐름(happy apth)</h4>
+  <p>시나리오의 성공적인 실행이다.</p>
+  <h4 id="예외-상황edge-case">예외 상황(edge case)</h4>
+  <p>비즈니스 시나리오 수행 중 오류가 발생하는 경우</p>
+</blockquote>
+
+<p>하지만 통합 테스트는 유지비가 많이 든다.</p>
+<ul>
+  <li>프로세스 외부 의존성 운영이 필요한</li>
+  <li>관련된 협력자가 많아 테스트가 비대해진다.</li>
+</ul>
+
+<p>대부분의 통합테스트를 단위테스트로 변환하면 유지비를 절감할 수 있지만, 중요한 통합 테스트가 비즈니스 시나리오당 하나 또는 두 개 있으면 시스템 전체의 정확도를 보장할 수 있다.</p>
+
+<p><img src="/assets/images/posts/book/테스트%20피라미드.jpeg" /></p>
+
+<h3 id="통합-테스트와-빠른-실패">통합 테스트와 빠른 실패</h3>
+<p>어떠한 예외 상황에 잘못 실행돼 전체 애플리케이션이 즉시 실패하면 해당 예외 상황은 테스트할 필요 없다.</p>
+
+<pre><code class="language-kotlin">// User
+fun changeEmail(newEmail: String, company: Company) {
+    require(canChangeEmail())
+    
+    ...나머지
+}
+
+// UserController
+fun changeEmail(userId: Int, newEmail: String){
+    val user = userRepository.findByIdOrNull(userId)!!
+
+    val error = user.canChageEmail()
+    if(error != null)
+        return error
+
+    ...나머지
+}
+</code></pre>
+<p>컨트롤러는 <code>canChangeEmail()</code>를 호출하고 해당 메서드가 오류를 반환하면 연산을 중단한다.</p>
+
+<p>컨트롤러가 <code>canChangeEmail()</code>를 참조하지 않고 이메일을 변경하려고 하면</p>
+<ul>
+  <li>예외가 던져질 것이고</li>
+  <li><code>changeEmail()</code>매서드의 실행만으로 버그가 들어나므로 쉽게 알아차리고 고칠 수 있다.</li>
+  <li>데이터의 손상으로 이어지지 않는다.</li>
+</ul>
+
+<p>이러한 테스트는 단위 테스트로 하는 것이 더 낫고 통합 테스트를 통해 검증할 필요가 없는 케이스다.</p>
+
+<p>버그를 빨리 나타나게 하는 것을 <code>빠른 실패 원칙(Fast Fail principle)</code>이라 하며 통합테스트에서 할 수 이 있는 대안이다.</p>
+
+<h4 id="빠른-실패-원칙">빠른 실패 원칙</h4>
+<p>예기칙 않은 오류가 발생하자마자 현재 연산을 중단하는 것을 의미한다.</p>
+
+<p>이 원칙은 다음을 통해 애플리케이션의 안정성을 높인다.</p>
+<ul>
+  <li>피드백 루프 단축: 버그를 빨리 발견할수록 더 쉽게 해결할 수 있다.
+-&gt; 이미 운영 환경으로 넘어온 버그는 개발 중에 발견된 버그보다 수정 비용이 훨씬 더 크다.</li>
+  <li>지속성 상태 보호: 버그는 애플리케이션 상태를 손상시킨다. -&gt; 손상된 상태가 DB로 침투하면, 고치기가 훨씬 어려워진다. 빨리 실패하면 손상이 확산되는 것을 막을 수 있다.</li>
+</ul>
+
+<h2 id="어떤-프로레스-외부-의존성을-직접-테스트해야-하는가">어떤 프로레스 외부 의존성을 직접 테스트해야 하는가?</h2>
+<h3 id="프로세스-외부-의존성의-두-가지-유형">프로세스 외부 의존성의 두 가지 유형</h3>
+<h4 id="관리-의존성">관리 의존성</h4>
+<ul>
+  <li>애플리케이션을 통해서만 접근할 수 있으며, 해당 의존성과 상호 작용은 외부 환경에서 볼 수 없다.</li>
+  <li>관리 의존성과 통신은 구현 세부 사항이다.
+    <ul>
+      <li>외부 클라이언트는 DB의 구성을 신경 쓰지 않는다.</li>
+      <li>중요한 것은 시스템의 최종 상태이다.</li>
+    </ul>
+  </li>
+  <li>ex. DB</li>
+</ul>
+
+<h4 id="비관리-의존성">비관리 의존성</h4>
+<ul>
+  <li>해당 의존성과의 상호작용을 외부에서 볼 수 있다.</li>
+  <li>비관리 의존성의 통신은 식별할 수 있는 동작이다.</li>
+  <li>ex. SMTP, Message Bus</li>
+</ul>
+
+<h3 id="관리-의존성이며-비관리-의존성인-프로세스">관리 의존성이며 비관리 의존성인 프로세스</h3>
+<p>관리 의존성과 비 관리 의존성 모두의 속성을 나타내는 프로세스 외부 의존성이 있을 수 있다.
+<img src="/assets/images/posts/book/관리의존성이며_외부의존성인경우_유.jpeg" /></p>
+
+<ul>
+  <li>다른 애플리케이션에서 볼 수 있는 테이블을 비관리 의존성으로 취급한다.</li>
+</ul>
+
+<blockquote>
+  <p>시스템 간 통합을 구현하는 데 DB보다는 동기식/비동기식 통신을 사용하는 것이 낫다.</p>
+</blockquote>
+
+<h3 id="통합-테스트에서-실제-db를-사용할-수-없는경우">통합 테스트에서 실제 DB를 사용할 수 없는경우</h3>
+<p>DB를 그대로 테스트할 수 없다면 통합테스트를 아예 작성하지 말고 도메인 모델의 단위 테스트에만 집중하자</p>
+
+<p>가치가 충분하지 않은 테스트는 테스트 스위트에 있어서는 안된다.</p>
+
+<h2 id="잘못된-내외부-의존성을-위한-인터페이스-사용">잘못된 내/외부 의존성을 위한 인터페이스 사용</h2>
+<pre><code class="language-kotlin">interface UserRepository
+class UserRepositoryImpl: UserRepository
+</code></pre>
+<p>이렇게 인터페이스를 사용하는 일반적인 이유는 인터페이스가</p>
+<ul>
+  <li>프로세스 외부 의존성을 추상화해 느슨한 결합을 달성하고,</li>
+  <li>기존 코드를 변경하지 않고 새로운 기능을 추가해 OCP를 지키기 떄문이다.</li>
+</ul>
+
+<p>이 두 가지 이유 모두 오해이다.</p>
+
+<h3 id="1프로세스-외부-의존성을-추상화해-느슨한-결합을-달성한다">1.프로세스 외부 의존성을 추상화해 느슨한 결합을 달성한다.</h3>
+<p>단일 구현을 위한 인터페이스는 추상화가 아니며 해당 인터페이스를 구현하는 클래스보다 결합도가 낮지 않다.</p>
+
+<blockquote>
+  <p>진정한 추상화는 발견하는 것이지. 발명하는 것이 아니다.</p>
+</blockquote>
+
+<h3 id="2-인터페이스는-기존-코드를-변경하지-않고-새로운-기능을-추가해-ocp을-준수한다">2. 인터페이스는 기존 코드를 변경하지 않고 새로운 기능을 추가해 OCP을 준수한다.</h3>
+<p>YANGI는 현재 필요하지않은 기능에 시간을 들여서는 안되는 원칙을 말하며, 이는 기회 비용을 낭비하거나 프로젝트 코드의 경량화를 방해한다.</p>
+
+<h2 id="통합-테스트-모범-사례">통합 테스트 모범 사례</h2>
+<p>통합 테스트를 최대한 활용하는 데 도움이 되는 지침</p>
+<ol>
+  <li>도메인 모델 경계 명시</li>
+  <li>애플리케이션 내 계층 줄이기</li>
+  <li>순환 의존성 제거</li>
+</ol>
+
+<h3 id="1-도메인-모델-경계-명시">1. 도메인 모델 경계 명시</h3>
+<p>항상 도메인 모델을 코드베이스에 명시적이고 잘 알려진 위치에 두도록 하라.</p>
+
+<ul>
+  <li>도메인 클래스와 컨트롤러 사이의 명확한 경계로 단위테스트와 통합 테스트의 차리점을 쉽게 구별할 수 있다.</li>
+</ul>
+
+<h3 id="2-계층-수-줄이기">2. 계층 수 줄이기</h3>
+<blockquote>
+  <p>컴퓨터 과학의 모든 문제는 또 다른 간접 계층으로 해결할 수 있다. 간접 계층이 너무 많아서 문제가 생기지 않는다면 말이다.
+추상화가 지나치게 많으면 단위 테스트와 통합 테스트에도 도움이 되지 않는다.</p>
+  <ul>
+    <li>간접 계층이 많은 코드 베이스는 컨트롤러와 도메인 모델 사이에 명확한 경계가 없는 편이다.</li>
+    <li>각 계층을 따로 검증하는 경향이 훨씬 강하다.</li>
+    <li>이러한 경향으로 통합테스트는 가치가 떨어지며</li>
+    <li>특정 계층의 코드만 실행하고 하위 계층은 목으로 처리한다.</li>
+    <li>최종 결과는 항상 똑같이 낮은 리팩터링 내성과 불충분한 회귀 방지다.</li>
+  </ul>
+</blockquote>
+
+<h3 id="3-순환-의존성-제거하기">3. 순환 의존성 제거하기</h3>
+<p>순환 의존성의 대표적인 예는 call back이다.</p>
+<pre><code class="language-kotlin">class CheckOutService {
+    fun checkOut(orderId: Int) {
+        val service = ReportGenerationService();
+        service.generateReport(orderId, this)
+        ... 생략
+    }
+}
+
+class ReportGenerationService {
+    fun generationService(orderId: Int, checkOutService: CheckOutService) {
+        ...생략
+    }
+}
+</code></pre>
+
+<ul>
+  <li>순환 의존성은 테스트를 방해한다.
+    <ul>
+      <li>클래스 그래프를 나눠서 동작 단위를 하나 분리하려면 목으로 처리해야 하는 경우가 많음</li>
+    </ul>
+  </li>
+  <li>인터페이스를 사용해 해결(?)
+    <ul>
+      <li><code>ReportGenerationService</code>를 구체 클래스 대신 인터페이스에 의존하는 경우 컴파일 타임의 순환 참조를 해결할 수 있으나</li>
+      <li>여전히 런타임에 순환이 있다.</li>
+      <li>추가로 코드를 알아야 하는데 부담이 늘어난다.</li>
+    </ul>
+  </li>
+</ul>
+
+<pre><code class="language-kotlin">class CheckOutService {
+    fun checkOut(orderId: Int) {
+        val service = ReportGenerationService();
+        val report: Report = service.generateReport(orderId)
+        ... 생략
+    }
+}
+
+class ReportGenerationService {
+    fun generationService(
+        orderId: Int, 
+        checkOutService: CheckOutService
+    ): Report {
+        ...생략
+    }
+}
+</code></pre>
+<p><code>ReportGenerationService</code>가 CheckOutService를 호출하는 대신 작업 결과를 리턴하게 하자.</p>
+
+<h3 id="테스트에서-다중-실행-구절-사용">테스트에서 다중 실행 구절 사용</h3>
+<p>테스트 내에서 두개 이상의 준비/실행/검증 구절을 두는 것은 권장되지않는다.</p>
+
+<p>이는 테스트가 여러 가지 동작 단위를 확인한다는 신호로 유지보수성을 저해한다는 신호이기 때문이다.</p>
+
+<p>예를 들어 사용자의 등록과 삭제를 하나의 통합 테스트에서 확인하려고 하는 경우 아래와 같은 구조를 가질 수 있다.</p>
+
+<ul>
+  <li>준비 : 사용자 등록에 필요한 데이터 준비</li>
+  <li>실행 : UserController.RegisterUser() 호출</li>
+  <li>검증 : 등록 동작의 성공 여부를 확인하기 위해 데이터베이스 조회</li>
+  <li>실행 : UserController.DeleteUser() 호출</li>
+  <li>검증 : 삭제 동작의 성공 여부를 확인하기 위해 데이터 베이스 조회
+이러한 방식은 사용자의 상태가 자연스럽게 흐르기 때문에 어느정도 설득력이 있어보인다.</li>
+</ul>
+
+<p>문제는 이러한 테스트 구조는 어떤 것을 검증하려는 것인지 모호해지면서 규모가 순식간에 커질 수 있다는 점이다.</p>
+
+<p>따라서 각 실행을 고유의 테스트로 추출해 각각 테스트하는 것이 좋다.</p>
+
+<p>다만 예외적으로 원하는 상태로 만들기가 까다로운 프로세스 외부 의존성인 경우 여러 동작을 하나루 묶어서 처리해야 한다.</p>
+
+<p>이 방법은 프로세스 외부 의존성과의 상호 작용 횟수를 줄이는 효과가 있으므로 어느 정도 타당하다고 볼 수 있다.</p>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/book/2023/03/11/%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%8A%A4%ED%83%80%EC%9D%BC/" class="nav-link">단위테스트 스타일</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/book/2023/04/30/4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%9B%90%EC%B9%99/" class="nav-link">4. 컴포넌트 원칙</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

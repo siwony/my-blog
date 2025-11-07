@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Stream</title><link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css"><link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css"><link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css"><link rel="stylesheet" href="/assets/css/style.css"><script type="module" src="https://unpkg.com/ninja-keys?module"></script></head><body><div class="container"><header><h1><a href="/">My Tech Blog</a></h1><nav><ul><li><a href="/">Home</a></li></ul></nav></header><main><article class="post"><header class="post-header"><h1 class="post-title">Stream</h1><post-metadata layout="inline" categories='["programming"]' tags='["TIL","coding","development","java","api","java8"]' date="March 29, 2022" reading-time="3" compact="false"></post-metadata><div class="post-author"><span class="author-label">작성자:</span> <span class="author-name">jeongcool</span></div></header><div class="post-content"><h4 id="먼저-숙지해야-하는-것">먼저 숙지해야 하는 것</h4><blockquote><p>숙지하지 않아도 사용할 수 있지만, Stream은 여러 메서드에서 함수형 인터페이스를 사용하므로 숙지하는게 좋다.</p><ul><li>람다 표현식</li><li>메서드 레퍼런트<h1 id="stream">Stream</h1><p>: 연속적인 요소(element)들에 대한 <code>순차</code>/<code>병렬</code> <code>aggregate operations</code>를 지원하는 API이다. Sequence of elements supporting sequential and parallel aggregate operations</p></li><li>데이터를 담는 저장소(ex. Collecation)이 아니다.</li><li>대부분의 오퍼레이션의 인수는 함수형 인터페이스를 받으므로 람다, 메서드 레퍼런스를 활용한 개발이 가능하다.</li><li>Functional in nature, Stream이 처리하는 데이터 소스는 변경하지 않는다.</li><li><code>Stream</code>으로 처리하는 데이터는 오직 한 번만 처리된다.</li><li>무제한일 수 있다. → 실시간으로 들어온 데이터를 처리할 수 있다. <code>Short Circult</code> 메서드를 사용해 제안할 수 있다.</li><li>중개 오퍼레이션은 Lazy 하다. → 종료 오퍼레이션이 오지 않는 이상 실행되지 않는다.</li><li>쉬운 병렬처리가 가능하다. <code>parallelStream()</code> 으로 가능하다. 하지만 오히려 threed를 사용해 비용이 증가할 수 있다.</li></ul></blockquote><h3 id="stream-파이프라인">Stream 파이프라인</h3><p><img src="/assets/images/posts/programming/stream-api-ex.png"></p><ul><li>0 또는 다수의 <code>중개 오퍼레이션 - intermediation operation</code>과 한개의 <code>종료 오퍼레이션 - terminal operation</code>으로 구성한다.</li><li>Stream의 데이터 소스는 오직 종료 오퍼레이션을 실행할 때 처리한다.</li></ul><h4 id="중개-오퍼레이션">중개 오퍼레이션</h4><ul><li><strong>Stream을 리턴한다.</strong></li><li>Stateless / Stateful 오퍼레이션으로 구분할 수 있다.<blockquote><p>대부분 Stateless이다.</p></blockquote></li><li>Filtering - <code>filter()</code>, <code>distinct()</code></li><li>Mapping - <code>map()</code>, <code>flatMap()</code></li><li>Restricting - <code>limit()</code>, <code>skip()</code></li><li>Sorting - <code>sorted()</code></li><li>Iterating - <code>peek()</code><blockquote><p>버전에 따라 추가되거나 삭제될 수 있다.</p></blockquote></li></ul><h4 id="종료-오퍼레이션">종료 오퍼레이션</h4><ul><li><strong>Stream을 리턴하지 않는다.</strong></li><li>Stream에 대한 최종연산을 수행한다.</li><li><code>collect</code>, <code>allMatch</code>, <code>count</code>, <code>forEach</code>, <code>min</code>, <code>max</code> 등…</li></ul><h3 id="사용-예시">사용 예시</h3><p>등록된 온라인 강의를 특정 조건에 따라 검색하는 예시</p><ul><li><code>OnlineClass</code> 객체의 이름의 첫 시작, 종강여부에 따라 검색할 것이다.</li></ul><h4 id="onlineclass-객체">OnlineClass 객체</h4><pre><code class="language-java">public class OnlineClass {
+    public String username;
+    public String className;
+    public boolean isClosed;
+
+    static boolean isClosed(OnlineClass oc){
+        return oc.isClosed;
+    }
+
+    public OnlineClass(String username, String className, boolean isClosed){
+        this.username = username;
+        this.className = className;
+        this.isClosed = isClosed;
+    }
+}
+</code></pre><h4 id="실제-로직">실제 로직</h4><pre><code class="language-java">public static void main(String[] args) {
+    // 강의 저장
+    List&lt;OnlineClass&gt; onlineClasses = new ArrayList&lt;&gt;(
+            Arrays.asList(          // 강사이름  // 강의 이름             //종강 여부 
+                    new OnlineClass("egoging", "WEB class HTML/CSS/JS", false),
+                    new OnlineClass("egoging", "WEB + AI", true),
+                    new OnlineClass("김영한", "JPA 실전 강의", false),
+                    new OnlineClass("김영한", "JPA 활용 실전 강의", true)
+            )
+    );
+
+    // 강의 이름이 WEB으로 시작하는 수업 필터링 
+    System.out.println("=== 이름이 WEB으로 시작하는 수업 ===");
+    onlineClasses.stream()
+            .filter(oc -&gt; oc.className.startsWith("WEB"))
+            .forEach(oc -&gt; System.out.println(oc.className));
+    System.out.println(); // 한칸 줄바꿈을 위한 코드
+
+    // 종강된 수업 필터링
+    System.out.println("=== 종강된 수업 ===");
+    onlineClasses.stream()
+            .filter(OnlineClass::isClosed) // 부정 연산을 사용할 떄 Predicate.not(OnlineClass::isClosed)
+            .forEach(oc -&gt; System.out.println(oc.className));
+    System.out.println(); // 한칸 줄바꿈을 위한 코드
+
+    // 종강되지 않은 수업 필터링
+    System.out.println("=== 종강되지 않은 수업 ===");
+    onlineClasses.stream()
+        .filter(Predicate.not(OnlineClass::isClosed))
+        .forEach(oc -&gt; System.out.println(oc.className));
+}
+</code></pre><h4 id="결과">결과</h4><pre><code class="language-sh">=== close된 수업 ===
+WEB + AI
+JPA 활용 실전 강의
+
+=== 이름이 WEB으로 시작하는 수업 ===
+WEB class HTML/CSS/JS
+WEB + AI
+
+=== 종강되지 않은 수업 ===
+WEB class HTML/CSS/JS
+JPA 실전 강의
+</code></pre></div><footer class="post-footer"><div class="post-navigation"><div class="nav-previous"><span class="nav-label">이전 글</span> <a href="/programming/2022/03/29/strategy-pattern%EC%A0%84%EB%9E%B5-%ED%8C%A8%ED%84%B4/" class="nav-link">Strategy Pattern(전략 패턴)</a></div><div class="nav-next"><span class="nav-label">다음 글</span> <a href="/programming/2022/03/29/string-class/" class="nav-link">String class</a></div></div></footer></article></main></div><script src="/assets/js/prism/prism.min.js"></script><script src="/assets/js/prism/prism-autoloader.min.js"></script><script src="/assets/js/prism/prism-toolbar.min.js"></script><script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script><script src="/assets/js/prism/prism-show-language.min.js"></script><script src="/assets/js/prism/prism-line-numbers.min.js"></script><script>document.addEventListener("DOMContentLoaded",function(){Prism.plugins&&Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="/assets/js/prism/components/",console.log("Prism autoloader configured with local path:",Prism.plugins.autoloader.languages_path)),document.querySelectorAll('pre[class*="language-"]').forEach(function(s){s.classList.add("line-numbers")}),Prism.highlightAll()})</script><script src="/assets/js/command-palette.js"></script><script src="/assets/js/category-sidebar.js"></script><script src="/assets/js/post-metadata.js"></script></body></html>

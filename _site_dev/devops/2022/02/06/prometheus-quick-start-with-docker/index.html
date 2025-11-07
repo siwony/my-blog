@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prometheus quick start with docker</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Prometheus quick start with docker</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["devops"]'
+          tags='["prometheus","TIL"]'
+          date="February 06, 2022"
+          reading-time="2"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="prometheus-quick-start-with-docker">Prometheus quick start with docker</h1>
+<blockquote>
+  <p>이 글은 빠른 실습을 위해 Spring Boot + Spring Actuator를 기반으로 작성된 글입니다.</p>
+</blockquote>
+
+<p>Prometheus는 metric을 수집하고 모니터링 및 알람에 사용되는 오픈소스 애플리케이션이다.</p>
+
+<h2 id="설치-및-설정">설치 및 설정</h2>
+<h3 id="1-도커-이미지-다운로드">1. 도커 이미지 다운로드</h3>
+<pre><code class="language-sh">docker pull prom/prometheus
+</code></pre>
+
+<h3 id="2-prometheusyml-파일-생성">2. prometheus.yml 파일 생성</h3>
+<p>Prometheus Server는 <code>/etc/prometheus/prometheus.yml</code>설정 파일을 사용한다.
+docker volume mount를 이용해 local에 만든 <code>prometheus.yml</code>를 mount할 것이다.</p>
+
+<h4 id="1-1-prometheusyml-파일-생성-예시">1-1. prometheus.yml 파일 생성 예시</h4>
+<blockquote>
+  <p>Spring Boot Application을 기반으로 생성한 예제
+```yaml
+global:
+  scrape_interval: 10s
+  evaluation_interval: 10s</p>
+</blockquote>
+
+<p>scrape_configs:</p>
+<ul>
+  <li>job_name: ‘spring-boot-app’
+metrics_path: ‘/actuator/prometheus’ # Application prometheus endpoint
+static_configs:
+    <ul>
+      <li>targets: [‘host.docker.internal:8081’] # application host:port
+```</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><code>host.docker.internal</code>는 docker에서 특별한 DNS name으로 사용된다. 개발용으로만 사용해야 하며, Local를 제외한 외부의 환경에서는 동작하지 않는다.</p>
+</blockquote>
+
+<h3 id="3-docker-run">3. Docker run</h3>
+<pre><code class="language-sh">docker run -d --name 컨테이너-이름 -p docker내부포트번호:docker외부포트번호 -v 로컬-prometheus.yml경로:/etc/prometheus/prometheus.yml prom/prometheus
+</code></pre>
+
+<h4 id="3-1-예시">3-1. 예시</h4>
+<p><code>prometheus.yml</code>의 경로가 <code>~/spring-actuator/install/prometheus/prometheus.yml</code> 일 때 docker 외부/내부 포트를 9090으로 컨테이너를 만들고 실행하는 예시이다.</p>
+<pre><code class="language-sh">docker run -d --name prometheus -p 9090:9090 -v ~/spring-actuator/install/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+</code></pre>
+
+<h3 id="4-프로메테우스-접속">4. 프로메테우스 접속</h3>
+<p><a href="#3-1-예시">3-1. 예시</a>를 기준으로 실행시킨 프로메테우스 컨테이너의 http://localhost:9090 에 접속하면 다음과 같이 Prometheus 화면이 나온다.</p>
+
+<p><img width="750" src="/assets/images/posts/devops/quick-start-prometheus-main-page.png" /></p>
+
+<h4 id="4-1-configuration-확인하기">4-1. Configuration 확인하기</h4>
+<p>상단 네비게이션바에 <code>Status</code> → <code>Configuration</code>를 선택하면 다음과 같이 나타난다.
+<img width="750" src="/assets/images/posts/devops/quick-start-prometheus-config.png" /></p>
+
+<h4 id="4-2-application의-상태-확인하기">4-2. Application의 상태 확인하기</h4>
+<p>상단 네비게이션바에 <code>Status</code> → <code>Targets</code>를 선택하면 application의 상태를 나타낸다. 다음은 <a href="#3-1-예시">3-1. 예시</a>의 성공 예시이다.</p>
+
+<p><img width="750" src="/assets/images/posts/devops/quick-start-prometheus-targets-ex1.png" /></p>
+
+<p>다음은 prometheus.yml파일에 host 이름을 잘못 입력했거나 서버가 down되었을 때 나타난다.</p>
+
+<p><img width="750" src="/assets/images/posts/devops/quick-start-prometheus-targets-ex2.png" /></p>
+
+<h3 id="5-프로메테우스-메트릭-확인하기">5. 프로메테우스 메트릭 확인하기</h3>
+<p>메인페이지에서 페널을 하나 만들고 검색창에 확인하고 싶은 메트릭을 입력하고 Execute를 누른다.</p>
+
+<p>다음 예시는 http_server-requests_seconds_count 메트릭을 보여주는 예시이다.</p>
+
+<p><img width="750" src="/assets/images/posts/devops/quick-start-prometheus-metric-check.png" /></p>
+
+<h2 id="여담">여담</h2>
+<ul>
+  <li>프로메테우스는 따로 timezone 설정이 안된다.
+    <blockquote>
+      <p>그래서 따로 grafana를 사용해 변경할 수 있다.</p>
+    </blockquote>
+  </li>
+  <li>프로메테우스 하나로 쓰기는 너무 구려서 그라파나 혹은 데이터독을 사용할 예정이다.</li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li>https://jongmin92.github.io/2019/12/04/Spring/prometheus/</li>
+  <li>https://yjwang.tistory.com/85</li>
+</ul>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/database/2022/02/03/%EC%A0%95%EA%B7%9C%ED%99%94%EC%99%80-%EC%84%B1%EB%8A%A5/" class="nav-link">정규화와 성능</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/database/2022/02/06/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AA%A8%EB%8D%B8%EB%A7%81%EC%9D%98-%EC%9D%B4%ED%95%B4/" class="nav-link">데이터 모델링의 이해</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

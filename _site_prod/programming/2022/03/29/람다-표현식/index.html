@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>람다 표현식</title><link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css"><link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css"><link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css"><link rel="stylesheet" href="/assets/css/style.css"><script type="module" src="https://unpkg.com/ninja-keys?module"></script></head><body><div class="container"><header><h1><a href="/">My Tech Blog</a></h1><nav><ul><li><a href="/">Home</a></li></ul></nav></header><main><article class="post"><header class="post-header"><h1 class="post-title">람다 표현식</h1><post-metadata layout="inline" categories='["programming"]' tags='["TIL","grammar","coding","development","java","java8"]' date="March 29, 2022" reading-time="2" compact="false"></post-metadata><div class="post-author"><span class="author-label">작성자:</span> <span class="author-name">jeongcool</span></div></header><div class="post-content"><h1 id="람다-표현식">람다 표현식</h1><p>: 간단히 메소드를 하나의 식으로 표현한 것이다.</p><h3 id="표현방법">표현방법</h3><h4 id="1-람다">1. 람다</h4><p><code>(인자 리스트) -&gt; {바디}</code></p><h4 id="2-인자리스트">2. 인자리스트</h4><ul><li>인자가 없을 떄 : <code>()</code><pre><code class="language-java">Supplier&lt;Integer&gt; get10 = () -&gt; 10;
+//혹은
+Supplier&lt;Integer&gt; get10 = () -&gt; {
+    return 10
+};
+</code></pre></li><li><p>인자가 한개일 때: <code>(one)</code>, <code>one</code></p></li><li>인자가 여러개 일 때: <code>(one, two)</code><pre><code class="language-java">BinaryOperator&lt;Integer&gt; sum = (a, b) -&gt; a + b;
+//혹은
+BinaryOperator&lt;Integer&gt; sum = (Integer a, Integer b) -&gt; a + b;
+</code></pre></li><li>인자의 타입을 생략 가능하다.</li><li>컴파일러가 추론(infer)하지만 명시할 수 있다.<br>ex. <code>(Integer one, Integer two)</code></li></ul><h3 id="변수-캡처variable-capture">변수 캡처(Variable Capture)</h3><h4 id="effectiv-final">effectiv final</h4><p>: <code>final</code>로 선언은 되지 않았지만 변수의 값이 사실상 변하지 않는 <code>final</code>한 변수</p><ul><li>만약 나중에 <code>effective final</code>로 선언된 변수의 값이 변경된다면 <code>effective final</code>이 아니다.</li><li>Java 8부터 지원하는 기능이다.</li><li>익명 클래스 구현체, 람다에서 사용가능하다.</li></ul><p>예시</p><pre><code class="language-java">public void run(){
+    int baseNumber = 10; // 사실상 baseNumber가 변하지 않는다.
+
+    IntConsumer printInt = (i) -&gt; System.out.println(i + baseNumber);
+
+    // baseNumber++ 와 같이 변수의 값을 변경한다면 effectiv final이 아니다.
+}
+</code></pre><h4 id="로컬-변수-캡처">로컬 변수 캡처</h4><p>: <code>final</code> 혹은 <code>effective final(사실상 final)</code> 인 경우에만 참조할 수 있다.</p><ul><li>그렇지 않을 경우 <code>concurrency(동시성)</code> 문제가 생길 수 있어서 컴파일러가 방지한다.</li></ul><p>예시</p><pre><code class="language-java">public void run(){
+    final int baseNumber = 10;
+
+    IntConsumer printInt = (i) -&gt; System.out.println(i + baseNumber);
+}
+</code></pre><h4 id="변수의-쉐도잉variable-shadowing">변수의 쉐도잉(Variable Shadowing)</h4><blockquote><p><strong>익명 클래스는 새로 scop를 만들지만, 람다는 람다를 감싸고 있는 스콥과 같다.</strong> ```java public void run(){ int num = 10; num++; //num 을 증가하였으므로 effective Final이 아니다.</p></blockquote><pre><code>//로컬 클래스
+class local
+{
+	void print()
+	{
+        // 여기서 num은 local class속 printf()에 scope를 가져 run매서드의 num을 가린다.
+		int num = 1; 
+		System.out.println(num); //1를 출력한다.
+	}
+}
+
+//익명 클래스
+Consumer&lt;Integer&gt; anomy = new Consumer&lt;Integer&gt;() {
+	
+	@Override
+	public void accept(Integer t) {
+        // 여기서 num은 Consumer class속 accept()에 scope를 가져 run매서드의 num을 가린다.
+		int num = 1 + t;
+		System.out.println(num); //1 + 입력받은값(t)가 출력된다.
+	}
+};
+
+//람다식
+/**
+/* 람다식은 run() 메서드와 scope가 같으므로 run()의 num을 참조하지만
+/* run()의 num은 effective Final이 아니므로 컴파일 오류가 난다.
+**/ 
+Consumer&lt;Integer&gt; lamda = (num) -&gt; // num에 오류
+{
+	int num=11; // 오류
+	System.out.println("hi");
+}; } ```
+</code></pre></div><footer class="post-footer"><div class="post-navigation"><div class="nav-previous"><span class="nav-label">이전 글</span> <a href="/programming/2022/03/29/%EB%94%94%EC%9E%90%EC%9D%B8-%ED%8C%A8%ED%84%B4/" class="nav-link">디자인 패턴</a></div><div class="nav-next"><span class="nav-label">다음 글</span> <a href="/programming/2022/03/29/%EB%A6%AC%ED%94%8C%EB%A0%89%EC%85%98-reflection/" class="nav-link">리플렉션 - Reflection</a></div></div></footer></article></main></div><script src="/assets/js/prism/prism.min.js"></script><script src="/assets/js/prism/prism-autoloader.min.js"></script><script src="/assets/js/prism/prism-toolbar.min.js"></script><script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script><script src="/assets/js/prism/prism-show-language.min.js"></script><script src="/assets/js/prism/prism-line-numbers.min.js"></script><script>document.addEventListener("DOMContentLoaded",function(){Prism.plugins&&Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="/assets/js/prism/components/",console.log("Prism autoloader configured with local path:",Prism.plugins.autoloader.languages_path)),document.querySelectorAll('pre[class*="language-"]').forEach(function(s){s.classList.add("line-numbers")}),Prism.highlightAll()})</script><script src="/assets/js/command-palette.js"></script><script src="/assets/js/category-sidebar.js"></script><script src="/assets/js/post-metadata.js"></script></body></html>

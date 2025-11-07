@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알고리즘 요약</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">알고리즘 요약</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["algorithm"]'
+          tags='["TIL"]'
+          date="March 17, 2022"
+          reading-time="3"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="알고리즘-요약">알고리즘 요약</h1>
+
+<h2 id="알고리즘">알고리즘</h2>
+<p>문제를 해결하기 위한 방법이나 절차</p>
+
+<h3 id="시간공간-복잡도">시간/공간 복잡도</h3>
+<p>알고리즘 성능을 분석하는 지표이며, 주로 시간 복잡도와 공간 복잡도는 반비례하는 성질을 가지고 있다.</p>
+
+<p><strong>시간 복잡도</strong> : 문제를 해결하는데 걸리는 시간과 입력의 함수 관계를 가리킨다.</p>
+
+<h2 id="버블-정렬---bubble-sort">버블 정렬 - Bubble Sort</h2>
+<p>현재 원소와 다음 원소를 비교하여 조건에 맞으면 교환하는 식의 정렬이다.</p>
+
+<ul>
+  <li>가장 쉽다.</li>
+  <li>퍼포먼스가 좋지 않아 잘 사용하지 않음</li>
+</ul>
+
+<p><strong>시간 복잡도</strong> : O(n²)<br />
+<strong>공간 복잡도</strong> : 하나의 배열만 사용하여 정렬하므로 <code>O(n)</code>이다.</p>
+
+<h2 id="선택-정렬---selection-sort">선택 정렬 - Selection Sort</h2>
+<p>전체 원소들 중에서 기준 위치에 맞는 원소를 선택하여 자리를 교환하는 방식이다.</p>
+
+<ol>
+  <li>전체 원소 중에서 가장 작은 원소를 찾아 선택하여 첫 번째 원소와 자리를 교환한다.</li>
+  <li>그다음 두번쨰로 작은 원소를 찾아 선택하여 두 번째 원소와 자리를 교환한다.</li>
+  <li>이과정을 반복한다.</li>
+</ol>
+
+<p><strong>시간 복잡도</strong> : O(n²)<br />
+<strong>공간 복잡도</strong> : O(1)</p>
+
+<h2 id="삽입-정렬---inserting-sort">삽입 정렬 - Inserting Sort</h2>
+<p>정렬되어 있는 부분집합에 정렬할 새로운 원소의 위치를 삽입하는 방법이다.</p>
+
+<ol>
+  <li>0번 인덱스는 건너뛴다.</li>
+  <li>0~1번 인덱스 중 1번 인덱스 값이 들어가야할 위치를 찾아서 넣는다</li>
+  <li>0~2번 인덱스 중 2번 인덱스 값이 들어가야할 위치를 찾아서 넣는다</li>
+  <li>0~n번 인덱스 중 n번 인덱스 값이 들어가야할 위치를 찾아서 넣는다.</li>
+</ol>
+
+<p><strong>시간 복잡도</strong> : O(n²)<br />
+<strong>공간 복잡도</strong> : O(n)</p>
+
+<h2 id="병합-정렬---merge-sort">병합 정렬 - Merge Sort</h2>
+<p>n개의 원소를 가지고 있는 배열을 2로 나누어지지 않을 때까지 분할 후, 임시 배열에
+나누어진 원소를 비교하여 담은 후, 정렬된 임시배열을 원래 배열에 다시 대입함으로서 정렬하는 방법이다.</p>
+
+<ul>
+  <li><code>분할정복 - Divide and Conquer</code></li>
+  <li>최선, 최악, 최선이 모두 <code>O(n log n)</code>시간 복잡도를 가진다.</li>
+  <li>stable하다</li>
+</ul>
+
+<p><strong>시간 복잡도</strong> : O(n log n)<br />
+<strong>공간 복잡도</strong> : O(n)</p>
+
+<h2 id="퀵-정렬---quick-sort">퀵 정렬 - Quick Sort</h2>
+<p>피봇 값을 중심으로 왼쪽 부분 집합과 오른쪽 부분 집합으로 분할하여 정렬하는 방법이다.</p>
+
+<ol>
+  <li>가장 높은 인덱스의 값을 피벗으로 지정하고</li>
+  <li>가장 낮은 인덱스부터 증가하여 피벗보다 큰 수의 인덱스와 가장 큰 인덱스부터 증가한다.</li>
+  <li>피벗보다 작은 수의 인덱스를 구한 후 작은 인덱스와 큰 인덱스 숫자를 스왑 후</li>
+  <li>다음 작은 인덱스의 숫자를 다음 피벗으로 지정한다.</li>
+</ol>
+
+<ul>
+  <li><code>분할정복 - Divide and Conquer</code></li>
+  <li>unstable하다</li>
+</ul>
+
+<p><strong>시간 복잡도</strong> : O(n log n) 최악: O(n²)<br />
+<strong>공간 복잡도</strong> : O(n)</p>
+
+<h2 id="기수-정렬">기수 정렬</h2>
+<p>낮은 자리수부터 비교하여 정렬해 간다는 것을 기본 개념으로 하는 정렬 알고리즘이다.</p>
+
+<ol>
+  <li>0~9 까지의 Queue 자료구조의 Bucket을 준비한다.</li>
+  <li>모든 데이터에 대하여 가장 낮은 자리수에 해당하는 Bucket에 차례대로 데이터를 둔다.</li>
+  <li>0부터 차례대로 버킷에서 데이터를 다시 가져온다.</li>
+  <li>가장 높은 자리수를 기준으로 하여 자리수를 높여가며 2번 3번 과정을 반복한다.</li>
+</ol>
+
+<ul>
+  <li>비교연산을 하지 않는다.</li>
+  <li>문자열과 정수 정렬만 가능하다.</li>
+  <li>자리수가 정해진 경우 빠르다</li>
+  <li><strong>시간복잡도</strong> : O(kn)
+    <blockquote>
+      <p>k는 자리수, n은 데이터 수</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h2 id="알고리즘-예상-질문">알고리즘 예상 질문</h2>
+<h4 id="54321-배열이-있을-때역순정렬-시-어떤-정렬을-사용하면-좋을까요">54321 배열이 있을 때(역순정렬 시)), 어떤 정렬을 사용하면 좋을까요?</h4>
+<p><strong>선택정렬</strong> 입니다. 선택정렬은 앞에 저장되어야 하는 수를 선택하여 앞자리와 교환하여 정렬합니다.<br />
+반복은 최대 원소의 개수의 반만큼 O(N/2)일어나게 됩니다.</p>
+
+<h4 id="랜덤으로-배치된-배열이-있을때-어떤-정렬을-사용하면-좋을까요">랜덤으로 배치된 배열이 있을때, 어떤 정렬을 사용하면 좋을까요?</h4>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/programming/2022/03/17/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4-%EA%B0%9C%EB%B0%9C%EC%9D%98-3%EA%B0%9C%EC%9D%98-key%EC%9B%90%EC%B9%99/" class="nav-link">소프트웨어 개발의 3개의 KEY원칙</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/network/2022/03/17/%EC%9B%B9-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%9D%98-%EC%9A%94%EC%B2%AD-%ED%9D%90%EB%A6%84/" class="nav-link">웹 브라우저의 요청 흐름</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECS에 배포한 단일 노드 Redis의 Read only replica 에러 해결기</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">ECS에 배포한 단일 노드 Redis의 Read only replica 에러 해결기</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["database"]'
+          tags='["redis","TIL"]'
+          date="June 26, 2022"
+          reading-time="2"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="ecs에-배포한-단일-노드-redis의-read-only-replica-에러-해결기">ECS에 배포한 단일 노드 Redis의 Read only replica 에러 해결기</h1>
+<p>HiRecruit서비스에서는 Redis를 Session storage로 사용한다.</p>
+
+<h3 id="왜-hirecruit에서는-amazon-elasticache-for-redis를-두고-ecs에-redis를-배포헀나요">왜 Hirecruit에서는 Amazon ElastiCache for Redis를 두고 ECS에 redis를 배포헀나요?</h3>
+<p>일단 Amazon ElastiCache 서비스의 비용은 학생들이 부담하기에는 돈이 너무 많이 든다. 그리고 Redis를 단일 노드로 사용할 것 이므로 Amazon ElasticCache는 오버스펙이라는 생각이 들어 Docker 컨테이너 형태로  쉽게 배포할 수 있는 ECS를 선택했다.</p>
+
+<h2 id="1-배포방식">1. 배포방식</h2>
+<p><a href="https://hub.docker.com/_/redis">redis 공식 docker image</a>를 pull받아서 별도의 설정없이 그대로 배포했다.</p>
+
+<p>이미 local환경에서 어느정도 테스트를 해봐서 상관 없겠지 하며 배포를 했지만… 어느순간 갑자기 Read only replica에러가 발생했다.</p>
+
+<h2 id="2-수많은-에러의-향연">2. 수많은 에러의 향연</h2>
+<p>운영 환경에서 SpringBoot Application Server가 잘 동작하고 있었는데 어느순간 1분단위로 계속 에러가 발생하였다.</p>
+
+<p><img src="/assets/images/posts/database/readonly-error.png" /></p>
+
+<blockquote>
+  <p>Clould Watch logging…</p>
+</blockquote>
+
+<p>로그를 살펴보면 RedisReadOnlyException이 발생하는 것을 확인할 수 있다.</p>
+<pre><code class="language-log">20220613T162700 pool-1-thread-1 ERROR o.s.s.s.TaskUtils$LoggingErrorHandler Unexpected error occurred in scheduled task
+org.springframework.data.redis.RedisSystemException: Error in execution; nested exception is io.lettuce.core.RedisReadOnlyException: READONLY You can't write against a read only replica.
+	at org.springframework.data.redis.connection.lettuce.LettuceExceptionConverter.convert(LettuceExceptionConverter.java:54) ~[spring-data-redis-2.6.4.jar!/:2.6.4]
+	at org.springframework.data.redis.connection.lettuce.LettuceExceptionConverter.convert(LettuceExceptionConverter.java:52) ~[spring-data-redis-2.6.4.jar!/:2.6.4]
+	at org.springframework.data.redis.connection.lettuce.LettuceExceptionConverter.convert(LettuceExceptionConverter.java:41) ~[spring-data-redis-2.6.4.jar!/:2.6.4]
+	at org.springframework.data.redis.PassThroughExceptionTranslationStrategy.translate(PassThroughExceptionTranslationStrategy.java:44) ~[spring-data-redis-2.6.4.jar!/:2.6.4]
+	at org.springframework.data.redis.FallbackExceptionTranslationStrategy.translate(FallbackExceptionTranslationStrategy.java:42) ~[spring-data-redis-2.6.4.jar!/:2.6.4]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnection.convertLettuceAccessException(LettuceConnection.java:272) ~[spring-data-redis-2.6.4.jar!/:2.6.4]
+    이하 생략...
+</code></pre>
+<p>갑자기 잘 작동하던 Redis가 ReadOnly로 변했다는게 이상하여 원인을 찾기 위해 <code>redis-cli</code>를 통해 Redis에 접속한 후 레디스 서버 정보를 보여주는 <code>info</code> 명령어를 치고 로그를 확인하는 중 <code>Replication</code> 섹션에서 role이 slave로 변경된 것을 확인했다.</p>
+<pre><code class="language-conf"># Replication
+role:slave
+master_host:xxx.xxx.xxx.xxx
+master_port:xxxx
+master_link_status:down
+master_last_io_seconds_ago:-1
+master_sync_in_progress:0
+master_link_down_since_seconds:1341313174
+</code></pre>
+
+<p>그 후 임시 방편으로 <code>redis-cli</code>에서 <code>SLAVEOF NO ONE</code>을 입력하여 redis node를 slave에서 master로 변경하고, application 에서는 더이상 <code>RedisReadOnlyException</code>이 발생하지 않은 것을 확인했다.</p>
+
+<h2 id="3-해치웠나">3. 해치웠나?</h2>
+<p>정상작동을 확인하고 하루가 지난 후 똑같은 에러가 발생하였다.</p>
+
+<p>그래서 에러가 발생하지 않도록 Redis Replication에 대해 알고자 구글링을 하는 도중 redis.conf에 cluster-enabled 설정을 발견했다.</p>
+
+<h3 id="3-1-redis-cluster">3-1. Redis Cluster?</h3>
+<p>Redis Cluster는 데이터를 자동으로 여러 개의 Redis 노드에 나누어 저장할 수 있는 방법을 제공한다. 또한 일부 노드가 죽거나 통신이 되지 않을 때에도 작업을 계속할 수 있는 가용성을 제공한다.</p>
+
+<p>하지만 cluster-enabled 속성의 기본값은 <code>no</code>다 즉, 원래 아무 설정도 하지 않으면 단일 노드로 동작해야 한다는 것 이다. 하지만 해당 이슈가 발생하였으므로 ECS환경에서는 다르게 작동한다고 생각이 들었다.</p>
+
+<h2 id="4-해결">4. 해결</h2>
+<p><code>redis.conf</code>에 <code>cluster-enabled</code>속성에 <code>no</code>를 설정한 후 image를 만들고 배포하였다. 6월 15일부터 지금까지 정상작동 하고 있다.</p>
+
+<h4 id="redisconf">redis.conf</h4>
+<pre><code class="language-conf">cluster-enabled no
+</code></pre>
+
+<h2 id="5-문제-원인이-뭐였을까">5. 문제 원인이 뭐였을까?</h2>
+<p>아직 redis에 대한 depth가 낮아 원인을 정확하게 모르겠지만, 취업한 친구의 사수님 피셜로 같은 ECS서비스를 사용하면 Redis컨테이너끼리 묶이는 경향이 있다고 한다. 정확한건 나중에 깊게 공부하다 보면 알 수 있겠지…?</p>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/back-end/2022/06/05/psa-portable-service-abstraction/" class="nav-link">PSA - Portable Service Abstraction</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/programming/2022/06/26/pojoplain-old-java-object/" class="nav-link">POJO(Plain Old JAVA Object)</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

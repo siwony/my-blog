@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synchronized 키워드 - 경쟁상태를 해결하는 방법</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Synchronized 키워드 - 경쟁상태를 해결하는 방법</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["programming"]'
+          tags='["concurrent","TIL","coding","development","java"]'
+          date="March 29, 2022"
+          reading-time="2"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="synchronized-키워드---경쟁상태를-해결하는-방법">Synchronized 키워드 - 경쟁상태를 해결하는 방법</h1>
+<p><code>synchronized</code> 키워드는 Multi-Thread 환경에서 여러개의 쓰래드가 하나의 공유 변수에 동시에 접근할 때 <code>경쟁상태 - Race Condition</code>이 발생하지 않도록 한다.</p>
+
+<p>그러면 어떻게 <code>Synchronized</code> 키워드는 경쟁상태를 해결할까?<br />
+그것은 바로 현재 데이터를 사용하고 있는 <strong>해당 스레드를 제외하고 나머지 스레드들은 데이터에 접근 할 수 없도록</strong> 즉, blocking을 사용해 경쟁상태를 해결하고 있다.</p>
+
+<p>하지만 이를 너무 남발하면 성능 이슈가 발생하는데, 프로그래밍 내부적으로 block, unblock작업은 어느정도 공수가 들어가는 작업이다. 꼭 필요할 떄 사용하자.</p>
+
+<h2 id="synchronized-키워드-사용방법">Synchronized 키워드 사용방법</h2>
+<p>일반적으로 3가지 동기화 방법이 있다.</p>
+<ol>
+  <li>인스턴스 메소드 동기화</li>
+  <li>스태틱 메소드 동기화</li>
+  <li>메소드 속 동기화</li>
+</ol>
+
+<h3 id="1-인스턴스-메서드에-사용하는-방법">1. 인스턴스 메서드에 사용하는 방법</h3>
+<pre><code class="language-java">class A {
+    private int a = 0;
+
+    public synchronized void increaseA(){
+        a++;
+        System.out.println(a);
+    }
+}
+</code></pre>
+<p>위에 예시와 같이 메서드 시그니처에 추가하는 방식으로 사용할 수 있다.</p>
+
+<h4 id="주의할-점">주의할 점</h4>
+<p>여기서 메서드에 synchronized가 붙으니까 메소드 단위로 동기화될 수 있다고 오해할 수 있는데, <strong>해당 방법은 객체 단위로 동기화 된다.</strong> 위 예제를 이용해 설명을 하면, 위에 두 메서드는 동시에 수행될 수 없다.</p>
+
+<h3 id="2-스태틱-메소드-동기화">2. 스태틱 메소드 동기화</h3>
+<pre><code class="language-java">class A {
+    private int a = 0;
+
+    public static synchronized void increaseA(){
+        a++;
+        System.out.println(a);
+    }
+}
+</code></pre>
+<p>클래스 내의 static 메소드는 오직 하나만 존재한다 그러므로 여러 객체가 하나의 static메소드를 공유하므로, 모든 생성된 객체를 동기화 한다.<br />
+<strong>여러 객체들이 동시에 <code>increase()</code>를 호출하면 1개의 쓰레드만 이 메서드에 진입할 수 있다.</strong></p>
+
+<h3 id="3-메소드-속-synchronized-블록">3. 메소드 속 synchronized 블록</h3>
+<p>메소드 단위로 synchronized를 적용하는 것은 비 효율적일 수 있다. <code>경쟁 상태 - Race condition</code>가 발생하는 부분만 synchronized블럭을 사용해 동기화 할 수 있다.</p>
+
+<p>사용법은 <code>synchronized(lock_object)</code>로 사용할 수 있는데 <code>lock_object</code>는 동기화 할 범위 즉, 인스턴스를 의미한다.</p>
+
+<pre><code class="language-java">public class A {
+    private long a = 0;
+
+    public void increase() {
+        long temp = 0;
+
+        synchronized (this) {
+            a++;
+            temp = number;
+        }
+
+        System.out.println(temp);
+    }
+}
+</code></pre>
+<p>위 예제는 자신의 인스턴스를 동기화 하는 예제이다.</p>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/programming/2022/03/29/string-class/" class="nav-link">String class</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/programming/2022/03/29/thread-pool/" class="nav-link">Thread Pool</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

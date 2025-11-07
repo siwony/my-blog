@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영속성 컨텍스트 - 내부 동작</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">영속성 컨텍스트 - 내부 동작</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["back-end"]'
+          tags='["spring","jpa","TIL"]'
+          date="March 19, 2022"
+          reading-time="3"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="영속성-컨텍스트---내부-동작">영속성 컨텍스트 - 내부 동작</h1>
+<blockquote>
+  <p>영속성 컨텍스트는 JPA를 이해하는데 가장 중요하다.</p>
+  <h3 id="entity-managerfactory-와-entitymanager">Entity ManagerFactory 와 EntityManager</h3>
+  <p>&lt;img width=500px src=./img/entity-manager-factory.png&gt;</p>
+</blockquote>
+
+<ol>
+  <li>고객이 요청할 때마다 <code>EntityManagerFactory</code>를 통해 <code>EntityManager</code>를 생성한다.</li>
+  <li><code>EntityManager</code>은 내부적으로 커넥션 풀을 사용해서 DB를 사용하게 된다.</li>
+</ol>
+
+<p><strong>주의</strong></p>
+<ul>
+  <li><code>EntityManagerFactory</code>는 하나만 생성해서 애플리케이션 전체에서 공유해야 한다.</li>
+  <li><code>Entity Manager</code>은 <code>Threed</code> 간 공유하면 안 된다.
+    <blockquote>
+      <p>사용하고 버려야 한다.</p>
+    </blockquote>
+  </li>
+  <li>JPA의 모든 데이터 변경은 트랜잭션 안에서 실행한다.</li>
+</ul>
+
+<h3 id="영속성-컨텍스트">영속성 컨텍스트</h3>
+<p>: <strong><code>entity</code>를 영구히 저장하는 환경</strong></p>
+<ul>
+  <li><code>ex) EntityManger.persist(entity)</code></li>
+  <li><code>Entity</code>를 영속성 컨텍스트 안에 넣는다.</li>
+  <li>영속성 컨텍스트는 논리적인 개념 즉, 눈에 보이지 않는다.</li>
+  <li><code>EntityManager</code>를 통해 영속성 컨텍스트에 접근한다.</li>
+</ul>
+
+<h2 id="entity의-생명주기">Entity의 생명주기</h2>
+<h3 id="1-비영속newtransient">1. 비영속(new/transient)</h3>
+<p>: 영속성 컨텍스트와 전혀 관계가 없는 <strong>새로운</strong> 상태<br />
+&lt;img width=400px src=./img/not-persistence.png&gt;</p>
+
+<pre><code class="language-java">//객체만 생성한 상태(비영속)
+Mamber member = new Member();
+member.setId("member1");
+member.setUsername("회원 1");
+</code></pre>
+
+<h3 id="2-영속managed">2. 영속(managed)</h3>
+<p>: 영속성 컨텍스트에 <strong>관리</strong> 되는 상태</p>
+
+<p>&lt;img width=400px src=./img/managed.png&gt;</p>
+
+<pre><code class="language-java">// 객체를 생성한 상태 (비영속)
+Member member = new Member();
+member.setId("member1");
+member.setUsername("회원1");
+EntityManager entityManager = entityManagerFactory.createEntityManager();
+entityManager.getTransaction().begin();
+// 객체를 저장한 상태 (영속)
+entityManager.persist(member);  //이떄 쿼리가 날라가지 않는다.
+</code></pre>
+
+<h3 id="3-준영속detached">3. 준영속(detached)</h3>
+<p>: 영속성 컨텍스트에 저장되었다가 <strong>분리</strong>된 상태</p>
+<pre><code class="language-java">//회원 엔티티를 영속성 컨텍스트에서 분리, 준영속 상태
+em.detach(member);
+</code></pre>
+<h3 id="4-삭제removed">4. 삭제(removed)</h3>
+<p>: <strong>삭제</strong>된 상태</p>
+<pre><code class="language-java">//객체를 삭제한 상태(삭제) 이는 DB에서도 삭제가 된다.
+em.remove(member);
+</code></pre>
+
+<h2 id="영속성-컨텍스트-장점">영속성 컨텍스트 장점</h2>
+
+<h3 id="1차-캐시">1차 캐시</h3>
+<ul>
+  <li>한 트랜잭션 내에서만 사용 가능하다. 즉 트랜잭션이 종료되면 사라진다.</li>
+  <li>JPA에서는 조회시 영속성 컨텍스트를 먼저 조회한다.
+&lt;img align=center width=450px src=./img/1st-cash.png&gt;</li>
+</ul>
+
+<pre><code class="language-java">Mamber member = new Mamber();
+member.setId("member1");
+member.setUsername("회원 1");
+
+//1차 캐시에 저장
+em.parsist(member);
+//1차 캐시에서 조회
+Member findMember = em.find(Memeber.class, "member1")
+</code></pre>
+<p>&lt;img align=center width=450px src=./img/1st-cash-db.png&gt;</p>
+
+<pre><code class="language-java">Member findMember2 = em.find(Member.class, "member2");
+</code></pre>
+
+<h3 id="동일성identity보장">동일성(identity)보장</h3>
+<ul>
+  <li>1차 캐시로 반복 가능한 읽기(REPEATABLE READ) 등급의 트랜잭션 격리 수준을 DB가 아닌 애플리케이션 차원에서 제공 한다.</li>
+  <li>같은 트랜잭션 내에서만 동일성을 보장한다.
+```java
+Member a = em.find(Member.class, “member1”);
+Member b = em.find(Member.class, “member1”);</li>
+</ul>
+
+<p>System.out.println(a == b); //동일성 비교 true</p>
+<pre><code>
+### 트랜잭션을 지원하는 쓰기 지연 - transactional write-behind
+- JPA는 commit을 하기 전까지 insert query를 날리지 않아 최적화할 여지를 준다.
+- 그래서 버퍼링 같은 기능을 한다. (쿼리를 모았다가 한 번에 날린다.)
+&lt;p float=left&gt;
+&lt;img width=400px src=./img/persist-lazy.png&gt;
+&lt;img width=400px src=./img/persist-lazy-commit.png&gt;
+&lt;/p&gt;
+
+
+```java
+EntityManager em = emf.createEntityManager();
+EntityTransaction tx = em.getTransaction();
+
+//엔티티 매니저는 데이터 변경시 트랜잭션을 시작해야 한다.
+tx.begin(); // [트랜잭션] 시작
+em.persist(memberA);
+em.persist(memberB);
+
+//여기까지 INSERT SQL을 데이터베이스에 보내지 않는다.
+//커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
+tx.commit(); // [트랜잭션] 커밋
+</code></pre>
+<h3 id="변경-감지dirty-checking">변경 감지(Dirty Checking)</h3>
+<p>&lt;img width=450px src=./img/dirty-checking.png&gt;</p>
+
+<ol>
+  <li>커밋된 시점에서 내부적으로 <code>flush()</code>가 호출된다.</li>
+  <li><code>1차 캐시</code>의 스냅샷과 <code>entity</code>를 비교하여 객체가 변경되었는지 비교한다.</li>
+  <li>2번에서 변경사항이 나오면 쓰기 지연 <code>SQL 저장소</code>에 쿼리를 미리 만들어 저장한다.</li>
+  <li>DB에 <code>update query</code>를 반영한다.</li>
+  <li>DB에 <code>commit</code> 한다.
+```java
+EntityManager em = emf.createEntityManager();
+EntityTransaction tx = em.getTransaction();
+tx.begin(); // 트랜잭션 시작</li>
+</ol>
+
+<p>// 영속 엔티티 조회
+Member memberA = em.find(Member.class, “memberA”);</p>
+
+<p>// 영속 엔티티 데이터 수정
+memberA.setUsername(“hi”);
+memberA.setAge(10);</p>
+
+<p>/** 
+/* em.update(member) 이런 코드가 있어야 하지 않을까?
+/* Dirty Checking덕분에 안해도 된다.
+**/</p>
+
+<p>tx.commit(); // 트랜잭션 커밋</p>
+<pre><code>
+### Entity 삭제
+```java
+//삭제 대상 엔티티 조회
+Member memberA = em.find(Member.class, "memberA");
+em.remove(memberA); //엔티티 삭제
+</code></pre>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/back-end/2022/03/19/%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84%EA%B0%80-%ED%95%84%EC%9A%94%ED%95%9C%EC%9D%B4%EC%9C%A0/" class="nav-link">연관관계가 필요한이유</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/cs/2022/03/19/%EC%9D%B4%EC%A7%84-%ED%83%90%EC%83%89-%ED%8A%B8%EB%A6%AC-binary-search-tree/" class="nav-link">이진 탐색 트리 - Binary Search Tree</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

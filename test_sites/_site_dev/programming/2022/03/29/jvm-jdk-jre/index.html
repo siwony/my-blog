@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JVM, JDK, JRE</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">JVM, JDK, JRE</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["programming"]'
+          tags='["java","coding","development","TIL"]'
+          date="March 29, 2022"
+          reading-time="1"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="jvm-jdk-jre">JVM, JDK, JRE</h1>
+<h3 id="jvm---java-virtual-machine">JVM - Java Virtual Machine</h3>
+<blockquote>
+  <p>WORA - Write Once Run Anywhere</p>
+  <ul>
+    <li>JVM으로 Java byte code(<code>.class</code>파일)를 OS 특화된 코드로 변환(인터프리터, JIT컴파일러)하여 실행한다.</li>
+    <li>byte code를 실행하는 표준이자 구현체 이다.
+      <ul>
+        <li>JVM 스펙: https://docs.oracle.com/javase/specs/index.html</li>
+        <li>JVM 밴더: 오라클, 아마존, Azul 등…</li>
+      </ul>
+    </li>
+    <li>특정 플랫폼에 종속적이다.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <h4 id="jvm-기반으로-동작하는-프로그래밍-언어">JVM 기반으로 동작하는 프로그래밍 언어</h4>
+  <p>Kotlin, Scala, Groovy, JRuby 등…</p>
+</blockquote>
+
+<h3 id="jre---java-runtime-environment">JRE - Java Runtime Environment</h3>
+<blockquote>
+  <p>Java 10까지 JDK뿐만 아니라 JRE까지 배포했다.</p>
+  <ul>
+    <li>JVM + 핵심 라이브러리</li>
+    <li>개발 관련 x, <strong>실행 관련 o</strong></li>
+    <li>Java11부터 Java는 JRE로 따로 배포하지 않는다.</li>
+  </ul>
+</blockquote>
+
+<h3 id="jdk---java-development-kit">JDK - Java Development Kit</h3>
+<blockquote>
+  <p>Java 11부터는 JDK 단위로 배포된다.</p>
+  <ul>
+    <li>JRE + 개발 툴(java c)</li>
+    <li>소스코드를 작성할 떄 Java언어는 플랫폼 독립적이다.
+JVM만 구현되어 있으면 어느 플랫폼에서든지 컴파일 및 실행을 할 수 있다.</li>
+  </ul>
+</blockquote>
+
+<h3 id="java의-유료화">Java의 유료화?</h3>
+<p>Java는 여러개의 구현체가 존재한다. 그 중 Oracle에서 만든 Oracle JDK 11버전부터 상용으로 사용할 떄 유료이다.</p>
+
+<p><strong>즉, 어떤 JDK를 사용하냐에 따라 다르다</strong></p>
+<blockquote>
+  <p>ex. openJDK를 사용하면 무료다!</p>
+</blockquote>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/programming/2022/03/29/jcf-java-collection-framework/" class="nav-link">JCF - Java Collection Framework</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/programming/2022/03/29/jvm-%EA%B5%AC%EC%A1%B0/" class="nav-link">JVM 구조</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

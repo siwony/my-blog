@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이진 탐색 트리 - Binary Search Tree</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">이진 탐색 트리 - Binary Search Tree</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["cs"]'
+          tags='["data-structure","non-linear","tree","TIL"]'
+          date="March 19, 2022"
+          reading-time="1"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="이진-탐색-트리---binary-search-tree">이진 탐색 트리 - Binary Search Tree</h1>
+<p><code>이진 탐색 - binary search</code>와 <code>연결리스트 - linked list</code>를 결합한 자료구조이다.</p>
+
+<p>이진 탐색의 효율적인 탐색 능력을 유지하면서, 빈번한 자료 입력과 삭제를 가능하도록 고안되었다.</p>
+
+<p>이진 탐색의 경우 탐색에 소요되는 시간 복잡성은 <code>O(log n)</code>으로 빠르지만 말 그대로 탐색이므로 자료의 입력, 삭제가 불가능하다.<br />
+연결리스트의 경우 자료 입력, 삭제에 필요한 시간복잡성은 <code>O(1)</code>로 효율적이지만 탐색시 <code>O(n)</code>의 시간 복잡성이 발생한다.</p>
+
+<h3 id="규칙">규칙</h3>
+<blockquote>
+  <p>모든 왼쪽 자식들 &lt;= n &lt; 모든 오른쪽 자식들</p>
+  <ol>
+    <li>key는 중복을 허용하지 않는다.</li>
+    <li>왼쪽 노드의 키 &lt; 루트 노드의 키 &lt; 오른쪽 노드의 키</li>
+    <li>왼쪽과 오른쪽 서브 트리도 이진 탐색 트리이다.</li>
+  </ol>
+</blockquote>
+
+<h3 id="특징">특징</h3>
+<ul>
+  <li>탐색, 삽입, 삭제 연산에 대한 <strong>평균 시간복잡도는 <code>O(logN)</code></strong> 이다.\</li>
+  <li>이진 탐색 트리는 <code>편향 트리 - Skewed Tree</code>가 될 수 있다. 그리하여 <strong>최악의 시간 복잡도가 <code>O(N)</code></strong> 이다
+    <ul>
+      <li>저장 순서에 따라 계속 한 쪽으로만 노드가 추가되는 경우가 발생하기 때문이다.</li>
+      <li>이를 해결하기 위해 레드블랙트리, AVL트리가 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="이진-탐색-트리의-adt">이진 탐색 트리의 ADT</h3>
+<ul>
+  <li>검색 : <code>retreive(key)</code></li>
+  <li>삽입 : <code>insert(key)</code></li>
+  <li>삭제 : <code>delete(key)</code></li>
+</ul>
+
+<h2 id="refrenece">Refrenece</h2>
+<ul>
+  <li>https://ratsgo.github.io/data%20structure&amp;algorithm/2017/10/22/bst/</li>
+  <li>https://velog.io/@adam2/TREE#%EC%9D%B4%EC%A7%84-%ED%83%90%EC%83%89-%ED%8A%B8%EB%A6%ACbinary-search-tree</li>
+  <li>https://velog.io/@agugu95/%EC%9D%B4%EC%A7%84-%ED%8A%B8%EB%A6%AC%EC%9D%98-%EA%B7%A0%ED%98%95-RED-BALCKAVL</li>
+</ul>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/back-end/2022/03/19/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-%EB%82%B4%EB%B6%80-%EB%8F%99%EC%9E%91/" class="nav-link">영속성 컨텍스트 - 내부 동작</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/back-end/2022/03/19/%EC%9E%84%EB%B2%A0%EB%94%94%EB%93%9C-%ED%83%80%EC%9E%85/" class="nav-link">임베디드 타입</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

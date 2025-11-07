@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Tool</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Build Tool</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["back-end"]'
+          tags='["TIL","build-tool"]'
+          date="March 19, 2022"
+          reading-time="1"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="build-tool">Build Tool</h1>
+<p>: 빌드 도구는 빌드 자동화를 시켜주는 실행가능한 프로그램만들어 주는 프로그램을 말한다.</p>
+
+<blockquote>
+  <dl>
+    <dt>*빌드 자동화</dt>
+    <dd>실행가능한 프로그램을 만들어주는 과정으로써 코드를 컴파일해서 binary code로 만들고 패키징하며 코드를 테스트하고 실행가능한 프로그램이 나오기 까지의 과정</dd>
+  </dl>
+</blockquote>
+
+<blockquote>
+  <dl>
+    <dt>*빌드</dt>
+    <dd>소스코드 파일들을 컴퓨터에서 실행할 수 있는 소프트웨어로 변환하는 일련의 과정으로, 컴파일, 테스팅, 배포 등 모든 과정의 집합이다.</dd>
+  </dl>
+</blockquote>
+
+<h3 id="build-tool의-역활">Build Tool의 역활</h3>
+<ul>
+  <li><strong>빌드 과정을 자동으로 수행해준다.</strong></li>
+  <li>라이브러리 추가 및 관리</li>
+</ul>
+
+<h4 id="자바-진영에서의-빌드-도구">자바 진영에서의 빌드 도구</h4>
+<blockquote>
+  <p>출시 순서는 내림차순</p>
+  <ul>
+    <li>Ant</li>
+    <li>Maven</li>
+    <li>Gradle</li>
+  </ul>
+</blockquote>
+
+<h3 id="java-진영에서의-build-tool의-사용목적">Java 진영에서의 Build Tool의 사용목적</h3>
+<p>Java 프로그램은 다음가ㅗ 같이 많은 파일(artifacts)을 포함하고 있다.</p>
+<ul>
+  <li>Java Source code</li>
+  <li>Java Byte code</li>
+  <li>XML files</li>
+  <li>Graphic and audio file</li>
+  <li>Directory structures</li>
+</ul>
+
+<p>이모든 파일을 충동없이 Build하는건 힘들일이다.<br />
+Build Tool은 우리가 소스를 작성하는 것과 동시에 빌드 할 수 있도록 도와주는 일이다.</p>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/cs/2022/03/19/btree-b%ED%8A%B8%EB%A6%AC/" class="nav-link">B+Tree - B+트리</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/back-end/2022/03/19/buildgradle-plugins-error/" class="nav-link">build.gradle plugins{} error</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>

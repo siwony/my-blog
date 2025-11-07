@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint Security의 다양한 Filter</title>
+    
+    <!-- Prism.js CSS 먼저 로드 -->
+    <link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css">
+    <link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css">
+
+    <!-- 사이트 CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Ninja Keys CSS -->
+    <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">My Tech Blog</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Sprint Security의 다양한 Filter</h1>
+        
+        <!-- Enhanced metadata using post-metadata component -->
+        <post-metadata 
+          layout="inline"
+          categories='["back-end"]'
+          tags='["spring","TIL","spring-security"]'
+          date="March 19, 2022"
+          reading-time="2"
+          compact="false">
+        </post-metadata>
+        
+        
+        <div class="post-author">
+          <span class="author-label">작성자:</span>
+          <span class="author-name">jeongcool</span>
+        </div>
+        
+    </header>
+
+    <div class="post-content">
+        <h1 id="sprint-security의-다양한-filter">Sprint Security의 다양한 Filter</h1>
+
+<h3 id="headerwriterfilter">HeaderWriterFilter</h3>
+<p>: 응답 헤더에 security 관련 헤더를 추가해주는 역할을 담당한다.</p>
+<ul>
+  <li>딱히 신경쓸 필요는 없다</li>
+  <li>Security FilterChain에서 3번째로 동작하는 SecurityFilter이다.</li>
+</ul>
+
+<h4 id="다음과-같은-security-관련-header-를-추가한다">다음과 같은 security 관련 header 를 추가한다.</h4>
+<ul>
+  <li><code>XContentTypeOptionsHeaderWriter</code>: 마임 타입 스니핑 방어.</li>
+  <li><code>XXssProtectionHeaderWriter</code>: 브라우저에 내장된 XSS 필터 적용.</li>
+  <li><code>CacheControlHeadersWriter</code>: 캐시 히스토리 취약점 방어.</li>
+  <li><code>HstsHeaderWriter</code>: HTTPS로만 소통하도록 강제.</li>
+  <li><code>XFrameOptionsHeaderWriter</code>: clickjacking 방어.</li>
+</ul>
+
+<h3 id="csrfflter">CsrfFlter</h3>
+<p>: CSRF attack 을 방어하기 위한 filter 이다.</p>
+<ul>
+  <li>Spring의 CsrfFilter 는 CSRFtoken 을 활용하여 CSRF attack 을 방어한다.
+    <h4 id="csrffilter란"><a href="CSRF.md">CsrfFilter란?</a></h4>
+  </li>
+</ul>
+
+<h3 id="corsfilter">CorsFilter</h3>
+<p>: 허가된 사이트나 클라이언트의 요청인지 검사한다.</p>
+<ul>
+  <li>Cors(교자 출처 리소스 공유) 관련 필터이다.</li>
+</ul>
+
+<h3 id="logoutfilter">LogoutFilter</h3>
+<p>: 로그아웃에 대한 처리를 담당하는 필터이다.</p>
+
+<h3 id="usernamepasswordauthenticationfilter">UsernamePasswordAuthenticationFilter</h3>
+<p>: 설정된 로그인 URL로 오는 요청을 감시하며, 유저 인증 처리한다.</p>
+<ul>
+  <li><strong>ID와 PW를 사용하는 form 기반 인증에서 사용한다.</strong></li>
+  <li>AuthenticationManager를 통한 인증 실행</li>
+  <li>인증 성공 시, 얻은 Authentication 객체를 SecurityContext에 저장 후 AuthenticationSuccessHandler 실행</li>
+  <li>인증 실패 시, AuthenticationFailureHandler 실행</li>
+</ul>
+
+<h3 id="session-management">Session Management</h3>
+<p>: 서버의 세션 정책을 검사하는 필터</p>
+<ul>
+  <li>session-fixation 공격을 방어</li>
+  <li>세션 타임아웃을 감지</li>
+  <li>인증된 사용자가 동시에 열 수 있는 세션 수를 제한하는 등에 사용</li>
+</ul>
+
+<h3 id="concurrentsessionfilter">ConcurrentSessionFilter</h3>
+<p>: 동시에 여러 세션관리하는 filter이다.</p>
+<ul>
+  <li>SessionManagementFilter에서 최대 세션 허용 개수를 초과할 경우 session.expireNow()를 통해서 세션을 만료 시킨다.</li>
+</ul>
+
+<h3 id="remembermeauthenticationfilter">RememberMeAuthenticationFilter</h3>
+<p>: 세션이 사라지거나 만료가 되더라도 쿠키 또는 DB를 사용하여 저장된 토큰 기반으로 인증을 지원하는 필터이다.</p>
+<ul>
+  <li>RemebmerMe 쿠키 여부 확인하여 인증한다.
+]
+    <h3 id="bearertokenauthenticationfilter">BearerTokenAuthenticationFilter</h3>
+    <p>: Authorization 해더에 Bearer 토큰 인증처리한다.</p>
+  </li>
+  <li>주로 JWT인증을 할때 사용한다.</li>
+</ul>
+
+<h3 id="requestcacheawarefilter">RequestCacheAwareFilter</h3>
+<p>: 특정 로직 성공후, 이전 요청 정보를 캐시에 담는다.</p>
+<ul>
+  <li>현재 요청과 관련있는 캐시 요청이 있는지 확인하고 있다면 캐시 요청을 처리해준다.</li>
+  <li>주로 로그인 성공후 이정 요청 정보를 재구성하기 위해 사용한다.</li>
+</ul>
+
+<h3 id="securitycontextholderawarerequestfilter">SecurityContextHolderAwareRequestFilter</h3>
+<p>: Security 관련 서블릿 API 를 지원해주는 필터이다.</p>
+<ul>
+  <li>딱히 신경쓸 일은 없는 필터</li>
+  <li>큐리티 관련 메서드들을 스프링 시큐리티 기반으로 구현체를 연결해주는 역할을 한다.</li>
+</ul>
+
+<h3 id="anonymousauthenticationfilter">AnonymousAuthenticationFilter</h3>
+<p>: 익명/인증 사용자를 구분하기 위한 필터</p>
+<ul>
+  <li>인증객체( Authentication )의 유무에 따라서 처리</li>
+  <li>인증객체가 없을때 임의의 사용자로 인증객체를 생성 (AnonymousAuthenticationToken)</li>
+  <li>세션에 저장하지 않는다.</li>
+</ul>
+
+<h3 id="exceptiontranslationfilter">ExceptionTranslationFilter</h3>
+<p>: Spring Security 인가(<code>AccessDeniedException</code>)와 인증(<code>AuthenticationException</code>)Exception 을 처리하는 필터 예외 처리하는 필터</p>
+
+<h3 id="filtersecurityinterceptor">FilterSecurityInterceptor</h3>
+<p>: 어떤 리소스에 접근하기 전 마지막에 AccessDecisionManager를 사용하여 인가처리를 하는 필터</p>
+<ul>
+  <li>FilterChainProxy가 호출하는 Filter중 하나이다.</li>
+  <li>대부분의 경우에 가장 마지막에 사용된다.</li>
+</ul>
+
+    </div>
+    
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            <div class="nav-previous">
+                <span class="nav-label">이전 글</span>
+                <a href="/back-end/2022/03/19/springboot/" class="nav-link">SpringBoot</a>
+            </div>
+            
+            
+            
+            <div class="nav-next">
+                <span class="nav-label">다음 글</span>
+                <a href="/cs/2022/03/19/stack-frame/" class="nav-link">Stack Frame</a>
+            </div>
+            
+        </div>
+    </footer>
+</article>
+
+        </main>
+    </div>
+
+    <!-- Prism.js JavaScript 로드 (순서 중요!) -->
+    <script src="/assets/js/prism/prism.min.js"></script>
+    <script src="/assets/js/prism/prism-autoloader.min.js"></script>
+    <script src="/assets/js/prism/prism-toolbar.min.js"></script>
+    <script src="/assets/js/prism/prism-copy-to-clipboard.min.js"></script>
+    <script src="/assets/js/prism/prism-show-language.min.js"></script>
+    <script src="/assets/js/prism/prism-line-numbers.min.js"></script>
+
+    <!-- Prism.js 초기화 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // autoloader 경로 설정 (로컬 컴포넌트 사용)
+            if (Prism.plugins && Prism.plugins.autoloader) {
+                Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
+                console.log('Prism autoloader configured with local path:', Prism.plugins.autoloader.languages_path);
+            }
+            
+            // 모든 pre 태그에 toolbar와 line-numbers 클래스 추가
+            document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
+                pre.classList.add('line-numbers');
+            });
+            
+            // Prism 하이라이팅 재실행
+            Prism.highlightAll();
+        });
+    </script>
+    
+    <!-- Command Palette (Ninja Keys) -->
+    <script src="/assets/js/command-palette.js"></script>
+    
+    <!-- Category Sidebar Web Component -->
+    <script src="/assets/js/category-sidebar.js"></script>
+    
+    <!-- Post Metadata Web Component -->
+    <script src="/assets/js/post-metadata.js"></script>
+</body>
+</html>
