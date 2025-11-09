@@ -12,6 +12,9 @@
 
     <!-- 사이트 CSS -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    
+    <!-- GitHub Markdown Table Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.4.0/github-markdown-light.min.css">
 
     <!-- Ninja Keys CSS -->
     <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
@@ -68,7 +71,21 @@
     <!-- Post Metadata Web Component -->
     <script src="{{ '/assets/js/post-metadata.js' | relative_url }}"></script>
     
-    <!-- Markdown Table Renderer -->
-    <script src="{{ '/assets/js/markdown-table-parser.js' | relative_url }}"></script>
+    <!-- GitHub Table Enhancer -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add GitHub markdown classes to existing tables
+            const tables = document.querySelectorAll('.post-content table, .content table, article table');
+            tables.forEach(table => {
+                // Wrap table for better styling
+                if (!table.parentElement.classList.contains('markdown-body')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'markdown-body';
+                    table.parentNode.insertBefore(wrapper, table);
+                    wrapper.appendChild(table);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
