@@ -4,12 +4,11 @@ categories: programming
 date: '2022-04-05'
 layout: post
 tags:
-- TIL
 - grammar
 - coding
 - development
 - java
-title: Try-with-resources
+title: "Try-with-resources"
 ---
 
 # Try-with-resources

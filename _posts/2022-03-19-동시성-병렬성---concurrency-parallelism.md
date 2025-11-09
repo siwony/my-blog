@@ -4,8 +4,7 @@ categories: cs
 date: '2022-03-19'
 layout: post
 tags:
-- TIL
-title: 동시성 & 병렬성 - Concurrency & Parallelism
+title: "동시성 & 병렬성 - Concurrency & Parallelism"
 ---
 
 # 동시성 & 병렬성 - Concurrency & Parallelism

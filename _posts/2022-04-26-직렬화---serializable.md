@@ -7,8 +7,7 @@ tags:
 - java
 - coding
 - development
-- TIL
-title: 직렬화 - Serializable
+title: "직렬화 - Serializable"
 ---
 
 # 직렬화 - Serializable

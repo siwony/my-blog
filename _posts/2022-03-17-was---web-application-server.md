@@ -5,8 +5,7 @@ date: '2022-03-17'
 layout: post
 tags:
 - web
-- TIL
-title: WAS - Web Application Server
+title: "WAS - Web Application Server"
 ---
 
 # WAS - Web Application Server

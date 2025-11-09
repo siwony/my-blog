@@ -5,12 +5,11 @@ date: '2022-04-05'
 layout: post
 tags:
 - legacy
-- TIL
 - grammar
 - coding
 - development
 - java
-title: JAVA Data Type
+title: "JAVA Data Type"
 ---
 
 # JAVA Data Type

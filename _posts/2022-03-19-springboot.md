@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring-boot
 - spring
-- TIL
-title: SpringBoot
+title: "SpringBoot"
 ---
 
 # SpringBoot

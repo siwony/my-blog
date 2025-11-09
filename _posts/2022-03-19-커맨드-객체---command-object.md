@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring-mvc
 - spring
-- TIL
-title: 커맨드 객체 - Command Object
+title: "커맨드 객체 - Command Object"
 ---
 
 # 커맨드 객체 - Command Object

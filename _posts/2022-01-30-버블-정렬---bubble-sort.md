@@ -4,8 +4,7 @@ categories: algorithm
 date: '2022-01-30'
 layout: post
 tags:
-- TIL
-title: 버블 정렬 - Bubble Sort
+title: "버블 정렬 - Bubble Sort"
 ---
 
 # 버블 정렬 - Bubble Sort

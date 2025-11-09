@@ -4,8 +4,7 @@ categories: algorithm
 date: '2022-01-30'
 layout: post
 tags:
-- TIL
-title: 선택 정렬 - Selection Sort
+title: "선택 정렬 - Selection Sort"
 ---
 
 # 선택 정렬 - Selection Sort

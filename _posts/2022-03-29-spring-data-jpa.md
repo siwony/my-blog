@@ -7,8 +7,7 @@ tags:
 - spring
 - jpa
 - data-jpa
-- TIL
-title: Spring Data JPA
+title: "Spring Data JPA"
 ---
 
 # Spring Data JPA

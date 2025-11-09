@@ -4,8 +4,7 @@ categories: git
 date: '2021-03-28'
 layout: post
 tags:
-- TIL
-title: Ds_store gitignore
+title: "Ds_store gitignore"
 ---
 
 # Ds_store gitignore

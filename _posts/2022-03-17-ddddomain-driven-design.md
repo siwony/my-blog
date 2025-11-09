@@ -6,8 +6,7 @@ layout: post
 tags:
 - coding
 - development
-- TIL
-title: DDD(Domain Driven Design)
+title: "DDD(Domain Driven Design)"
 ---
 
 # DDD(Domain Driven Design)

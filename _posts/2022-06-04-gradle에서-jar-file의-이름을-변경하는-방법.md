@@ -4,10 +4,9 @@ categories: back-end
 date: '2022-06-04'
 layout: post
 tags:
-- TIL
 - gradle
 - build-tool
-title: Gradle에서 jar file의 이름을 변경하는 방법
+title: "Gradle에서 jar file의 이름을 변경하는 방법"
 ---
 
 # Gradle에서 jar file의 이름을 변경하는 방법

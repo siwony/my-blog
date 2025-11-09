@@ -4,12 +4,11 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- TIL
 - coding
 - development
 - java
 - api
-title: Enumeration 와 Iterator
+title: "Enumeration 와 Iterator"
 ---
 
 # Enumeration 와 Iterator

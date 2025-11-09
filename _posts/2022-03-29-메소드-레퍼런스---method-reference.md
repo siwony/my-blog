@@ -4,13 +4,12 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- TIL
 - grammar
 - coding
 - development
 - java
 - java8
-title: 메소드 레퍼런스 - Method Reference
+title: "메소드 레퍼런스 - Method Reference"
 ---
 
 # 메소드 레퍼런스 - Method Reference

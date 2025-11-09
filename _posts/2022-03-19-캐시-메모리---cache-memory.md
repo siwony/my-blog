@@ -5,8 +5,7 @@ date: '2022-03-19'
 layout: post
 tags:
 - Memory
-- TIL
-title: 캐시 메모리 - Cache Memory
+title: "캐시 메모리 - Cache Memory"
 ---
 
 # 캐시 메모리 - Cache Memory

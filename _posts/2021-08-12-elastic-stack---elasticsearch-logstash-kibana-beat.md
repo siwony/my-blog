@@ -4,8 +4,7 @@ categories: devops
 date: '2021-08-12'
 layout: post
 tags:
-- TIL
-title: Elastic Stack - Elasticsearch, Logstash, Kibana + Beats
+title: "Elastic Stack - Elasticsearch, Logstash, Kibana + Beats"
 ---
 
 # Elastic Stack - Elasticsearch, Logstash, Kibana + Beats

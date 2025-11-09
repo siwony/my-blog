@@ -5,8 +5,7 @@ date: '2022-02-06'
 layout: post
 tags:
 - prometheus
-- TIL
-title: Prometheus quick start with docker
+title: "Prometheus quick start with docker"
 ---
 
 # Prometheus quick start with docker

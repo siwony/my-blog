@@ -5,8 +5,7 @@ date: '2022-03-19'
 layout: post
 tags:
 - java-ee
-- TIL
-title: JAVA EE (Java Enterprise Edition)
+title: "JAVA EE (Java Enterprise Edition)"
 ---
 
 # JAVA EE (Java Enterprise Edition)

@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring
 - jpa
-- TIL
-title: Eager/LAZY loading
+title: "Eager/LAZY loading"
 ---
 
 # Eager/LAZY loading

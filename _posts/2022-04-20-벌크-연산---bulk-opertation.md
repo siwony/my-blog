@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring
 - jpa
-- TIL
-title: 벌크 연산 - Bulk Opertation
+title: "벌크 연산 - Bulk Opertation"
 ---
 
 # 벌크 연산 - Bulk Opertation

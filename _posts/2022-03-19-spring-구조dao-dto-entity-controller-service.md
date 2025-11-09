@@ -5,8 +5,7 @@ date: '2022-03-19'
 layout: post
 tags:
 - spring
-- TIL
-title: Spring 구조(DAO, DTO, Entity, Controller, Service)
+title: "Spring 구조(DAO, DTO, Entity, Controller, Service)"
 ---
 
 # Spring 구조(DAO, DTO, Entity, Controller, Service)

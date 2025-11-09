@@ -7,8 +7,7 @@ tags:
 - spring
 - jpa
 - data-jpa
-- TIL
-title: Custom Repository
+title: "Custom Repository"
 ---
 
 # Custom Repository

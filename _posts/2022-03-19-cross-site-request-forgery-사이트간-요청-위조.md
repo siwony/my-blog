@@ -5,9 +5,8 @@ date: '2022-03-19'
 layout: post
 tags:
 - spring
-- TIL
 - spring-security
-title: Cross Site Request Forgery, 사이트간 요청 위조)
+title: "Cross Site Request Forgery, 사이트간 요청 위조)"
 ---
 
 # Cross Site Request Forgery, 사이트간 요청 위조)

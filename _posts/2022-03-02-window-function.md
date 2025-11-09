@@ -5,8 +5,7 @@ date: '2022-03-02'
 layout: post
 tags:
 - sql
-- TIL
-title: Window Function
+title: "Window Function"
 ---
 
 # Window Function

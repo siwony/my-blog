@@ -4,12 +4,11 @@ categories: programming
 date: '2022-04-20'
 layout: post
 tags:
-- TIL
 - grammar
 - coding
 - development
 - java
-title: 향상된 for 루프 - Enhanced for loop
+title: "향상된 for 루프 - Enhanced for loop"
 ---
 
 # 향상된 for 루프 - Enhanced for loop

@@ -5,9 +5,8 @@ date: '2022-03-19'
 layout: post
 tags:
 - spring
-- TIL
 - spring-security
-title: Spring Security Authentication
+title: "Spring Security Authentication"
 ---
 
 # Spring Security Authentication

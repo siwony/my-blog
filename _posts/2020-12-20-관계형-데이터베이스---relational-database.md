@@ -4,8 +4,7 @@ categories: database
 date: '2020-12-20'
 layout: post
 tags:
-- TIL
-title: 관계형 데이터베이스 - Relational database
+title: "관계형 데이터베이스 - Relational database"
 ---
 
 # 관계형 데이터베이스 - Relational database

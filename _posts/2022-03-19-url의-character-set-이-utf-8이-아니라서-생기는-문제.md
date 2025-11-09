@@ -5,8 +5,7 @@ date: '2022-03-19'
 layout: post
 tags:
 - spring
-- TIL
-title: URL의 Character Set 이 UTF-8이 아니라서 생기는 문제
+title: "URL의 Character Set 이 UTF-8이 아니라서 생기는 문제"
 ---
 
 # URL의 Character Set 이 UTF-8이 아니라서 생기는 문제

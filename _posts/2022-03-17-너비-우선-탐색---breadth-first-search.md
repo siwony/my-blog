@@ -5,8 +5,7 @@ date: '2022-03-17'
 layout: post
 tags:
 - graph-search
-- TIL
-title: 너비 우선 탐색 - Breadth-First Search
+title: "너비 우선 탐색 - Breadth-First Search"
 ---
 
 # 너비 우선 탐색 - Breadth-First Search

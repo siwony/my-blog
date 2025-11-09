@@ -5,8 +5,7 @@ date: '2022-02-22'
 layout: post
 tags:
 - oracle
-- TIL
-title: Oracle 11g quick start with doker
+title: "Oracle 11g quick start with doker"
 ---
 
 # Oracle 11g quick start with doker

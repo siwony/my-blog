@@ -4,8 +4,7 @@ categories: etc
 date: '2020-12-25'
 layout: post
 tags:
-- TIL
-title: Component
+title: "Component"
 ---
 
 # Component

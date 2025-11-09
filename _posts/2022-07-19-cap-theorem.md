@@ -5,8 +5,7 @@ date: '2022-07-19'
 layout: post
 tags:
 - distributed-systems
-- TIL
-title: CAP Theorem
+title: "CAP Theorem"
 ---
 
 CAP 이론에서 CAP는 다음과 같이 분산 데이터베이스 시스템의 세 가지 속성인 일관성(Consistency), 가용성(Availability), 파티션 허용성(Partition tolerance)를 나타낸다,

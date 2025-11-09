@@ -5,7 +5,6 @@ date: '2022-03-19'
 layout: post
 tags:
 - spring
-- TIL
 title: '@Autowired를 이용한 필드주입 보다 생성자 주입을 해야하는가?'
 ---
 

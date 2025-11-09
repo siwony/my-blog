@@ -4,9 +4,8 @@ categories: network
 date: '2022-03-17'
 layout: post
 tags:
-- TIL
 - http
-title: HTTP - Hyper Text Transfer Protocol
+title: "HTTP - Hyper Text Transfer Protocol"
 ---
 
 # HTTP - Hyper Text Transfer Protocol

@@ -5,9 +5,8 @@ date: '2022-03-19'
 layout: post
 tags:
 - maven
-- TIL
 - build-tool
-title: Plugin-not-found 해결방법
+title: "Plugin-not-found 해결방법"
 ---
 
 # Plugin-not-found 해결방법

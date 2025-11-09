@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring
 - jpa
-- TIL
-title: 객체와 테이블 매핑(annotation)
+title: "객체와 테이블 매핑(annotation)"
 ---
 
 # 객체와 테이블 매핑(annotation)

@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring
 - jpa
-- TIL
-title: JPA Auditing
+title: "JPA Auditing"
 ---
 
 # JPA Auditing

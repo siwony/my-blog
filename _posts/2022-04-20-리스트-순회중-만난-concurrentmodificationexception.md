@@ -4,12 +4,11 @@ categories: programming
 date: '2022-04-20'
 layout: post
 tags:
-- TIL
 - coding
 - development
 - java
 - java-collection-framework
-title: 리스트 순회중 만난 ConcurrentModificationException
+title: "리스트 순회중 만난 ConcurrentModificationException"
 ---
 
 # 리스트 순회중 만난 ConcurrentModificationException

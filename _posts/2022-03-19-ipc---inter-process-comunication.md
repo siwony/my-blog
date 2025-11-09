@@ -4,8 +4,7 @@ categories: cs
 date: '2022-03-19'
 layout: post
 tags:
-- TIL
-title: IPC - Inter Process Comunication
+title: "IPC - Inter Process Comunication"
 ---
 
 # IPC - Inter Process Comunication

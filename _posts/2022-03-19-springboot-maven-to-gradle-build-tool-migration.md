@@ -4,10 +4,9 @@ categories: back-end
 date: '2022-03-19'
 layout: post
 tags:
-- TIL
 - gradle
 - build-tool
-title: SpringBoot Maven to Gradle build tool migration!
+title: "SpringBoot Maven to Gradle build tool migration!"
 ---
 
 # SpringBoot Maven to Gradle build tool migration!

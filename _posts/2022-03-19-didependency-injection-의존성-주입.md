@@ -5,8 +5,7 @@ date: '2022-03-19'
 layout: post
 tags:
 - spring
-- TIL
-title: DI(Dependency Injection, 의존성 주입)
+title: "DI(Dependency Injection, 의존성 주입)"
 ---
 
 # DI(Dependency Injection, 의존성 주입)

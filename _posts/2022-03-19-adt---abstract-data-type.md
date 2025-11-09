@@ -6,8 +6,7 @@ layout: post
 tags:
 - data-structure
 - ADT
-- TIL
-title: ADT - Abstract Data Type
+title: "ADT - Abstract Data Type"
 ---
 
 # ADT - Abstract Data Type

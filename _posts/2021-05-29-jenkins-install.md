@@ -5,8 +5,7 @@ date: '2021-05-29'
 layout: post
 tags:
 - jenkins
-- TIL
-title: jenkins install
+title: "jenkins install"
 ---
 
 # jenkins install

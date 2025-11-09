@@ -4,8 +4,7 @@ categories: algorithm
 date: '2022-03-17'
 layout: post
 tags:
-- TIL
-title: 동적 계획법과 분할 정복 - Dynamic Programming & Divide
+title: "동적 계획법과 분할 정복 - Dynamic Programming & Divide"
 ---
 
 # 동적 계획법과 분할 정복 - Dynamic Programming & Divide

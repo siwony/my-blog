@@ -7,8 +7,7 @@ tags:
 - java
 - coding
 - development
-- TIL
-title: Java install
+title: "Java install"
 ---
 
 # Java install

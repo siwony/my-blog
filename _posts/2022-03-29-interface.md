@@ -7,8 +7,7 @@ tags:
 - java
 - coding
 - development
-- TIL
-title: Interface
+title: "Interface"
 ---
 
 # Interface

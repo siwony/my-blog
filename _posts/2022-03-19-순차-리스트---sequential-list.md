@@ -7,8 +7,7 @@ tags:
 - data-structure
 - linear
 - list
-- TIL
-title: 순차 리스트 - Sequential List
+title: "순차 리스트 - Sequential List"
 ---
 
 # 순차 리스트 - Sequential List

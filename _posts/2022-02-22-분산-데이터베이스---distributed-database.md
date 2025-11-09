@@ -5,8 +5,7 @@ date: '2022-02-22'
 layout: post
 tags:
 - data-modeling
-- TIL
-title: 분산 데이터베이스 - distributed database
+title: "분산 데이터베이스 - distributed database"
 ---
 
 # 분산 데이터베이스 - distributed database

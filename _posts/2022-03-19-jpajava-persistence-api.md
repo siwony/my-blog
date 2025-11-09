@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring
 - jpa
-- TIL
-title: JPA(Java Persistence API)
+title: "JPA(Java Persistence API)"
 ---
 
 # JPA(Java Persistence API)

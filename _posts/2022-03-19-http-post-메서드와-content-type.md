@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring-mvc
 - spring
-- TIL
-title: HTTP POST 메서드와 Content-Type
+title: "HTTP POST 메서드와 Content-Type"
 ---
 
 # HTTP POST 메서드와 Content-Type

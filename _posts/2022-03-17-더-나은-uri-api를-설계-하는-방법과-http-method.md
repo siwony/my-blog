@@ -4,9 +4,8 @@ categories: network
 date: '2022-03-17'
 layout: post
 tags:
-- TIL
 - http
-title: 더 나은 URI API를 설계 하는 방법과 HTTP method
+title: "더 나은 URI API를 설계 하는 방법과 HTTP method"
 ---
 
 # 더 나은 URI API를 설계 하는 방법과 HTTP method

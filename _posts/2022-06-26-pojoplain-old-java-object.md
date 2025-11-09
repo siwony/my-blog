@@ -7,7 +7,6 @@ tags:
 - java
 - coding
 - development
-- TIL
 title: "[Java] POJO(Plain Old JAVA Object)"
 ---
 : 오래된 방식의 간단한 자바 오브젝트  

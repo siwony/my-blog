@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring-boot
 - spring
-- TIL
-title: Spring Boot 한글 깨짐 현상 해결 방법
+title: "Spring Boot 한글 깨짐 현상 해결 방법"
 ---
 
 # Spring Boot 한글 깨짐 현상 해결 방법

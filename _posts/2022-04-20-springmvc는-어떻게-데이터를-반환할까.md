@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring-mvc
 - spring
-- TIL
-title: SpringMVC는 어떻게 데이터를 반환할까?
+title: "SpringMVC는 어떻게 데이터를 반환할까?"
 ---
 
 # SpringMVC는 어떻게 데이터를 반환할까? 

@@ -4,12 +4,11 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- TIL
 - coding
 - development
 - Design-pattern
 - java
-title: 템플릿 메서드 패턴 - Template Method Pattern
+title: "템플릿 메서드 패턴 - Template Method Pattern"
 ---
 
 # 템플릿 메서드 패턴 - Template Method Pattern

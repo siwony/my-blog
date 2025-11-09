@@ -4,8 +4,7 @@ categories: database
 date: '2020-12-22'
 layout: post
 tags:
-- TIL
-title: Entity relationship Diagram
+title: "Entity relationship Diagram"
 ---
 
 # Entity relationship Diagram

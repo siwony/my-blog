@@ -6,7 +6,6 @@ layout: post
 tags:
 - spring
 - jpa
-- TIL
 title: '@MappedSuperclass'
 ---
 

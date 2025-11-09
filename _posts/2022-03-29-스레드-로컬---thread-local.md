@@ -5,11 +5,10 @@ date: '2022-03-29'
 layout: post
 tags:
 - concurrent
-- TIL
 - coding
 - development
 - java
-title: 스레드 로컬 - Thread Local
+title: "스레드 로컬 - Thread Local"
 ---
 
 # 스레드 로컬 - Thread Local

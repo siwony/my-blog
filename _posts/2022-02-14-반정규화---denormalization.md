@@ -5,8 +5,7 @@ date: '2022-02-14'
 layout: post
 tags:
 - data-modeling
-- TIL
-title: 반정규화 - Denormalization
+title: "반정규화 - Denormalization"
 ---
 
 # 반정규화 - Denormalization

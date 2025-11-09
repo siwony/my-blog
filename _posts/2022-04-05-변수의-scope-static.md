@@ -5,12 +5,11 @@ date: '2022-04-05'
 layout: post
 tags:
 - legacy
-- TIL
 - grammar
 - coding
 - development
 - java
-title: 변수의 scope, static
+title: "변수의 scope, static"
 ---
 
 # 변수의 scope, static

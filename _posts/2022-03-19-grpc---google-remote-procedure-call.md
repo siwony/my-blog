@@ -6,8 +6,7 @@ layout: post
 tags:
 - protocol
 - rpc
-- TIL
-title: gRPC - google Remote Procedure Call
+title: "gRPC - google Remote Procedure Call"
 ---
 
 # gRPC - google Remote Procedure Call

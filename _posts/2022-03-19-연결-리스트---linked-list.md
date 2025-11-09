@@ -7,8 +7,7 @@ tags:
 - data-structure
 - linear
 - list
-- TIL
-title: 연결 리스트 - Linked List
+title: "연결 리스트 - Linked List"
 ---
 
 # 연결 리스트 - Linked List

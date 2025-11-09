@@ -4,12 +4,11 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- TIL
 - coding
 - development
 - Design-pattern
 - java
-title: Strategy Pattern(전략 패턴)
+title: "Strategy Pattern(전략 패턴)"
 ---
 
 # Strategy Pattern(전략 패턴)

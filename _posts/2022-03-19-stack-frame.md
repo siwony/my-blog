@@ -5,8 +5,7 @@ date: '2022-03-19'
 layout: post
 tags:
 - Memory
-- TIL
-title: Stack Frame
+title: "Stack Frame"
 ---
 
 # Stack Frame

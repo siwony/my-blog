@@ -5,8 +5,7 @@ date: '2022-03-17'
 layout: post
 tags:
 - protocol
-- TIL
-title: TCP - Trancmission Control Protocol
+title: "TCP - Trancmission Control Protocol"
 ---
 
 # TCP - Trancmission Control Protocol

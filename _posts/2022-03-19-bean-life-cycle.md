@@ -5,8 +5,7 @@ date: '2022-03-19'
 layout: post
 tags:
 - spring
-- TIL
-title: Bean Life Cycle
+title: "Bean Life Cycle"
 ---
 
 # Bean Life Cycle

@@ -5,9 +5,8 @@ date: '2022-03-19'
 layout: post
 tags:
 - spring
-- TIL
 - spring-security
-title: Spring Security
+title: "Spring Security"
 ---
 
 > 이 글은 Spring Boot + Spring Security 기준으로 쓰여진 글입니다.

@@ -4,8 +4,7 @@ categories: cs
 date: '2022-03-19'
 layout: post
 tags:
-- TIL
-title: Software Development Life Cycle
+title: "Software Development Life Cycle"
 ---
 
 # Software Development Life Cycle

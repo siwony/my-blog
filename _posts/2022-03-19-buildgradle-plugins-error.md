@@ -4,10 +4,9 @@ categories: back-end
 date: '2022-03-19'
 layout: post
 tags:
-- TIL
 - gradle
 - build-tool
-title: build.gradle plugins{} error
+title: "build.gradle plugins{} error"
 ---
 
 # build.gradle plugins{} error

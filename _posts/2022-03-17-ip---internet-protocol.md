@@ -5,8 +5,7 @@ date: '2022-03-17'
 layout: post
 tags:
 - protocol
-- TIL
-title: IP - Internet Protocol
+title: "IP - Internet Protocol"
 ---
 
 # IP - Internet Protocol

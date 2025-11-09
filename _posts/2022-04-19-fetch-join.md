@@ -7,8 +7,7 @@ tags:
 - spring
 - jpa
 - JPQL
-- TIL
-title: Fetch Join
+title: "Fetch Join"
 ---
 
 # Fetch Join

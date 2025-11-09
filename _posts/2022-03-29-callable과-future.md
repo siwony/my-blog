@@ -5,11 +5,10 @@ date: '2022-03-29'
 layout: post
 tags:
 - concurrent
-- TIL
 - coding
 - development
 - java
-title: Callable과 Future
+title: "Callable과 Future"
 ---
 
 # Callable과 Future

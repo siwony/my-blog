@@ -4,12 +4,11 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- TIL
 - coding
 - development
 - Design-pattern
 - java
-title: Proxy Pattern
+title: "Proxy Pattern"
 ---
 
 # Proxy Pattern

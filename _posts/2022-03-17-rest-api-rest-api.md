@@ -4,9 +4,8 @@ categories: network
 date: '2022-03-17'
 layout: post
 tags:
-- TIL
 - http
-title: REST, API, REST API
+title: "REST, API, REST API"
 ---
 
 # REST, API, REST API

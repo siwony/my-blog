@@ -4,8 +4,7 @@ categories: database
 date: '2022-01-18'
 layout: post
 tags:
-- TIL
-title: 트랜잭션 격리 수준 - Isolation level
+title: "트랜잭션 격리 수준 - Isolation level"
 ---
 
 # 트랜잭션 격리 수준 - Isolation level

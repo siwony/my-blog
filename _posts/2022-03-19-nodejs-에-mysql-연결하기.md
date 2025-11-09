@@ -5,8 +5,7 @@ date: '2022-03-19'
 layout: post
 tags:
 - nodejs
-- TIL
-title: Node.js 에 MySQL 연결하기
+title: "Node.js 에 MySQL 연결하기"
 ---
 
 # Node.js 에 MySQL 연결하기

@@ -7,8 +7,7 @@ tags:
 - java
 - coding
 - development
-- TIL
-title: Wrapper class
+title: "Wrapper class"
 ---
 
 # Wrapper class

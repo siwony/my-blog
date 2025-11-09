@@ -7,8 +7,7 @@ tags:
 - data-structure
 - non-linear
 - tree
-- TIL
-title: 이진 탐색 트리 - Binary Search Tree
+title: "이진 탐색 트리 - Binary Search Tree"
 ---
 
 # 이진 탐색 트리 - Binary Search Tree

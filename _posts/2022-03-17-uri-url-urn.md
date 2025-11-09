@@ -4,8 +4,7 @@ categories: network
 date: '2022-03-17'
 layout: post
 tags:
-- TIL
-title: URI?, URL?, URN?
+title: "URI?, URL?, URN?"
 ---
 
 # URI?, URL?, URN?

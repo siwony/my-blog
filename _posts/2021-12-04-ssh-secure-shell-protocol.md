@@ -5,8 +5,7 @@ date: '2021-12-04'
 layout: post
 tags:
 - ssh
-- TIL
-title: SSH (Secure Shell Protocol)
+title: "SSH (Secure Shell Protocol)"
 ---
 
 # SSH (Secure Shell Protocol)

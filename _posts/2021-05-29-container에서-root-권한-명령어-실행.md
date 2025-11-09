@@ -5,8 +5,7 @@ date: '2021-05-29'
 layout: post
 tags:
 - docker
-- TIL
-title: container에서 root 권한 명령어 실행
+title: "container에서 root 권한 명령어 실행"
 ---
 
 # container에서 root 권한 명령어 실행

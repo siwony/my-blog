@@ -5,8 +5,7 @@ date: '2022-03-19'
 layout: post
 tags:
 - nodejs
-- TIL
-title: sequelize
+title: "sequelize"
 ---
 
 # sequelize

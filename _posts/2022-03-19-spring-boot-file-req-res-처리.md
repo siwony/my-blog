@@ -6,8 +6,7 @@ layout: post
 tags:
 - spring-boot
 - spring
-- TIL
-title: Spring Boot file Req, Res 처리
+title: "Spring Boot file Req, Res 처리"
 ---
 
 # Spring Boot file Req, Res 처리

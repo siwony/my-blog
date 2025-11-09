@@ -7,8 +7,7 @@ tags:
 - java
 - coding
 - development
-- TIL
-title: Java version 변경
+title: "Java version 변경"
 ---
 
 # Java version 변경

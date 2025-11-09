@@ -5,8 +5,7 @@ date: '2021-08-12'
 layout: post
 tags:
 - aws
-- TIL
-title: 간단한 Spring Boot AWS Server 배포
+title: "간단한 Spring Boot AWS Server 배포"
 ---
 
 # 간단한 Spring Boot AWS Server 배포

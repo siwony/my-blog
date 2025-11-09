@@ -5,11 +5,10 @@ date: '2022-03-29'
 layout: post
 tags:
 - concurrent
-- TIL
 - coding
 - development
 - java
-title: Synchronized 키워드 - 경쟁상태를 해결하는 방법
+title: "Synchronized 키워드 - 경쟁상태를 해결하는 방법"
 ---
 
 # Synchronized 키워드 - 경쟁상태를 해결하는 방법

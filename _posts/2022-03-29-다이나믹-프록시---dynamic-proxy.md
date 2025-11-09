@@ -4,12 +4,11 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- TIL
 - byte-code-controller-way
 - coding
 - development
 - java
-title: 다이나믹 프록시 - Dynamic Proxy
+title: "다이나믹 프록시 - Dynamic Proxy"
 ---
 
 # 다이나믹 프록시 - Dynamic Proxy

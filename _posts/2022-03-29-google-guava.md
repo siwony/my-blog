@@ -7,8 +7,7 @@ tags:
 - java
 - coding
 - development
-- TIL
-title: Google Guava
+title: "Google Guava"
 ---
 
 # Google Guava

@@ -7,8 +7,7 @@ tags:
 - spring
 - jpa
 - data-jpa
-- TIL
-title: Repository
+title: "Repository"
 ---
 
 # Repository

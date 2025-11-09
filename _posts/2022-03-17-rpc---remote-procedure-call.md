@@ -6,8 +6,7 @@ layout: post
 tags:
 - protocol
 - rpc
-- TIL
-title: RPC - Remote Procedure Call
+title: "RPC - Remote Procedure Call"
 ---
 
 # RPC - Remote Procedure Call

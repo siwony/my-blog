@@ -5,8 +5,7 @@ date: '2021-05-29'
 layout: post
 tags:
 - docker
-- TIL
-title: Docker install
+title: "Docker install"
 ---
 
 # Docker install

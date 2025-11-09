@@ -5,8 +5,7 @@ date: '2022-03-17'
 layout: post
 tags:
 - web
-- TIL
-title: 쿠키(cookie) 와 세션(session)
+title: "쿠키(cookie) 와 세션(session)"
 ---
 
 # 쿠키(cookie) 와 세션(session)

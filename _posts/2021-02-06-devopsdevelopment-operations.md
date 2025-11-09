@@ -4,8 +4,7 @@ categories: devops
 date: '2021-02-06'
 layout: post
 tags:
-- TIL
-title: DevOps(Development + Operations)
+title: "DevOps(Development + Operations)"
 ---
 
 # DevOps(Development + Operations)

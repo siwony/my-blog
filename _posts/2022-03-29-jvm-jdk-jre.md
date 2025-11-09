@@ -7,8 +7,7 @@ tags:
 - java
 - coding
 - development
-- TIL
-title: JVM, JDK, JRE
+title: "JVM, JDK, JRE"
 ---
 
 # JVM, JDK, JRE

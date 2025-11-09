@@ -7,8 +7,7 @@ tags:
 - java
 - coding
 - development
-- TIL
-title: Java Beans
+title: "Java Beans"
 ---
 
 # Java Beans

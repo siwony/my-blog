@@ -5,11 +5,10 @@ date: '2022-03-29'
 layout: post
 tags:
 - concurrent
-- TIL
 - coding
 - development
 - java
-title: Concurrent 프로그래밍
+title: "Concurrent 프로그래밍"
 ---
 
 # Concurrent 프로그래밍
