@@ -1,25 +1,21 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
-- byte-code-controller-way
+- 바이트코드-제어-방법
 - coding
 - development
 - java
-title: "리플렉션 - Reflection"
+title: "[Java] 리플렉션 - Reflection"
 ---
-
-# 리플렉션 - Reflection
+: 이미 로딩이 완료된 클래스에서 또 다른 클래스를 동적으로 로딩(Dynamic Loading)하여 생성자(Constructor), 멤버 필드(Member Variables) 그리고 멤버 메서드(Member Method) 등을 사용할 수 있도록 한다.
+- 구체적인 클래스 타입을 알지 못해도 그 클래스의 구성요소를 접근할 수 있다.
 
 #### Spring, Hibernate 그리고 Jackson라이브러리는 어떻게 작동할까?
 Spring은 Annotatino을 통해 , Hibarnate는 Entity클래스의 정보를 통한 Poxy를 이용해 지연 로딩을 하고, Jackson라이브러리는 `Getter/Setter`를 활용해 직렬화를 구현한다.   
 이러한 것을 가능하게 하는 기술을 `리플렉션 - Reflection`이라는 기술이다. 리플렉션을 이용해 필드의 값을 가져오거나, 객체를 동적으로 생성하는 등 클래스를 동적으로 다룬다. 이 글은 Java진영에서 자주 사용하는 프레임워크, 라이브러리를 꿰뚫는 기술에 대한 TIL이다.
-
-## 리플렉션
-: 이미 로딩이 완료된 클래스에서 또 다른 클래스를 동적으로 로딩(Dynamic Loading)하여 생성자(Constructor), 멤버 필드(Member Variables) 그리고 멤버 메서드(Member Method) 등을 사용할 수 있도록 한다.
-- 구체적인 클래스 타입을 알지 못해도 그 클래스의 구성요소를 접근할 수 있다.
 
 #### 구체적인 클래스 타입을 알지 못할때가 언제일까?
 '내 코드인데 어떻게 클래스 타입을 모를수가 있지?' 라는 의문점을 품을 수 있다. 하지만 이는 관점을 프레임워크의 입장이 되어 생각해보면 이해가 쉽게 가능하다.
@@ -27,8 +23,7 @@ Spring은 Annotatino을 통해 , Hibarnate는 Entity클래스의 정보를 통�
 Spring 프레임워크의 어노테이션 같은 기능들이 리플렉션을 통해 프로그램 실행중 동적으로 클래스 정보를 가져와 사용한다. 하지만 Spring 프레임워크 입장에서는 어느 객체를 다룰지 모르는데 클래스의 정보를 알 수 있을까?
 객체의 모든 타입은 Object를 상속받고 있다. A라는 객체는 Object타입으로 담을 수 있지만 A가 가지고 있는 메서드와 필드는 사용할 수 없다.
 
-하지만 리플렉션을 사용한다면 해당 객체의 타입을 몰라도 필드와 메서드를 사용할 수 있고 객체의 정보를 가져오는 등 런타임 시점에 동적으로 객체를 다룰 수 있다.
-
+하지만 리플렉션을 사용한다면 해당 객체의 타입을 몰라도 필드와 메서드를 사용할 수 있고 객체의 정보를 가져오는 등 런타임 시점에 동적으로 객체를 다룰 수 있다.\
 
 ## 기초적인 사용방법
 리플렉션의 첫 시작은 `Class<?>`라는 API를 사용하게 될 것이다. [공식문서](https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html)  

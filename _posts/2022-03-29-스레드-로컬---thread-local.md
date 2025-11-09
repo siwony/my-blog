@@ -141,16 +141,19 @@ public class FieldServiceTest {
 "어차피 Thread가 종료되면 Thread에 따라 `ThreadLocal`도 제거될 텐데 왜 `ThreadLocal.remove()`를 통해 스레드 저장소의 저장된 값을 지우는 거지?"라는 의문이 들 수 있다.
 
 하지만 이는 나중에 얘기치 못한 상황을 불러 올 수 있는데 특히 Thread Pool를 사용하는 Tomcat과 같은 시스템에서 문제가 발생할 수 있다.
-| 사용자 A의 요청 | 사용자 A의 요청에 대한 응답 |
+
+
+|사용자 A의 요청                |  사용자 A의 요청에 대한 응답 |
 |:-------------------------:|:-------------------------:|
-| ![](/assets/images/posts/programming/thread-local-issue-ex1.png) | ![](/assets/images/posts/programming/thread-local-issue-ex2.png) |
+|![](/assets/images/posts/programming/thread-local-issue-ex1.png)  |  ![](/assets/images/posts/programming/thread-local-issue-ex2.png)|
+
 - 사용자A는 WAS에 요청하여 Thread-A를 사용해 사용자 A를 저장후 사용자A에게 HTTP응답을 했다.
 - 사용자A는 요청이 끝나 사용자A가 요청한 로직을 처리한 Thread-A는 Thread Pool에 반환되었다.
 - Thread-A가 파괴되지 않았으므로 Thread-A는 스레드 로컬에는 사용자A의 데이터가 남아있다.
 
 여기서 사용자B가 사용자B 즉, 자신의 정보를 조회하는 로직을 요청했는데, 하필 Thread-A를 사용하면 어떻게 될까?
 
-<img src="/assets/images/posts/programming/thread-local-issue-ex3.png">
+![](/assets/images/posts/programming/thread-local-issue-ex3.png)
 
 1. 사용자B는 조회를 위한 HTTP요청을 한다.
 2. WAS는 스레드 풀에서 스레드를 하나 조회한다.

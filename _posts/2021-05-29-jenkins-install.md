@@ -7,8 +7,6 @@ tags:
 - jenkins
 title: "jenkins install"
 ---
-
-# jenkins install
 ## ubuntu
 ### apt update
 ```sh

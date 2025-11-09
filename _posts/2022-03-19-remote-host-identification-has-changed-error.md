@@ -7,8 +7,6 @@ tags:
 - ssh
 title: "REMOTE HOST IDENTIFICATION HAS CHANGED Error"
 ---
-
-# REMOTE HOST IDENTIFICATION HAS CHANGED Error
 어느날 AWS ec2에 SSH접속시 다음과 같은 에러가 나왔다.
 ```sh
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

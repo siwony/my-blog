@@ -7,8 +7,6 @@ tags:
 - spring
 title: "Bean Life Cycle"
 ---
-
-# Bean Life Cycle
 ### Bean Life Cycle에 대해 왜 알아야 할까?
 **IoC의 이점을 얻으려면 컨테이너로 가는 애플리케이션의 흐름에 대한 부분적인 제어를 포기해야 한다.** == 인스턴스화
 > 시작시 로직 설정 등에 특별한 주의가 필요하다.

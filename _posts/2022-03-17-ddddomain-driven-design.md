@@ -8,8 +8,6 @@ tags:
 - development
 title: "DDD(Domain Driven Design)"
 ---
-
-# DDD(Domain Driven Design)
 : 도메인을 중심으로 하는 개발 방식이다.  
 &rarr; 도메인에 관련된 문제를 해결하는것.
 - 복잡한 도메인을 해결하는 것을 높은 우선순위로 생각해 서비스를 만들어 나아간다.

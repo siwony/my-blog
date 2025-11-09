@@ -1,19 +1,16 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
 - spring
 title: "Spring Framework"
 ---
-
-# Spring Framework
 *Spring Framework*는 자바 플랫폼을 위한 오픈소스 애플리케이션으로써, **엔터프라이즈급 애플리케이션**을 개발하기 위한 모든 기능들을 종합적으로 제공하는 **경량화**된 솔루션이다
 
 Spring은 특정한 하나의 프레임워크가 아닌 **여러가지 기술들의 모음**이라고 할 수 있다.
 > Web BE개발에 사용되는 Spring은 Spring Framework라고 부르는게 더 정확한 표현이다.
-
 
 ### Spring Framework의 등장 배경
 Spring은 *초기 J2EE(Java EE) 사양*의 복잡성으로 2003년에 만들어졌다.

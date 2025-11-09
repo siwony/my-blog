@@ -6,9 +6,6 @@ layout: post
 tags:
 title: "동적 계획법과 분할 정복 - Dynamic Programming & Divide"
 ---
-
-# 동적 계획법과 분할 정복 - Dynamic Programming & Divide
-
 ## 동적 게획법
 복잡한 문제를 간단한 여러개의 문제로 나누어 푸는 방법
 - 상향식 접근법으로 가장 최하위 해답을 구하고, 공간을 할당하여 기억하고 해당 결과값을 이용해 상위 문제를 풀어간다.

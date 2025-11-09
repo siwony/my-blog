@@ -1,15 +1,13 @@
 ---
 author: jeongcool
-categories: back-end
+categories: jpa
 date: '2022-03-19'
 layout: post
 tags:
 - spring
 - jpa
-title: "객체와 테이블 매핑(annotation)"
+title: "[JPA] 객체와 테이블 매핑(annotation)"
 ---
-
-# 객체와 테이블 매핑(annotation)
 ## @Entity
 : 컬럼 매핑
 - table과 매핑될 클래스에 `@Entity`가 붙여진다

@@ -1,14 +1,12 @@
 ---
 author: jeongcool
-categories: back-end
+categories: node
 date: '2022-03-19'
 layout: post
 tags:
 - nodejs
 title: "Node.js 에 MySQL 연결하기"
 ---
-
-# Node.js 에 MySQL 연결하기
 ## MySQL 모듈을 설치합니다.
 ```bash
 $ npm install mysql

@@ -8,9 +8,6 @@ tags:
 - rpc
 title: "RPC - Remote Procedure Call"
 ---
-
-# RPC - Remote Procedure Call
-
 ## 1. 등장 배경
 https://en.wikipedia.org/wiki/Remote_procedure_call#History_and_origins
 

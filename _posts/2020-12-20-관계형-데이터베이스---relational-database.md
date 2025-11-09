@@ -6,8 +6,6 @@ layout: post
 tags:
 title: "관계형 데이터베이스 - Relational database"
 ---
-
-# 관계형 데이터베이스 - Relational database
 : table로 이루어져 있고, 이 table은 key 와 value의 관계를 나타낸다
   이처럼 데이터의 종속성을 관계(relationship)로 표현하는것  
 - 1970년 영국의 수학자인 E. F. Codd 박사의 논문에서 제안

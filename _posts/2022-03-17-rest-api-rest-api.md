@@ -7,13 +7,6 @@ tags:
 - http
 title: "REST, API, REST API"
 ---
-
-# REST, API, REST API
-### 목차
-- [REST](#REST-Representational-State-Transfer (표현-상태 전이))
-- [API](#API(Application-Programming-Interface))
-- [REST API](#REST-API)
-- [RESTful API](#RESTful-API)
 ## REST Representational State Transfer (표현 상태 전이)
 : "웹에 존재하는 모든 자원(이미지, 동영상, DB 자원)에 고유한 URL을 부여해 활용"하는 것, 자원을 정의 및 자원에 대한 주소를 지정하는 방법을 의미한다.  
 

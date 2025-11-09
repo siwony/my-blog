@@ -6,9 +6,6 @@ layout: post
 tags:
 title: "Elastic Stack - Elasticsearch, Logstash, Kibana + Beats"
 ---
-
-# Elastic Stack - Elasticsearch, Logstash, Kibana + Beats
-
 > ELK &rarr; Elastic Stack(ELK Stack)
 
 #### ELK Stack의 시작

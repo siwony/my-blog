@@ -7,8 +7,6 @@ tags:
 - http
 title: "HTTP - Hyper Text Transfer Protocol"
 ---
-
-# HTTP - Hyper Text Transfer Protocol
 : 인터넷에서 데이터를 주고받을 수 있는 프로토콜
 - 구성요소: Client, Web Server, Proxy
 - 80 PORT를 기본으로 사용한다.

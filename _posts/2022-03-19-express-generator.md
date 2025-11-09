@@ -1,16 +1,15 @@
 ---
 author: jeongcool
-categories: back-end
+categories: node
 date: '2022-03-19'
 layout: post
 tags:
 - nodejs
-title: "express-generator"
+title: "[NodeJS] express-generator"
 ---
-
-# express-generator
 : `Express-generator`라는 패키지를 통해서 프레임워크에 필요한 `pakage.json`과 기본 구조를 잡을 수 있는 패키지 이다.
 ### install 및 express 프로젝트 만들기
+
 node.js, npm 이 설치되어있다는 가정하에 설명을 할것이다. [(설치방법)](./how-to-install-nodejs.md)  
 ```bash
 > npm install -g express-generator
@@ -29,6 +28,7 @@ node.js, npm 이 설치되어있다는 가정하에 설명을 할것이다. [(�
 ```
 를 하면 `package.json`에 있는 모듈들을 자동으로 설치해줄것이다.
 ### nodemon 적용하기
+
 [nodemon](./how-to-install-nodejs.md)이 설치가 되어있다는 가정으로 설명할것이다.  
 <code>package.json</code> 파일에 있는 script 부분을 수정할것이다.
 ```json

@@ -1,15 +1,13 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
 - spring-mvc
 - spring
-title: "HTTP POST 메서드와 Content-Type"
+title: "[Spring MVP] HTTP POST 메서드와 Content-Type"
 ---
-
-# HTTP POST 메서드와 Content-Type
 Spring Boot를 사용해 API서버를 만들면 POST메서드를 통해 요청을 받을 때 body에 JSON형태로 통신한다는 전제로 개발을 하게 된다.  
 
 하지만, JSON 형태가 아닌 다른 형식으로 클라이언트에서 요청을 보내야 할 때가 있다.  
@@ -17,6 +15,7 @@ Spring Boot를 사용해 API서버를 만들면 POST메서드를 통해 요청�
 POST 형식에서 QueryString 형태로 body에 값을 전송하고 싶다면 `application/x-www-form-urlencoded` 형식으로 요청한다.
 
 #### multipart/form-data
+
 각각의 데이터를 구분하는 boundary와 데이터를 구분하는 boundary 사이에 데이터와 데이터를 구분하는 Content-Type이 필수적으로 있는 요청 방식
 
 **요청 예시**

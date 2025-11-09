@@ -6,8 +6,6 @@ layout: post
 tags:
 title: "선택 정렬 - Selection Sort"
 ---
-
-# 선택 정렬 - Selection Sort
 : 해당 순서의 원소를 넣는 위치는 이미 정해져 있고, 어떤 원소를 넣을지 선택하는 알고리즘이다.
 - `제자리 정렬 - in-place sorting` 알고리즘
 - 비교 정렬

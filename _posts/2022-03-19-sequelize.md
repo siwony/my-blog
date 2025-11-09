@@ -1,14 +1,12 @@
 ---
 author: jeongcool
-categories: back-end
+categories: node
 date: '2022-03-19'
 layout: post
 tags:
 - nodejs
-title: "sequelize"
+title: "[NodeJS] sequelize"
 ---
-
-# sequelize
 : node.js 의 ORM(Object Releaition Mapping) 모듈이다.  
 
 ### how to use?

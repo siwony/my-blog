@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
@@ -8,15 +8,6 @@ tags:
 - spring-security
 title: "Spring Security"
 ---
-
-> 이 글은 Spring Boot + Spring Security 기준으로 쓰여진 글입니다.
-#### 목차
-- [Spring Security](#spring-security) &larr;
-- [Spring Security Start!](spring-security-start.md)
-- [Spring Security Filter](spring-security-filters.md)
-- [다양한 Spring Security Filter](spring-security-variety-filters.md)
-
-# Spring Security
 : **스프링 기반의 어플리케이션의 보안(인증, 권한)을 담당하는 프레임워크**
 - 보안 관련 체계적인 옵션 지원
 - filter 기반으로 동작

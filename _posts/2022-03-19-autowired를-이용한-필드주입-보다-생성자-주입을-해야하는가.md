@@ -1,14 +1,12 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
 - spring
 title: '@Autowired를 이용한 필드주입 보다 생성자 주입을 해야하는가?'
 ---
-
-# @Autowired를 이용한 필드주입 보다 생성자 주입을 해야하는가?
 ### 요약
 - [**순환참조 오류의 방지**](#순환참조-오류의-방지)
     - 순환 참조가 발생하는 경우 애플리케이션이 구동되지 않는다.

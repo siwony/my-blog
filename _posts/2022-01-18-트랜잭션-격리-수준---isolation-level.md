@@ -6,8 +6,6 @@ layout: post
 tags:
 title: "트랜잭션 격리 수준 - Isolation level"
 ---
-
-# 트랜잭션 격리 수준 - Isolation level
 트랜잭션 격리 수준은 동시에 여러 트랜잭션이 처리될 때, 트랜잭션끼리 얼마나 서로 고립되어 있는지를 나타내는 것이다
 
 격리수준은 크게 4개로 나뉜다.

@@ -7,8 +7,6 @@ tags:
 - graph-search
 title: "너비 우선 탐색 - Breadth-First Search"
 ---
-
-# 너비 우선 탐색 - Breadth-First Search
 **루트 노드(혹은 다른 임의의 노드)에서 시작해서 인접한 노드를 먼저 탐색하는 방법이다.**
 
 - 맹목적인 탐색을 하고자 할 때 사용할 수 있다.

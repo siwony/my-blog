@@ -8,8 +8,6 @@ tags:
 - ADT
 title: "ADT - Abstract Data Type"
 ---
-
-# ADT - Abstract Data Type
 : 추상자료형(ADT)이란 **구체적인 기능의 완성을 언급하지 않고, 순수하게 기능이 무엇인지를 나열한 것**을 말한다.
 > ex.  
 > C언어의 구조체, 객체지향 프로그램언어(c++, c#, java)의 interface,  

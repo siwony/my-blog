@@ -7,8 +7,6 @@ tags:
 - web
 title: "쿠키(cookie) 와 세션(session)"
 ---
-
-# 쿠키(cookie) 와 세션(session)
 ### 쿠키(Cookie)와 세션(Session)을 사용하는 이유
 - HTTP 프로토콜은 **Connectionless(비연결성)** 과 **Stateless(비상태성)** 라는 특징을 가지고 있다.  
 - 모든 사용자의 요청마다 연결과 해제의 과정을 거치면서 연결상태를 유지하지 않고 연결 헤제 후에도 상태 정보를 저장하지 않기 떄문에 **서버의 자원을 크게 절약할 수 있다.**  

@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: back-end
+categories: jpa
 date: '2022-03-19'
 layout: post
 tags:
@@ -8,8 +8,6 @@ tags:
 - jpa
 title: "JPA(Java Persistence API)"
 ---
-
-# JPA(Java Persistence API)
 : **데이터를 영속화 하는 API**
 
 ## JPA사용하기 이전의 문제점  

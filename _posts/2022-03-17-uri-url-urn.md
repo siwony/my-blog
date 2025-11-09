@@ -6,8 +6,6 @@ layout: post
 tags:
 title: "URI?, URL?, URN?"
 ---
-
-# URI?, URL?, URN?
 <p align="center"><img width=600 src="/assets/images/posts/network/uri-url-urn.png"></p>
 
 ## URI - Uniform Resource Idntifier

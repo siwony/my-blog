@@ -6,8 +6,6 @@ layout: post
 tags:
 title: "동시성 & 병렬성 - Concurrency & Parallelism"
 ---
-
-# 동시성 & 병렬성 - Concurrency & Parallelism
 ### 동시성 & 병렬성 요약
 <img src="/assets/images/posts/cs/concurrency-and-parallelism.png">
 

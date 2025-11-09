@@ -7,8 +7,6 @@ tags:
 - protocol
 title: "TCP - Trancmission Control Protocol"
 ---
-
-# TCP - Trancmission Control Protocol
 > 신뢰할 수 있는 프로토콜이며 현재 대부분 사용하고 있다.
 
 ### 특징

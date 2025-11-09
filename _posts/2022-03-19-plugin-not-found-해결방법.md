@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: back-end
+categories: maven
 date: '2022-03-19'
 layout: post
 tags:
@@ -8,8 +8,6 @@ tags:
 - build-tool
 title: "Plugin-not-found 해결방법"
 ---
-
-# Plugin-not-found 해결방법
 어느날 intellij에서 maven 기반 SpringBoot 프로젝트를 하고있었는데 다음과 같은 에러가 났다.
 
 <img width=550px src="/assets/images/posts/back-end/plugin-not-found.png">

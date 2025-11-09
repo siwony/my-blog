@@ -7,9 +7,6 @@ tags:
 - oracle
 title: "Oracle 11g quick start with doker"
 ---
-
-# Oracle 11g quick start with doker
-
 ### 1. oracle 11g 이미지 pull
 ```sh
 docker pull jaspeen/oracle-xe-11g

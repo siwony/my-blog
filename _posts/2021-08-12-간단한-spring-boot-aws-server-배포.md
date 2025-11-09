@@ -7,8 +7,6 @@ tags:
 - aws
 title: "간단한 Spring Boot AWS Server 배포"
 ---
-
-# 간단한 Spring Boot AWS Server 배포
 > 이글은 EC2, AWS Linux, JAVA11, Maven, macOS 기준으로 설명할 글입니다.  
 > 그리고 간단한 협업, Test 를 위한 배포입니다.
 

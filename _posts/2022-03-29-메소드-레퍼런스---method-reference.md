@@ -1,28 +1,26 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
 - grammar
-- coding
-- development
 - java
 - java8
-title: "메소드 레퍼런스 - Method Reference"
+title: "[Java] 메소드 레퍼런스 - Method Reference"
 ---
-
-# 메소드 레퍼런스 - Method Reference
-: Lambda 표현식을 더 간단하게 표현하는 방법입니다.
+: Lambda 표현식을 더 간단하게 표현하는 방법이다.
 - 메소드 레퍼런스를 이해 하려면 Lambda를 먼저 이해해야 한다.
 - **람다식이 구현되어있는 경우** 사용할 수 있는 **메서드 참조용 특수 문법**이다.
 
 ### Method Reference를 만드는 유형
-<img width =500 src="/assets/images/posts/programming/method-reference.jpeg">
+
+<img width=500 src="/assets/images/posts/programming/method-reference.jpeg">
 
 > 참고자료 - 모던 자바 인 엑션 3장
 
 #### 1. 정적 메서드 참조
+
 : **파라미터로 전달받은 변수의 메서드를 사용하는게 아닌, 정적 메서드의 인자로 사용된다.**
 
 예제
@@ -35,6 +33,7 @@ title: "메소드 레퍼런스 - Method Reference"
 - `(String x) -> Integer.parseInt(x)`의 경우 파라미터 `x`를 `parseInt`의 인자로 사용된다.
 
 #### 2. 다양한 형식의 인스턴스 메서드 참조
+
 : 파라미터로 전달받은 변수의 메서드를 사용한다.
 예시
 |                       Lambda                     |       Method Reference       | 
@@ -52,6 +51,7 @@ title: "메소드 레퍼런스 - Method Reference"
 2. 나머지 파라미터는 해당 메소드로 전달 된다.
 
 #### 3. 기존 객체의 인스턴스 메서드 참조
+
 : 기존에 이미 생성된 인스턴스의 인자로 사용 된다.
 - 정적 메서드의 인자와는 다르다.
 
@@ -62,5 +62,6 @@ title: "메소드 레퍼런스 - Method Reference"
 |`(String x) -> member.updateUsername(x)`     |`member::updateUsername`    |
 
 ### 생성자 참조
+
 - Method Reference와 비슷하다.
 - `x -> new UserDto(x)`를 `UserDto::new`와 같은 형태로 사용할 수 있다.

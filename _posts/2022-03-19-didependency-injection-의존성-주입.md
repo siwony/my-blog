@@ -1,14 +1,12 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
 - spring
 title: "DI(Dependency Injection, 의존성 주입)"
 ---
-
-# DI(Dependency Injection, 의존성 주입)
 : 어떤 객체가 사용하는 의존객체를 직접 만들어서 사용하는것이 아니라 주입받아 사용하는 방법  
 >즉 클래스안에 `new` 연산자가 들어가 있지 않고 외부에서 객체를 주입해주는것
 - 의존 관계 설정이 컴파일시가 아닌 실행시에 이루어져 모듈들간의 **결함도(coupling)** 를 낮출 수 있다.

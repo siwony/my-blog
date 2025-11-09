@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
@@ -8,9 +8,6 @@ tags:
 - spring-security
 title: "Sprint Security의 다양한 Filter"
 ---
-
-# Sprint Security의 다양한 Filter
-
 ### HeaderWriterFilter
 : 응답 헤더에 security 관련 헤더를 추가해주는 역할을 담당한다.
 - 딱히 신경쓸 필요는 없다

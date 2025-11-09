@@ -9,8 +9,6 @@ tags:
 - tree
 title: "이진 탐색 트리 - Binary Search Tree"
 ---
-
-# 이진 탐색 트리 - Binary Search Tree
 `이진 탐색 - binary search`와 `연결리스트 - linked list`를 결합한 자료구조이다.
 
 이진 탐색의 효율적인 탐색 능력을 유지하면서, 빈번한 자료 입력과 삭제를 가능하도록 고안되었다.

@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
@@ -8,9 +8,6 @@ tags:
 - spring
 title: "Spring Boot file Req, Res 처리"
 ---
-
-# Spring Boot file Req, Res 처리
-~~이 글은 siwony_의 엄청난 삽질을 통해 작성되었습니다.~~  
 ### 동기
 [JubJub](https://github.com/GSM-Web-Technology/Jup-Jup-Server)프로젝트에서 기자재 정보와 기자재이미지를 DB에 저장하는 기능의 필요하다.
 ### 문제점

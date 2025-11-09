@@ -7,8 +7,6 @@ tags:
 - protocol
 title: "IP - Internet Protocol"
 ---
-
-# IP - Internet Protocol
 인터넷 통신을 하기 위한 최소한의 규칙이라고 할 수 있다.
 
 ### IP의 역할

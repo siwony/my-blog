@@ -5,10 +5,8 @@ date: '2022-03-02'
 layout: post
 tags:
 - sql
-title: "Window Function"
+title: "[SQL] Window Function"
 ---
-
-# Window Function
 : 행과 행 간의 관계를 정의하기 위해 제공되는 함수다.
 
 - 순위, 합계, 평균, 행 위치 등을 조작할 수 있다.

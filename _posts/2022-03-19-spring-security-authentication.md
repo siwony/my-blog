@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
@@ -8,9 +8,6 @@ tags:
 - spring-security
 title: "Spring Security Authentication"
 ---
-
-# Spring Security Authentication
-
 ### Spring Security에서의 로그인
 : authenticated 가 true인 Authentication 객체를 SecurityContext 에 갖고 있는 상태를 말한다. 단 Authentication이 AnonymousAuthenticationToken 만 아니면 된다.
 `로그인 == Authentication(authenticated = true) only if Authentication != AnonymousAuthenticationToken`

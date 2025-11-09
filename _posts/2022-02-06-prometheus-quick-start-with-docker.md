@@ -7,8 +7,6 @@ tags:
 - prometheus
 title: "Prometheus quick start with docker"
 ---
-
-# Prometheus quick start with docker
 > 이 글은 빠른 실습을 위해 Spring Boot + Spring Actuator를 기반으로 작성된 글입니다.
 
 Prometheus는 metric을 수집하고 모니터링 및 알람에 사용되는 오픈소스 애플리케이션이다.

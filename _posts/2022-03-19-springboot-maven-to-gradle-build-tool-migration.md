@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
@@ -8,27 +8,6 @@ tags:
 - build-tool
 title: "SpringBoot Maven to Gradle build tool migration!"
 ---
-
-# SpringBoot Maven to Gradle build tool migration!
-- [SpringBoot Maven to Gradle build tool migration!](#springboot-maven-to-gradle-build-tool-migration)
-  - [Intro](#intro)
-      - [프로젝트 환경](#프로젝트-환경)
-    - [Migration 동기](#migration-동기)
-      - [TheMoment Project](#themoment-project)
-      - [지속적 통합(CI)의 자료가 Gradle이 더 많다.](#지속적-통합ci의-자료가-gradle이-더-많다)
-  - [본론](#본론)
-    - [Maven Project에 Gradle Project 적용하기](#maven-project에-gradle-project-적용하기)
-    - [의존성 migration](#의존성-migration)
-      - [저장소 선언](#저장소-선언)
-    - [Intellij에서 Gradle Project를 불러오자](#intellij에서-gradle-project를-불러오자)
-      - [만약 Intellij가 Gradle을 불러오지 못한다면](#만약-intellij가-gradle을-불러오지-못한다면)
-    - [나는 왜 에러가 뜨는걸까? - gradle lombok error](#나는-왜-에러가-뜨는걸까---gradle-lombok-error)
-      - [문제해결](#문제해결)
-  - [후기](#후기)
-    - [공식문서를보자](#공식문서를보자)
-    - [에러코드를 자세히 읽어보자](#에러코드를-자세히-읽어보자)
-      - [마무리](#마무리)
-
 ## Intro
 > SpringBoot 개발초기에는 Gradle이 무서운줄 알았다. 하지만 배포를 하다 보니까 Maven이 더 무섭더라.
 

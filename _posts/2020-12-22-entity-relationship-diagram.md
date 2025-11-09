@@ -6,8 +6,6 @@ layout: post
 tags:
 title: "Entity relationship Diagram"
 ---
-
-# Entity relationship Diagram
 : 개체 속성과 개체 간 관계를 도표로 표현헌것.
 
 ### ERD 관계 표현법  

@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: back-end
+categories: jpa
 date: '2022-03-19'
 layout: post
 tags:

@@ -7,8 +7,6 @@ tags:
 - docker
 title: "Docker install"
 ---
-
-# Docker install
 ## ubuntu
 ### docker
 ```sh

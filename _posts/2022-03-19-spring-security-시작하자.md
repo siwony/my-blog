@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
@@ -8,9 +8,6 @@ tags:
 - spring-security
 title: "Spring security 시작하자"
 ---
-
-# Spring security 시작하자
-
 ### 의존성 추가
 #### Maven
 `pom.xml`

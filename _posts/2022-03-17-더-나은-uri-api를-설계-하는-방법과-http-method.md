@@ -7,8 +7,6 @@ tags:
 - http
 title: "더 나은 URI API를 설계 하는 방법과 HTTP method"
 ---
-
-# 더 나은 URI API를 설계 하는 방법과 HTTP method
 **좋은 API설계는 리소스를 식별해야 한다.**
 
 ### 리소스의 의미

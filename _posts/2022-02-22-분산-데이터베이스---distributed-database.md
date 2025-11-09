@@ -7,8 +7,6 @@ tags:
 - data-modeling
 title: "분산 데이터베이스 - distributed database"
 ---
-
-# 분산 데이터베이스 - distributed database
 : 물리적으로 분산된 데이터베이스를 하나의 논리적 시스템으로 사용
 
 ## 1. 분산 데이터베이스의 장단점

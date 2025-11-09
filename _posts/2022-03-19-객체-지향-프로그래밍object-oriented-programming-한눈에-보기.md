@@ -7,8 +7,6 @@ tags:
 - OOP
 title: "객체 지향 프로그래밍(Object Oriented Programming) 한눈에 보기"
 ---
-
-# 객체 지향 프로그래밍(Object Oriented Programming) 한눈에 보기
 > 객체지향 프로그래밍은 추상화, 캡슐화, 정보은닉, 상속, 등 시스템의 복잡성을 제어할 수 있는 다양한 장치들을 제공한다.
 > <p align=right>- 어느 객체지향 개발자가&nbsp&nbsp</p>
 <p align="center">
@@ -17,7 +15,6 @@ title: "객체 지향 프로그래밍(Object Oriented Programming) 한눈에 보
 
 - 컴퓨터 프로그램을 **"객체(Obejct)"** 들의 모임으로 파악하고자 하는 프로그래밍의 패러다임이며
 - 각 객체들은 데이터를 주고받을수 있고 데이터를 처리 할 수 있다.
-
 
 ### OOP의 장점
 **강한 응집력(Stoing Cohesion)과 약한 결합력(Weak Coupling)을 지향한다.**  

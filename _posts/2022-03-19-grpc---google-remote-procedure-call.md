@@ -8,9 +8,6 @@ tags:
 - rpc
 title: "gRPC - google Remote Procedure Call"
 ---
-
-# gRPC - google Remote Procedure Call
-
 ## 1. gRPC의 등장배경
 ### 1-1. Server-Client
 1. PC의 개념이 없던 시절 프로그램은 하나의 메인 프레임에서 동작하는 Monolothic구조로 설계되었다.

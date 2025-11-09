@@ -1,15 +1,13 @@
 ---
 author: jeongcool
-categories: back-end
+categories: jpa
 date: '2022-03-19'
 layout: post
 tags:
 - spring
 - jpa
-title: "Eager/LAZY loading"
+title: "[JPA] Eager/LAZY loading"
 ---
-
-# Eager/LAZY loading
 ### 과연 Member만 조회할 때 Team도 조회해야 할까?
 <img width=400px src=./img/when-member-get-team.png>
 

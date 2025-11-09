@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-03-19'
 layout: post
 tags:
@@ -8,10 +8,7 @@ tags:
 - spring-security
 title: "Spring Security Filter"
 ---
-
-# Spring Security Filter
 >Spring Security는 서블릿 컨테이너를 지나기 전에 필터를 통해 인증, 인가를 한다.
-
 
 ### 서블릿 컨테이너(Servlet Container)
 : tomcat과 같은 웹 애플리케이션을 서블릿 컨테이너라고 부른다.  
