@@ -4,15 +4,10 @@ categories: programming
 date: '2022-04-05'
 layout: post
 tags:
-- legacy
 - grammar
-- coding
-- development
 - java
-title: "변수의 scope, static"
+title: "[Java] 변수의 scope, static"
 ---
-
-# 변수의 scope, static
 ## scope
 **프로그램상에서 사용되는 변수의 사용가능한 범위**
 ```java

@@ -4,16 +4,10 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- coding
-- development
 - Design-pattern
 - java
 title: "Strategy Pattern(전략 패턴)"
 ---
-
-# Strategy Pattern(전략 패턴)
-이전글: [템플릿 메서드 패턴](template-method-pattern.md)
-
 #### 참고자료
 - [김영한 인프런 핵심 원리 - 고급편](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%95%B5%EC%8B%AC-%EC%9B%90%EB%A6%AC-%EA%B3%A0%EA%B8%89%ED%8E%B8)
 - [예제 코드](https://github.com/siwony/spring-core-principle-advanced/tree/main/src/test/java/com/siwony/ifl_spring_advanced/trace/strategy)

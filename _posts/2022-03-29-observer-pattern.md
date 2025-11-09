@@ -4,14 +4,10 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- coding
-- development
 - Design-pattern
 - java
 title: "Observer Pattern"
 ---
-
-# Observer Pattern
 : 변화가 일어 났을때, 미리 등록된 다른 클래스에 통보해주는 패턴
 > 객체 사이에 일 대 다의 의존 관계를 정의해 두어, 어떤 객체의 상태가 변할 때 그 객체에 의존성을 가진 다른 객체들이 그 변화를 통지받고 자동으로 갱신될 수 있게 만듭니다.
 
@@ -20,10 +16,13 @@ title: "Observer Pattern"
 - 관찰자 패턴이라고 하기도 한다.
 
 ### Oberver Pattern 테이블
+
 <img width=450px src=./img/observer-pattern-table.png>
 
 ### Oberver Pattern 의 구현
+
 #### Butten에 대한 IButtonListener 인터페이스 만들기
+
 ```java
 public class IButtonListener{
 
@@ -31,6 +30,7 @@ public class IButtonListener{
 }
 ```
 #### 버튼을 구현할 Button 클래스 만들기
+
 ```java
 public class Button{
 
@@ -52,6 +52,7 @@ public class Button{
 ```
 
 #### 결과
+
 ```java
 public class Main{
 

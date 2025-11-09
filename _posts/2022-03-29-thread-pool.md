@@ -5,8 +5,6 @@ date: '2022-03-29'
 layout: post
 tags:
 - concurrent
-- coding
-- development
 - java
 title: "Thread Pool"
 ---

@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-04-20'
 layout: post
 tags:
@@ -8,7 +8,7 @@ tags:
 - coding
 - development
 - java
-title: "향상된 for 루프 - Enhanced for loop"
+title: "[Java] 향상된 for 루프 - Enhanced for loop"
 ---
 
 # 향상된 for 루프 - Enhanced for loop

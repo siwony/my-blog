@@ -1,17 +1,13 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
 - concurrent
-- coding
-- development
 - java
-title: "Synchronized 키워드 - 경쟁상태를 해결하는 방법"
+title: "[Java] Synchronized 키워드 - 경쟁상태를 해결하는 방법"
 ---
-
-# Synchronized 키워드 - 경쟁상태를 해결하는 방법
 `synchronized` 키워드는 Multi-Thread 환경에서 여러개의 쓰래드가 하나의 공유 변수에 동시에 접근할 때 `경쟁상태 - Race Condition`이 발생하지 않도록 한다.
 
 그러면 어떻게 `Synchronized` 키워드는 경쟁상태를 해결할까?  

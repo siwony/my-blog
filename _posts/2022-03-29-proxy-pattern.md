@@ -12,6 +12,7 @@ title: "Proxy Pattern"
 ---
 
 # Proxy Pattern
+
 <img width=650 src="/assets/images/posts/programming/proxy-simple.png">
 
 : Proxy Class를 통해 대신 전달 하는 형태로 설계되며, 실제 Client는 접근하려는 객체(Real Subject)를 바로 접근하는게 아닌 Proxy로 부터 결과를 받는다.
@@ -22,7 +23,9 @@ title: "Proxy Pattern"
 
 이런 부가적인 기능을 메서드에 직접 코드를 수정해서 추가하는게 어닌 원래 매서드의 코드를 수정하지 않고 부가적인 기능을 추가할 수 있게 하는 패턴이다.
 ### 특징
+
 #### 장점
+
 - 기존 코드를 변경하지 않고 새로운 기능을 추가할 수 있다.
   > OCP - Open-Close Principle
 - 기존 코드가 해야 하는 일만 유지할 수 있다.
@@ -30,12 +33,13 @@ title: "Proxy Pattern"
 - 기능 추가 및 초기화 지연 등으로 다양하게 활용할 수 있다.
   > 자원이 큰 객체를 늦게 초기화 하던지 혹은 로깅, 캐싱등 여러가지로 활용할 수 있다. 
 #### 단점
+
 - 코드의 복잡도가 증가한다.
 
 ## Proxy 패턴 구현 예제
 
-
 ### 1. 상속을 이용한 Proxy - 인터페이스가 없는 경우
+
 메서드 Overried를 이용해 프록시 패턴을 구현한다. - 상속성
 
 <img width=550 src="/assets/images/posts/programming/proxy-uml-extend.png">

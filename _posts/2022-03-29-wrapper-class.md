@@ -1,17 +1,12 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
 - java
-- coding
-- development
-title: "Wrapper class"
+title: "[Java] Wrapper class"
 ---
-
-# Wrapper class
-
 #### 왜 사용할까?
 - 객체지향 프로그래밍에서 모든 것은 객체로 다루어져야 한다.
 - 그렇지만, Java는 성능상의 이유로 8개의 `기본형(Primitive Type)`을 객체로 다루지 않는다.

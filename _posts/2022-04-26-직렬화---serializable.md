@@ -1,19 +1,17 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-04-26'
 layout: post
 tags:
 - java
 - coding
 - development
-title: "직렬화 - Serializable"
+title: "[Java] 직렬화 - Serializable"
 ---
-
-# 직렬화 - Serializable
 > [Java Object Serialization Spec](https://docs.oracle.com/javase/8/docs/platform/serialization/spec/serialTOC.html)
 
-직렬화의 정의는 [여기](../../cs/data-serialization.md)를 참고해주길 바란다.
+직렬화의 정의는 [여기]({% post_url 2022-03-19-데이터-직렬화 %})를 참고해주길 바란다.
 
 자바에서의 직렬화는 다음과 같이 [Serializable](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html) 인터페이스를 구현하게 된다. 
 

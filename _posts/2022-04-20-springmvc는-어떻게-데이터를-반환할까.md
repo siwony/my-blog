@@ -8,8 +8,6 @@ tags:
 - spring
 title: "SpringMVC는 어떻게 데이터를 반환할까?"
 ---
-
-# SpringMVC는 어떻게 데이터를 반환할까? 
 > 부제: `ViewResolver`와 `MessageConverter`
 
 ### 해당 글을 적게 된 동기

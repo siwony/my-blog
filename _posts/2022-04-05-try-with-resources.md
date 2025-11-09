@@ -1,18 +1,15 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-04-05'
 layout: post
 tags:
 - grammar
-- coding
-- development
 - java
-title: "Try-with-resources"
+title: "[Java] try-with-resources"
 ---
-
-# Try-with-resources
 해당 문법은 `try(...)`에서 선언된 객체들에 대해 try가 종료될 떄 자동으로 자원을 해제해주는 기능히다.
+
 - try에서 선언된 객체가 AutoCloseable을 구현하면 Java는 try구문이 종료될 때 객체의 `close()` 메소드를 호출한다.
 - Java7 버전에 추가되었다.
 

@@ -4,14 +4,10 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- coding
-- development
 - Design-pattern
 - java
 title: "Singleton Pattern"
 ---
-
-# Singleton Pattern
 : 어떠한 클래스(객체)가 유일하게 1개만 존재해야 할때 사용하는 패턴  
 즉, 어떤 클래스가 최초 한번만 메모리를 할당하고(Static) 그 메모리에 객체를 만들어 사용하는 디자인 패턴
 - 싱글톤으로 생성된 객체는 무조건 한번 생성으로 전역성을 띄기에 다른 객체와 공유가 용이 
@@ -20,16 +16,18 @@ title: "Singleton Pattern"
 - 현실세계에서 프린터, 개발에서는 TCP Socket connet등에 자주 사용한다.
 
 ### 문제점
-- 전역성을 띄면서 다른 객체와 공동으로 사용할때만 효율적이다
+율적이다
 - 싱글톤으로 만든 객체의 역할이 복잡해지면 해당 싱글톤 객체를 사용하는 다른 객체간의 결함도가 높아진다.
     > 즉, OCP(Open-Close Principle)에 위반된다.
 - 싱글톤 객체를 수정할 경우 싱글톤 객체를 사용하는 곳에서 사이드 이팩트 발생 확률이 존재한다.
 - 멀티 쓰래드환경에서 동기화 처리 문제가 일어날 수 있다.
 
 ### Singleton 구현 방법
+
 Reference: https://elfinlas.github.io/2019/09/23/java-singleton/  
 
 #### static block
+
 ```java
 public class ExampleClass {
     //Instance
@@ -71,6 +69,7 @@ public class ExampleClass {
 - 쓰레드가 동시에 getInstance() 메서드를 호출하게 되면 인스턴스가 두 번 생성되는 문제가 발생한다.
 
 #### Thread safe + lazy
+
 ```java
 public class ExampleClass {
     //Instance
@@ -89,6 +88,7 @@ public class ExampleClass {
 - synchronized 키워드는 성능 저하를 발생시킨다.
 
 #### Holder
+
 > 현제 JAVA Singleton 생성에서 사용하는 대표적인 방법이다.
 ```java
 public class ExampleClass {
@@ -108,4 +108,5 @@ public class ExampleClass {
 
 
 ## Reference
+
 - https://elfinlas.github.io/2019/09/23/java-singleton/

@@ -1,18 +1,14 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-04-05'
 layout: post
 tags:
 - legacy
 - grammar
-- coding
-- development
 - java
-title: "JAVA Data Type"
+title: "[Java] Data Type"
 ---
-
-# JAVA Data Type
 
 ## 종류
 ### 기본형 타입(primitive data type)
