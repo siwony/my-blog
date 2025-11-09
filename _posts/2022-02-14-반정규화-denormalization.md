@@ -6,7 +6,7 @@ layout: post
 tags:
 - data-modeling
 - sqld
-title: "[SQLD] 반정규화 - Denormalization"
+title: "[SQLD] 3-2. 반정규화 - Denormalization"
 ---
 : 정규화된 엔터티, 속성, 관계에 대해 성능 향상을 목적으로 중복, 통합, 분리 등을 수행하는 데이터 모델링 기법이다.
 
@@ -119,6 +119,7 @@ title: "[SQLD] 반정규화 - Denormalization"
    
 
   **슈퍼/서브타입 모델 변환 타입의 비교**  
+
     |   구분   | One To One Type |    Plus Type   | Single Type |
     |:-------|:--------------:|:---------------:|:-----------:|
     | **특징** |  개별 테이블 유지  |슈퍼 + 서브타입 테이블|하나의 통합 테이블|
@@ -164,6 +165,7 @@ title: "[SQLD] 반정규화 - Denormalization"
   출처: https://youtu.be/KN586GvpZW0?t=570
 
 ### 3-2. 칼럼 반정규화
+
 |  반정규화 기법  |                               내용                       |
 |:------------:|:--------------------------------------------------------|
 |      중복컬럼 추가     |조인에 의해 처리할 떄 성능저하를 예방하기 위해 중복된 칼럼을 위치시킨다.   |
@@ -210,8 +212,8 @@ title: "[SQLD] 반정규화 - Denormalization"
 #### 1. 중복관계 추가
 : 조인을 통해 정보 조회가 가능하지만, 조인 경로 단축을 위해 중복관계를 추가한다.
 
-이전글: [3-1. 정규화](normalization-and-performance.md)  
-다음글: [3-3. Index](index.md)
+이전글: [3-1. 정규화]({% post_url 2022-02-03-정규화와-성능 %})  
+다음글: [3-3. Index]({% post_url 2022-02-22-인덱스-index %})
 
 
 ## Reference

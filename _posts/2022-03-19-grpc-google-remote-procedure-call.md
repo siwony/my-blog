@@ -102,7 +102,7 @@ Protocol Buffer는 google사에서 개발한 구조화된 데이터를 `직렬�
 }
 ```
 #### protocal buffer
-```proto
+```protobuf
 message Person {
     required string user_name        = 1;
     optional int64  favourite_number = 2;
@@ -118,7 +118,7 @@ Protocol Buffer 에서 사용하는 데이터 타입에 대한 정의 같은 Pro
 #### 1. Message & Field
 Proto File에서는 주고 받는 data들을 message 라는 것으로 정의한다.
 
-```proto
+```protobuf
 syntax = "proto3"
 
 message SearchRequest {
@@ -153,7 +153,7 @@ proto2 의 경우 required 와 optional 을 필드별로 무조건 명시해야�
 package는 message type 이름을 중첩없이 구분할 때 사용한다.
 
 package 미사용 예제
-```proto
+```protobuf
 message Open{
     //...
 }
@@ -164,7 +164,7 @@ message Foo{
 ```
 
 package 사용 예제
-```proto
+```protobuf
 package foo.bar
 message Open{
     //...
@@ -181,14 +181,14 @@ Service는 RPC를 통해 서버가 클라이언트에게 제공할 함수의 형
 - stream옵션을 주지 않으면 request-response로 동작하지만, stream 옵션을 주면 RPC를 구현할 수 있다.
 
 **Unary RPC 예시**
-```proto
+```protobuf
 service SearchService {
    rpc Search (SearchService) returns (SearchResponse);
 }
 ```
 
 **양방향 Streaming RPC 예시**
-```proto
+```protobuf
 service SearchService {
     rpc Search (stream SearchRequest) returns (stream SearchResponse)
 }

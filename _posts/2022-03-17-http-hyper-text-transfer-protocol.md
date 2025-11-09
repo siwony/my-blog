@@ -120,4 +120,4 @@ HTTP 전송에 필요한 모든 부가정보를 담는 용도
 - byte로 표현 가능한 모든 데이터를 전송할 수 있다.
   > HTML, JSON, XML, 이미지, 영상 등...
 
-다음글: [더 좋은 API를 설계하는 방법](http-api-design.md)
+다음글: [더 좋은 API를 설계하는 방법]({% post_url 2022-03-17-더-나은-uri-api를-설계-하는-방법과-http-method %})

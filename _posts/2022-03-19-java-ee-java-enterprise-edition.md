@@ -26,7 +26,7 @@ title: "JAVA EE (Java Enterprise Edition)"
 - 보안 네트워킹
 
 ### Java EE 핵심 구성요소 13개
-- [Java Servlet](./servlet.md)
+- [Java Servlet]({% post_url 2022-03-19-servlet %})
 - JDBC
 - JNDI
 - EJB
