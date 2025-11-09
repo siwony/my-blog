@@ -19,11 +19,11 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderPostCard(post) {
     const article = document.createElement('article');
     article.className = 'post-preview';
-    const h2 = document.createElement('h2');
+    const h3 = document.createElement('h3');
     const a = document.createElement('a');
     a.href = post.url;
     a.textContent = post.title;
-    h2.appendChild(a);
+    h3.appendChild(a);
 
     // Create metadata web component for categories and tags
     const metadataComponent = document.createElement('post-metadata');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const excerpt = document.createElement('p');
     excerpt.innerHTML = post.excerpt;
 
-    article.appendChild(h2);
+    article.appendChild(h3);
     article.appendChild(metadataComponent);
     article.appendChild(excerpt);
     return article;

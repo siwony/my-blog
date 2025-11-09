@@ -1,0 +1,15 @@
+<!-- Post Preview Component -->
+<article class="post-preview">
+  <h3><a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a></h3>
+  
+  <!-- Enhanced Category and Tags using Web Component -->
+  <post-metadata 
+    layout="badge"
+    categories='{{ include.post.categories | jsonify }}'
+    tags='{{ include.post.tags | jsonify }}'
+    date="{{ include.post.date | date: '%B %d, %Y' }}"
+    reading-time="{{ include.post.content | strip_html | number_of_words | divided_by: 200 | plus: 1 }}">
+  </post-metadata>
+  
+  <p>{{ include.post.excerpt | strip_html | truncatewords: 20 }}</p>
+</article>
