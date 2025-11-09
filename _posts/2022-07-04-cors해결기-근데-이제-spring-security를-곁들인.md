@@ -1,22 +1,20 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-07-04'
 layout: post
 tags:
 - spring
-- TIL
 - spring-security
-title: CORS해결기 근데 이제 Spring Security를 곁들인
+title: "CORS해결기 근데 이제 Spring Security를 곁들인"
 ---
-
-# CORS해결기 근데 이제 Spring Security를 곁들인
 Web Application 처음 프론트엔드 백앤드로 나눠서 협업을 진행하다보면 한번쯤 CORS에러를 겪는다. 
 
 CORS는 브라우저의 보안 정책중 하나지만, 서버에서 요청을 응답할 떄 CORS관련 Header를 작성하여 보내줘야 한다.  
 MDN문서에 CORS관련해서 자바 코드로 된 예제가 있으니 참고하길 바란다.(https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)  
 
 ### SpringMVC의 CORS설정
+
 일반적으로 Spring Boot를 통해 WAS를 만들게 된다면, Spring MVC를 사용하게 된다. `WebMvcConfigurer`를 상속받은 후 `addCorsMappings` 매서드를 통해 CORS를 설정할 수 있다.
 
 대부분 아래 예제 코드에 나와있는 방식으로 CORS문제를 해결할 것이다.

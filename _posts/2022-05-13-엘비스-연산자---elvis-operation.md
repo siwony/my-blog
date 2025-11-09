@@ -1,21 +1,18 @@
 ---
 author: jeongcool
-categories: programming
+categories: kotlin
 date: '2022-05-13'
 layout: post
 tags:
 - kotlin
-- coding
-- development
-- TIL
-title: 엘비스 연산자 - Elvis Operation
+title: "[kotlin] 엘비스 연산자 - Elvis Operation"
 ---
 
-# 엘비스 연산자 - Elvis Operation
 - 엘비스 연산자는 `?:`로 표현된다.
-- 왼쪽 객체가 non-null이면 그 객체의 값으 리턴되고, null이면 ?:의 오른쪽 값을 리턴한다.
+- 왼쪽 객체가 non-null이면 그 객체의 값이 리턴되고, `null`이면 `?:` 의 오른쪽 값을 리턴한다.
 
 ### if-else 예제
+
 if-else를 사용하여 문자열의 길이를 구하는 메서드를 구현하는 예제이다.
 ```kotlin
 fun main(args: Array<String>){
@@ -47,6 +44,7 @@ fun getStrLength(str: String?): Int{
 ```
 
 ### Throw Exception 예제
+
 Exception이 발생되도록 할 수 있다.
 ```kotlin
 fun findMemberByIdx(memberIdx: Long) : MemberEntity{
@@ -54,6 +52,5 @@ fun findMemberByIdx(memberIdx: Long) : MemberEntity{
 }
 ```
 
-
 ## Reference
-https://codechacha.com/ko/kotlin-elvis-operation/
+- https://codechacha.com/ko/kotlin-elvis-operation/

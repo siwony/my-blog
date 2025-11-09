@@ -1,16 +1,13 @@
 ---
 author: jeongcool
-categories: back-end
+categories: java
 date: '2023-07-26'
 layout: post
 tags:
-- TIL
 - gradle
 - build-tool
-title: Plan Archive
+title: "Java Plan Archive"
 ---
-
-# Plan Archive
 
 - `-plan` 이 붙은 jar 파일이며
 - 에플리케이션 실행에 필요한 모든 의존성이 포함되지 않는 파일이며

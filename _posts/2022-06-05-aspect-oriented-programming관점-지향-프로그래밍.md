@@ -1,13 +1,12 @@
 ---
 author: jeongcool
-categories: back-end
+categories: spring
 date: '2022-06-05'
 layout: post
 tags:
 - spring
 - spring-triangle
-- TIL
-title: Aspect Oriented Programming(관점 지향 프로그래밍)
+title: "Aspect Oriented Programming(관점 지향 프로그래밍)"
 ---
 
 # Aspect Oriented Programming(관점 지향 프로그래밍)
