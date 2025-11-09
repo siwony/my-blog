@@ -8,14 +8,22 @@ describe('Categories and Tags Display', () => {
   const path = require('path');
 
   describe('Homepage Categories and Tags', () => {
-    test('should include post metadata web component in homepage', () => {
+    test('should use post-preview component in homepage', () => {
       const indexPath = path.join(__dirname, '..', 'index.html');
       expect(fs.existsSync(indexPath)).toBe(true);
       
       const content = fs.readFileSync(indexPath, 'utf8');
+      expect(content).toContain('{% include post-preview.html post=post %}');
+    });
+
+    test('should include post metadata web component in post-preview', () => {
+      const postPreviewPath = path.join(__dirname, '..', '_includes', 'post-preview.html');
+      expect(fs.existsSync(postPreviewPath)).toBe(true);
+      
+      const content = fs.readFileSync(postPreviewPath, 'utf8');
       expect(content).toContain('<post-metadata');
-      expect(content).toContain("categories='{{ post.categories | jsonify }}'");
-      expect(content).toContain("tags='{{ post.tags | jsonify }}'");
+      expect(content).toContain("categories='{{ include.post.categories | jsonify }}'");
+      expect(content).toContain("tags='{{ include.post.tags | jsonify }}'");
     });
 
     test('should have web component script loaded', () => {
@@ -26,13 +34,13 @@ describe('Categories and Tags Display', () => {
     });
 
     test('should use web component for category and tag display', () => {
-      const indexPath = path.join(__dirname, '..', 'index.html');
-      const content = fs.readFileSync(indexPath, 'utf8');
+      const postPreviewPath = path.join(__dirname, '..', '_includes', 'post-preview.html');
+      const content = fs.readFileSync(postPreviewPath, 'utf8');
       
-      // Web component should be present
+      // Web component should be present in post-preview
       expect(content).toContain('<post-metadata');
-      expect(content).toContain("categories='{{ post.categories | jsonify }}'");
-      expect(content).toContain("tags='{{ post.tags | jsonify }}'");
+      expect(content).toContain("categories='{{ include.post.categories | jsonify }}'");
+      expect(content).toContain("tags='{{ include.post.tags | jsonify }}'");
       
       // Web component will generate category links when rendered
       const componentPath = path.join(__dirname, '..', 'assets', 'js', 'post-metadata.js');

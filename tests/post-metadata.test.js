@@ -113,13 +113,21 @@ describe('PostMetadata Integration', () => {
   });
 
   describe('Homepage Integration', () => {
-    test('should use post-metadata component in homepage', () => {
+    test('should use post-preview component in homepage', () => {
       const homepagePath = path.join(__dirname, '..', 'index.html');
       const homepageContent = fs.readFileSync(homepagePath, 'utf8');
       
-      expect(homepageContent).toContain('<post-metadata');
-      expect(homepageContent).toContain("categories='{{ post.categories | jsonify }}'");
-      expect(homepageContent).toContain("tags='{{ post.tags | jsonify }}'");
+      // Check that homepage uses the post-preview include
+      expect(homepageContent).toContain('{% include post-preview.html post=post %}');
+    });
+
+    test('should use post-metadata component in post-preview include', () => {
+      const postPreviewPath = path.join(__dirname, '..', '_includes', 'post-preview.html');
+      const postPreviewContent = fs.readFileSync(postPreviewPath, 'utf8');
+      
+      expect(postPreviewContent).toContain('<post-metadata');
+      expect(postPreviewContent).toContain("categories='{{ include.post.categories | jsonify }}'");
+      expect(postPreviewContent).toContain("tags='{{ include.post.tags | jsonify }}'");
     });
   });
 
