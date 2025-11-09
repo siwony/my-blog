@@ -1,15 +1,13 @@
 ---
 author: jeongcool
-categories: back-end
+categories: jpa
 date: '2022-04-20'
 layout: post
 tags:
 - spring
 - jpa
-title: "벌크 연산 - Bulk Opertation"
+title: "[JPA] 벌크 연산 - Bulk Opertation"
 ---
-
-# 벌크 연산 - Bulk Opertation
 > `executeUpdate()`
 - 여러 건을 하나의 쿼리로 수정하거나 삭제하는 방법
 
