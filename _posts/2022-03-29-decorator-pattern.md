@@ -4,14 +4,10 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- coding
-- development
 - Design-pattern
 - java
 title: "Decorator Pattern"
 ---
-
-# Decorator Pattern
 : 객체의 결합 을 통해 기능을 동적으로 유연하게 확장 할 수 있게 해주는 패턴
 - 기본 뼈대(클래스)는 유지하되, 이후 필요한 형태로 꾸밀 때 사용한다.
 - 확장의 필요한 경우 상속의 대안으로 사용한다

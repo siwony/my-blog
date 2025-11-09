@@ -1,17 +1,13 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
-- byte-code-controller-way
-- coding
-- development
+- 바이트코드-제어-방법
 - java
-title: "어노테이션 프로세서 - Annotation Processor"
+title: "[Java] 어노테이션 프로세서 - Annotation Processor"
 ---
-
-# 어노테이션 프로세서 - Annotation Processor
 [Oracle 공식문서](https://docs.oracle.com/javase/8/docs/api/javax/annotation/processing/Processor.html)
 
 Lombok의 `@Getter` `@Setter` annotation으로 getter/setter를 생성해준다. 어노테이션 프로세서라는 기술은 Lombok 같이 코드를 자동으로 생성해 줄 수 있을 뿐만 아니라 모든 파일을 만들어 낼 수 있다.

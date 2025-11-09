@@ -1,14 +1,12 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
 - concurrent
-- coding
-- development
 - java
-title: "Callable과 Future"
+title: "[Java] Callable과 Future"
 ---
 
 # Callable과 Future

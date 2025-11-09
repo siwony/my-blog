@@ -1,21 +1,18 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
 - java
-- coding
-- development
-title: "Interface"
+title: "[Java] Interface"
 ---
-
-# Interface
 : Java Programing 언어에서 **`class`들이 구현해야 하는 동작을 지정하는데 사용하는 추상 자료형**이다.
 - `interface`라는 키워드를 사용하여 선언한다.
 - 메소드 시그니처(`Method sigature`), 상수 선언
   > `static` 과 `final`은 상수를 값을 할당해줘야 한다.
 ### 역할
+
 #### `interface`의 특징
 - 인터페이스는 객체를 어떻게 구성해야 하는지 정리한 설계도이다.
 - 객체의 교환성(다형성)을 높여준다.

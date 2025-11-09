@@ -1,6 +1,6 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
@@ -9,8 +9,6 @@ tags:
 - development
 title: "JVM, JDK, JRE"
 ---
-
-# JVM, JDK, JRE
 ### JVM - Java Virtual Machine
 > WORA - Write Once Run Anywhere
 - JVM으로 Java byte code(`.class`파일)를 OS 특화된 코드로 변환(인터프리터, JIT컴파일러)하여 실행한다.

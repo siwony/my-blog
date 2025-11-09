@@ -1,28 +1,28 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
 - java
-- coding
-- development
-title: "Exception (예외)"
+title: "[Java] Exception (예외)"
 ---
-
-# Exception (예외)
 ### 오류(Error)와 예외(Exception)
+
 #### 오류(Error)
+
 : 시스템에 비정상적인 상황이 생겼을 때 발생한다.
 - 시스템 수준에서 발생한다. &rarr; 심각한 수준의 오류
 - 개발자가 미리 예측하여 처리할 수 없다. &rarr; 오류에 대한 처리를 신경 쓰지 않아도 된다.
 
 #### 예외(Exception)
+
 : 개발자가 구현한 로직에서 발생하는 에러이다.
 - 예외가 발생할 상황을 미리 예측하여 개발자가 처리 가능하다.
 - **예외를 구분하고 그에 따른 처리 방법을 정확이 알고 적용하는것이 중요하다.**
 
 ### JAVA의 예외 클래스
+
 <img width=550px src="/assets/images/posts/programming/exception-class-structure.png">
 
 - 모든 예외 class는 `Throwable class`를 상속받고 있다.
@@ -30,6 +30,7 @@ title: "Exception (예외)"
 - `Exception`은 개발자가 로직을 추가하여 처리할 수 있다.
 
 ### 예외 클래스의 종류
+
 |      |Checked Exception |   Unchecked Exception   |
 |------|------------------|-------------------------|
 |처리여부| 예외 처리를 강제한다. | 명시적인 처리를 강제하지 않는다. |
@@ -39,8 +40,10 @@ title: "Exception (예외)"
 **Checked Exception과 Unchecked Exception의 명확한 구분기준은 필수적으로 예외 처리를 해야 하는지에 따라 구분된다.**
 
 ### 일반적인 예외 처리의 방법
+
 > 일반적으로 예외 복구, 예외처리 회피, 예외 전환 이 있다.
 #### 1. 예외 복구
+
 ```java
 int maxretry = MAX_RETRY;
 while(maxretry -- > 0) {
@@ -62,6 +65,7 @@ throw new RetryFailedException(); // 최대 재시도 횟수를 넘기면 직접
 **예외 복구의 핵심은 예외가 발생하여도 에플리케이션은 정상적인 흐름으로 진행한다.**
 
 #### 2. 예외처리 회피
+
 ```java
 public void add() throws SQLException {
     ... // 구현 로직
@@ -73,6 +77,7 @@ public void add() throws SQLException {
 - 해당 매서드에서 처리하는것이 최선의 방법이다.
 
 #### 3. 예외전환
+
 ```java
 catch(SQLException e) {
    ...

@@ -4,14 +4,10 @@ categories: programming
 date: '2022-03-29'
 layout: post
 tags:
-- coding
-- development
 - Design-pattern
 - java
 title: "Facade Pattern"
 ---
-
-# Facade Pattern
 : 어떤 서브시스템의 일련의 인터페이스에 대한 통합된 인터페이스를 제공한다.
 <img width=550px src=./img/facade-diagram.png>
 

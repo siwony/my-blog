@@ -1,24 +1,21 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
 - grammar
-- coding
-- development
 - java
 - java8
-title: "함수형 interface"
+title: "[Java] 함수형 interface"
 ---
-
-# 함수형 interface
 - **추상 메서드가 1개만 있으면 모두 함수형 `interface`이다.**
 - 정적(`static`) 메서드, 디폴트(`default`) 메서드가 있을 수 있다.
 - SAM(Single Abstract Method)
 - `@FunctionalInterface` : Java compiler는 이렇게 명시된 함수형 `interface`에 두 개 이상의 메소드가 선언되면 오류를 발생시킨다.
 
 ### Java에서의 함수형 프로그래밍
+
 - 함수를 interface의 First class obejct로 사용할 수 있다.
 - 순수함수 (`Pure function`) : 상태가 없는 함수를 말한다. ex) 객체
    - 사이드 이팩트를 만들 수 없다. &rarr; 함수 밖에 있는 값을 변경하지 못한다.
@@ -26,7 +23,9 @@ title: "함수형 interface"
 - 불변성 
 
 ### 함수형 interface의 선언
+
 #### 예시
+
 ```java
 @FunctionalInterface // 함수형 인터페이스가 아니라면 compile error가 생긴다.
 [public] interface RunSomething{
@@ -45,7 +44,9 @@ title: "함수형 interface"
 }
 ```
 ### 함수형 interface의 사용
+
 #### 1-1. 익명 클래스
+
 ```java
 RunSomething r = new RunSomething() {
     @Override
@@ -83,10 +84,12 @@ r.doIt(10, 20);
 ```
 
 ## 자바에서 제공하는 함수형 인터페이스
+
 > Java에서는 1.8버전부터 기본적으로 자주 사용할만한 함수형 인터페이스를 제공한다.
 - [java.lang.function 패키지](https://url.kr/b295ks) 에 정의 되어있다.
 
 ### Function<T, R> 를 통한 람다표현식의 사용
+
 - T 타입을 받아 R 타입을 리턴하는 함수 인터페이스 이다.
 - `apply` 함수만 구현하면 된다.
 - 다음과 같은 함수 조합용 메서드를 제공한다. 
@@ -94,6 +97,7 @@ r.doIt(10, 20);
   - `andThen`
 
 #### 람다 표현식을 사용하기 전
+
 정수 10에 입력받은 숫자를 더하고 싶다면
 
 1. `Plus10`이라는 클래스에 함수를 만든다. (혹은 그냥 익명함수를 사용할 수 있다.)
@@ -115,6 +119,7 @@ public class main{
 }
 ```
 #### 람다 표현식의 사용
+
 ```java
 public class main{
     public static void main(String[] args){
@@ -125,10 +130,13 @@ public class main{
 ```
 
 ### 자바에서 제공하는 다양한 함수형 인터페이스
+
 #### UnaryOperator<T>
+
 - `Function<T, R>`의 특수한 형태로, 입력값 하나를 받아 동일한 타입을 리턴한다.
   
 #### Consumer<T>
+
 : `T` 타입을 받아 아무값도 리턴하지 않는 함수 인터페이스
 - 함수 조합용 메서드를 제공한다.
     - `andThen`
@@ -143,13 +151,16 @@ Consumer<Integer> printT = System.out::println;
 printT.accept(1); // 1출력
 ```
 #### BiFunction<T, U, R>
+
 - 두 개의 값(`T`, `U`)를 받아 R 타입을 리턴하는 함수 인터페이스
   - `R apply(T t, U u)`
 
 #### BinaryOperator<T>
+
    Function<T, U, R>의 특수한 형태로, 동일한 타입의 일렬값 두개를 받아 리턴하는 함수 인터페이스
 
 #### Supplier<T>
+
 - `T` 타입의 값을 제공하는 함수 인터페이스
   - `T get()`;
 
@@ -160,6 +171,7 @@ System.out.println(get10.get()); // 10 출력
 ```
 
 #### Predicate<T>
+
 - `T` 타입을 받아서 `boolea`를 반환하는 함수 인터페이스
   - `boolean test(T t)`
 - 다음과같은 함수 조합용 메서드를 제공한다.

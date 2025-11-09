@@ -1,21 +1,18 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
 - concurrent
-- coding
-- development
 - java
-title: "CompletableFuture"
+title: "[Java] CompletableFuture"
 ---
-
-# CompletableFuture
 `비동기 - Asynchronous` 프로그래밍에 대한 여러 기능을 제공하는 인터페이스.
 > [공식 문서](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletionStage.html)
 
 #### 기존 Future의 단점
+
 - `Future`를 외부에서 완료 시킬 수 없다.
   > 취소하거나 `get()`에 타임아웃을 설정할 수는 있다.
 - 블로킹 코드(`Future.get()`)를 제외하고 작업이 끝났을 때 콜백을 실행할 수 없다.
@@ -27,10 +24,12 @@ title: "CompletableFuture"
 JDK8부터 `CompletableFuture` 인터페이스가 소개되었고, `Future` 인터페이스를 구현함과 동시에 `CompletionStage` 인터페이스를 구현한다. `CompletionStage`는 비동기 연산 Step을 제공해서 계속 `매서드 체이닝 - Method Chaining` 형태로 조합이 가능하다.
 
 #### 구현된 interface
+
 - [`Future`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html)
 - [`CompletionStage`](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletionStage.html)
 
 #### Fork/Join Framework
+
 `CompletableFuture`는 `Fork/Join` 기반으로 만들어졌다.
 
 Fork/Join Framework의 동작 원리는 
@@ -42,12 +41,15 @@ Fork/Join Framework의 동작 원리는
 
 
 ## 사용방법
+
 **`CompletableFuture`도 `Future`처럼 결과값을 가져오는것(ex. `get()`)을 하지 않으면 선언해 놓은 작업(Task)은 실행은 되지만 main thread에서는 아무 영향이 없다.**
 ### 비동기로 작업 실행하기
+
 - 리턴값이 없는 경우: `runAsync()`
 - 리턴값이 있는 경우: `supplyAsync()`
 
 #### `runAsync()`- 리턴값이 없는 경우
+
 코드 예시
 ```java
 CompletableFuture<Void> future = CompletableFuture.runAsync(
@@ -68,6 +70,7 @@ void type CompletableFuture: null
 > void 타입을 클래스로 나타낸 타입이다. 기본생성자가 private로 되어있어 인스턴스를 생성할 수 없으므로 `Void` 타입으로 선언한 변수의 값은 null이 들어갈 수 밖에 없다. 일부 특수상황(리플렉션, 제네릭)을 제외한 평상시에는 사용하지 않는 게 좋다.
 
 #### `supplyAsync()`- 리턴값이 있는 경우
+
 코드 예시
 ```java
 CompletableFuture<String> future = CompletableFuture.supplyAsync(
@@ -88,6 +91,7 @@ String type CompletableFuture: Hello
 ```
 
 #### Executors Thread Pool 사용하기
+
 - runAsync(), supplyAsync()둘다 사용가능하다.
 - `Runnable`, `Callable`다음 인자로 Executors를 사용해 Thread Pool를 사용할 수 있다,
 
@@ -115,12 +119,14 @@ String type CompletableFuture: Hello
 - ForkJoinPool이 아닌 그냥 pool로 출력되는 것을 확인할 수 있다.
 
 ### 콜백 제공하기
+
 > thenApply(Function), thenAccept(Consumer), thenRun(Runnable)
 - 메서드 체이닝 형태로 콜백을 제공할 수 있다.
 - 콜백이 온다 해도 `get()`를 사용해야 작업의 결과를 얻을 수 있다.
 - 콜백 자체를 또 다른 스레드에서 처리할 수 있다.
 
 #### thenApply(Function) - 결과값을 다른 타입으로 변경한다.
+
 코드 예시
 ```java
 CompletableFuture<String> future = CompletableFuture.supplyAsync(
@@ -138,6 +144,7 @@ thenApply: HELLO
 ```
 
 #### thenAccept(Consumer) - 결과값을 이용해 반환값이 없이 추가적인 행동만 한다.
+
 코드 예시
 ```java
 CompletableFuture<Void> future = CompletableFuture.supplyAsync(
@@ -158,6 +165,7 @@ thenApply: null
 - `thenAccept()`으로 전달한 콜백 앞선 콜백을 실행한 쓰레드나 그 쓰레드를 파생시킨 부모에서 실행된다.
 
 #### thenRun(Runnable) - 결과값을 받지 않고 다른 작업을 처리하는 콜백
+
 코드 예시
 ```java
 CompletableFuture<Void> future = CompletableFuture.supplyAsync(
@@ -179,7 +187,9 @@ thenApply: null
 - `thenRun()`으로 전달한 콜백 앞선 콜백을 실행한 쓰레드나 그 쓰레드를 파생시킨 부모에서 실행된다.
 
 ### 작업 조합하기
+
 #### thenCompost - 두 작업이 서로 이어서 실행하도록 조합한다.
+
 코드 예시
 ```java
 public class CompletableFutureEX {
@@ -215,6 +225,7 @@ helloWorldFuture = Hello World
 ```
 
 #### thenCombin - 두 작업을 독립적으로 실행하고 둘 다 종료 되었을 떄 콜백 실행
+
 코드 예시
 ```java
 CompletableFuture<String> helloFuture = CompletableFuture.supplyAsync(
@@ -242,6 +253,7 @@ helloWorldFuture.get() = Hello World
 ```
 
 #### allOf() - 여러 작업을 모두 실행하고 모든 작업결과에 대해 콜백을 실행한다. (`CompletableFuture<Void>` 반환)
+
 코드 예시
 ```java
 CompletableFuture<String> helloFuture = CompletableFuture.supplyAsync(
@@ -317,6 +329,7 @@ World
   > 이해가 되지 않지만 일단 받아드리자
 
 #### anyOf() - 여러 작업 중에 가장 빨리 끝난 하나의 결과에 콜백 실행
+
 코드 예시
 ```java
 CompletableFuture<String> helloFuture = CompletableFuture.supplyAsync(
@@ -347,7 +360,9 @@ World
 ```
 
 ### 예외 처리하기
+
 #### exeptionally(Function) - 해당 task에 예외가 발생하면 Function를 실행한다.
+
 코드 예시
 ```java
 CompletableFuture<String> helloFuture = CompletableFuture.supplyAsync(
@@ -377,6 +392,7 @@ Error!
 ```
 
 #### handle(BiFunction) - 해당 task의 정상 결과와 예외 결과를 종합적으로 처리할 수 있다.
+
 - 예외 여부에 상관없이 무조건 실행된다.
 
 코드 예시

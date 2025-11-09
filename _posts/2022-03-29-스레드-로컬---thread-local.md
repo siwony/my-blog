@@ -1,27 +1,20 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
 - concurrent
-- coding
-- development
 - java
-title: "스레드 로컬 - Thread Local"
+title: "[Java] 스레드 로컬 - Thread Local"
 ---
-
-# 스레드 로컬 - Thread Local
-### Reference
-- [김영한 인프런 핵심 원리 - 고급편](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%95%B5%EC%8B%AC-%EC%9B%90%EB%A6%AC-%EA%B3%A0%EA%B8%89%ED%8E%B8)
-
-
-## 스레드 로컬
 : 스레드 단위로 로컬 변수를 할당하는 기능을 제공하는 클래스이다
 - JDK1.2 부터 지원하고 java.lang패키지에 있다.
 
 ### Thread Local의 동작 원리
+
 #### 값 저장
+
 스레드 로컬를 사용하면 각 스레드마다 별도의 내부 저장소를 생성한다. 
 > 같은 인스턴스 스레드 로컬 필드에 접근해도 동시성 이슈가 발생하지 않는다.
 
@@ -31,16 +24,20 @@ Thread-A             |  Thread-B
 ![](/assets/images/posts/programming/thread-local-save1.png)  |  ![](/assets/images/posts/programming/thread-local-save2.png)
 
 #### 값 조회
+
 스레드 로컬을 통해 데이터를 조회해도 해당 Thread가 저장한 값을 알맞게 반환해준다.
 <img width=650 src="/assets/images/posts/programming/thread-local-lock-up.png">
 
 ## 사용 예시
+
 #### ThreadLocal의 method
+
 - `ThreadLocal.set()`: 스레드 로컬에 값 설정
 - `ThreadLocal.get()`: 스레드 로컬에 값 얻기
 - `ThreadLocal.remove()`: 스레드 로컬에 값 제거
 
 ### 예시
+
 값을 저장하고 조회하는 간단한 서비스(`ThreadLocalService`)를 만들었다.
 ```java
 @Slf4j
@@ -139,14 +136,14 @@ public class FieldServiceTest {
 
 
 ### ThreadLocal의 주의사항
+
 여기서 한 가지 의문이 드는 점이 있는데,  
 "어차피 Thread가 종료되면 Thread에 따라 `ThreadLocal`도 제거될 텐데 왜 `ThreadLocal.remove()`를 통해 스레드 저장소의 저장된 값을 지우는 거지?"라는 의문이 들 수 있다.
 
 하지만 이는 나중에 얘기치 못한 상황을 불러 올 수 있는데 특히 Thread Pool를 사용하는 Tomcat과 같은 시스템에서 문제가 발생할 수 있다.
-
-사용자 A의 요청                |  사용자 A의 요청에 대한 응답
-:-------------------------:|:-------------------------:
-![](/assets/images/posts/programming/thread-local-issue-ex1.png)  |  ![](/assets/images/posts/programming/thread-local-issue-ex2.png)
+| 사용자 A의 요청 | 사용자 A의 요청에 대한 응답 |
+|:-------------------------:|:-------------------------:|
+| ![](/assets/images/posts/programming/thread-local-issue-ex1.png) | ![](/assets/images/posts/programming/thread-local-issue-ex2.png) |
 - 사용자A는 WAS에 요청하여 Thread-A를 사용해 사용자 A를 저장후 사용자A에게 HTTP응답을 했다.
 - 사용자A는 요청이 끝나 사용자A가 요청한 로직을 처리한 Thread-A는 Thread Pool에 반환되었다.
 - Thread-A가 파괴되지 않았으므로 Thread-A는 스레드 로컬에는 사용자A의 데이터가 남아있다.
@@ -166,3 +163,7 @@ public class FieldServiceTest {
 이렇게 사용자B가 사용자A를 조회하는 치명적인 문제가 발생할 수 있다.
 
 이러한 문제가 발생할 수 있으므로 **스레드 로컬의 값을 `ThreadLocal.remove()` 를 통해서 꼭 제거해야 한다.**
+
+### Reference
+
+- [김영한 인프런 핵심 원리 - 고급편](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%95%B5%EC%8B%AC-%EC%9B%90%EB%A6%AC-%EA%B3%A0%EA%B8%89%ED%8E%B8)

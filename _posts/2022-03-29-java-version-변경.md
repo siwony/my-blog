@@ -1,18 +1,14 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
 - java
-- coding
-- development
 title: "Java version 변경"
 ---
-
-# Java version 변경
-
 #### 1. 현재 동작하는 java의 버전을 확인한다.
+
 ```bash
 $ java -version
 java version "17.0.1" 2021-10-19 LTS
@@ -22,6 +18,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 17.0.1+12-LTS-39, mixed mode, sharing)
 현재 작성자 기준 17로 동작하고 있다.
 
 #### 2. 설치되어 있는 JVM 목록 확인
+
 ```bash
 $ /usr/libexec/java_home -V
 Matching Java Virtual Machines (3):
@@ -37,6 +34,7 @@ Matching Java Virtual Machines (3):
 
 
 #### 3. JAVA_HOME 경로를 자신이 원하는 버전으로 설정한다.
+
 작성자는 JDK11로 변경할 것 이다.
 ```bash
 $ export JAVA_HOME=$(/usr/libexec/java_home -v 11) 

@@ -128,4 +128,4 @@ void strategy(){
 #### 전략 패턴 실행 
 <img width=500 src="/assets/images/posts/programming/strategy-exec-param.png">
 
-다음글: [템플릿 콜백 패턴](template-callback-pettern)
+다음글: [템플릿 콜백 패턴(작성중)]()

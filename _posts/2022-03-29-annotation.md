@@ -1,27 +1,26 @@
 ---
 author: jeongcool
-categories: programming
+categories: java
 date: '2022-03-29'
 layout: post
 tags:
-- byte-code-controller-way
+- 바이트코드-제어하는-방법
 - coding
 - development
 - java
-title: "Annotation"
+title: "[Java] Annotation"
 ---
-
-# Annotation
 Annotation은 그자체로 주석이라는 의미를 가진다. 하지만 일반 주석이랑 다르다!
 - JDK5 버전부터 사용할 수 있다.
 - `@`를 붙여서 사용한다.
 - Reflection을 이용해 Class의 Annotation을 조회할 수 있다.
 - Annotatino은 interface에 해당된다.
 
-
 ### Annotation의 용도
+
 > 대부분 사용되는 용도는 다음과 같다.
 #### 1. 컴파일러에게 코드 작성 문법 에러를 체크하도록 정보를 제공
+
 대표적으로 Java에서 제공하는 `@Override`가 있다.
 
 다음은 equals를 Override하는 예시이다.
@@ -44,9 +43,11 @@ java: method does not override or implement a method from a supertype
 ```
 
 #### 2. 소프트웨어 개발툴이 빌드나 배치시 코드를 자동으로 생성할 수 있도록 정보 제공
+
 대표적인 예시로 Querydsl의 Q타입 Entity를 생성하는 것이 있다. 이를 가능하게 하는 기능을 annotation processor라고 한다.
 
 #### 3. 실행시(런타임시)특정 기능을 실행하도록 정보를 제공
+
 annotation은 클래스, 메서드, 필드등에 대한 메타데이터를 가질 수 있다. 대표적인 예로 SpringBoot의 `@Component`가 있는데 이 annotation이 붙여진 class는 Spring의 관리대상에 포함된다.
 
 .  
@@ -54,6 +55,7 @@ annotation은 클래스, 메서드, 필드등에 대한 메타데이터를 가�
 . ETC...
 
 ### Use Case
+
 - 컴파일러를 위한 정보제공 :  `@FunctionalInterface` ,` @supresswarnings`
 - 자동 문서 작성 : Jenkins, Jira, Teamcity 등...
 - 코드 자동 생성 : Querydsl, lombok, JAXB 등...
@@ -62,6 +64,7 @@ annotation은 클래스, 메서드, 필드등에 대한 메타데이터를 가�
 
 
 ## Annotation의 구성
+
 다음은 Annotation의 예시이다.
 ```java
 @Target({ElementType.FIELD})
@@ -70,6 +73,7 @@ public @interface Annotation {
 }
 ```
 ### @Target(ElementType[])
+
 : Annotation이 적용할 위치를 나타낸다.
 |위치|Element Type|
 |---|------------|
@@ -86,6 +90,7 @@ public @interface Annotation {
 |타입|`ElementType.TYPE_USE`|
 
 ### `@Retention(RetentionPolicy)`
+
 : Annotation 의 Scope를 제한한다.
 - **`SOURCE`**  
   어노테이션 정보가 컴파일시 사라진다. 즉, 바이트코드에 존재하지 않는다.
@@ -96,6 +101,7 @@ public @interface Annotation {
   실행시 어노테이션 정보가 가상 머신에 의해서 참조 가능. reflection에 의해 사용될 수 있다.
 
 #### CLASS는 왜 사용될까?
+
 > 참고: https://stackoverflow.com/questions/38975073/retention-of-java-type-checker-annotations
 
 CLASS 정책은 Maven과 Gradle로 다운받은 라이브러리와  jar파일은 소스코드(`.java`)가 아닌 바이트코드(`.class`)만 남겨진다.  
@@ -104,7 +110,9 @@ CLASS 정책은 Maven과 Gradle로 다운받은 라이브러리와  jar파일은
 SOURCE 정책으로 사용한다면 컴파일된 라이브러리의 jar 파일에는 어노테이션 정보가 남아있지 않기 때문에 위와 같은 기능을 사용할 수 없다.  
 
 ### 추가적인 구성요소
+
 #### `@Inherited`
+
 슈퍼클래스를 상속한 서브 클래스에서도 해당 Annotation을 갖도록 한다.
 
 ```java
@@ -130,9 +138,11 @@ public static void main(String[] args) {
 ```
 
 #### `@Documented`
+
 `@Documented` 어노테이션이 지정된 대상의 JavaDoc 에 이 어노테이션의 존재를 표기하도록 지정한다.
 
 ### 변수
+
 annotation은 변수를 사용할 수 있다. 변수의 형식은 다음과 같다.
 ```java
 [public] 타입 변수명();

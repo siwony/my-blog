@@ -5,13 +5,9 @@ date: '2022-03-29'
 layout: post
 tags:
 - concurrent
-- coding
-- development
 - java
-title: "Executor Framework"
+title: "[Java] Executor Framework"
 ---
-
-# Executor Framework
 : 고수준 (High-Level) Concurrency 프로그래밍를 지원하는 Framework
 
 - Executor에 스레드를 만들고 관리하는 작업을 위임한다.
