@@ -11,6 +11,7 @@ title: "간단한 Spring Boot AWS Server 배포"
 > 그리고 간단한 협업, Test 를 위한 배포입니다.
 
 ### 자신의 MAC 에서 AWS instance연결하기
+
 1. 자신의 터미널에서 키페어가 있는 디렉토리로 이동 한다.
 2. 터미널에서 pair key의 권한을 변경
     > key 이름은 ``~.pem`` 형식으로 되어있다
@@ -27,13 +28,16 @@ title: "간단한 Spring Boot AWS Server 배포"
     <img width=500 src=./img/success.png>
 
 ### AWS Linux 가상환경에서 배포 환경 구축하기
+
 > 필자는 openJDK 11 버전을 사용할 것이다.
+
 1. Git 설치
     ```bash
     sudo yum install git
     ```
 2. JAVA8 설치 및 JAVA 11 버전 적용(open JDK)  
     > JAVA11을 적용시키기 위해 먼저 JAVA8을 설치한다.
+    
     **JAVA8 install**
     ```bash
     sudo yum install -y java-1.8.0-openjdk-devel.x86_64
@@ -54,6 +58,7 @@ title: "간단한 Spring Boot AWS Server 배포"
     ```
 
 ### 배포
+
 1. 자신의 SpringBoot project 받아오기  
     ex)
     ```bash
@@ -91,6 +96,7 @@ title: "간단한 Spring Boot AWS Server 배포"
     ```
 
 ### 서버 시작
+
 1. 서버 실행
     자신의 프로젝트 폴더의 target 으로 이동
     ```bash

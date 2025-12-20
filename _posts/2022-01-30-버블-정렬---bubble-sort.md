@@ -12,6 +12,7 @@ title: "버블 정렬 - Bubble Sort"
 연산이 가장 많아 정렬 알고리즘 중에서 상대적으로 가장 느리고 효율성이 떨어진다.
 
 ## 구현 코드
+
 ```java
 private static int[] solution(final int arrLen, final int[] arr) {
     for (int i = 1; i < arrLen; i++) {

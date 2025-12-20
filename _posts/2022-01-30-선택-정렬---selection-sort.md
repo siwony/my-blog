@@ -13,14 +13,17 @@ title: "선택 정렬 - Selection Sort"
 - 시간 복잡도: O(N^2)
 
 ### 정렬 방법
+
 1. 주어진 리스트에서 최솟값을 찾는다.
 2. 최솟값을 맨 앞 자리의 값과 교환한다.
 3. 맨 앞 자리를 제외한 나머지 값들 중 최솟값을 찾아 위와 같은 방법으로 반복한다. 
 
 #### 예제
+
 <img width=500 src="/assets/images/posts/algorithm/selection-sort.png">
 
 ## 소스코드
+
 ```java
 
 /**

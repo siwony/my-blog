@@ -14,21 +14,26 @@ title: "[SQL] Window Function"
 - SUM, MAX, MIN과 같은 집계 윈도우 함수를 사용할 떄 **윈도우 절**과 함께 사용하면 집계 대상이 되는 **레코드 범위를 지정**할 수 있다.
 
 ### 함수 종류
+
 #### 1. 순위 함수
+
 - RANK
 - DENSE_RANK
 - ROW_NUMBER
 
 #### 2. 윈도우 집계 함수
+
 - SUM, MAX, MIN, AVG, COUNT
 
 #### 3. 행 순서 함수
+
 - FIRST_VALUE
 - LAST_VALUE,
 - LAG
 - LEAD
 
 #### 4. 비율 함수
+
 - RATIO_TO_REPORT
 - PERCENT_RANK
 - CUME_DIST
@@ -37,6 +42,7 @@ title: "[SQL] Window Function"
 ## 1. 구조
 
 ### 1-1. 윈도우 함수 구조
+
 ```sql
 SELECT WINDOW_FUNCTION(ARGUMENTS)
     OVER ( <PARTITION BY 컬럼> <ORDER BY 절> <WINDOWING 절> )
@@ -50,6 +56,7 @@ SELECT JOB, SUM(SAL) OVER (PARTITION BY JOB
                 ) as SUM_SAL
 FROM EMP;
 ```
+
 > <>는 선택가능
 
 |    구조    |               설명                 |
@@ -60,6 +67,7 @@ FROM EMP;
 |WINDOWING   | - 행 기준 범위를 정한다. <br> - ROWS는 물리적 결과의 행 수이고 RANGE는 논리적인 값에 의한 범위이다.|
 
 ### 1-2. WINDOWING
+
 |    구조    |               설명                 |
 |-----------|-----------------------------------|
 |ROWS       |부분집합인 윈도우 크기를 **물리적 단위로 행의 집합을 지정**한다. 즉 **행의 수를 선택**한다.|
@@ -70,6 +78,7 @@ FROM EMP;
 |CURRENT ROW        |윈도우 **시작 위치가 현재 행**임을 의미한다.
 
 #### WINDOWING 예시
+
 전체 합계
 ```sql
 SELECT EMPNO, ENAME, SQL
@@ -79,6 +88,7 @@ SUM(SAL) ORVER(ORDER BY SAL
 )
 FROM EMP;
 ```
+
 TOTSAL의 처음부터 마지막까지의 합계(`SUM(SAL)`)를 계산한 것이다.
 > AS는 생략 가능하다.
 
@@ -90,11 +100,13 @@ SUM(SQL) OVER(ORDER BY SQL
     AND CURRENT ROW) AS TOTSAL
 FROM EMP;
 ```
+
 - 처음부터 CURRENT ROW까지의 합계를 계산한다.
   > 누적합계
 - 1번째 행의 값이 1, 2번째 행의 값이 2, 3번째 행의 값이 3이면 `1 + 2 + 3 = 4`과 같이 계산된다.
 
 ### 1-3. 순위 함수 - RANK FUNCTION
+
 : 윈도우 함수는 특정 항목과 파티션에 대해서 순위를 계산할 수 있는 함수를 제공한다.
 |  순위 함수  |               설명                 |
 |-----------|-----------------------------------|
@@ -104,7 +116,9 @@ FROM EMP;
 
 
 #### RANK FUNCTION 에시
+
 #### 1. 내림차순 및 파티션
+
 ```sql
 SELECT ENAME, SAL,
     RANK() OVER (ORDER BY SAL DESC) AS ALL_RANK, # SAL로 등수를 계산하고, 내림차순으로 조회한다.
@@ -115,6 +129,7 @@ FROM EMP;
   > 1, 2, 2, 4, 5, 6, 6, 8
 
 #### 2. DENSE RANK
+
 ```sql
 SELECT ENAME, SAL,
     RANK() OVER (ORDER BY SAL DESC) AS ALL_RANK,
@@ -125,6 +140,7 @@ FROM EMP;
   > 1, 2, 2, 3, 4, 5, 5, 5, 6
 
 #### 3, ROW NUMBER
+
 ```sql
 SELECT ENAME, SAL,
     RANK() OVER (ORDER BY SAL DESC) ALL_RANK,
@@ -135,6 +151,7 @@ FROM EMP;
   > DENSE_RANK기준 1, 2, 2, 4, 5가 ROW_NUMBER로 1, 2, 3, 4, 5로 조회된다.
 
 ### 1-4. 집계 함수 - AGGREGATE FUNCTION
+
 |  집계 함수  |               설명                 |
 |-----------|-----------------------------------|
 |SUM        |파티션 별로 합계를 계산한다.              |
@@ -145,14 +162,17 @@ FROM EMP;
 #### 집계 함수 예시
 
 #### 1. SUM
+
 ```sql
 SELECT ENAME, SAL,
 SUM(SAL) OVER (PARTITION BY MGR) SUM_MGR
 FROM EMP;
 ```
+
 - 같은 `관리자 - MGR`에 파티션을 만들고 `합계 - SUM`를 계산한다.
   
 ### 1-5. 행 순서 관련 함수
+
 - 행 순서 관련 함수는 **상위 행 값을 하위에 출력**하거나 **그 반대로 출력**할 수 있다.
 - **특정 위치의 행을 출력**할 수 있다.
 
@@ -164,7 +184,9 @@ FROM EMP;
 |LEAD       | - 윈도우에서 특정 위치의 행을 가지고 온다. <br> - 기본값은 1이다.|
 
 #### 행 순서 관련 함수 예시
+
 #### 1. FIRST_VALUE
+
 ```sql
 SELECT DEPTNO, ENAME, SAL,
 FIRST VALUE(ENAME) OVER (
@@ -175,6 +197,7 @@ FROM EMP;
 - 부서로 파티션을 나누고, 부서별로 급여가 가장 많은 직원의 이름을 4번째 칼럼에 배치한다.
 
 #### 2. LAST_VALUE
+
 ```sql
 SELECT DEPTNO, ENAME, SAL,
     LAST_VALUE(ENAME) OVER (PARTITION BY DEPTNO
@@ -182,10 +205,12 @@ SELECT DEPTNO, ENAME, SAL,
     DEPT) AS A 
 FROM EMP;
 ```
+
 - `LAST_VALUE`는 마지막행을 가지고 오고,
 - `BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING`은 부서 내에서 급여가 가장 적은 사람을 가지고 온다.
 
 #### 3. LAG
+
 ```sql
 SELECT DEPTNO, ENAME, SAL, LAG(SAL, 2)
     OVER (ORDER BY SAL DESC) AS PRE_SAL
@@ -194,6 +219,7 @@ FROM EMP;
 - 해당 행에서 2번째 이전의 값을 가지고 온다.
 
 ### 1-6. 비율 관련 함수
+
 - 누적 백분율, 순서별 백분율, 파티션을 N분으로 분할한 결과 등을 조회할 수 있다.
 
 |    집계 함수    |                 설명                   |

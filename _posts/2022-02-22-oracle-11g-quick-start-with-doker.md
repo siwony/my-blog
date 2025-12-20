@@ -8,11 +8,13 @@ tags:
 title: "Oracle 11g quick start with doker"
 ---
 ### 1. oracle 11g 이미지 pull
+
 ```sh
 docker pull jaspeen/oracle-xe-11g
 ```
 
 ### 2. 이미지 실행하기 
+
 ```sh
 docker run --name oracle11g -d -p 1521:1521 jaspeen/oracle-xe-11g
 ```
@@ -21,11 +23,13 @@ docker run --name oracle11g -d -p 1521:1521 jaspeen/oracle-xe-11g
 ### 3. oracle11g실행하기
 
 #### 3-1. sqlplus 접속
+
 ```sh
 docker exec -it oracle11g sqlplus
 ```
 
 #### 3-2. 로그인 하기
+
 아이디 패스워드를 입력하여 sqlplus로 로그인한다.
 - **user-name: system**
 - **password: oracle**
