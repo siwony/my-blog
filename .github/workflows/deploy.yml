@@ -27,8 +27,11 @@ jobs:
           ruby-version: "3.2"
           bundler-cache: true  # 번들 캐시 자동 :contentReference[oaicite:4]{index=4}
 
-      - name: Build Jekyll
-        run: bundle exec jekyll build
+      - name: Build Jekyll (production)
+        env:
+          JEKYLL_ENV: production
+          NODE_ENV: production
+        run: bundle exec jekyll build --config _config.yml,_config_production.yml
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4

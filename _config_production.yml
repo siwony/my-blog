@@ -5,7 +5,8 @@
 environment: production
 
 # Production specific settings
-url: ""  # Set your production URL here
+url: "https://blog.siwony.xyz"
+baseurl: ""
 show_drafts: false
 incremental: false
 
