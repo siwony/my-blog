@@ -52,6 +52,8 @@ GEM
     mercenary (0.3.6)
     nokogiri (1.19.0-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.19.0-x86_64-linux-gnu)
+      racc (~> 1.4)
     ostruct (0.6.3)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
@@ -76,6 +78,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-24
+  x86_64-linux
 
 DEPENDENCIES
   base64
