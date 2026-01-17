@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# Jekyll 블로그 개발 도구 스크립트
-# 사용법: ./dev.sh [명령어]
+# Jekyll 블로그 통합 개발 도구
+# 사용법: ./dev.sh [명령어] [옵션]
+
+set -e
 
 # 색상 정의
 RED='\033[0;31m'
@@ -10,51 +12,193 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
-NC='\033[0m' # No Color
+NC='\033[0m'
+
+# 기본 설정
+PORT="${PORT:-4000}"
 
 # 함수: 도움말 출력
 show_help() {
-    echo -e "${BLUE}🛠️ Jekyll 블로그 개발 도구${NC}"
+    echo -e "${BLUE}🛠️ Jekyll 블로그 통합 개발 도구${NC}"
     echo ""
-    echo "사용법:"
-    echo "  ./dev.sh serve          # 개발 서버 시작"
-    echo "  ./dev.sh build          # 프로덕션 빌드"
-    echo "  ./dev.sh new-post       # 새 포스트 생성"
-    echo "  ./dev.sh new-category   # 새 카테고리 생성"
-    echo "  ./dev.sh stats          # 블로그 통계 확인"
-    echo "  ./dev.sh clean          # 캐시 및 빌드 파일 정리"
-    echo "  ./dev.sh deps           # 의존성 업데이트"
-    echo "  ./dev.sh help           # 도움말 출력"
+    echo "사용법: ./dev.sh <명령어> [옵션]"
+    echo ""
+    echo -e "${CYAN}개발 명령어:${NC}"
+    echo "  serve [옵션]       개발 서버 시작"
+    echo "    --port <포트>    포트 지정 (기본: 4000)"
+    echo "    --drafts         초안 포함"
+    echo "    --livereload     라이브 리로드 활성화"
+    echo ""
+    echo "  build [옵션]       사이트 빌드"
+    echo "    --production     프로덕션 모드"
+    echo "    --clean          빌드 전 캐시 정리"
+    echo ""
+    echo "  test-prod          프로덕션 빌드 후 로컬 테스트 (포트 8080)"
+    echo ""
+    echo -e "${CYAN}콘텐츠 명령어:${NC}"
+    echo "  new-post           새 포스트 생성"
+    echo "  stats              블로그 통계"
+    echo ""
+    echo -e "${CYAN}유지보수 명령어:${NC}"
+    echo "  clean              캐시 및 빌드 파일 정리"
+    echo "  deps               의존성 업데이트"
+    echo "  install            의존성 설치"
+    echo ""
+    echo -e "${CYAN}예시:${NC}"
+    echo "  ./dev.sh serve --port 3000 --drafts"
+    echo "  ./dev.sh build --production --clean"
+    echo "  ./dev.sh new-post"
     echo ""
 }
 
+# 함수: 의존성 확인 및 설치
+check_deps() {
+    if ! command -v bundle &> /dev/null; then
+        echo -e "${RED}❌ Bundler가 설치되지 않았습니다.${NC}"
+        echo -e "${YELLOW}💡 gem install bundler 로 설치하세요.${NC}"
+        exit 1
+    fi
+    
+    if [ ! -f "Gemfile" ]; then
+        echo -e "${RED}❌ Gemfile을 찾을 수 없습니다.${NC}"
+        exit 1
+    fi
+    
+    if ! bundle check &> /dev/null; then
+        echo -e "${YELLOW}📦 의존성 설치 중...${NC}"
+        bundle install
+    fi
+}
+
+# 함수: 개발 서버 실행
+cmd_serve() {
+    local port="$PORT"
+    local drafts=""
+    local livereload=""
+    
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --port) port="$2"; shift 2 ;;
+            --drafts) drafts="--drafts"; shift ;;
+            --livereload) livereload="--livereload"; shift ;;
+            *) shift ;;
+        esac
+    done
+    
+    check_deps
+    
+    echo -e "${BLUE}🚀 개발 서버 시작${NC}"
+    echo "=================================="
+    echo -e "${GREEN}📍 URL: http://localhost:$port${NC}"
+    echo -e "${YELLOW}🛑 종료: Ctrl+C${NC}"
+    echo ""
+    
+    export JEKYLL_ENV=development
+    bundle exec jekyll serve --host 0.0.0.0 --port "$port" $drafts $livereload
+}
+
+# 함수: 사이트 빌드
+cmd_build() {
+    local production=""
+    local clean=""
+    
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --production) production="1"; shift ;;
+            --clean) clean="1"; shift ;;
+            *) shift ;;
+        esac
+    done
+    
+    check_deps
+    
+    echo -e "${BLUE}🔨 사이트 빌드${NC}"
+    echo "=================================="
+    
+    if [ "$clean" = "1" ]; then
+        echo -e "${YELLOW}🧹 캐시 정리 중...${NC}"
+        bundle exec jekyll clean
+        rm -rf .sass-cache/
+    fi
+    
+    if [ "$production" = "1" ]; then
+        export JEKYLL_ENV=production
+        echo -e "${GREEN}🏭 프로덕션 모드${NC}"
+        
+        if command -v npm &> /dev/null && [ -f "package.json" ]; then
+            echo -e "${YELLOW}📦 JS/CSS 최적화 중...${NC}"
+            npm run build:prod 2>/dev/null || true
+        fi
+    else
+        export JEKYLL_ENV=development
+        echo -e "${GREEN}🔧 개발 모드${NC}"
+    fi
+    
+    START_TIME=$(date +%s)
+    bundle exec jekyll build
+    END_TIME=$(date +%s)
+    
+    echo ""
+    echo -e "${GREEN}✅ 빌드 완료! ($(($END_TIME - $START_TIME))초)${NC}"
+    echo -e "�� 출력: _site/ ($(du -sh _site 2>/dev/null | cut -f1))"
+}
+
+# 함수: 프로덕션 테스트
+cmd_test_prod() {
+    echo -e "${BLUE}🧪 프로덕션 테스트${NC}"
+    echo "=================================="
+    
+    check_deps
+    
+    echo -e "${YELLOW}🔨 프로덕션 빌드 중...${NC}"
+    export JEKYLL_ENV=production
+    
+    if command -v npm &> /dev/null && [ -f "package.json" ]; then
+        npm run build:prod 2>/dev/null || bundle exec jekyll build
+    else
+        bundle exec jekyll build
+    fi
+    
+    if [ ! -d "_site" ]; then
+        echo -e "${RED}❌ 빌드 실패${NC}"
+        exit 1
+    fi
+    
+    echo ""
+    echo -e "${GREEN}📊 빌드 통계:${NC}"
+    echo "   파일 수: $(find _site -type f | wc -l | tr -d ' ')"
+    echo "   크기: $(du -sh _site | cut -f1)"
+    echo ""
+    echo -e "${GREEN}🌐 서버 시작: http://localhost:8080${NC}"
+    echo -e "${YELLOW}🛑 종료: Ctrl+C${NC}"
+    
+    cd _site && python3 -m http.server 8080
+}
+
 # 함수: 새 포스트 생성
-new_post() {
+cmd_new_post() {
     echo -e "${CYAN}📝 새 포스트 생성${NC}"
     echo "=================================="
     
-    read -p "포스트 제목을 입력하세요: " title
+    read -p "포스트 제목: " title
     if [ -z "$title" ]; then
         echo -e "${RED}❌ 제목을 입력해주세요.${NC}"
         return 1
     fi
     
-    read -p "카테고리를 입력하세요 (기본값: general): " category
+    read -p "카테고리 (기본: general): " category
     category=${category:-general}
     
-    # 파일명 생성 (날짜 + 제목)
     date_str=$(date +%Y-%m-%d)
     filename_title=$(echo "$title" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9가-힣]/-/g' | sed 's/--*/-/g' | sed 's/^-\|-$//g')
     filename="${date_str}-${filename_title}.md"
     filepath="_posts/$filename"
     
-    # 이미 존재하는지 확인
     if [ -f "$filepath" ]; then
         echo -e "${RED}❌ 파일이 이미 존재합니다: $filepath${NC}"
         return 1
     fi
     
-    # 포스트 템플릿 생성
     cat > "$filepath" << EOF
 ---
 layout: post
@@ -68,135 +212,90 @@ author: jeongcool
 # $title
 
 여기에 내용을 작성하세요.
-
-## 섹션 제목
-
-내용...
-
-## 참고 자료
-
-- [링크 제목](URL)
 EOF
 
-    echo -e "${GREEN}✅ 새 포스트가 생성되었습니다!${NC}"
-    echo -e "${GREEN}📁 파일: $filepath${NC}"
+    echo -e "${GREEN}✅ 생성됨: $filepath${NC}"
 }
 
 # 함수: 블로그 통계
-show_stats() {
+cmd_stats() {
     echo -e "${PURPLE}📊 블로그 통계${NC}"
     echo "=================================="
     
     if [ -d "_posts" ]; then
-        total_posts=$(find _posts -name "*.md" | wc -l | tr -d ' ')
-        echo -e "${GREEN}📝 총 포스트 수: $total_posts${NC}"
-        
+        total=$(find _posts -name "*.md" | wc -l | tr -d ' ')
+        echo -e "${GREEN}📝 총 포스트: $total${NC}"
         echo ""
-        echo -e "${YELLOW}📂 카테고리별 포스트 수:${NC}"
+        
+        echo -e "${YELLOW}📂 카테고리별:${NC}"
         grep -rh "^categories:" _posts/ 2>/dev/null | sed 's/categories: //' | sort | uniq -c | sort -nr | head -10
-        
         echo ""
-        echo -e "${YELLOW}🏷️ 자주 사용되는 태그:${NC}"
-        grep -rh "^tags:" _posts/ 2>/dev/null | sed 's/tags: \[\(.*\)\]/\1/' | tr ',' '\n' | sed 's/^[ \t]*//;s/[ \t]*$//' | grep -v '^$' | sort | uniq -c | sort -nr | head -10
         
-        echo ""
-        echo -e "${YELLOW}📅 최근 포스트 (5개):${NC}"
+        echo -e "${YELLOW}📅 최근 포스트:${NC}"
         ls -1t _posts/*.md 2>/dev/null | head -5 | while read file; do
-            title=$(grep "^title:" "$file" 2>/dev/null | sed 's/title: *"\?\(.*\)"\?/\1/')
+            title=$(grep "^title:" "$file" 2>/dev/null | sed 's/title: *"\?\(.*\)"\?/\1/' | head -1)
             date=$(basename "$file" | cut -d'-' -f1-3)
             echo "  $date - $title"
         done
-    else
-        echo -e "${RED}❌ _posts 디렉토리를 찾을 수 없습니다.${NC}"
     fi
     
     if [ -d "_site" ]; then
         echo ""
-        site_size=$(du -sh _site 2>/dev/null | cut -f1)
-        site_files=$(find _site -type f 2>/dev/null | wc -l | tr -d ' ')
-        echo -e "${GREEN}🌐 빌드된 사이트 크기: $site_size${NC}"
-        echo -e "${GREEN}📄 빌드된 파일 수: $site_files${NC}"
+        echo -e "${GREEN}🌐 빌드 사이트: $(du -sh _site 2>/dev/null | cut -f1)${NC}"
     fi
 }
 
 # 함수: 정리
-clean_all() {
-    echo -e "${YELLOW}🧹 캐시 및 빌드 파일 정리${NC}"
-    echo "=================================="
+cmd_clean() {
+    echo -e "${YELLOW}🧹 정리 중...${NC}"
     
-    # Jekyll 캐시 정리
-    if command -v bundle &> /dev/null; then
-        bundle exec jekyll clean 2>/dev/null
-    fi
-    
-    # 기타 캐시 파일 정리
-    rm -rf .sass-cache/ 2>/dev/null
-    rm -rf .jekyll-cache/ 2>/dev/null
-    rm -rf .jekyll-metadata 2>/dev/null
-    rm -rf _site/ 2>/dev/null
+    bundle exec jekyll clean 2>/dev/null || true
+    rm -rf .sass-cache/ .jekyll-cache/ .jekyll-metadata _site/ 2>/dev/null
     
     echo -e "${GREEN}✅ 정리 완료${NC}"
 }
 
 # 함수: 의존성 업데이트
-update_deps() {
+cmd_deps() {
     echo -e "${CYAN}📦 의존성 업데이트${NC}"
-    echo "=================================="
     
-    if ! command -v bundle &> /dev/null; then
-        echo -e "${RED}❌ Bundler가 설치되지 않았습니다.${NC}"
-        return 1
+    if command -v bundle &> /dev/null; then
+        bundle update
+        echo -e "${GREEN}✅ Bundle 업데이트 완료${NC}"
     fi
     
-    echo -e "${YELLOW}⬇️ Bundle 업데이트 중...${NC}"
-    bundle update
-    
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✅ 의존성 업데이트 완료${NC}"
-    else
-        echo -e "${RED}❌ 의존성 업데이트 실패${NC}"
+    if command -v npm &> /dev/null && [ -f "package.json" ]; then
+        npm update
+        echo -e "${GREEN}✅ npm 업데이트 완료${NC}"
     fi
 }
 
-# 메인 실행 로직
+# 함수: 의존성 설치
+cmd_install() {
+    echo -e "${CYAN}📦 의존성 설치${NC}"
+    
+    if command -v bundle &> /dev/null; then
+        bundle install
+        echo -e "${GREEN}✅ Bundle 설치 완료${NC}"
+    fi
+    
+    if command -v npm &> /dev/null && [ -f "package.json" ]; then
+        npm install
+        echo -e "${GREEN}✅ npm 설치 완료${NC}"
+    fi
+}
+
+# 메인 실행
 case "${1:-help}" in
-    serve)
-        if [ -f "serve.sh" ]; then
-            ./serve.sh "${@:2}"
-        else
-            echo -e "${RED}❌ serve.sh 파일을 찾을 수 없습니다.${NC}"
-        fi
-        ;;
-    build)
-        if [ -f "build.sh" ]; then
-            ./build.sh --production
-        else
-            echo -e "${RED}❌ build.sh 파일을 찾을 수 없습니다.${NC}"
-        fi
-        ;;
-    new-post)
-        new_post
-        ;;
-    new-category)
-        read -p "카테고리 이름을 입력하세요: " category_name
-        if [ ! -z "$category_name" ] && [ -f "scripts/create_category.rb" ]; then
-            ruby scripts/create_category.rb "$category_name"
-        else
-            echo -e "${RED}❌ 카테고리 이름을 입력하거나 create_category.rb 파일을 확인하세요.${NC}"
-        fi
-        ;;
-    stats)
-        show_stats
-        ;;
-    clean)
-        clean_all
-        ;;
-    deps)
-        update_deps
-        ;;
-    help|--help|-h)
-        show_help
-        ;;
+    serve)      shift; cmd_serve "$@" ;;
+    build)      shift; cmd_build "$@" ;;
+    test-prod)  cmd_test_prod ;;
+    new-post)   cmd_new_post ;;
+    stats)      cmd_stats ;;
+    clean)      cmd_clean ;;
+    deps)       cmd_deps ;;
+    install)    cmd_install ;;
+    help|--help|-h) show_help ;;
     *)
         echo -e "${RED}❌ 알 수 없는 명령어: $1${NC}"
         echo ""

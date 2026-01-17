@@ -127,7 +127,8 @@ document.addEventListener('DOMContentLoaded', function () {
     return '#' + parts.join('&');
   }
 
-  function renderPage(page) {
+  function renderPage(page, options = {}) {
+    const { scrollToTop = true } = options;
     const totalPages = Math.max(1, Math.ceil(postsData.length / pageSize));
     if (page < 1) page = 1;
     if (page > totalPages) page = totalPages;
@@ -141,7 +142,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderControls(page, totalPages);
     history.replaceState(null, '', buildHash(page, pageSize));
-    window.scrollTo({ top: 0 });
+    if (scrollToTop) {
+      window.scrollTo({ top: 0 });
+    }
   }
 
   function createBtn(label, page, disabled, isNavBtn = false) {
@@ -239,7 +242,8 @@ document.addEventListener('DOMContentLoaded', function () {
     resizeTimer = setTimeout(function() {
       const params = parseHash();
       const currentPage = params.p ? parseInt(params.p, 10) : 1;
-      renderPage(currentPage);
+      // Avoid forcing scroll-to-top on mobile when URL bar show/hide triggers resize
+      renderPage(currentPage, { scrollToTop: false });
     }, 250);
   });
 });

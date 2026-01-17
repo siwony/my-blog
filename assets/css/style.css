@@ -455,9 +455,9 @@ category-sidebar {
   .home-layout {
     grid-template-columns: 1fr;
     grid-template-areas:
-      "sidebar"
       "main"
-      "pagination";
+      "pagination"
+      "sidebar";
     gap: 2rem;
   }
   
@@ -468,6 +468,12 @@ category-sidebar {
   
   .home-layout .pagination {
     margin: 1rem auto;
+  }
+
+  /* Make sidebar appear last on mobile */
+  .sidebar,
+  category-sidebar {
+    order: 3;
   }
   
   .category-navigation {
@@ -601,6 +607,32 @@ category-sidebar {
   line-height: 1.8;
   font-size: 1.1rem;
   color: #2c3e50;
+}
+
+/* Make post images responsive by default */
+.post-content img,
+.content img,
+article img,
+.markdown-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.25rem auto;
+  border-radius: 8px;
+}
+
+/* Optional horizontal scroll wrapper for wide media */
+.media-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.25rem 0;
+}
+
+.media-scroll img,
+.media-scroll figure,
+.media-scroll table,
+.media-scroll pre {
+  margin: 0;
 }
 
 /* Enhanced post content styles */
