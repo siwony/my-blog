@@ -1,5 +1,15 @@
 source "https://rubygems.org"
 
+# Ruby 4.0+ compatibility - these gems were removed from stdlib
+gem "logger"
+gem "ostruct"
+gem "base64"
+gem "csv"
+gem "bigdecimal"
+
+# HTML parsing for plugins
+gem "nokogiri", "~> 1.16"
+
 # Jekyll 3.x 최신 안정 버전 (호환성 고려)
 gem "jekyll", "~> 3.9.5"
 gem "webrick", "~> 1.8"
