@@ -1,22 +1,27 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
+require 'uri'
 
 # Auto-links bare URLs and removes unwanted autolinks from code blocks and emails.
 module AutolinkScrub
-  # Regex to match URLs (http, https, www)
+  # Regex to match URLs (http, https, www) including Korean and other unicode characters
   URL_REGEX = %r{
     (?<!["\'>=/])                    # Not preceded by quotes, >, =, /
     (
       https?://                       # http:// or https://
-      [\w\-]+(?:\.[\w\-]+)+          # domain
-      (?:[/\w\-.~:/?#\[\]@!$&'()*+,;=%]*)  # path and query
+      [^\s<>\[\]"']+                  # Everything except whitespace and certain delimiters
     |
       www\.                           # www.
-      [\w\-]+(?:\.[\w\-]+)+          # domain
-      (?:[/\w\-.~:/?#\[\]@!$&'()*+,;=%]*)  # path and query
+      [^\s<>\[\]"']+                  # Everything except whitespace and certain delimiters
     )
   }x
+
+  # Clean up trailing punctuation that shouldn't be part of URL
+  def self.clean_url(url)
+    # Remove trailing punctuation that's likely not part of the URL
+    url.sub(/[).,;:!?\]]+$/, '')
+  end
 
   Jekyll::Hooks.register [:documents, :pages], :post_render do |doc|
     next unless doc.output_ext == '.html'
@@ -37,8 +42,12 @@ module AutolinkScrub
 
       # Replace URLs with anchor tags
       new_html = text.gsub(URL_REGEX) do |url|
-        href = url.start_with?('www.') ? "https://#{url}" : url
-        %(<a href="#{href}" target="_blank" rel="noopener noreferrer">#{url}</a>)
+        cleaned_url = AutolinkScrub.clean_url(url)
+        trailing = url[cleaned_url.length..]  # Get any trailing punctuation we removed
+        href = cleaned_url.start_with?('www.') ? "https://#{cleaned_url}" : cleaned_url
+        # URI encode the href for proper linking while keeping display text readable
+        encoded_href = URI::DEFAULT_PARSER.escape(href, /[^-_.!~*'()a-zA-Z\d;\/?:@&=+$,\[\]%#]/)
+        %(<a href="#{encoded_href}" target="_blank" rel="noopener noreferrer">#{cleaned_url}</a>#{trailing})
       end
 
       # Only replace if we actually made changes
