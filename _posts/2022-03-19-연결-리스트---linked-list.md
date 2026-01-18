@@ -84,7 +84,7 @@ title: "연결 리스트 - Linked List"
 
 #### 2. 맨 뒤에 노드 삽입
 > O`(n)`의 시간복잡도를 가진다.
-<img width="700px" src="/assets/images/posts/cs/마지막_노드_추가.png">
+<img width="700px" src="/assets/images/posts/cs/last-node-add.png">
 
 1. `새로운 노드`를 생성한다.
 2. `마지막 노드`를 찾는다.
@@ -93,7 +93,7 @@ title: "연결 리스트 - Linked List"
 #### 3. 원하는 곳(index)에 노드 삽입
 > 원하는 노드를 탐색 후 삽입하므로 시간복잡도 `O(n + 1)`즉, `O(n)`를 갖는다.
 
-<img width="700px" src="/assets/images/posts/cs/인덱스_노드_추가.png">
+<img width="700px" src="/assets/images/posts/cs/index-node-add.png">
 
 1. `새로운 노드`를 생성한다.
 2. `특정 인덱스의 노드(cru)`와 그 `이전 노드(prev)`를 찾는다.
@@ -101,7 +101,7 @@ title: "연결 리스트 - Linked List"
 
 #### 4. 특정 노드 삭제
 > 원하는 노드를 탐색 후 삭제하므로 시간복잡도 `O(n + 1)`즉. `O(n)`를 갖는다.
-<img src="/assets/images/posts/cs/인덱스_노드_삭제.png">
+<img src="/assets/images/posts/cs/index-node-delete.png">
 
 1. `삭제할 노드`를 없앤다.
 2. `삭제할 노드`의 `이전 노드의 포인터`를 `삭제할 노드`의 `다음 노드`로 지정해주면 된다.
