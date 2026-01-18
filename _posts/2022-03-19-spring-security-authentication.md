@@ -14,7 +14,7 @@ title: "Spring Security Authentication"
 
 ## Spring Security Authentication (인증)의 기본 구조
 : 필터들 중에 일부 필터는 인증 정보에 관여한다. 이들 필터가 하는 일은 AuthenticationManager 를 통해 Authentication 을 인증하고 그 결과를 SecurityContextHolder 에 넣어준다.  
-<img width=450px src=./img/security-authentication-architecture.png>
+<img width=450px src="/assets/images/posts/spring/security/security-authentication-architecture.png">
 
 ### 인증 토큰(Authentication Token)을 제공하는 필터들
 - UsernamePasswordAuthenticationFilter : 폼 로그인 -> UsernamePasswordAuthenticationToken

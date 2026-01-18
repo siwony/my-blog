@@ -22,10 +22,10 @@ title: "간단한 Spring Boot AWS Server 배포"
 3. 자신의 AWS instance 를 선택후 연결하기 를 누른다.
 4. 그후 SSH 클라이언트 텝에 있는 ``예`` 에 적어져있는 명령어를 터미널에 입력한다.
     >필자의 key 이름은 ~~귀찮아서~~ `asdfasef` 로 했다.  
-    <img width=500 src=./img/SSH-Connect.png>
+    <img width=500 src="/assets/images/posts/devops/ssh-connect.png">
 
 5. 다음과 같이 뜨면 성공이다.  
-    <img width=500 src=./img/success.png>
+    <img width=500 src=/assets/images/posts/devops/success.png>
 
 ### AWS Linux 가상환경에서 배포 환경 구축하기
 

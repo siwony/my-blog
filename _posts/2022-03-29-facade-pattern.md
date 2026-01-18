@@ -9,7 +9,7 @@ tags:
 title: "Facade Pattern"
 ---
 : 어떤 서브시스템의 일련의 인터페이스에 대한 통합된 인터페이스를 제공한다.
-<img width=550px src=./img/facade-diagram.png>
+<img width=550px src="/assets/images/posts/jpa/facade-diagram.png">
 
 - Facade는 건물의 앞쪽 정면 이라는 뜻을 가진다.
 - Facade는 자신이 가지고 있는 각 클래스의 기능을 정확히 알아야 한다.
@@ -23,7 +23,7 @@ title: "Facade Pattern"
 - Reader는 연결할 수 있고, 파일의 내용을 읽을 수 있고, 연결을 끊을 수 있다.
 - Reader는 연결할 수 있고, 파일의 내용을 쓸 수 있고, 연결을 끊을 수 있다.
 #### 퍼사트 패턴의 적용 전
-<img width=350px src=./img/before-facade.png>
+<img width=350px src="/assets/images/posts/jpa/before-facade.png">
 
 `FTP class`
 ```java
@@ -131,7 +131,7 @@ public class main{
 - 퍼사드 객체를 통해 이 문제를 해결 할 수있다.
 
 #### 퍼사트 패턴의 적용 후
-<img width=300px src=./img/after-fasade.png>
+<img width=300px src="/assets/images/posts/jpa/after-fasade.png">
 
 `ftp의 퍼사드인 sftpClient Class`
 

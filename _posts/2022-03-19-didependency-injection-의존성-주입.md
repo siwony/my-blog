@@ -13,7 +13,7 @@ title: "DI(Dependency Injection, 의존성 주입)"
 - 코드 재사용을 높여서 작성된 모듈을 여러 곳에서 소스코드 수정 없이 사용가능
 - 모의객체 등을 이용한 단위 테스트의 편의성을 높여준다.
 
-<img width=450px src=./img/DIway.jpg>
+<img width=450px src="/assets/images/posts/spring/di-way.jpg">
 
 1. **일반적인 의존성**  
     : A객체가 B와 C객체를 New 생성자를 통해서 직접 생성하는 방법

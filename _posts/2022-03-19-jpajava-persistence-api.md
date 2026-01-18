@@ -26,7 +26,7 @@ title: "JPA(Java Persistence API)"
 - 객체와 RDB는 다른 데이터구조를 가진다. 즉, 객체로 DB를 조회할 수 없다.
 - 객체지향적 설계를 하게 되면 DB table과 JAVA 객체 간의 매핑하는 소모적인 작업을 지속해야 한다.
 
-    <img width=500px src=./img/jpa-table-object-relation.png>
+    <img width=500px src="/assets/images/posts/jpa/jpa-table-object-relation.png">
 
     > 객체 모델은 외래키가 필요 없고 단지 참조만 있으면 되지만  
     > 테이블은 참조가 필요 없고 외래 키만 있으면 된다.
@@ -49,7 +49,7 @@ title: "JPA(Java Persistence API)"
 - 페이징: MySQL은 `LIMIT` , Oracle은 `ROWNUM`
 
 ### JPA 구동 방식
-<img width=400px src=./img/jpa-work.png>
+<img width=400px src="/assets/images/posts/jpa/jpa-work.png">
 
 
 ### JPA의 가장 중요한 2가지

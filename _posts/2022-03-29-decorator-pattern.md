@@ -14,7 +14,7 @@ title: "Decorator Pattern"
 - SOLID에 OCP, DIP를 따른다.
 
 ### Decorator Pattern 테이블
-<img width=450px src=./img/decorator-pattern-table.png>
+<img width=450px src="/assets/images/posts/jpa/decorator-pattern-table.png">
 
 ### Decorator Pattern의 적용
 #### 요구사항

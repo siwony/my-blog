@@ -10,7 +10,7 @@ title: '[JPA] @MappedSuperclass'
 ---
 
 # @MappedSuperclass
-<img width=450px src=./img/mapped-superclass.png>
+<img width=450px src="/assets/images/posts/jpa/mapped-superclass.png">
 
 - 공통 매핑정보가 필요할 때 사용한다.(id, name)
 - 엔티티x, 테이블 매핑 x

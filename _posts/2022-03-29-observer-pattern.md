@@ -17,7 +17,7 @@ title: "Observer Pattern"
 
 ### Oberver Pattern 테이블
 
-<img width=450px src=./img/observer-pattern-table.png>
+<img width=450px src="/assets/images/posts/jpa/observer-pattern-table.png">
 
 ### Oberver Pattern 의 구현
 

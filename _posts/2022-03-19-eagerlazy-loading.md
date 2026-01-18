@@ -9,7 +9,7 @@ tags:
 title: "[JPA] Eager/LAZY loading"
 ---
 ### 과연 Member만 조회할 때 Team도 조회해야 할까?
-<img width=400px src=./img/when-member-get-team.png>
+<img width=400px src="/assets/images/posts/jpa/when-member-get-team.png">
 
 - 단순히 Member만 조회하는 로직에서는 굉장히 비효율적이다.
 - Member를 조회하는데 Team을 조회하는 비효율적인 상황이 일어난다.
@@ -42,7 +42,7 @@ private Team team;
   &rarr; Proxy 객체는 아무값도 없다.
 
 ### 1. LAZY를 사용한 프록시를 통한 조회
-<img width=450px src=./img/lazy-proxy-find.png>
+<img width=450px src="/assets/images/posts/jpa/lazy-proxy-find.png">
 
 ```java
 Team team = member.getTeam(); // 프록시 객체
@@ -57,7 +57,7 @@ team.getTeam // 실제 Team을 사용하는 시점에서 초기화 -> 이때 쿼
 `fetch = FetchType.EAGER`  
 > 비즈니스 로직에서 연관된 엔티티를 조회하는 경우가 많은 경우
 
-<img width=450px src=./img/eager-loading.png>
+<img width=450px src="/assets/images/posts/jpa/eager-loading.png">
 
 ### 1. EAGER를 사용한 조회
 <img width=400px src=./img/eager-find.png>

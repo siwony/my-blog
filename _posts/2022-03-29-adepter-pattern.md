@@ -16,7 +16,7 @@ title: "Adepter Pattern"
 
 ### 기본설계
 
-<img width=550px src=./img/adepter-pattern-diagram.png>
+<img width=550px src="/assets/images/posts/jpa/adepter-pattern-diagram.png">
 
 Adaptee 클래스를 Adapter를 통해 Adaptee에 있는기능을 Adapter로 맞게 변환하여 client가 사용할 수 있게 한다.
 

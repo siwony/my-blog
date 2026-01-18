@@ -33,7 +33,7 @@ DI의 분류
 - Constructor Injection
 - Method Injection  
 
-<img width=500px src=./img/DI-DL.png>
+<img width=500px src="/assets/images/posts/spring/di-dl.png">
 
 ### Dependency Injection를 통한 IoC
 ```java
