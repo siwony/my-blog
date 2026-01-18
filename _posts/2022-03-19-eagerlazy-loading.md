@@ -21,7 +21,7 @@ title: "[JPA] Eager/LAZY loading"
 `fetch = FetchType.LAZY`  
 > 비즈니스 로직에서 연관된 엔티티를 조회하는 경우가 별로 없는 경우
 
-<img width=450px src=./img/lazy-loading.png>
+<img src="/assets/images/posts/jpa/lazy-loading.png">
 
 ```java
 @Entity

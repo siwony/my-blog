@@ -7,6 +7,7 @@ tags:
 - java
 title: "[Java] Exception (예외)"
 ---
+
 ### 오류(Error)와 예외(Exception)
 
 #### 오류(Error)
@@ -42,6 +43,7 @@ title: "[Java] Exception (예외)"
 ### 일반적인 예외 처리의 방법
 
 > 일반적으로 예외 복구, 예외처리 회피, 예외 전환 이 있다.
+
 #### 1. 예외 복구
 
 ```java

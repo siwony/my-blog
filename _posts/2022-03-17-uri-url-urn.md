@@ -52,6 +52,8 @@ https://www.google.com:443/search?q=hello&hl=ko
 - 리소스가 그 이름을 변하지 않게 유지하는 한, 여러종류의 네트워크 접속 프로토콜로 접근해도 문제가 없다.
 - 노출된 URL은 http://blog.com/work/222 인데, http://blog.com/work/list/222 으로 보내면 404 response를 받는다. 이를 보완하기위해 위치 정보와 무관한 리소스를 찾게 해주게 하는 방식
 - 해당 리소스의 위치정보가 아닌 실제 리소스의 이름으로 사용하는 방식
+
+
 (ex. urn:2.19.222 )
 ```
 urn:isbn:0451450523 - URN으로 1926년에 출간된 the Last Unicorn의 도서식별번호

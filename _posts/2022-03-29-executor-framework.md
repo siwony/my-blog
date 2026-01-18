@@ -48,7 +48,8 @@ ExecutorService executorService = Executors.newFixedThreadPool(10);
   `submit(Runnable)`, `submit(Runnable, T resulte)`, `submit(Callable<T>)`를 사용한다.
 
 예시 - Runnable
-```
+
+```java
 executorService.execute(
   () -> System.out.println("Hello world!")
 )
@@ -58,6 +59,7 @@ executorService.execute(
 ```
 
 예시 - Callable
+
 ```java
 Callable<String> callable = () -> {
     StringBuilder sb = new StringBuilder();
@@ -70,6 +72,7 @@ Callable<String> callable = () -> {
 Future<String> submit = executorService.submit(callable);
 System.out.println(submit.get()); // 출력 0123456789 
 ```
+
 - `Future.get`
   - 해당 스레드의 작업 결과를 가져온다.
   - `InterruptedException`에 대한 예외처리가 필요하다.

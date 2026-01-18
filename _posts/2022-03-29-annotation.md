@@ -10,6 +10,7 @@ tags:
 - java
 title: "[Java] Annotation"
 ---
+
 Annotation은 그자체로 주석이라는 의미를 가진다. 하지만 일반 주석이랑 다르다!
 - JDK5 버전부터 사용할 수 있다.
 - `@`를 붙여서 사용한다.
@@ -19,11 +20,13 @@ Annotation은 그자체로 주석이라는 의미를 가진다. 하지만 일반
 ### Annotation의 용도
 
 > 대부분 사용되는 용도는 다음과 같다.
+
 #### 1. 컴파일러에게 코드 작성 문법 에러를 체크하도록 정보를 제공
 
 대표적으로 Java에서 제공하는 `@Override`가 있다.
 
 다음은 equals를 Override하는 예시이다.
+
 ```java
 @Override
 public boolean equals(Object o) {
@@ -33,10 +36,13 @@ public boolean equals(Object o) {
     return a == book.a && Objects.equals(b, book.b);
 }
 ```
-다음과 같이 파라미터가 다르면 `@Override`에서 에러가 발생하는 것을 볼 수 있다
+
+다음과 같이 파라미터가 다르면 `@Override`에서 에러가 발생하는 것을 볼 수 있다.
+
 <img width=450 src="/assets/images/posts/programming/annotation-override-error.png">
 
 에러 메시지
+
 ```sh
 파일경로/Book.java:10:5
 java: method does not override or implement a method from a supertype
@@ -50,9 +56,7 @@ java: method does not override or implement a method from a supertype
 
 annotation은 클래스, 메서드, 필드등에 대한 메타데이터를 가질 수 있다. 대표적인 예로 SpringBoot의 `@Component`가 있는데 이 annotation이 붙여진 class는 Spring의 관리대상에 포함된다.
 
-.  
-.  
-. ETC...
+ETC...
 
 ### Use Case
 
@@ -75,6 +79,7 @@ public @interface Annotation {
 ### @Target(ElementType[])
 
 : Annotation이 적용할 위치를 나타낸다.
+
 |위치|Element Type|
 |---|------------|
 |패키지| `ElementType.PACKAGE`|
@@ -92,6 +97,7 @@ public @interface Annotation {
 ### `@Retention(RetentionPolicy)`
 
 : Annotation 의 Scope를 제한한다.
+
 - **`SOURCE`**  
   어노테이션 정보가 컴파일시 사라진다. 즉, 바이트코드에 존재하지 않는다.
   > ex. `@Override`, `@SuppressWarnings`, lombok의 `getter/setter`

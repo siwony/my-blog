@@ -24,8 +24,10 @@ title: "Spring Security"
     - 권한 부여에도 두가지 영역이 존재하는데 웹 요청 권한, 메소드 호출 및 도메인 인스턴스에 대한 접근 권한 부여
 
 ### spring security의 form 기반의 로그인 구조
+
 아래 그림은 Form 기반 로그인에 대한 플로우를 보여주는 그림이다.
-<p align=center><img width=600 src=../img/spring-security-architecture.png>  <p>
+
+<p align=center><img width=600 src="/assets/images/posts/spring/security/spring-security-architecture.png">  <p>
 
 1. 사용자가 Form을 통해 로그인 정보 입력 및 인증 요청
 2. AuthenticationFilter(구현체 UsernamePasswordAuthenticationFilter) 가  
@@ -36,6 +38,6 @@ title: "Spring Security"
 5. DB에서 사용자 인증 정보를 가져올 UserDetailsService 객체에게 UserID를 넘겨주고, DB에서 인증에 사용할 사용자 정보(사용자 ID, 암호화된 PW, 권환 등)를 UserDetails  
 라는 객체로 전달 받는다.
     >UserDetails(인증용 객체와 도메인 객체를 분리하지 않기 위해서 실제 사용되는 도메인 객체에 UserDetails를 상속하기도 한다.)
-6. AuthenticationProvider는 UserDetails 객체를 전달 받은 이후 실제 사용자의 입력정보와 UserDetails 객체를 가지고 인증을 시도
-7. 8, 9, 10, 인증이 완료되면 사용자 정보를 가진 Authentication 객체를 SecurityContextHoder 에 담은 후 AuthenticationSuccessHandle를 실행
+1. AuthenticationProvider는 UserDetails 객체를 전달 받은 이후 실제 사용자의 입력정보와 UserDetails 객체를 가지고 인증을 시도
+2. 8, 9, 10, 인증이 완료되면 사용자 정보를 가진 Authentication 객체를 SecurityContextHoder 에 담은 후 AuthenticationSuccessHandle를 실행
     > 실패시 uthenticationFailureHandler를 실행

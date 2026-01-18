@@ -201,18 +201,23 @@ public class AppConfig {}
 ### 공용 인터페이스 적용
 
 Member Repository
+
 ```java
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {}
 ```
+
 Team Repository
+
 ```java
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {}
 ```
+
 #### 테스트 코드 작성
 
 > 기존 순수 JPA 기반 테스트에서 사용했던 코드를 그대로 스프링 데이터 JPA 리포지토리 기반 테스트로 변경해도 동일한 방식으로 동작한다
+
 ```java
 @SpringBootTest
 @Transactional
@@ -258,6 +263,7 @@ class MemberRepositoryTest {
 
 - JpaRespotiroy 인터페이스: 공통 CRUD 제공
 - 제네릭은 <Entity Type, 식별자 타입>으로 설정한다
+
 #### JpaRepository 공통 기능 인터페이스
 
 ```java
@@ -265,6 +271,7 @@ public interface JpaRepository<T, ID> extends PagingAndSortingRepository<T, ID>,
     //etc....
 }
 ```
+
 #### JpaRepository를 사용하는 인터페이스
 
 ```java

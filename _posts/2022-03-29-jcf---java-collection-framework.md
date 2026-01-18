@@ -130,7 +130,7 @@ Iterator 인터페이스는 어떤 컬렉션이든 반복적으로 수행하기 
 `HashMap`에 의해 지원되는 Set 인터페이스의 구현체이다.
 - 요소의 순서를 보장하지 않는다.
 - null를 허용한다
-- - thread-safe하지 않다.
+- thread-safe하지 않다.
 
 ### 4-4. TreeSet 클래스
 

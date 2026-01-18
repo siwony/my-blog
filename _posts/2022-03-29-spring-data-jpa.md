@@ -124,6 +124,7 @@ public interface MemberRepository extends JpaRepository<Member, Long>
 
 - Intellij에서는 테스트 코드를 작성할때 작성하고싶은 클레스에서 `cmd + n` 누르면 메뉴가 나타나는데 여기에서 test를 만들수 있다.
 - 이렇게 만든 Test는 `/src/test` 에 있다.
+
 ```java
 @SpringBootTest
 @Transactional //JPA를 테스트하려면 트렌젝션 내에서 동작해야 된다. //import는 springframework trancational을 선택한다.

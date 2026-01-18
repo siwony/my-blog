@@ -50,7 +50,9 @@ public class ExampleClass {
 - 인스턴스가 사용되는 시점이 아닌 클래스 로딩 시점에 실행이 된다.
 
 #### lazy init
+
 >static 방법을 개선하여 클래스 로딩 시점이 아닌 인스턴스가 필요하여 요청할 때 생성되는 형태로 작성 
+
 ```java
 public class ExampleClass {
     //Instance
@@ -90,6 +92,7 @@ public class ExampleClass {
 #### Holder
 
 > 현제 JAVA Singleton 생성에서 사용하는 대표적인 방법이다.
+
 ```java
 public class ExampleClass {
 

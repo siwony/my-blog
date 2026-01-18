@@ -22,7 +22,9 @@ GOF의 디자인 패턴에서는 템플릿 메서드 패턴을 다음과 같이 
 ## 예제 - 비즈니스 로직의 수행 속도를 측정하여 로깅하기
 
 > 실습환경: SpringBoot + lombok + junit5
+
 다음과 같이 비즈니스 로직을 실행하는 메서드가 2개( `logic1()`, `logic2()` )가 있다.
+
 ```java
 @Test
 public void executeLogic(){
@@ -43,6 +45,7 @@ private void logic2() {
 }
 ```
 위와 같이 비즈니스 로직를 실행하는 `logic1`, `logic2`가 있다. 이 2개의 메서드에 비즈니스 로식의 수행속도를 측정하고 싶다면 코드를 다음과 같이 추가하면 된다.
+
 ```java
 @Test
 public void executeLogic(){ ... }

@@ -29,7 +29,7 @@ node.js, npm 이 설치되어있다는 가정하에 설명을 할것이다. [(�
 를 하면 `package.json`에 있는 모듈들을 자동으로 설치해줄것이다.
 ### nodemon 적용하기
 
-[nodemon](./how-to-install-nodejs.md)이 설치가 되어있다는 가정으로 설명할것이다.  
+nodemon 이 설치가 되어있다는 가정으로 설명할것이다.  
 <code>package.json</code> 파일에 있는 script 부분을 수정할것이다.
 ```json
   "scripts": {

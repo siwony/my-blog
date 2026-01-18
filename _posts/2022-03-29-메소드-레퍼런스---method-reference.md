@@ -24,6 +24,7 @@ title: "[Java] 메소드 레퍼런스 - Method Reference"
 : **파라미터로 전달받은 변수의 메서드를 사용하는게 아닌, 정적 메서드의 인자로 사용된다.**
 
 예제
+
 |                   Lambda                    |      Method Reference     | 
 |---------------------------------------------|---------------------------|
 |`(String x) -> Integer.parseInt(x)`          |`Integer::parseInt`        |
@@ -36,13 +37,16 @@ title: "[Java] 메소드 레퍼런스 - Method Reference"
 
 : 파라미터로 전달받은 변수의 메서드를 사용한다.
 예시
+
 |                       Lambda                     |       Method Reference       | 
 |------------------------------------------------- |------------------------------|
 |`(Instant x) -> x.toEpochMilli()`                 |`Instant::toEpochMilli`       |
 |`(Optional<T> x) -> x.isPresent()`                |`Optional::isPresent`         |
 |`(List<T> x) -> x.stream()`                       |`Collection::stream`          |
 |`(String x, String y) -> x.compareTolgnoreCase(y)`|`String::compareToIgnoreCase` |
+
 > T는 제네릭 타입 즉, 아무타입이나 올 수 있다.
+
 - `String`의 `length`메서드를 `String::length`로 사용 가능
 - `(Instant x) -> x.toEpochMilli()`의 경우 파라미터 `x`를 받아서 `x`자신의 메서드(`toEpochMilli()`)를 수행한다.
   
@@ -56,6 +60,7 @@ title: "[Java] 메소드 레퍼런스 - Method Reference"
 - 정적 메서드의 인자와는 다르다.
 
 예시
+
 |                   Lambda                    |      Method Reference      | 
 |---------------------------------------------|----------------------------|
 |`(Long x) -> memberRepository.findById(x)`   |`memberRepository::findById`|
