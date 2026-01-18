@@ -670,6 +670,8 @@ article img,
   background: #f8f9fa;
   color: #495057;
   font-style: italic;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .post-footer {
