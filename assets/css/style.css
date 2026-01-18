@@ -1279,8 +1279,9 @@ code:not([class*="language-"]) {
   font-size: 0.85em;
   font-weight: 500;
   border: none;
-  white-space: nowrap;
+  white-space: pre-wrap;
   word-break: break-word;
+  overflow-wrap: break-word;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
