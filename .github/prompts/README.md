@@ -9,6 +9,9 @@
 2. [`docs/guidelines/PROJECT_CONSTITUTION.md`](../docs/guidelines/PROJECT_CONSTITUTION.md) - 프로젝트 원칙
 3. [`docs/architecture/SYSTEM_ARCHITECTURE.md`](../docs/architecture/SYSTEM_ARCHITECTURE.md) - 시스템 구조
 
+### 🎨 스타일 가이드
+- [`docs/TYPOGRAPHY_SYSTEM.md`](../../docs/TYPOGRAPHY_SYSTEM.md) - **타이포그래피 토큰 시스템** (CSS 작업 시 필수)
+
 ## 📋 프롬프트 워크플로우
 
 ### 1. 🎯 Feature Development Workflow

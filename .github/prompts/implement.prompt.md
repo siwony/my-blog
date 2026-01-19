@@ -21,6 +21,7 @@ $ARGUMENTS
    - `docs/guidelines/TESTING_STRATEGY.md` - Testing approaches
    - `docs/guidelines/PERFORMANCE_GUIDELINES.md` - Performance standards
    - `docs/architecture/SYSTEM_ARCHITECTURE.md` - Current system state
+   - `docs/TYPOGRAPHY_SYSTEM.md` - **Typography token system (필수: CSS/스타일 작업 시)**
 
 ## Implementation Workflow
 

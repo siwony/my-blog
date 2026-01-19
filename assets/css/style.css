@@ -16,7 +16,56 @@
   --blog-spacing-lg: 2rem;
   --blog-spacing-xl: 3rem;
   
-  /* Typography */
+  /* ============================================
+     Typography Token System
+     - title: 페이지/섹션 메인 제목
+     - subtitle: 부제목, 섹션 헤더
+     - description: 설명 텍스트
+     - text: 본문 텍스트
+     ============================================ */
+  
+  /* Font Family */
+  --blog-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --blog-font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', 'Droid Sans Mono', monospace;
+  
+  /* Title - 페이지/포스트 메인 제목 */
+  --blog-title-font-size: 2.5rem;
+  --blog-title-font-weight: 700;
+  --blog-title-line-height: 1.2;
+  --blog-title-letter-spacing: -0.02em;
+  --blog-title-color: #2c3e50;
+  
+  /* Subtitle - 섹션 제목, 카드 제목 */
+  --blog-subtitle-font-size: 1.5rem;
+  --blog-subtitle-font-weight: 600;
+  --blog-subtitle-line-height: 1.4;
+  --blog-subtitle-letter-spacing: -0.01em;
+  --blog-subtitle-color: #2c3e50;
+  
+  /* Description - 설명, 요약 텍스트 */
+  --blog-description-font-size: 1.1rem;
+  --blog-description-font-weight: 400;
+  --blog-description-line-height: 1.6;
+  --blog-description-color: #495057;
+  
+  /* Text - 본문 텍스트 */
+  --blog-text-font-size: 1rem;
+  --blog-text-font-weight: 400;
+  --blog-text-line-height: 1.8;
+  
+  /* Small Text - 메타 정보, 날짜 등 */
+  --blog-small-font-size: 0.875rem;
+  --blog-small-font-weight: 400;
+  --blog-small-line-height: 1.5;
+  --blog-small-color: #6c757d;
+  
+  /* Caption - 태그, 레이블 등 */
+  --blog-caption-font-size: 0.75rem;
+  --blog-caption-font-weight: 500;
+  --blog-caption-line-height: 1.4;
+  --blog-caption-letter-spacing: 0.02em;
+  
+  /* Legacy font sizes (backward compatibility) */
   --blog-font-size-sm: 0.75rem;
   --blog-font-size-md: 0.875rem;
   --blog-font-size-lg: 1rem;
@@ -39,6 +88,90 @@
   --blog-category-hover-bg: var(--blog-primary-hover);
   --blog-tag-bg: var(--blog-secondary-color);
   --blog-tag-color: white;
+}
+
+/* ============================================
+   Typography Utility Classes
+   - 전역으로 사용 가능한 타이포그래피 클래스
+   ============================================ */
+
+/* Title 스타일 */
+.title,
+.blog-title {
+  font-size: var(--blog-title-font-size);
+  font-weight: var(--blog-title-font-weight);
+  line-height: var(--blog-title-line-height);
+  letter-spacing: var(--blog-title-letter-spacing);
+  color: var(--blog-title-color);
+  margin: 0;
+}
+
+/* Subtitle 스타일 */
+.subtitle,
+.blog-subtitle {
+  font-size: var(--blog-subtitle-font-size);
+  font-weight: var(--blog-subtitle-font-weight);
+  line-height: var(--blog-subtitle-line-height);
+  letter-spacing: var(--blog-subtitle-letter-spacing);
+  color: var(--blog-subtitle-color);
+  margin: 0;
+}
+
+/* Description 스타일 */
+.description,
+.blog-description {
+  font-size: var(--blog-description-font-size);
+  font-weight: var(--blog-description-font-weight);
+  line-height: var(--blog-description-line-height);
+  color: var(--blog-description-color);
+  margin: 0;
+}
+
+/* Text 스타일 (본문) */
+.text,
+.blog-text {
+  font-size: var(--blog-text-font-size);
+  font-weight: var(--blog-text-font-weight);
+  line-height: var(--blog-text-line-height);
+  color: var(--blog-text-color);
+}
+
+/* Small Text 스타일 */
+.small-text,
+.blog-small {
+  font-size: var(--blog-small-font-size);
+  font-weight: var(--blog-small-font-weight);
+  line-height: var(--blog-small-line-height);
+  color: var(--blog-small-color);
+}
+
+/* Caption 스타일 */
+.caption,
+.blog-caption {
+  font-size: var(--blog-caption-font-size);
+  font-weight: var(--blog-caption-font-weight);
+  line-height: var(--blog-caption-line-height);
+  letter-spacing: var(--blog-caption-letter-spacing);
+  color: var(--blog-small-color);
+}
+
+/* 반응형 타이포그래피 */
+@media (max-width: 768px) {
+  :root {
+    --blog-title-font-size: 2rem;
+    --blog-subtitle-font-size: 1.25rem;
+    --blog-description-font-size: 1rem;
+    --blog-text-font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --blog-title-font-size: 1.75rem;
+    --blog-subtitle-font-size: 1.125rem;
+    --blog-description-font-size: 0.95rem;
+    --blog-text-font-size: 0.9rem;
+  }
 }
 
 /* Ensure mobile scrolling works */
@@ -395,9 +528,9 @@ category-sidebar {
 
 .category-navigation h3 {
   margin: 0 0 0.8rem 0;
-  color: #333;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: var(--blog-text-font-size);
+  font-weight: var(--blog-font-weight-bold);
+  color: var(--blog-text-color);
   border-bottom: 1px solid #ddd;
   padding-bottom: 0.5rem;
 }
@@ -428,13 +561,13 @@ category-sidebar {
 }
 
 .category-name {
-  font-size: 0.9rem;
+  font-size: var(--blog-small-font-size);
 }
 
 .category-count {
-  color: #666;
-  font-size: 0.8rem;
-  font-weight: normal;
+  color: var(--blog-small-color);
+  font-size: var(--blog-caption-font-size);
+  font-weight: var(--blog-font-weight-normal);
 }
 
 .category-link:hover .category-count {
@@ -449,8 +582,8 @@ category-sidebar {
   padding: 0.5rem 0;
   border-top: 1px solid #ddd;
   margin-top: 0.5rem;
-  color: #555;
-  font-size: 0.9rem;
+  color: var(--blog-small-color);
+  font-size: var(--blog-small-font-size);
 }
 
 .total-label {
@@ -527,15 +660,19 @@ category-sidebar {
 }
 
 .category-header h1 {
-  color: #2c3e50;
+  font-size: var(--blog-title-font-size);
+  font-weight: var(--blog-title-font-weight);
+  line-height: var(--blog-title-line-height);
+  letter-spacing: var(--blog-title-letter-spacing);
+  color: var(--blog-title-color);
   margin-bottom: 0.5rem;
-  font-size: 2.5rem;
-  font-weight: 700;
 }
 
 .category-description {
-  color: #6c757d;
-  font-size: 1.1rem;
+  font-size: var(--blog-description-font-size);
+  font-weight: var(--blog-description-font-weight);
+  line-height: var(--blog-description-line-height);
+  color: var(--blog-description-color);
   margin: 0;
 }
 
@@ -583,11 +720,11 @@ category-sidebar {
 
 .post-title {
   margin: 0 0 1.5rem 0;
-  font-size: 2.5rem;
-  line-height: 1.3;
-  font-weight: 700;
-  color: #2c3e50;
-  letter-spacing: -0.02em;
+  font-size: var(--blog-title-font-size);
+  font-weight: var(--blog-title-font-weight);
+  line-height: var(--blog-title-line-height);
+  letter-spacing: var(--blog-title-letter-spacing);
+  color: var(--blog-title-color);
 }
 
 .post-title a {
@@ -622,9 +759,9 @@ category-sidebar {
 
 .post-content {
   padding: 2rem;
-  line-height: 1.8;
-  font-size: 1.1rem;
-  color: #2c3e50;
+  font-size: var(--blog-description-font-size);
+  line-height: var(--blog-text-line-height);
+  color: var(--blog-text-color);
 }
 
 /* Make post images responsive by default */
@@ -668,13 +805,15 @@ article img,
 }
 
 .post-content h2 {
-  font-size: 1.8rem;
+  font-size: var(--blog-subtitle-font-size);
+  font-weight: var(--blog-subtitle-font-weight);
   border-bottom: 2px solid #e9ecef;
   padding-bottom: 0.5rem;
 }
 
 .post-content h3 {
-  font-size: 1.5rem;
+  font-size: calc(var(--blog-subtitle-font-size) - 0.25rem);
+  font-weight: var(--blog-subtitle-font-weight);
 }
 
 .post-content p {
@@ -762,8 +901,8 @@ article img,
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 1rem;
-  font-size: 0.9rem;
-  color: #6c757d;
+  font-size: var(--blog-small-font-size);
+  color: var(--blog-small-color);
 }
 
 .post-categories {
@@ -781,8 +920,10 @@ article img,
 }
 
 .post-excerpt {
-  color: #495057;
-  line-height: 1.6;
+  font-size: var(--blog-description-font-size);
+  font-weight: var(--blog-description-font-weight);
+  line-height: var(--blog-description-line-height);
+  color: var(--blog-description-color);
   margin-bottom: 1.5rem;
 }
 
@@ -842,7 +983,7 @@ article img,
   }
   
   .category-header h1 {
-    font-size: 2rem;
+    font-size: var(--blog-title-font-size);
   }
   
   .posts-grid {
