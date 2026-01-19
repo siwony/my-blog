@@ -45,7 +45,7 @@ window.__posts = [
     "title": {{ post.title | jsonify }},
     "url": {{ post.url | relative_url | jsonify }},
     "date": {{ post.date | date: "%B %d, %Y" | jsonify }},
-    "excerpt": {{ post.excerpt | strip_html | truncatewords: 30 | jsonify }},
+    "excerpt": {{ post.excerpt | clean_excerpt | truncatewords: 30 | jsonify }},
     "categories": {{ post.categories | jsonify }},
     "tags": {{ post.tags | jsonify }},
     "readingTime": {{ post.content | strip_html | number_of_words | divided_by: 200 | plus: 1 }}
