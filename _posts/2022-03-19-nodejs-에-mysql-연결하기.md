@@ -79,7 +79,7 @@ host는 localhost로 하는게 안전하다. 꼭 필요하지 않는이상 local
 ## Sequelize
 sequelize 는 node.js 의 ORM(Object Releaition Mapping) 모듈이다.  
 관계형 DB를 사용할떄 객체를 이용해 간편하게 쿼리문을 작성하지 않고 사용할 수 있게 해준다.  
-자세한 sequelize 사용법은 [여기](./sequelize.md) 에서 확인할 수 있다.
+자세한 sequelize 사용법은 [여기]({% post_url 2022-03-19-sequelize %}) 에서 확인할 수 있다.
 ### how to use?
 ```bash
 > npm install sequelize sequelize-cli --save

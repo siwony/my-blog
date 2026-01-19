@@ -30,7 +30,7 @@ socket은 대부분 언어에서 API로 제공되어 편리하지만 다음과 �
 
 
 이런 소켓의 한계에서 RPC가 등장하게 되었다.
-#### 2. [RPC - Remote Procedure Call](rpc.md)
+#### 2. [RPC - Remote Procedure Call]({% post_url 2022-03-17-rpc---remote-procedure-call %})
 이름 그대로 네트워크로 연결된 서버 상의 프로시저(함수, 메서드 등)를 원격으로 호출할 수 있는 기능이다.
 - 통신이나 call방식에 신경쓰지 않고 원격지의 자원을 사용할 수 있다.
 - `IDL - Interface Definication Language`기반으로 다양한 언어를 가진 환경에서 쉽게 확장할 수 있다.
@@ -60,7 +60,7 @@ REST는 HTTP/1.1 기반으로 URI를 통해 모든 Resource을 명시하고 HTTP
 ## 2. gRPC의 개념과 특징
 > Socket, REST의 한계를 극복하고 기존 RPC구현체들의 단점을 보완한 기술
 
-gRPC는 google에서 개발한 오픈소스 [RPC](rpc.md) 프레임워크이다.
+gRPC는 google에서 개발한 오픈소스 [RPC]({% post_url 2022-03-17-rpc---remote-procedure-call %}) 프레임워크이다.
 
 이전까지 RPC기능은 제공하지 않고 메세지(JSON 등)을 Serialize할 수 있는 프레임워크인 PB(Protocol Buffer, 프로토콜 버퍼)만을 제공해왔는데,  
 **PB기반 Serizlaizer와 HTTP/2를 결합하여 RPC프레임워크를 탄생시켰다.**

@@ -12,7 +12,7 @@ title: "RPC - Remote Procedure Call"
 https://en.wikipedia.org/wiki/Remote_procedure_call#History_and_origins
 
 ## 2. RPC의 개념
-RPC란 프로세스간 통신을 위해 사용하는 [`IPC - Inter Process Communication`](/cs/ipc.md) 방법의 한 종류이며, 
+RPC란 프로세스간 통신을 위해 사용하는 [`IPC - Inter Process Communication`]({% post_url 2022-03-19-ipc---inter-process-comunication %}) 방법의 한 종류이며, 
 **원격지의 프로세스에 접근하여 프로시저 또는 함수를 호출하여 사용한다.**
 > 즉, 원격지의 프로시저를 호출하는 것이다.
 

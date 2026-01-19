@@ -42,14 +42,14 @@ Spring은 **불필요하게 무겁지 않다**
 
 > 경량 컨테이너라는 것은 기준에 따라 달라질 수 있다. JavaEE보다 경량 컨테이너이지만 Guice와 Plexus와 같은 POJO 기반 컨테이너와 비교할 때 무거운 컨테이너로 취급된다.
 
-### 2. [POJO - Plain Old Java Object](../../Programming/Java/POJO(Plain-Old-JAVA-Object).md)
+### 2. [POJO - Plain Old Java Object]({% post_url 2022-06-26-pojoplain-old-java-object %})
 Spring 컨테이너에 저장되는 자바 객체는 특정 인터페이스를 구현하거나, 특정 클래스를 상속받지 않아도 된다.
 
 이로인해 개발자는 특정 라이브러리나 JavaEE와 같은 컨테이너의 특정 기술에 종속적이지 않게되어 다음과 같은 장점이 있다.
 - 테스트코드 작성이 비교적 쉽다.
 - 유지보수와 확장성 및 불필요한 상속과 구현으로 인한 제약사항이 없다.
 
-### 3. [IoC - Inversion of Control](IOC(Inversion-Of-Control).md)
+### 3. [IoC - Inversion of Control]({% post_url 2022-06-05-iocinversion-of-control---제어의-역전 %})
 > Spring의 핵심이다.
 
 이를 직역하면 *제어의 역전*인데, 이렇게 불리는 이유는 객체(Bean)의 생성, 주입과 같은 **객체의 흐름을 개발자가 아닌 Spring Framework가 제어**하기 때문에 제어권이 개발자에서 프레임워크로 넘어갔다는 의미이다.
@@ -57,7 +57,7 @@ Spring 컨테이너에 저장되는 자바 객체는 특정 인터페이스를 �
 
 IOC는 `DI - Dependency Injection`, `DL - Dependency Lockup`에 의해 구현된다.
 
-### 4. [DI](DI(Dependency-Injection).md) - Dependency Injection
+### 4. [DI]({% post_url 2022-03-19-didependency-injection-의존성-주입 %}) - Dependency Injection
 설정 파일을 통해 객체 간의 의존관계를 설정할 수 있다. 각각의 계층이나 서비스들 간에 의존성이 존재할 경우, 프레임워크가 서로 연결시켜준다.
 
 - `필드 주입`, `생성자 주입`, `Setter 주입` 방식으로 DI를 지원한다. 

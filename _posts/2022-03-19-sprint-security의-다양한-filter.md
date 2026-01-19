@@ -23,7 +23,8 @@ title: "Sprint Security의 다양한 Filter"
 ### CsrfFlter
 : CSRF attack 을 방어하기 위한 filter 이다.
 - Spring의 CsrfFilter 는 CSRFtoken 을 활용하여 CSRF attack 을 방어한다.
-#### [CsrfFilter란?](CSRF.md)
+#### CsrfFilter란?
+CSRF(Cross-Site Request Forgery)는 사용자가 자신의 의지와는 무관하게 공격자가 의도한 행위를 특정 웹사이트에 요청하게 하는 공격이다.
 
 ### CorsFilter
 : 허가된 사이트나 클라이언트의 요청인지 검사한다.

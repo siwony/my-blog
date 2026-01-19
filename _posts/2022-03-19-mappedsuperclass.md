@@ -17,4 +17,4 @@ title: '[JPA] @MappedSuperclass'
 - 부모 클래스를 상속 받는 **자식 클래스에 매핑 정보만 제공한다.**
 - 조회 및 검색이 불가능하다.
 - 직접 생성해서 사용할 일이 없으므로 **추상 클래스 권장한다.**
-- ex. [JPA Auditing - BaseTimeEntity ](./Auditing.md)
+- ex. [JPA Auditing - BaseTimeEntity ]({% post_url 2022-03-19-jpa-auditing %})

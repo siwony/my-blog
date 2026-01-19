@@ -10,7 +10,7 @@ title: "[NodeJS] express-generator"
 : `Express-generator`라는 패키지를 통해서 프레임워크에 필요한 `pakage.json`과 기본 구조를 잡을 수 있는 패키지 이다.
 ### install 및 express 프로젝트 만들기
 
-node.js, npm 이 설치되어있다는 가정하에 설명을 할것이다. [(설치방법)](./how-to-install-nodejs.md)  
+node.js, npm 이 설치되어있다는 가정하에 설명을 할것이다. [(설치방법)]({% post_url 2022-03-19-nodejs-설치mac %})  
 ```bash
 > npm install -g express-generator
 ```

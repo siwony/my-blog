@@ -100,7 +100,7 @@ MultiValueMap<String, String>: {email=[siwon103305@gmail.com], password=[siwon]}
 `MultiValueMap`은 `Map<K, List<V>>`을 상속받고 있다. 이유는 
 
 ### 3. @ModelAttribute
-[**커맨드 객체**](command-object.md)와 함께 `@ModelAttribute`를 사용하면 2번과 같이 `FormHttpMessageConverter`가 등록되어 해당 객체로 바인딩 할 수 있다.
+[**커맨드 객체**]({% post_url 2022-03-19-커맨드-객체---command-object %})와 함께 `@ModelAttribute`를 사용하면 2번과 같이 `FormHttpMessageConverter`가 등록되어 해당 객체로 바인딩 할 수 있다.
 - `@ModelAttribute`는 생략 가능하다.
 
 ```java
