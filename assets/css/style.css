@@ -776,6 +776,63 @@ article img,
   display: block;
   margin: 1.25rem auto;
   border-radius: 8px;
+  cursor: zoom-in;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 이미지 호버 효과 */
+.post-content img:hover,
+.content img:hover,
+article img:hover,
+.markdown-body img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 이미지 포커스 스타일 (키보드 접근성) */
+.post-content img:focus,
+.content img:focus,
+article img:focus,
+.markdown-body img:focus {
+  outline: 3px solid var(--blog-primary-color);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   PhotoSwipe Custom Styles
+   ============================================ */
+
+/* 커스텀 캡션 컨테이너 */
+.pswp__custom-caption-container {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* 캡션 스타일 */
+.pswp__custom-caption {
+  display: inline-block;
+  max-width: 80%;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* 카운터 스타일 개선 */
+.pswp__counter {
+  font-size: 14px;
+  opacity: 0.85;
 }
 
 /* Optional horizontal scroll wrapper for wide media */

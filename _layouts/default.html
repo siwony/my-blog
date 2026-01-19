@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="{{ '/assets/css/prism/prism-toolbar.min.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/prism/prism-line-numbers.min.css' | relative_url }}">
 
+    <!-- PhotoSwipe CSS -->
+    <link rel="stylesheet" href="{{ '/assets/css/photoswipe/photoswipe.css' | relative_url }}">
+
     <!-- 사이트 CSS -->
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
     
@@ -70,6 +73,15 @@
     
     <!-- Post Metadata Web Component -->
     <script src="{{ '/assets/js/post-metadata.js' | relative_url }}"></script>
+    
+    <!-- PhotoSwipe Image Viewer -->
+    <script type="module">
+      import PhotoSwipeLightbox from '{{ "/assets/js/photoswipe/photoswipe-lightbox.esm.min.js" | relative_url }}';
+      import PhotoSwipe from '{{ "/assets/js/photoswipe/photoswipe.esm.min.js" | relative_url }}';
+      window.PhotoSwipeLightbox = PhotoSwipeLightbox;
+      window.PhotoSwipe = PhotoSwipe;
+    </script>
+    <script src="{{ '/assets/js/image-viewer.js' | relative_url }}" defer></script>
     
     <!-- GitHub Table Enhancer -->
     <script>
