@@ -395,7 +395,6 @@ nav a:hover { color: var(--blog-text-color); }
 .hero {
   padding: var(--blog-spacing-3xl) 0;
   text-align: center;
-  border-bottom: 1px solid var(--blog-border-color);
   margin-bottom: var(--blog-spacing-2xl);
 }
 
