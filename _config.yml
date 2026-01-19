@@ -21,6 +21,7 @@ incremental: false
 
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 
 permalink: /:categories/:year/:month/:day/:title/
 
