@@ -43,7 +43,7 @@
   --blog-subtitle-color: #2c3e50;
   
   /* Description - 설명, 요약 텍스트 */
-  --blog-description-font-size: 1.1rem;
+  --blog-description-font-size: 1.125rem;
   --blog-description-font-weight: 400;
   --blog-description-line-height: 1.6;
   --blog-description-color: #495057;
@@ -52,6 +52,7 @@
   --blog-text-font-size: 1rem;
   --blog-text-font-weight: 400;
   --blog-text-line-height: 1.8;
+  --blog-text-letter-spacing: 0.01em;
   
   /* Small Text - 메타 정보, 날짜 등 */
   --blog-small-font-size: 0.875rem;
@@ -183,7 +184,7 @@ html, body {
 }
 
 body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-.container { max-width: 800px; margin: 0 auto; overflow: visible; }
+.container { max-width: 860px; margin: 0 auto; overflow: visible; }
 header { border-bottom: 1px solid #ccc; margin-bottom: 20px; padding-bottom: 20px; }
 nav ul { list-style: none; padding: 0; }
 nav li { display: inline; margin-right: 20px; }
@@ -516,7 +517,7 @@ category-sidebar {
   grid-area: pagination;
   margin: 2rem auto 1rem auto;
   width: 100%;
-  max-width: 800px;
+  max-width: 860px;
 }
 
 /* Category Navigation */
@@ -704,7 +705,7 @@ category-sidebar {
 
 /* Post Layout Styles */
 .post {
-  max-width: 800px;
+  max-width: 860px;
   margin: 0 auto;
   background: #ffffff;
   border-radius: var(--blog-border-radius);
@@ -761,6 +762,7 @@ category-sidebar {
   padding: 2rem;
   font-size: var(--blog-description-font-size);
   line-height: var(--blog-text-line-height);
+  letter-spacing: var(--blog-text-letter-spacing);
   color: var(--blog-text-color);
 }
 
@@ -898,13 +900,13 @@ article img,
   align-items: flex-end;
 }
 
-/* 한쪽만 있을 때 */
-.post-navigation .nav-item:only-child {
-  max-width: 50%;
+/* 한쪽만 있을 때 - 동일한 크기 유지 */
+.post-navigation .nav-item.nav-prev:only-child {
+  grid-column: 1 / 2;  /* 왼쪽 칸에 고정 */
 }
 
 .post-navigation .nav-item.nav-next:only-child {
-  margin-left: auto;
+  grid-column: 2 / 3;  /* 오른쪽 칸에 고정 */
 }
 
 /* Legacy 스타일 제거용 - 기존 구조 호환 */
@@ -1488,8 +1490,10 @@ ninja-keys .ninja-action:last-child {
     -webkit-line-clamp: 2;
   }
   
-  .post-navigation .nav-item:only-child {
-    max-width: 100%;
+  /* 모바일에서는 한쪽만 있어도 전체 너비 사용 */
+  .post-navigation .nav-item.nav-prev:only-child,
+  .post-navigation .nav-item.nav-next:only-child {
+    grid-column: 1 / -1;
   }
   
   .nav-previous,
