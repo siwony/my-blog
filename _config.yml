@@ -1,9 +1,12 @@
 title: My Tech Blog
 description: A technical blog sharing programming insights and tutorials
 author: jeongcool
-email: your-email@example.com
+email: official.siwony@gmail.com
 url: "https://blog.siwony.xyz" # Your site URL
 baseurl: ""
+
+site:
+  github: "https://github.com/siwony"
 
 # Open Graph 기본 이미지
 og_image: /assets/images/og-default.png

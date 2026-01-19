@@ -3,17 +3,19 @@ layout: default
 title: Home
 ---
 
+<!-- Hero Section -->
+<section class="hero">
+  <h1 class="hero-title">{{ site.title }}</h1>
+  <p class="hero-description">{{ site.description | default: "공부한 내용을 기록하는 공간입니다." }}</p>
+</section>
+
 <div class="home-layout">
   <main class="main-content">
-    <h1>Welcome to My Tech Blog</h1>
-
-    <p>공부한 내용을 기록하는 공간입니다.</p>
-
-    <h2>Recent Posts</h2>
+    <h2 class="section-title">Recent Posts</h2>
 
     <div class="post-list">
     {% if site.posts.size > 0 %}
-      {% for post in site.posts limit:3 %}
+      {% for post in site.posts limit:5 %}
         {% include post-preview.html post=post %}
       {% endfor %}
     {% else %}
@@ -21,7 +23,7 @@ title: Home
     {% endif %}
     </div>
 
-    <p><a href="{{ '/blog/' | relative_url }}">모든 포스트 보기 →</a></p>
+    <a href="{{ '/blog/' | relative_url }}" class="view-all-link">모든 포스트 보기 →</a>
   </main>
 
   <!-- Category Sidebar Web Component -->

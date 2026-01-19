@@ -4,11 +4,24 @@
 # Set environment explicitly
 environment: production
 
+email: official.siwony@gmail.com
+url: "https://blog.siwony.xyz" # Your site URL
+site:
+  github: "https://github.com/siwony"
+
 # Production specific settings
 url: "https://blog.siwony.xyz"
 baseurl: ""
 show_drafts: false
 incremental: false
+
+# Open Graph 기본 이미지
+og_image: /assets/images/og-default.png
+
+# Twitter Card 설정
+twitter:
+  card: summary_large_image
+
 
 # Optimization settings
 future: false

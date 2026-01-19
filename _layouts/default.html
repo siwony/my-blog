@@ -8,6 +8,13 @@
     <!-- SEO 및 Open Graph 메타태그 -->
     {% seo %}
     
+    <!-- Font Preloading -->
+    <link rel="preload" href="{{ '/assets/fonts/inter-latin-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ '/assets/fonts/inter-latin-600.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Pretendard (Korean) from CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    
     <!-- Prism.js CSS 먼저 로드 -->
     <link rel="stylesheet" href="{{ '/assets/css/prism/prism-material-theme.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/prism/prism-toolbar.min.css' | relative_url }}">
@@ -26,19 +33,28 @@
     <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>{{ site.title }}</h1>
-            <nav>
-                <ul>
-                    <li><a href="{{ '/' | relative_url }}">Home</a></li>
-                </ul>
-            </nav>
+    <div class="site-wrapper">
+        <!-- Site Header -->
+        <header class="site-header">
+            <div class="header-inner">
+                <a href="{{ '/' | relative_url }}" class="site-logo">
+                    <span>{{ site.title }}</span>
+                </a>
+                <nav class="site-nav">
+                    <ul>
+                        <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>Home</a></li>
+                        <li><a href="{{ '/blog/' | relative_url }}"{% if page.url contains '/blog' %} class="active"{% endif %}>Blog</a></li>
+                    </ul>
+                </nav>
+            </div>
         </header>
 
-        <main>
+        <main class="container">
             {{ content }}
         </main>
+        
+        <!-- Site Footer -->
+        {% include footer.html %}
     </div>
 
     <!-- Prism.js JavaScript 로드 (순서 중요!) -->
@@ -85,6 +101,9 @@
       window.PhotoSwipe = PhotoSwipe;
     </script>
     <script src="{{ '/assets/js/image-viewer.js' | relative_url }}" defer></script>
+    
+    <!-- Heading Anchor Links -->
+    <script src="{{ '/assets/js/heading-anchors.js' | relative_url }}" defer></script>
     
     <!-- GitHub Table Enhancer -->
     <script>

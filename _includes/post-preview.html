@@ -7,9 +7,9 @@
     layout="badge"
     categories='{{ include.post.categories | jsonify }}'
     tags='{{ include.post.tags | jsonify }}'
-    date="{{ include.post.date | date: '%B %d, %Y' }}"
+    date="{{ include.post.date | date: '%Y년 %m월 %d일' }}"
     reading-time="{{ include.post.content | strip_html | number_of_words | divided_by: 200 | plus: 1 }}">
   </post-metadata>
   
-  <p>{{ include.post.excerpt | clean_excerpt | truncatewords: 20 }}</p>
+  <p>{{ include.post.excerpt | clean_excerpt | truncatewords: 30 }}</p>
 </article>
