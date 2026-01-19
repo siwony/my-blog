@@ -24,8 +24,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
-          bundler: "2.5.22"    # Bundler 2.x (Ruby 3.2 호환)
+          ruby-version: "3.3"
           bundler-cache: true
 
       - name: Build Jekyll (production)

@@ -6,6 +6,11 @@ set -e  # Exit on any error
 
 echo "🚀 Starting Docker deployment for Jekyll blog..."
 
+# Initialize rbenv if available
+if command -v rbenv &> /dev/null; then
+    eval "$(rbenv init -)"
+fi
+
 # Check if Docker is running
 if ! docker info >/dev/null 2>&1; then
     echo "❌ Docker is not running. Please start Docker and try again."

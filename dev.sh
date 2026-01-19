@@ -5,6 +5,11 @@
 
 set -e
 
+# Initialize rbenv if available
+if command -v rbenv &> /dev/null; then
+    eval "$(rbenv init -)"
+fi
+
 # 색상 정의
 RED='\033[0;31m'
 GREEN='\033[0;32m'
