@@ -6,7 +6,7 @@ url: "https://blog.siwony.xyz" # Your site URL
 baseurl: ""
 
 # Open Graph 기본 이미지
-og_image: /assets/images/og-default.svg
+og_image: /assets/images/og-default.png
 
 # Twitter Card 설정
 twitter:
