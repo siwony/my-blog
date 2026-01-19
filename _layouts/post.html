@@ -28,21 +28,19 @@ layout: default
         {{ content }}
     </div>
     
-    <footer class="post-footer">
-        <div class="post-navigation">
-            {% if page.previous %}
-            <div class="nav-previous">
-                <span class="nav-label">이전 글</span>
-                <a href="{{ page.previous.url | relative_url }}" class="nav-link">{{ page.previous.title }}</a>
-            </div>
-            {% endif %}
-            
-            {% if page.next %}
-            <div class="nav-next">
-                <span class="nav-label">다음 글</span>
-                <a href="{{ page.next.url | relative_url }}" class="nav-link">{{ page.next.title }}</a>
-            </div>
-            {% endif %}
-        </div>
-    </footer>
+    <nav class="post-navigation">
+        {% if page.previous %}
+        <a href="{{ page.previous.url | relative_url }}" class="nav-item nav-prev">
+            <span class="nav-label">← 이전 글</span>
+            <span class="nav-title">{{ page.previous.title }}</span>
+        </a>
+        {% endif %}
+        
+        {% if page.next %}
+        <a href="{{ page.next.url | relative_url }}" class="nav-item nav-next">
+            <span class="nav-label">다음 글 →</span>
+            <span class="nav-title">{{ page.next.title }}</span>
+        </a>
+        {% endif %}
+    </nav>
 </article>
