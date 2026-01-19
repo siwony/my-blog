@@ -27,7 +27,8 @@ module AutolinkScrub
     next unless doc.output_ext == '.html'
     next if doc.output.to_s.strip.empty?
 
-    html_doc = Nokogiri::HTML::DocumentFragment.parse(doc.output)
+    # Use full HTML document parsing to preserve DOCTYPE, html, head tags
+    html_doc = Nokogiri::HTML.parse(doc.output)
 
     # First, auto-link bare URLs in text nodes (excluding code blocks)
     html_doc.traverse do |node|

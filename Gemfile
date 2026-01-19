@@ -21,6 +21,7 @@ group :jekyll_plugins do
   gem "jekyll-paginate", "~> 1.1"
   gem "jekyll-sitemap", "~> 1.4"
   gem "jekyll-sass-converter", "~> 3.0"
+  gem "jekyll-seo-tag", "~> 2.8"
 end
 
 # 개발 도구 (프로덕션에서만 사용)

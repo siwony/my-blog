@@ -2,8 +2,15 @@ title: My Tech Blog
 description: A technical blog sharing programming insights and tutorials
 author: jeongcool
 email: your-email@example.com
-url: ""
+url: "https://blog.siwony.xyz" # Your site URL
 baseurl: ""
+
+# Open Graph 기본 이미지
+og_image: /assets/images/og-default.svg
+
+# Twitter Card 설정
+twitter:
+  card: summary_large_image
 
 markdown: kramdown
 highlighter: none
@@ -22,6 +29,7 @@ incremental: false
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 permalink: /:categories/:year/:month/:day/:title/
 

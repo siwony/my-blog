@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title | default: site.title }}</title>
     
+    <!-- SEO 및 Open Graph 메타태그 -->
+    {% seo %}
+    
     <!-- Prism.js CSS 먼저 로드 -->
     <link rel="stylesheet" href="{{ '/assets/css/prism/prism-material-theme.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/prism/prism-toolbar.min.css' | relative_url }}">
