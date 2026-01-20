@@ -41,7 +41,7 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          aws s3 sync _site s3://${{ vars.S3_BUCKET }} --delete
+          aws s3 sync _site s3://${{ vars.S3_BUCKET }} --delete --size-only
 
       - name: Invalidate CloudFront cache
         run: |
