@@ -55,7 +55,8 @@ const paths = {
       'assets/js/prism/prism-show-language.min.js',
       'assets/js/prism/prism-line-numbers.min.js'
     ],
-    dest: '_site/assets/js/prism/'
+    // 원본 폴더에 번들 생성 (Jekyll이 _site로 복사)
+    dest: 'assets/js/prism/'
   }
 };
 
