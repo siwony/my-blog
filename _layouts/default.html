@@ -99,13 +99,8 @@
     <!-- Post Metadata Web Component -->
     <script src="{{ '/assets/js/post-metadata.js' | relative_url }}" defer></script>
     
-    <!-- PhotoSwipe Image Viewer -->
-    <script type="module">
-      import PhotoSwipeLightbox from '{{ "/assets/js/photoswipe/photoswipe-lightbox.esm.min.js" | relative_url }}';
-      import PhotoSwipe from '{{ "/assets/js/photoswipe/photoswipe.esm.min.js" | relative_url }}';
-      window.PhotoSwipeLightbox = PhotoSwipeLightbox;
-      window.PhotoSwipe = PhotoSwipe;
-    </script>
+    <!-- PhotoSwipe Image Viewer (번들링됨 - request chaining 제거) -->
+    <script src="{{ '/assets/js/photoswipe.bundle.min.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/image-viewer.js' | relative_url }}" defer></script>
     
     <!-- Heading Anchor Links -->
