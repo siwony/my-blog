@@ -4,7 +4,7 @@
    - Pretendard: Korean characters (self-hosted subset, 2350 chars)
    ============================================ */
 
-/* Inter - Latin (self-hosted) */
+/* Inter - Latin (self-hosted) with CLS-reducing metric overrides */
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -12,6 +12,10 @@
   font-display: swap;
   src: url('/assets/fonts/inter-latin-400.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 100%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
 }
 
 @font-face {
@@ -21,6 +25,10 @@
   font-display: swap;
   src: url('/assets/fonts/inter-latin-500.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 100%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
 }
 
 @font-face {
@@ -30,6 +38,10 @@
   font-display: swap;
   src: url('/assets/fonts/inter-latin-600.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 100%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
 }
 
 @font-face {
@@ -39,15 +51,23 @@
   font-display: swap;
   src: url('/assets/fonts/inter-latin-700.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 100%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
 }
 
-/* Pretendard - Korean (self-hosted subset, 2350 frequently used characters) */
+/* Pretendard - Korean (self-hosted subset, 2350 frequently used characters) with CLS-reducing metric overrides */
 @font-face {
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url('/assets/fonts/Pretendard-Regular.subset.woff2') format('woff2');
+  size-adjust: 100%;
+  ascent-override: 88%;
+  descent-override: 20%;
+  line-gap-override: 0%;
 }
 
 @font-face {
@@ -56,6 +76,10 @@
   font-weight: 500;
   font-display: swap;
   src: url('/assets/fonts/Pretendard-Medium.subset.woff2') format('woff2');
+  size-adjust: 100%;
+  ascent-override: 88%;
+  descent-override: 20%;
+  line-gap-override: 0%;
 }
 
 @font-face {
@@ -64,6 +88,10 @@
   font-weight: 600;
   font-display: swap;
   src: url('/assets/fonts/Pretendard-SemiBold.subset.woff2') format('woff2');
+  size-adjust: 100%;
+  ascent-override: 88%;
+  descent-override: 20%;
+  line-gap-override: 0%;
 }
 
 @font-face {
@@ -72,6 +100,10 @@
   font-weight: 700;
   font-display: swap;
   src: url('/assets/fonts/Pretendard-Bold.subset.woff2') format('woff2');
+  size-adjust: 100%;
+  ascent-override: 88%;
+  descent-override: 20%;
+  line-gap-override: 0%;
 }
 
 /* CSS Variables for conflict prevention and maintainability */
@@ -330,6 +362,8 @@ nav a:hover { color: var(--blog-text-color); }
 .post-preview {
   padding: var(--blog-spacing-xl) 0;
   position: relative;
+  min-height: 120px; /* CLS 방지 - 레이아웃 공간 예약 */
+  contain: layout style; /* 레이아웃 격리로 리플로우 최소화 */
 }
 
 /* Add separator line between posts */
@@ -376,6 +410,7 @@ nav a:hover { color: var(--blog-text-color); }
   padding: var(--blog-spacing-3xl) 0;
   text-align: center;
   margin-bottom: var(--blog-spacing-2xl);
+  min-height: 160px; /* CLS 방지 - 콘텐츠 영역 예약 */
 }
 
 .hero-title {
@@ -385,6 +420,7 @@ nav a:hover { color: var(--blog-text-color); }
   margin: 0 0 var(--blog-spacing-md) 0;
   letter-spacing: -0.03em;
   line-height: 1.2;
+  min-height: 1.2em; /* 폰트 로딩 시 높이 유지 */
 }
 
 .hero-description {
@@ -736,6 +772,41 @@ category-sidebar {
   position: sticky;
   top: 1rem;
   height: fit-content;
+}
+
+/* CLS Prevention - Web Components 초기 상태 */
+category-sidebar:not(:defined) {
+  display: block;
+  min-height: 280px;
+  background: linear-gradient(90deg, #f8fafc 25%, #f1f5f9 50%, #f8fafc 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: var(--blog-border-radius-md);
+  border: 1px solid var(--blog-border-color);
+}
+
+post-metadata:not(:defined) {
+  display: block;
+  min-height: 22px;
+  width: 180px;
+  background: linear-gradient(90deg, #f8fafc 25%, #f1f5f9 50%, #f8fafc 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: var(--blog-border-radius-sm);
+  margin-bottom: var(--blog-spacing-sm);
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Web Component 정의 후 초기화 */
+category-sidebar:defined,
+post-metadata:defined {
+  animation: none;
+  background: none;
+  min-height: auto;
 }
 
 /* Pagination positioned below main and sidebar */
