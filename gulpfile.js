@@ -7,6 +7,19 @@ const gulpIf = require('gulp-if');
 const sourcemaps = require('gulp-sourcemaps');
 const del = require('del');
 const yargs = require('yargs');
+const concat = require('gulp-concat');
+const fs = require('fs');
+const path = require('path');
+
+// critical은 ESM 모듈이므로 동적 import 사용
+let critical;
+async function loadCritical() {
+  if (!critical) {
+    const criticalModule = await import('critical');
+    critical = criticalModule.default || criticalModule;
+  }
+  return critical;
+}
 
 // 환경 설정
 const isProduction = yargs.argv.production || process.env.NODE_ENV === 'production';
@@ -31,6 +44,18 @@ const paths = {
   html: {
     src: '_site/**/*.html',
     dest: '_site/'
+  },
+  prism: {
+    // Prism.js 번들링 순서 (의존성 순서 중요!)
+    src: [
+      'assets/js/prism/prism.min.js',
+      'assets/js/prism/prism-autoloader.min.js',
+      'assets/js/prism/prism-toolbar.min.js',
+      'assets/js/prism/prism-copy-to-clipboard.min.js',
+      'assets/js/prism/prism-show-language.min.js',
+      'assets/js/prism/prism-line-numbers.min.js'
+    ],
+    dest: '_site/assets/js/prism/'
   }
 };
 
@@ -103,15 +128,79 @@ function watch() {
   gulp.watch(paths.html.src, processHTML);
 }
 
+// Prism.js 번들링 태스크 - 6개 파일을 하나로 합침
+function bundlePrism() {
+  console.log('Bundling Prism.js files...');
+  return gulp.src(paths.prism.src)
+    .pipe(concat('prism.bundle.min.js'))
+    .pipe(gulp.dest(paths.prism.dest));
+}
+
+// Critical CSS 추출 태스크 - above-the-fold CSS 추출
+async function extractCritical(done) {
+  if (!isProduction) {
+    console.log('Development mode: Critical CSS extraction skipped');
+    return done();
+  }
+
+  console.log('Extracting critical CSS...');
+  
+  const criticalModule = await loadCritical();
+  const pages = ['_site/index.html', '_site/blog.html'];
+  const allCriticalCSS = [];
+  
+  for (const pagePath of pages) {
+    if (!fs.existsSync(pagePath)) {
+      console.log(`Skipping ${pagePath} - file not found`);
+      continue;
+    }
+    
+    try {
+      const { css } = await criticalModule.generate({
+        base: '_site/',
+        src: pagePath.replace('_site/', ''),
+        css: ['assets/css/style.css'],
+        width: 1300,
+        height: 900,
+        extract: false,
+        ignore: {
+          atrule: ['@font-face'],
+          decl: (node, value) => /url\(/.test(value)
+        }
+      });
+      
+      if (css) {
+        allCriticalCSS.push(css);
+      }
+    } catch (err) {
+      console.error(`Critical CSS error for ${pagePath}:`, err.message);
+    }
+  }
+  
+  // 중복 제거하고 합치기
+  const uniqueCSS = [...new Set(allCriticalCSS.join('\n').split('\n'))].join('\n');
+  
+  const includesDir = '_includes';
+  if (!fs.existsSync(includesDir)) {
+    fs.mkdirSync(includesDir, { recursive: true });
+  }
+  
+  fs.writeFileSync(path.join(includesDir, 'critical.css'), uniqueCSS);
+  console.log('Critical CSS written to _includes/critical.css');
+  done();
+}
+
 // Build tasks
-const buildDev = gulp.series(clean, gulp.parallel(processJS, processCSS), processHTML);
-const buildProd = gulp.series(clean, gulp.parallel(processJS, processCSS), processHTML);
+const buildDev = gulp.series(clean, gulp.parallel(processJS, processCSS), bundlePrism, processHTML);
+const buildProd = gulp.series(clean, gulp.parallel(processJS, processCSS), bundlePrism, processHTML, extractCritical);
 
 // Export tasks
 exports.clean = clean;
 exports.processJS = processJS;
 exports.processCSS = processCSS;
 exports.processHTML = processHTML;
+exports.bundlePrism = bundlePrism;
+exports.extractCritical = extractCritical;
 exports.watch = watch;
 exports['build:dev'] = buildDev;
 exports['build:prod'] = buildProd;

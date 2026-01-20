@@ -21,9 +21,11 @@
     "clean": "gulp clean"
   },
   "devDependencies": {
+    "critical": "^7.2.1",
     "del": "^6.1.1",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
     "gulp-htmlmin": "^5.0.1",
     "gulp-if": "^3.0.0",
     "gulp-rename": "^2.0.0",
