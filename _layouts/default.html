@@ -39,8 +39,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.4.0/github-markdown-light.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.4.0/github-markdown-light.min.css"></noscript>
 
-    <!-- Ninja Keys (지연 로딩) -->
-    <script type="module" src="https://unpkg.com/ninja-keys?module" defer></script>
+    <!-- Ninja Keys (로컬 번들 - 체인 요청 최적화) -->
+    <script src="{{ '/assets/js/ninja-keys.bundle.min.js' | relative_url }}" defer></script>
 </head>
 <body>
     <div class="site-wrapper">
