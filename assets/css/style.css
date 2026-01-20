@@ -95,17 +95,8 @@
   --blog-spacing-2xl: 3rem;
   --blog-spacing-3xl: 4rem;
   
-  /* ============================================
-     Typography Token System
-     - title: 페이지/섹션 메인 제목
-     - subtitle: 부제목, 섹션 헤더
-     - description: 설명 텍스트
-     - text: 본문 텍스트
-     ============================================ */
-  
   /* Font Family - Inter for Latin, Pretendard for Korean */
   --blog-font-family: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --blog-font-family-mono: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
   
   /* Title - 페이지/포스트 메인 제목 */
   --blog-title-font-size: 2.5rem;
@@ -113,13 +104,6 @@
   --blog-title-line-height: 1.2;
   --blog-title-letter-spacing: -0.02em;
   --blog-title-color: #2c3e50;
-  
-  /* Subtitle - 섹션 제목, 카드 제목 */
-  --blog-subtitle-font-size: 1.5rem;
-  --blog-subtitle-font-weight: 600;
-  --blog-subtitle-line-height: 1.4;
-  --blog-subtitle-letter-spacing: -0.01em;
-  --blog-subtitle-color: #2c3e50;
   
   /* Description - 설명, 요약 텍스트 */
   --blog-description-font-size: 1.125rem;
@@ -129,14 +113,11 @@
   
   /* Text - 본문 텍스트 */
   --blog-text-font-size: 1rem;
-  --blog-text-font-weight: 400;
   --blog-text-line-height: 1.8;
   --blog-text-letter-spacing: 0.01em;
   
   /* Small Text - 메타 정보, 날짜 등 */
   --blog-small-font-size: 0.875rem;
-  --blog-small-font-weight: 400;
-  --blog-small-line-height: 1.5;
   --blog-small-color: #6c757d;
   
   /* Caption - 태그, 레이블 등 */
@@ -148,7 +129,6 @@
   /* Legacy font sizes (backward compatibility) */
   --blog-font-size-sm: 0.75rem;
   --blog-font-size-md: 0.875rem;
-  --blog-font-size-lg: 1rem;
   --blog-font-weight-normal: 400;
   --blog-font-weight-medium: 500;
   --blog-font-weight-bold: 600;
@@ -160,7 +140,6 @@
   
   /* Shadows */
   --blog-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --blog-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
   
   /* Component-specific colors */
   --blog-category-bg: var(--blog-primary-color);
@@ -176,8 +155,7 @@
    ============================================ */
 
 /* Title 스타일 */
-.title,
-.blog-title {
+.title {
   font-size: var(--blog-title-font-size);
   font-weight: var(--blog-title-font-weight);
   line-height: var(--blog-title-line-height);
@@ -186,20 +164,8 @@
   margin: 0;
 }
 
-/* Subtitle 스타일 */
-.subtitle,
-.blog-subtitle {
-  font-size: var(--blog-subtitle-font-size);
-  font-weight: var(--blog-subtitle-font-weight);
-  line-height: var(--blog-subtitle-line-height);
-  letter-spacing: var(--blog-subtitle-letter-spacing);
-  color: var(--blog-subtitle-color);
-  margin: 0;
-}
-
 /* Description 스타일 */
-.description,
-.blog-description {
+.description {
   font-size: var(--blog-description-font-size);
   font-weight: var(--blog-description-font-weight);
   line-height: var(--blog-description-line-height);
@@ -207,27 +173,8 @@
   margin: 0;
 }
 
-/* Text 스타일 (본문) */
-.text,
-.blog-text {
-  font-size: var(--blog-text-font-size);
-  font-weight: var(--blog-text-font-weight);
-  line-height: var(--blog-text-line-height);
-  color: var(--blog-text-color);
-}
-
-/* Small Text 스타일 */
-.small-text,
-.blog-small {
-  font-size: var(--blog-small-font-size);
-  font-weight: var(--blog-small-font-weight);
-  line-height: var(--blog-small-line-height);
-  color: var(--blog-small-color);
-}
-
 /* Caption 스타일 */
-.caption,
-.blog-caption {
+.caption {
   font-size: var(--blog-caption-font-size);
   font-weight: var(--blog-caption-font-weight);
   line-height: var(--blog-caption-line-height);
@@ -1508,57 +1455,7 @@ ninja-keys .ninja-action:last-child {
   font-family: inherit;
 }
 
-/* Post Metadata Styles (Categories & Tags) - Conflict Prevention */
-.blog-post-metadata {
-  margin: var(--blog-spacing-sm) 0;
-  font-size: var(--blog-font-size-md);
-}
-
-.blog-post-categories,
-.blog-post-tags {
-  display: inline-block;
-  margin-right: var(--blog-spacing-md);
-  margin-bottom: var(--blog-spacing-sm);
-}
-
-.blog-metadata-label {
-  font-weight: var(--blog-font-weight-bold);
-  color: var(--blog-text-muted);
-  margin-right: var(--blog-spacing-xs);
-}
-
-.blog-category-tag {
-  display: inline-block;
-  background-color: var(--blog-category-bg);
-  color: var(--blog-category-color);
-  padding: var(--blog-spacing-xs) var(--blog-spacing-sm);
-  border-radius: var(--blog-border-radius-sm);
-  text-decoration: none;
-  font-size: var(--blog-font-size-sm);
-  font-weight: var(--blog-font-weight-medium);
-  margin-right: var(--blog-spacing-xs);
-  transition: background-color 0.2s ease;
-}
-
-.blog-category-tag:hover {
-  background-color: var(--blog-category-hover-bg);
-  color: var(--blog-category-color);
-  text-decoration: none;
-}
-
-.blog-post-tag {
-  display: inline-block;
-  background-color: var(--blog-tag-bg);
-  color: var(--blog-tag-color);
-  padding: var(--blog-spacing-xs) var(--blog-spacing-sm);
-  border-radius: var(--blog-border-radius-lg);
-  font-size: var(--blog-font-size-sm);
-  font-weight: var(--blog-font-weight-medium);
-  margin-right: var(--blog-spacing-xs);
-  margin-bottom: var(--blog-spacing-xs);
-}
-
-/* Backward compatibility - keep existing classes but use new variables */
+/* Post Metadata Styles (Categories & Tags) */
 .post-metadata {
   margin: var(--blog-spacing-sm) 0;
   font-size: var(--blog-font-size-md);
@@ -1610,23 +1507,18 @@ ninja-keys .ninja-action:last-child {
 
 /* Responsive adjustments for metadata */
 @media (max-width: 768px) {
-  .post-metadata,
-  .blog-post-metadata {
+  .post-metadata {
     font-size: calc(var(--blog-font-size-md) - 0.05rem);
   }
   
   .post-categories,
-  .post-tags,
-  .blog-post-categories,
-  .blog-post-tags {
+  .post-tags {
     display: block;
     margin-right: 0;
   }
   
   .category-tag,
-  .post-tag,
-  .blog-category-tag,
-  .blog-post-tag {
+  .post-tag {
     font-size: calc(var(--blog-font-size-sm) - 0.05rem);
     padding: calc(var(--blog-spacing-xs) - 0.05rem) calc(var(--blog-spacing-sm) - 0.1rem);
   }
