@@ -235,3 +235,238 @@ describe('성능 테스트', () => {
 1. **Real-time Alerts**: 성능 임계값 초과 시 알림
 2. **Performance Dashboard**: 지속적인 모니터링
 3. **Regular Reviews**: 성능 지표 정기 검토
+
+---
+
+## 🚀 Performance Optimization History (2026.01)
+
+이 섹션은 Google PageSpeed Insights 진단 결과를 기반으로 수행된 성능 최적화 작업을 기록합니다.
+
+### 📋 최적화 개요
+
+| 항목 | 문제 | 해결 방법 | 효과 |
+|------|------|-----------|------|
+| **Critical CSS** | 렌더 차단 CSS | Gulp 빌드 시 자동 추출 및 인라인 | LCP/FCP 개선 |
+| **Prism.js 번들링** | 6개 개별 파일 요청 | 단일 번들 (37KB) | 요청 수 6 → 1 |
+| **Pretendard 로컬화** | CDN 의존성 | 서브셋 폰트 셀프 호스팅 | TTFB 개선 |
+| **Ninja Keys 번들링** | 80+ ESM 모듈 체인 (1,778ms) | 단일 IIFE 번들 (52KB) | 체인 제거 |
+| **PhotoSwipe 번들링** | 2개 ESM 모듈 체인 (429ms) | 단일 IIFE 번들 (67KB) | 체인 제거 |
+| **CSS 최적화** | 미사용 CSS 포함 | 미사용 클래스/변수 제거 | 7.3KB → 7.0KB (gzip) |
+| **CLS 최적화** | 레이아웃 시프트 | 폰트 메트릭, skeleton, min-height | CLS 점수 개선 |
+
+---
+
+### 1. Critical CSS 인라인화
+
+**문제**: 전체 CSS 파일이 렌더를 차단하여 LCP/FCP 지연
+
+**해결**:
+```javascript
+// gulpfile.js - extractCritical 태스크
+async function extractCritical() {
+  const { generate } = await import('critical');
+  const result = await generate({
+    base: '_site/',
+    src: 'index.html',
+    width: 1300,
+    height: 900,
+    inline: false
+  });
+  fs.writeFileSync('_includes/critical.css', result.css);
+}
+```
+
+**적용 방법** (`_layouts/default.html`):
+```html
+<!-- Critical CSS 인라인 -->
+<style>{% include critical.css %}</style>
+
+<!-- 나머지 CSS 지연 로딩 -->
+<link rel="preload" href="/assets/css/style.css" as="style" 
+      onload="this.onload=null;this.rel='stylesheet'">
+```
+
+---
+
+### 2. Prism.js 번들링
+
+**문제**: 6개 개별 스크립트 요청
+- `prism-core.min.js`
+- `prism-autoloader.min.js`
+- `prism-line-numbers.min.js`
+- `prism-toolbar.min.js`
+- `prism-copy-to-clipboard.min.js`
+- `prism-match-braces.min.js`
+
+**해결**:
+```javascript
+// gulpfile.js
+function bundlePrism() {
+  return gulp.src([
+    'assets/js/prism/prism-core.min.js',
+    'assets/js/prism/prism-autoloader.min.js',
+    'assets/js/prism/plugins/line-numbers/prism-line-numbers.min.js',
+    'assets/js/prism/plugins/toolbar/prism-toolbar.min.js',
+    'assets/js/prism/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js',
+    'assets/js/prism/plugins/match-braces/prism-match-braces.min.js'
+  ], { allowEmpty: true })
+    .pipe(concat('prism.bundle.min.js'))
+    .pipe(gulp.dest('assets/js/prism/'));
+}
+```
+
+**결과**: `assets/js/prism/prism.bundle.min.js` (37KB)
+
+---
+
+### 3. Pretendard 폰트 로컬화
+
+**문제**: CDN에서 한글 폰트 로딩 시 TTFB 지연
+
+**해결**: 자주 사용되는 2,350자 서브셋으로 셀프 호스팅
+
+```css
+/* assets/css/style.css */
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/Pretendard-Regular.subset.woff2') format('woff2');
+  /* CLS 방지 메트릭 */
+  size-adjust: 100%;
+  ascent-override: 88%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+}
+```
+
+**파일 위치**: `assets/fonts/Pretendard-*.subset.woff2` (4 weights, 각 ~270KB)
+
+---
+
+### 4. Ninja Keys 번들링
+
+**문제**: unpkg.com에서 80개 이상의 ESM 모듈 체인 요청 (1,778ms)
+
+**해결**:
+```javascript
+// assets/js/ninja-keys-entry.js
+import 'ninja-keys';
+
+// package.json
+"bundle:ninja-keys": "esbuild assets/js/ninja-keys-entry.js --bundle --minify --format=iife --outfile=assets/js/ninja-keys.bundle.min.js"
+```
+
+**결과**: `assets/js/ninja-keys.bundle.min.js` (52KB) - 단일 요청
+
+---
+
+### 5. PhotoSwipe 번들링
+
+**문제**: 2개 ESM 모듈 순차 요청 (429ms 체인)
+```
+photoswipe-lightbox.esm.min.js → photoswipe.esm.min.js
+```
+
+**해결**:
+```javascript
+// assets/js/photoswipe-entry.js
+import PhotoSwipeLightbox from './photoswipe/photoswipe-lightbox.esm.min.js';
+import PhotoSwipe from './photoswipe/photoswipe.esm.min.js';
+window.PhotoSwipeLightbox = PhotoSwipeLightbox;
+window.PhotoSwipe = PhotoSwipe;
+
+// package.json
+"bundle:photoswipe": "esbuild assets/js/photoswipe-entry.js --bundle --minify --format=iife --outfile=assets/js/photoswipe.bundle.min.js"
+```
+
+**결과**: `assets/js/photoswipe.bundle.min.js` (67KB) - 단일 요청
+
+---
+
+### 6. 미사용 CSS 제거
+
+**제거된 항목**:
+- 중복 `.blog-*` 클래스
+- 미사용 타이포그래피 클래스 (`.subtitle`, `.small-text` 등)
+- 미사용 CSS 변수 (`--blog-subtitle-*`, `--blog-shadow-md` 등)
+
+**결과**: gzipped CSS 7.3KB → 7.0KB (~4% 감소)
+
+---
+
+### 7. CLS (Cumulative Layout Shift) 최적화
+
+**문제**: 폰트 스왑, Web Components 로딩 시 레이아웃 이동
+
+**해결**:
+
+#### 7.1 폰트 메트릭 오버라이드
+```css
+@font-face {
+  font-family: 'Inter';
+  /* ... */
+  size-adjust: 100%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+```
+
+#### 7.2 Web Components Skeleton 상태
+```css
+/* JS 로딩 전 레이아웃 공간 예약 */
+category-sidebar:not(:defined) {
+  display: block;
+  min-height: 280px;
+  background: linear-gradient(90deg, #f8fafc 25%, #f1f5f9 50%, #f8fafc 75%);
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+post-metadata:not(:defined) {
+  display: block;
+  min-height: 22px;
+  width: 180px;
+}
+```
+
+#### 7.3 레이아웃 영역 예약
+```css
+.hero { min-height: 160px; }
+.post-preview { min-height: 120px; contain: layout style; }
+```
+
+---
+
+### 📦 빌드 스크립트
+
+```json
+// package.json
+{
+  "scripts": {
+    "bundle:ninja-keys": "esbuild assets/js/ninja-keys-entry.js --bundle --minify --format=iife --outfile=assets/js/ninja-keys.bundle.min.js",
+    "bundle:photoswipe": "esbuild assets/js/photoswipe-entry.js --bundle --minify --format=iife --outfile=assets/js/photoswipe.bundle.min.js",
+    "bundle:all": "npm run bundle:ninja-keys && npm run bundle:photoswipe",
+    "build:prod": "npm run bundle:all && bundle exec jekyll build --config _config.yml,_config_production.yml && NODE_ENV=production gulp build:prod"
+  }
+}
+```
+
+### 📊 최종 파일 크기
+
+| 파일 | 크기 | 비고 |
+|------|------|------|
+| `style.css` (gzipped) | ~7.0KB | 미사용 CSS 제거 후 |
+| `prism.bundle.min.js` | 37KB | 6개 파일 통합 |
+| `ninja-keys.bundle.min.js` | 52KB | 80+ 모듈 통합 |
+| `photoswipe.bundle.min.js` | 67KB | 2개 ESM 통합 |
+| `critical.css` | ~4.5KB | 인라인용 |
+
+### 🔗 관련 커밋
+
+- `c1359ed` - perf: optimize render-blocking resources for LCP/FCP
+- `51344df` - fix: generate prism.bundle.min.js in source folder for deployment
+- `edcdbc9` - perf: bundle ninja-keys locally to eliminate request chaining
+- `5df41ea` - perf: remove unused CSS classes and variables
+- `d0fc57e` - perf: bundle PhotoSwipe to eliminate request chaining
+- `5a918d2` - fix: reduce CLS with font metrics, skeleton states, and layout reservations
