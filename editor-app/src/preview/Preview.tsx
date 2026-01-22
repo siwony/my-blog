@@ -7,6 +7,12 @@ interface PreviewProps {
   content: string;
 }
 
+interface CodeProps {
+  inline?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+}
+
 export const Preview: React.FC<PreviewProps> = ({ content }) => {
   return (
     <div className="preview-container">
@@ -14,7 +20,7 @@ export const Preview: React.FC<PreviewProps> = ({ content }) => {
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
-            code({ inline, children, ...props }: any) {
+            code({ inline, children, ...props }: CodeProps) {
               return inline ? (
                 <code {...props}>{children}</code>
               ) : (

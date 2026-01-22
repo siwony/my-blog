@@ -8,6 +8,8 @@ const createWindow = () => {
     width: 1200,
     height: 800,
     webPreferences: {
+      // TODO: For production, enable contextIsolation and use IPC for better security
+      // Currently disabled for development simplicity in this minimal scaffold
       nodeIntegration: true,
       contextIsolation: false,
     },
