@@ -17,12 +17,12 @@ export const parseFrontMatter = (content: string): { frontMatter: FrontMatter; b
   };
 };
 
-export const stringifyFrontMatter = (frontMatter: FrontMatter, body: string): string => {
+export const stringifyFrontMatter = (_frontMatter: FrontMatter, body: string): string => {
   // TODO: Implement frontmatter stringification
   return body;
 };
 
-export const validateFrontMatter = (frontMatter: FrontMatter): boolean => {
+export const validateFrontMatter = (_frontMatter: FrontMatter): boolean => {
   // TODO: Implement frontmatter validation
   return true;
 };

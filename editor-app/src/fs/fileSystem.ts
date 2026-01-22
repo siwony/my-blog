@@ -12,7 +12,7 @@ export const saveFile = async (content: string, path?: string): Promise<boolean>
   return true;
 };
 
-export const readDirectory = async (path: string): Promise<string[]> => {
+export const readDirectory = async (_path: string): Promise<string[]> => {
   // TODO: Implement directory reading
   return [];
 };
