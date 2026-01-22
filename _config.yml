@@ -31,7 +31,7 @@ incremental: false
 
 plugins:
   - jekyll-feed
-  - jekyll-sitemap
+  # - jekyll-sitemap  # 한글 URL 인코딩 방지를 위해 커스텀 sitemap.xml 사용
   - jekyll-seo-tag
 
 permalink: /:categories/:year/:month/:day/:title/
