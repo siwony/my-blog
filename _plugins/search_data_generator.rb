@@ -109,7 +109,8 @@ module SearchDataGenerator
     FileUtils.mkdir_p(output_dir)
     output_file = File.join(output_dir, 'search-data.json')
     
-    File.write(output_file, JSON.pretty_generate(search_data))
+    # Generate minified JSON for smaller file size
+    File.write(output_file, JSON.generate(search_data))
     Jekyll.logger.info "Search Data Generator:", "Output: #{output_file}"
   end
 end

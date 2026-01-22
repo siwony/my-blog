@@ -1,15 +1,14 @@
-<!-- favicon.svg -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Siwony code favicon">
   <!-- Background -->
-  <rect x="4" y="4" width="56" height="56" rx="12" fill="#2F343A"></rect>
+  <rect x="4" y="4" width="56" height="56" rx="12" fill="#2F343A"/>
 
   <!-- </> symbol (thick stroke for readability at small sizes) -->
   <g fill="none" stroke="#FFFFFF" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round">
     <!-- < -->
-    <path d="M26 22 L16 32 L26 42"></path>
+    <path d="M26 22 L16 32 L26 42"/>
     <!-- / -->
-    <path d="M36 20 L28 44"></path>
+    <path d="M36 20 L28 44"/>
     <!-- > -->
-    <path d="M38 22 L48 32 L38 42"></path>
+    <path d="M38 22 L48 32 L38 42"/>
   </g>
 </svg>
