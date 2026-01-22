@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title | default: site.title }}</title>
     
-    <!-- Favicon -->
+    <!-- Favicon - 검색 봇 및 다양한 브라우저 지원 -->
     <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" type="image/svg+xml">
+    <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" sizes="any" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ '/assets/images/favicon.svg' | relative_url }}">
+    <link rel="shortcut icon" href="{{ '/assets/images/favicon.svg' | relative_url }}">
     
     <!-- SEO 및 Open Graph 메타태그 -->
     {% seo %}
