@@ -1,6 +1,6 @@
 /**
  * Table of Contents with Scrollspy
- * Generates TOC from h2/h3 headings and highlights active section
+ * Generates TOC from h1-h5 headings and highlights active section
  */
 (function() {
   'use strict';
@@ -10,20 +10,15 @@
   
   if (!tocList || !tocSidebar) return;
   
-  // Get all h2 and h3 headings from post content
+  // Get all h1-h5 headings from post content
   const postContent = document.querySelector('.post-content');
   if (!postContent) return;
   
-  const headings = postContent.querySelectorAll('h2, h3');
+  const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5');
   
-  // Hide TOC if less than 3 headings
-  if (headings.length < 3) {
+  // Hide TOC if less than 2 headings
+  if (headings.length < 2) {
     tocSidebar.style.display = 'none';
-    // Remove grid layout when no TOC
-    const postWithToc = document.querySelector('.post-with-toc');
-    if (postWithToc) {
-      postWithToc.style.gridTemplateColumns = '1fr';
-    }
     return;
   }
   
@@ -39,12 +34,14 @@
     const li = document.createElement('li');
     const a = document.createElement('a');
     a.href = '#' + heading.id;
-    a.textContent = heading.textContent;
+    // Remove # prefix from text content if present (from CSS ::before)
+    a.textContent = heading.textContent.replace(/^#+ /, '');
     a.dataset.headingId = heading.id;
     
-    // Add class for h3 indentation
-    if (heading.tagName === 'H3') {
-      a.classList.add('toc-h3');
+    // Add class for heading level indentation
+    const level = heading.tagName.charAt(1); // H1 -> 1, H2 -> 2, etc.
+    if (level >= 2) {
+      a.classList.add('toc-h' + level);
     }
     
     li.appendChild(a);

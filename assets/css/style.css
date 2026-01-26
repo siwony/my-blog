@@ -2245,6 +2245,11 @@ article table .text-right {
   border-left-color: var(--blog-primary-color);
 }
 
+.toc-list .toc-h2 {
+  padding-left: 1rem;
+  font-size: 0.8125rem;
+}
+
 .toc-list .toc-h3 {
   padding-left: 2rem;
   font-size: 0.75rem;
