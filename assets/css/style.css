@@ -264,10 +264,12 @@ body {
 }
 
 .container { 
+  width: 100%;
   max-width: 1100px; 
   margin: 0 auto; 
   padding: 0 var(--blog-spacing-lg);
-  overflow: visible; 
+  overflow: visible;
+  box-sizing: border-box;
 }
 
 /* ============================================
@@ -364,6 +366,8 @@ nav a:hover { color: var(--blog-text-color); }
   position: relative;
   min-height: 120px; /* CLS 방지 - 레이아웃 공간 예약 */
   contain: layout style; /* 레이아웃 격리로 리플로우 최소화 */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Add separator line between posts */
@@ -945,8 +949,7 @@ post-metadata:defined {
 
 /* Category Page Styles */
 .category-page {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   padding: 2rem 0;
 }
 
@@ -1158,6 +1161,44 @@ article img:focus,
   font-weight: 600;
   line-height: 1.4;
   color: #2c3e50;
+  position: relative;
+}
+
+/* Markdown style heading prefix */
+.post-content h1::before {
+  content: "# ";
+  color: var(--blog-text-muted);
+  font-weight: 400;
+}
+
+.post-content h2::before {
+  content: "## ";
+  color: var(--blog-text-muted);
+  font-weight: 400;
+}
+
+.post-content h3::before {
+  content: "### ";
+  color: var(--blog-text-muted);
+  font-weight: 400;
+}
+
+.post-content h4::before {
+  content: "#### ";
+  color: var(--blog-text-muted);
+  font-weight: 400;
+}
+
+.post-content h5::before {
+  content: "##### ";
+  color: var(--blog-text-muted);
+  font-weight: 400;
+}
+
+.post-content h6::before {
+  content: "###### ";
+  color: var(--blog-text-muted);
+  font-weight: 400;
 }
 
 .post-content h2 {
@@ -2132,16 +2173,21 @@ article table .text-right {
    ============================================ */
 
 .post-with-toc {
-  display: grid;
-  grid-template-columns: 1fr 220px;
-  gap: var(--blog-spacing-3xl);
-  align-items: start;
+  display: block;
+  position: relative;
+}
+
+.post-with-toc > .post {
+  max-width: 860px;
+  margin: 0 auto;
 }
 
 .toc-sidebar {
-  position: sticky;
-  top: 80px;
-  max-height: calc(100vh - 100px);
+  position: fixed;
+  top: 100px;
+  right: calc((100vw - 1100px) / 2 - 240px);
+  width: 220px;
+  max-height: calc(100vh - 150px);
   overflow-y: auto;
 }
 
@@ -2174,19 +2220,20 @@ article table .text-right {
 }
 
 .toc-list li {
-  margin-bottom: var(--blog-spacing-xs);
+  margin-bottom: 0;
 }
 
 .toc-list a {
   display: block;
-  padding: var(--blog-spacing-xs) 0;
-  padding-left: var(--blog-spacing-md);
+  padding: 1px 0;
+  padding-left: 1rem;
+  padding-bottom: 0.1px;
   font-size: 0.8125rem;
   color: var(--blog-text-muted);
   text-decoration: none;
   border-left: 2px solid transparent;
   transition: all 0.15s ease;
-  line-height: 1.4;
+  line-height: 1;
 }
 
 .toc-list a:hover {
@@ -2199,7 +2246,22 @@ article table .text-right {
 }
 
 .toc-list .toc-h3 {
-  padding-left: calc(var(--blog-spacing-md) + var(--blog-spacing-sm));
+  padding-left: 2rem;
+  font-size: 0.75rem;
+}
+
+.toc-list .toc-h4 {
+  padding-left: 3rem;
+  font-size: 0.75rem;
+}
+
+.toc-list .toc-h5 {
+  padding-left: 4rem;
+  font-size: 0.75rem;
+}
+
+.toc-list .toc-h6 {
+  padding-left: 5rem;
   font-size: 0.75rem;
 }
 
@@ -2207,15 +2269,13 @@ article table .text-right {
    Responsive Design Adjustments
    ============================================ */
 
-@media (max-width: 1024px) {
-  .post-with-toc {
-    grid-template-columns: 1fr;
-  }
-  
+@media (max-width: 1400px) {
   .toc-sidebar {
     display: none;
   }
-  
+}
+
+@media (max-width: 1024px) {
   .home-layout {
     grid-template-columns: 1fr;
     gap: var(--blog-spacing-2xl);
@@ -2325,6 +2385,7 @@ article table .text-right {
   justify-content: center;
 }
 
+.post-content h1:hover .heading-anchor-link,
 .post-content h2:hover .heading-anchor-link,
 .post-content h3:hover .heading-anchor-link,
 .post-content h4:hover .heading-anchor-link,
@@ -2385,6 +2446,7 @@ article table .text-right {
     opacity: 0.4;
   }
   
+  .post-content h1:hover .heading-anchor-link,
   .post-content h2:hover .heading-anchor-link,
   .post-content h3:hover .heading-anchor-link,
   .post-content h4:hover .heading-anchor-link,
