@@ -1,6 +1,6 @@
 /**
  * Heading Anchor Links
- * - Adds anchor link icons to headings (h2-h5)
+ * - Adds anchor link icons to headings (h1-h5)
  * - Click to copy permalink to clipboard
  * - Auto-scroll to heading when URL has hash
  */
@@ -10,8 +10,8 @@
   const postContent = document.querySelector('.post-content');
   if (!postContent) return;
   
-  // h2-h5만 대상 (h1은 포스트 제목)
-  const headings = postContent.querySelectorAll('h2, h3, h4, h5');
+  // h1-h5 대상
+  const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5');
   const headerOffset = 80;
   
   headings.forEach((heading, index) => {
