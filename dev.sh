@@ -45,6 +45,7 @@ show_help() {
     echo "  stats              블로그 통계"
     echo ""
     echo -e "${CYAN}유지보수 명령어:${NC}"
+    echo "  sync-categories    카테고리 페이지 자동 동기화"
     echo "  clean              캐시 및 빌드 파일 정리"
     echo "  deps               의존성 업데이트"
     echo "  install            의존성 설치"
@@ -297,6 +298,7 @@ case "${1:-help}" in
     test-prod)  cmd_test_prod ;;
     new-post)   cmd_new_post ;;
     stats)      cmd_stats ;;
+    sync-categories) shift; bash "$PWD/scripts/sync_categories.sh" "$@" ;;
     clean)      cmd_clean ;;
     deps)       cmd_deps ;;
     install)    cmd_install ;;

@@ -7,7 +7,7 @@ on:
 
 permissions:
   id-token: write   # OIDC에 필수
-  contents: read
+  contents: write   # 카테고리 자동 커밋에 필요
 
 concurrency:
   group: deploy-jekyll
@@ -20,12 +20,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # git diff를 위해 이전 커밋 필요
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
           bundler-cache: true
+
+      - name: Sync categories
+        run: |
+          chmod +x scripts/sync_categories.sh
+          ./scripts/sync_categories.sh --verbose
+
+      - name: Commit category changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add category/
+          git diff --staged --quiet || git commit -m "[bot] Sync categories"
+          git push || echo "Nothing to push"
 
       - name: Build Jekyll (production)
         env:
