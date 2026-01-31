@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CIFS 환경에서 발생한 Bad file descriptor 원인 파악 (WIP)"
+title: "CIFS 환경에서 발생한 Bad file descriptor 원인 파악"
 date: 2026-01-22 19:22:34 +0900
 categories: linux
 tags: [사내발표, java, linux]
@@ -9,13 +9,13 @@ author: jeongcool
 
 # 개요
 
-이번글은 CIFS 마운트된 네트워크 디스크에서 파일을 다룰 떄 Bad File Descriptor가 발생하며 왜 발생하는지에 대한 원인을 분석하고 해결하기 위한 글이다.
+이번 글은 CIFS 마운트된 네트워크 디스크에서 파일을 다룰 때 Bad File Descriptor가 발생하며 왜 발생하는지에 대한 원인을 분석하고 해결하기 위한 글이다.
 
 # 요약
 - 환경: Rocky 9.5, CIFS, Java 17, Spring Boot
-- 증상: 간헐적으로 파일 이동 후 복사시 Bad file descriptor (tail, Java 모두)
+- 증상: 파일 이동(mv) 직후 해당 파일을 읽거나 복사할 때 EBADF (Bad file descriptor) 발생
 - 원인: CIFS가 noserverino로 마운트되어 inode 불일치 및 핸들 꼬임 발생
-- 해결: serverino 옵션으로 재마운트 및 `/etc/fstab` 수정 예정
+- 해결: serverino 옵션으로 재마운트 및 `/etc/fstab` 수정 예정 (2026-03월 패치 때 확인)
 
 # 문제 발단
 
@@ -23,8 +23,7 @@ author: jeongcool
 - Rocky OS 9.5
 - Java 17
 - Spring Boot
-  g
-사내에서 CIFS 타입의 네트워크 디스크가 마운트 되어있고 마운트된 드라이브 속 파일을 다루게 되었디.  
+사내에서 CIFS 타입의 네트워크 디스크가 마운트되어 있고, 마운트된 드라이브 속 파일을 다루게 되었다.  
 
 SFTP로 네트워크 드라이브에 바로 파일을 업로드 하면 서버에서 이를 감지하여 파일을 확장자별로 복사 및 이동을 수행하게 되는데 이동 후 파일을 복사하는 Java로직에서 `IOException` 중 Bad File Descriptor 가 발생하여 해당 글을 적게되었다.
 
@@ -67,7 +66,7 @@ public static void copyFileUsingZeroCopy(
         long position = 0;
         long size = sourceChannel.size();
 
-        while (position < size) { // 일부 플랫폼에서는 transferTo가 한 번에 전체 파일을 전송하지 않을 수 있으므로 전송될 떄 까지 for문을 사용
+        while (position < size) { // 일부 플랫폼에서는 transferTo가 한 번에 전체 파일을 전송하지 않을 수 있으므로 전송될 때까지 반복
             long transferred = sourceChannel.transferTo(position, size - position, targetChannel);
             if (transferred <= 0) {
                 logger.warn("File transfer stopped unexpectedly. No bytes transferred. Source: {}, Target: {}", source, target);
@@ -86,6 +85,8 @@ public static void copyFileUsingZeroCopy(
 ### `Files.copy()` 사용하지 않는 이유
 
 내가 구현해야 하는 서비스는 수십수백 GB의 파일을 다루기 때문에 `Files.copy()`는 파일 복사시 메타데이터 등을 모두 copy하려고 하므로 이를 최소화 한 파일 복사 로직을 구현했다.
+
+그리고 플랫폼 마다 작동 방식이 일관적이지 않아 동작에 대한 예측가능성을 높이려고 했었다.
 
 # 문제 원인 파악
 
@@ -110,8 +111,8 @@ public static void copyFileUsingZeroCopy(
 
 -> 즉, 문제 원인을 추론해보자면 다른 서버에서 읽어지지만 **WAS를 구동중인 서버만** 특정 파일명을 핸들링 하지 못하는 현상이 발생했고, 따라서 "CIFS 마운트에 문제가 있을지도 모른다. 라고 생각이 들었다."
 
-CIFS는 리눅스 환경에서 썩 호환이 잘 되는 프로토콜은 아니라고 알고있었기 때문에 휴리스틱하게 이 부분에 대해 찾아보고 있었는데,  
-여기서 문뜩 리눅스는 inode 번호로 파일을 구분하니 이와 관련이 있지 않을까 싶어서 chatgpt 및 구글링을 열심히 진행해보았다.  
+CIFS는 리눅스 환경에서 썩 호환이 잘 되는 프로토콜은 아니라고 알고 있었기 때문에 휴리스틱하게 이 부분에 대해 찾아보고 있었는데,  
+여기서 문득 리눅스는 inode 번호로 파일을 구분하니 이와 관련이 있지 않을까 싶어서 ChatGPT 및 구글링을 열심히 진행해보았다.  
 
 ## 문제 원인 - inode값이 다르다.
 
@@ -125,14 +126,13 @@ File: 00_숙모의_미소는_달콤했다.psdsd Size: 139532291 Blocks: 272528 I
 # 비정상서버
 $ stat 00_숙모의_미소는_달콤했다.psd
 File: 00_숙모의_미소는_달콤했다.psd Size: 139532291 Blocks: 272528 IO Block: 1048576 regular file Device: 3bh/59d Inode: 6137030 Links: 1 Access: (0775/-rwxrwxr-x) Uid: ( 마스킹/ 마스킹) Gid: ( 마스킹/ 마스킹) Access: 2026-01-20 11:31:00.980614000 +0900 Modify: 2026-01-19 14:17:39.800865300 +0900 Change: 2026-01-20 11:31:48.475686000 +0900 Birth: 2026-01-19 14:17:39.797968000 +09009.797968000 +0900
-
 ```
 
 두 서버간 출력되는 inode가 다른걸 확인할 수 있다.
 - 정상 : 4885209962701260479
 - 비정상 : 6137030
 
-왜 inode가 다른지에 대해 확인은 해보니 마운트 옵션차이에 따라 달라질 수 있다고 한다.
+왜 inode가 다른지에 대해 확인해 보니 마운트 옵션 차이에 따라 달라질 수 있다고 한다.
 
 CIFS 마운트시 마운트 옵션에 `serverino` 옵션을 누락하여 네트워크 드라이브가 자동으로 `noserverino`로 마운트 되어 있었다.
 
@@ -148,14 +148,61 @@ $ mount | grep 검색문자
 
 ## 문제 원인 - 추정
 
+Windows SMB CIFS 시스템은 inode를 통해 파일을 다루는 리눅스 환경과 완전히 달라 이를 POSIX호환을 통해서 리눅스에서도 inode를 통해서 파일을 다룰 수 있게 해준다.
+이와 관련되서 CIFS mount 옵션 중 noserverino, serverino가 존재하는데 이를 살펴보면 다음과 같다.
+
+- serverino : SMB 서버가 제공하는 파일 고유 ID(FileId / UniqueId)를 리눅스 inode 번호로 그대로 사용한다.
+- noserverino : SMB 서버 inode를 사용하지 않고, 클라이언트가 파일 경로 기반으로 inode를 생성한다.
+
+결국 위에 설명을 보면 serverino가 아닌 경우 클라이언트에서 임의 inode 값을 만들어서 파일을 핸들링하고 이는 inode와 파일 핸들러가 불일치할 수 있다는 점을 시사한다.
+
+### noserverino에서 Bad File Descriptor가 발생하는 이유
+
+`noserverino` 상태에서는 inode가 **파일 경로를 해싱하여 생성**된다. 이로 인해 다음과 같은 문제가 발생한다:
+
+1. 파일 이동(mv) 시 경로가 변경되면 **새로운 inode가 할당**됨
+2. 기존에 열려있던 file descriptor가 참조하던 inode와 **불일치 발생**
+3. 커널이 해당 핸들을 **유효하지 않은 것**으로 판단
+4. `EBADF (Bad file descriptor)` 에러 반환
+
+반면 `serverino`를 사용하면 SMB 서버의 고유 FileId를 그대로 사용하므로, 파일이 이동되어도 **동일한 inode를 유지**하여 핸들 꼬임이 발생하지 않는다.
+
+> Red Hat에서도 서로 다른 CIFS 클라이언트에서 동일한 파일에 대해 서로 다른 inode 값인 이유에 대해 나와있다. https://access.redhat.com/solutions/5535561
+
+### 주의사항
+- 일부 구형 SMB 서버는 UniqueId를 제공하지 않아 `serverino`가 동작하지 않을 수 있음
+- 이 경우 cifs 모듈이 자동으로 `noserverino`로 폴백함
+- SMB 버전 확인: `vers=3.0` 이상 권장
+
+# 해결 방법
+
+## serverino 옵션으로 재마운트
+
+```bash
+# 즉시 재마운트
+sudo mount -o remount,serverino /mount/path
+```
+
+## /etc/fstab 수정 (영구 적용)
+
+```bash
+# /etc/fstab 예시
+//192.168.10.196/path /mount/path cifs serverino,username=user,password=pass,... 0 0
+```
+
+# 한계점
+`serverino`는 본질적으로 서버에서 고유한 inode를 생성한다는 보장이 없다. 이 보장이 없어서 클라이언트는 임의로 `noserverino`로 변경할 수 있다. 그래서 주기적으로 모니터링이 필요하다.
 
 
 # 현재 성과
 
 ## 2026-01-25
 
-아쉽게도 실제 상용 환경에 적용하지 않고 있다. 따라서 개발서버 및 테스트배드 환경에서 테스트 후 2026-03 배포 떄 실제 상용에서 성과를 확인할 수 있을 것 같다.
+아쉽게도 실제 상용 환경에 적용하지 않고 있다. 따라서 개발 서버 및 테스트베드 환경에서 테스트 후 2026-03 배포 때 실제 상용에서 성과를 확인할 수 있을 것 같다.
 
 
 # Reference
 - https://linux.die.net/man/8/mount.cifs - Linux man page(mount.cifs(8))
+- https://docs.kernel.org/admin-guide/cifs/usage.html - Linux Kernel 공식 문서
+- https://access.redhat.com/solutions/5535561 - Red Hat 서로 다른 CIFS 클라이언트에서 동일한 파일에 대해 서로 다른 inode 값이 표시되는 이유는 무엇입니까?
+
