@@ -34,12 +34,12 @@ title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
       "find": "마스킹",
       "filter": {
         "$and": [
-          {"siteId": "EDGE388"},
+          {"siteId": "마스킹"},
           {"dong": "101"},
           {"ho": "1501"}
         ]
       },
-      "$db": "COMMUNITY"
+      "$db": "마스킹"
     },
     "explainVersion": "1",
     "ok": 1,
@@ -51,7 +51,7 @@ title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
         "$and": [
           {"dong": {"$eq": "101"}},
           {"ho": {"$eq": "1501"}},
-          {"siteId": {"$eq": "EDGE388"}}
+          {"siteId": {"$eq": "마스킹"}}
         ]
       },
       "queryHash": "13E45E70",
@@ -65,7 +65,7 @@ title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
           "$and": [
             {"dong": {"$eq": "101"}},
             {"ho": {"$eq": "1501"}},
-            {"siteId": {"$eq": "EDGE388"}}
+            {"siteId": {"$eq": "마스킹"}}
           ]
         },
         "direction": "forward"
