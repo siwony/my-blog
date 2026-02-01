@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CIFS 환경에서 발생한 Bad file descriptor 원인 파악"
+title: "CIFS 환경에서 발생한 Bad file descriptor(EBADF) 원인 파악"
 date: 2026-01-22 19:22:34 +0900
 categories: linux
 tags: [사내발표, java, linux]
