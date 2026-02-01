@@ -7,7 +7,7 @@ tags:
 - mongodb
 - performance
 - index
-title: "홈냇기기 조회 API 성능 개선"
+title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
 ---
 # 문제의 쿼리
 
