@@ -73,7 +73,7 @@ title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
       "rejectedPlans": []
     },
     "serverInfo": {
-      "host": "atlas-ats1v5-shard-00-02.tps5b.mongodb.net",
+      "host": "마스킹",
       "port": 27017,
       "version": "6.0.15",
       "gitVersion": "7494119c41ca4e13b493e9f048df4032164e860e"
@@ -106,11 +106,11 @@ db.collection.createIndex({ siteId: 1, dong: 1, ho: 1 })
 실제로 3초 이상 걸리는 쿼리를 1초 미만으로 줄였다. (자료는 날라갔네요...)
 
 
-# 추가로 알아보면 좋을 cusor.explain() 함수는 3가지 모드
+# 추가로 알아보면 좋을 cursor.explain() 함수는 3가지 모드
 
 ## queryPlanner 모드
 
-- Mongodb는 query optimazer를 실행하여 수행할 작업에 대한 winning plan를 선택하고, cusor.explain() 에 대한 평가된 query planner를 반환한다.
+- MongoDB는 query optimizer를 실행하여 수행할 작업에 대한 winning plan를 선택하고, cursor.explain() 에 대한 평가된 query planner를 반환한다.
 - 쿼리를 실제로 수행하지 않는다.
 - rejected plan는 반환하지 않는다.
 
