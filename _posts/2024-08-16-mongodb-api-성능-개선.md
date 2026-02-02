@@ -25,9 +25,7 @@ title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
   {
     "$clusterTime": {
       "clusterTime": {"$timestamp": {"t": 1718106165, "i": 206}},
-      "signature": {
-        "hash": {"$binary": {"base64": "/vOTVcUrRwtKwiymlqp/Wso668U=", "subType": "00"}},
-        "keyId": 7345942995985760314
+        마스킹
       }
     },
     "command": {
@@ -35,8 +33,8 @@ title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
       "filter": {
         "$and": [
           {"siteId": "마스킹"},
-          {"dong": "101"},
-          {"ho": "1501"}
+          {"dong": "마스킹"},
+          {"ho": "마스킹"}
         ]
       },
       "$db": "마스킹"
@@ -49,8 +47,8 @@ title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
       "indexFilterSet": false,
       "parsedQuery": {
         "$and": [
-          {"dong": {"$eq": "101"}},
-          {"ho": {"$eq": "1501"}},
+          {"dong": {"$eq": "마스킹"}},
+          {"ho": {"$eq": "마스킹"}},
           {"siteId": {"$eq": "마스킹"}}
         ]
       },
@@ -63,8 +61,8 @@ title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
         "stage": "COLLSCAN",
         "filter": {
           "$and": [
-            {"dong": {"$eq": "101"}},
-            {"ho": {"$eq": "1501"}},
+            {"dong": {"$eq": "마스킹"}},
+            {"ho": {"$eq": "마스킹"}},
             {"siteId": {"$eq": "마스킹"}}
           ]
         },
@@ -73,20 +71,10 @@ title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
       "rejectedPlans": []
     },
     "serverInfo": {
-      "host": "마스킹",
-      "port": 27017,
-      "version": "6.0.15",
-      "gitVersion": "7494119c41ca4e13b493e9f048df4032164e860e"
+        마스킹
     },
     "serverParameters": {
-      "internalQueryFacetBufferSizeBytes": 104857600,
-      "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
-      "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
-      "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
-      "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
-      "internalQueryProhibitBlockingMergeOnMongoS": 0,
-      "internalQueryMaxAddToSetBytes": 104857600,
-      "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+        마스킹
     }
   }
 ]
