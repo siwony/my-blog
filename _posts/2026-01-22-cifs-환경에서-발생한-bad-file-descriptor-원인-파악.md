@@ -207,6 +207,16 @@ sudo mount -o remount,serverino /mount/path
 그러나 빈도는 확실히 줄었다 기존에는 오전 3건 저녁 3건 정도 처리를 했었으나 마운트 옵션 변경 이후
 하루에 1~2건 정도 발생하고 있다. 아무래도 inode id 로 인한 문제가 해결되었으니 줄어들었을 탠데 다른 문제가 복합적으로 보여서 추후 마운트 옵션에 `cache=none`를 사용해서 cache를 꺼볼 예정이다.
 
+## 2026-02-05
+리눅스 서버의 본딩 네트워크 구성 으로 인한 대형 네트워크 장애로 마운트 옵션에 대해 설정이 가능할 명분이 생겼다.
+
+알고보니 갑사의 네트워크 환경은 내부망(10G), 외부망(1G) 환경으로 되어있는데 스토리지는 내부망에 있어 갑사에 Private IP를 받아서 재 마운트 했다.
+
+결론은 02-05 하룻동안 Bad File Descriptor 가 발생하지 않았다. 그러면 결국 네트워크 이슈가 맞는 것 같은데 좀 더 지켜봐야될 것 같다.
+아무래도 inode 보단 파일을 직접적으로 헨들링하는 파일 헨들러가 틀어진 이슈라 그런가 네트워크 이슈가 발생했을 때 사이드 이펙트가 아닌가 추측하고 있다.
+
+IP형태가 Private IP가 아닐 떄 부터 알아봤어야 했는데... 내가 초반부터 시작한 프로젝트가 아니여서 놓친 것 같다.
+
 # Reference
 - https://linux.die.net/man/8/mount.cifs - Linux man page(mount.cifs(8))
 - https://docs.kernel.org/admin-guide/cifs/usage.html - Linux Kernel 공식 문서
