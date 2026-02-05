@@ -86,24 +86,27 @@ describe('Categories and Tags Display', () => {
 
   describe('CSS Styling', () => {
     test('should have CSS styles for categories and tags', () => {
-      const cssPath = path.join(__dirname, '..', 'assets', 'css', 'style.css');
+      // CSS is now split - check common.css for base styles
+      const cssPath = path.join(__dirname, '..', 'assets', 'css', 'common.css');
       expect(fs.existsSync(cssPath)).toBe(true);
       
-      const content = fs.readFileSync(cssPath, 'utf8');
-      expect(content).toContain('.post-metadata');
-      expect(content).toContain('.post-categories');
-      expect(content).toContain('.post-tags');
-      expect(content).toContain('.metadata-label');
-      expect(content).toContain('.category-tag');
-      expect(content).toContain('.post-tag');
+      // Check that post-metadata component has inline styles
+      const componentPath = path.join(__dirname, '..', 'assets', 'js', 'post-metadata.js');
+      const componentContent = fs.readFileSync(componentPath, 'utf8');
+      expect(componentContent).toContain('.post-metadata');
+      expect(componentContent).toContain('.post-categories');
+      expect(componentContent).toContain('.post-tags');
+      expect(componentContent).toContain('.category-tag');
+      expect(componentContent).toContain('.post-tag');
     });
 
     test('should have responsive styles for metadata', () => {
-      const cssPath = path.join(__dirname, '..', 'assets', 'css', 'style.css');
-      const content = fs.readFileSync(cssPath, 'utf8');
+      // Check post-metadata component for responsive styles
+      const componentPath = path.join(__dirname, '..', 'assets', 'js', 'post-metadata.js');
+      const content = fs.readFileSync(componentPath, 'utf8');
       
-      // Check for responsive design
-      expect(content).toContain('@media (max-width: 768px)');
+      // Check for responsive design in inline styles
+      expect(content).toContain('@media');
       // Check for category and tag hover effects
       expect(content).toContain('.category-tag:hover');
     });

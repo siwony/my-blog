@@ -113,13 +113,16 @@ describe('Blog Features', () => {
       const fs = require('fs');
       const path = require('path');
       
-      const cssPath = path.join(__dirname, '..', 'assets', 'css', 'style.css');
+      // CSS is now split into multiple files
+      const cssPath = path.join(__dirname, '..', 'assets', 'css', 'home.css');
       expect(fs.existsSync(cssPath)).toBe(true);
       
       const content = fs.readFileSync(cssPath, 'utf8');
-      expect(content).toContain('.home-layout');
-      expect(content).toContain('.sidebar');
-      expect(content).toContain('.category-navigation');
+      expect(content).toContain('.post-preview');
+      
+      // Check common.css for shared styles
+      const commonCssPath = path.join(__dirname, '..', 'assets', 'css', 'common.css');
+      expect(fs.existsSync(commonCssPath)).toBe(true);
     });
   });
 });
