@@ -1,3 +1,38 @@
+// 브라우저의 자동 스크롤 복원 비활성화 (해시 파라미터로 인한 스크롤 점프 방지)
+// DOMContentLoaded 전에 즉시 실행해야 효과가 있음
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+// 새로고침 시 스크롤 위치 저장/복원
+(function() {
+  const SCROLL_KEY = 'blog_scroll_position';
+  const SCROLL_HASH_KEY = 'blog_scroll_hash';
+  
+  // 페이지 언로드 시 현재 스크롤 위치 저장
+  window.addEventListener('beforeunload', function() {
+    if (location.hash) {
+      sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+      sessionStorage.setItem(SCROLL_HASH_KEY, location.hash);
+    }
+  });
+  
+  // 페이지 로드 시 스크롤 위치 복원
+  window.addEventListener('load', function() {
+    const savedHash = sessionStorage.getItem(SCROLL_HASH_KEY);
+    const savedScroll = sessionStorage.getItem(SCROLL_KEY);
+    
+    // 같은 해시로 돌아온 경우에만 스크롤 복원
+    if (savedHash === location.hash && savedScroll) {
+      window.scrollTo({ top: parseInt(savedScroll, 10), behavior: 'instant' });
+    }
+    
+    // 사용 후 정리
+    sessionStorage.removeItem(SCROLL_KEY);
+    sessionStorage.removeItem(SCROLL_HASH_KEY);
+  });
+})();
+
 document.addEventListener('DOMContentLoaded', function () {
   const postsData = window.__posts || [];
   const postsList = document.getElementById('posts-list');
