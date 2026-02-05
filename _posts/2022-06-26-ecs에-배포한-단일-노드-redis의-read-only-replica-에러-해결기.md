@@ -6,6 +6,7 @@ layout: post
 tags:
 - redis
 title: "ECS에 배포한 단일 노드 Redis의 Read only replica 에러 해결기"
+description: "AWS ECS에 배포한 Redis 단일 노드에서 Read only replica 에러가 발생하는 원인과 해결 과정"
 ---
 HiRecruit서비스에서는 Redis를 Session storage로 사용한다.
 

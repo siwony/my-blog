@@ -6,6 +6,7 @@ layout: post
 tags:
 - prometheus
 title: "Prometheus quick start with docker"
+description: "Docker를 사용하여 Prometheus 모니터링 시스템을 빠르게 시작하는 방법"
 ---
 > 이 글은 빠른 실습을 위해 Spring Boot + Spring Actuator를 기반으로 작성된 글입니다.
 

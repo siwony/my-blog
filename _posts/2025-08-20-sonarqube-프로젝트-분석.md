@@ -8,6 +8,7 @@ tags:
 - code-quality
 - maven
 title: "SonarQube로 프로젝트 분석하기"
+description: "SonarQube를 활용하여 Maven 프로젝트의 코드 품질을 분석하고 개선하는 방법"
 ---
 
 # 주의사항

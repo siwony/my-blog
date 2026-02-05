@@ -7,6 +7,7 @@ tags:
 - protocol
 - rpc
 title: "gRPC - google Remote Procedure Call"
+description: "Google의 고성능 RPC 프레임워크 gRPC의 Protocol Buffers 기반 통신 방식"
 ---
 ## 1. gRPC의 등장배경
 ### 1-1. Server-Client

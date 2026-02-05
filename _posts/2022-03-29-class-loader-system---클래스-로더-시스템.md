@@ -7,6 +7,7 @@ tags:
 - JVM
 - java
 title: "[Java] Class Loader System - 클래스 로더 시스템"
+description: "JVM의 클래스 로더 시스템과 로딩, 링크, 초기화 단계별 동작 원리"
 ---
 > 로딩 &rarr; 링크 &rarr; 초기화
 

@@ -7,6 +7,7 @@ tags:
 - data-structure
 - ADT
 title: "ADT - Abstract Data Type"
+description: "추상 자료형(ADT)의 개념과 데이터 구조 설계의 추상화 원리"
 ---
 : 추상자료형(ADT)이란 **구체적인 기능의 완성을 언급하지 않고, 순수하게 기능이 무엇인지를 나열한 것**을 말한다.
 > ex.  

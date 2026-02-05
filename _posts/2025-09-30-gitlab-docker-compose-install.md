@@ -8,6 +8,7 @@ tags:
 - docker
 - docker-compose
 title: "GitLab Docker Compose install"
+description: "Docker Compose를 사용하여 GitLab을 컸테이너로 간편하게 설치하고 구성하는 방법"
 ---
 
 docker compose로 GItLab을 설치하는 가이드를 작성한다.

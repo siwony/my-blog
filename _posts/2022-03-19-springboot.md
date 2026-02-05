@@ -7,6 +7,7 @@ tags:
 - spring-boot
 - spring
 title: "SpringBoot"
+description: "Spring 기반 애플리케이션을 빠르게 개발할 수 있는 Spring Boot의 특징과 자동 구성"
 ---
 Spring Famework는 아래 세 가지의 특성을 이용해 결합도를 낮추는 방식으로 Application을 개발할 수 있다.
 - Dependency Injection

@@ -6,6 +6,7 @@ layout: post
 tags:
 - java
 title: "Java version 변경"
+description: "macOS에서 JAVA_HOME 환경변수를 설정하여 Java 버전을 변경하는 방법"
 ---
 #### 1. 현재 동작하는 java의 버전을 확인한다.
 

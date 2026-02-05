@@ -6,6 +6,7 @@ layout: post
 tags:
 - docker
 title: "container에서 root 권한 명령어 실행"
+description: "Docker 컴테이너 내부에서 root 권한으로 명령어를 실행하는 방법"
 ---
 docker container에서 curl를 통해 docker을 실행하려고 했지만 예상치 못한 에러가 나왔다.
 

@@ -9,6 +9,7 @@ tags:
 - development
 - java
 title: "[Java] 리플렉션 - Reflection"
+description: "Java에서 런타임에 클래스의 메타데이터를 분석하고 조작하는 리플렉션 API의 개념과 사용법"
 ---
 : 이미 로딩이 완료된 클래스에서 또 다른 클래스를 동적으로 로딩(Dynamic Loading)하여 생성자(Constructor), 멤버 필드(Member Variables) 그리고 멤버 메서드(Member Method) 등을 사용할 수 있도록 한다.
 - 구체적인 클래스 타입을 알지 못해도 그 클래스의 구성요소를 접근할 수 있다.

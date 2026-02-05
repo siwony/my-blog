@@ -9,6 +9,7 @@ tags:
 - coding
 - development
 title: "식(expression)과 문(statement)"
+description: "프로그래밍에서 값을 반환하는 식(Expression)과 동작만 수행하는 문(Statement)의 개념과 차이점"
 ---
 
 # 식(expression)과 문(statement)

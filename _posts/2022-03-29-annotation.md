@@ -9,6 +9,7 @@ tags:
 - development
 - java
 title: "[Java] Annotation"
+description: "자바 어노테이션의 개념과 메타데이터로서의 역할, 커스텀 어노테이션 생성 및 활용 방법"
 ---
 
 Annotation은 그자체로 주석이라는 의미를 가진다. 하지만 일반 주석이랑 다르다!

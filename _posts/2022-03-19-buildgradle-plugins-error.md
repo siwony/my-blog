@@ -7,6 +7,7 @@ tags:
 - gradle
 - build-tool
 title: "[Gradle] build.gradle plugins{} error 해결"
+description: "Gradle build.gradle 파일에서 plugins{} 블록 사용 시 발생하는 에러 해결 방법"
 ---
 > only buildscript {} and other plugins {} script blocks are  
 > allowed before plugins {} blocks, no other statements are allowed 에러 해결

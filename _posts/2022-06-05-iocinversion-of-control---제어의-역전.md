@@ -7,6 +7,7 @@ tags:
 - spring
 - spring-triangle
 title: "IoC(Inversion Of Control) - 제어의 역전"
+description: "Spring의 핵심 개념인 제어의 역전(IoC)과 의존성 주입(DI)의 원리와 장점"
 ---
 : 객체의 생성, 생명주기의 관리까지 모든 객체에 대한 제어권이 바뀌었다는 것을 의미한다.
 - 컴포넌트 의존관계 결정 (Component dependency resolution), 설정(configuration) 및 생명주기(lifecycle)를 해결하기 위한 디자인 패턴(Design Pattern)

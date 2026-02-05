@@ -5,6 +5,7 @@ date: '2022-03-17'
 layout: post
 tags:
 title: "동적 계획법과 분할 정복 - Dynamic Programming & Divide"
+description: "분할 정복과 동적 계획법의 차이점과 문제 해결 전략"
 ---
 ## 동적 게획법
 복잡한 문제를 간단한 여러개의 문제로 나누어 푸는 방법

@@ -8,6 +8,7 @@ tags:
 - coding
 - development
 title: "Java install"
+description: "macOS에서 OpenJDK 11 설치 및 환경 설정 가이드"
 ---
 
 > 필자는 open jdk 11버전을 선택했다.

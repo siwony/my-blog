@@ -7,6 +7,7 @@ tags:
 - spring
 - jpa
 title: '[JPA] @MappedSuperclass'
+description: "JPA에서 공통 매핑 정보를 상속하기 위한 @MappedSuperclass 어노테이션"
 ---
 
 # @MappedSuperclass

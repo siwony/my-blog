@@ -6,6 +6,7 @@ layout: post
 tags:
 - java-ee
 title: "JAVA EE (Java Enterprise Edition)"
+description: "엔터프라이즈급 애플리케이션 개발을 위한 Java EE 플랫폼의 특징과 구성요소"
 ---
 : 엔터프라이즈급 환경에서 사용하는 프로그램을 만드는데 적합한 자바 개발 버전이다.
 > J2EE라고도 불렸다. (Java 2 Enterprise Edition) 지금은 JAVA EE라고 불린다.

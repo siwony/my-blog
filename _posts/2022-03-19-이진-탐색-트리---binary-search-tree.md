@@ -8,6 +8,7 @@ tags:
 - non-linear
 - tree
 title: "이진 탐색 트리 - Binary Search Tree"
+description: "왼쪽 자식은 작고 오른쪽 자식은 큰 이진 탐색 트리(BST)의 구조와 탐색/삽입/삭제 연산"
 ---
 `이진 탐색 - binary search`와 `연결리스트 - linked list`를 결합한 자료구조이다.
 

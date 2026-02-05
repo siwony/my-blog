@@ -6,6 +6,7 @@ layout: post
 tags:
 - oracle
 title: "Oracle 11g quick start with doker"
+description: "Docker를 사용하여 Oracle 11g 데이터베이스를 빠르게 구성하는 방법"
 ---
 ### 1. oracle 11g 이미지 pull
 

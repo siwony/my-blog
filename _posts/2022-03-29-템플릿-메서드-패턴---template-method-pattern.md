@@ -7,6 +7,7 @@ tags:
 - Design-pattern
 - java
 title: "템플릿 메서드 패턴 - Template Method Pattern"
+description: "변하는 것과 변하지 않는 것을 분리하여 코드 재사용성을 높이는 템플릿 메서드 디자인 패턴"
 ---
 #### 변하는 것과 변하지 않는 것을 분리
 

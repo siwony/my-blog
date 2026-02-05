@@ -6,6 +6,7 @@ layout: post
 tags:
 - Memory
 title: "캐시 메모리 - Cache Memory"
+description: "CPU와 메모리 사이의 속도 차이를 해결하기 위한 고속 버퍼 메모리, 캐시의 동작 원리와 지역성"
 ---
 : 속도가 빠른 장치(CPU)와 느린 장치(메모리) 사이에서 병목현상을 줄이기 위한 고속 `Buffer Memory`이다.
 > **병목현상**  

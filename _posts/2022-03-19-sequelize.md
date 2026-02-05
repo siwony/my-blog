@@ -6,6 +6,7 @@ layout: post
 tags:
 - nodejs
 title: "[NodeJS] sequelize"
+description: "Node.js의 ORM 모듈인 Sequelize로 데이터베이스 조작하는 방법"
 ---
 : node.js 의 ORM(Object Releaition Mapping) 모듈이다.  
 

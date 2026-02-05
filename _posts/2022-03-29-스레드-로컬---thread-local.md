@@ -7,6 +7,7 @@ tags:
 - concurrent
 - java
 title: "[Java] 스레드 로컬 - Thread Local"
+description: "Java에서 각 스레드별로 독립적인 변수를 저장하는 ThreadLocal 클래스의 동작 원리와 주의사항"
 ---
 : 스레드 단위로 로컬 변수를 할당하는 기능을 제공하는 클래스이다
 - JDK1.2 부터 지원하고 java.lang패키지에 있다.

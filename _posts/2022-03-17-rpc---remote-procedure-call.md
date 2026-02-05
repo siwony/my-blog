@@ -7,6 +7,7 @@ tags:
 - protocol
 - rpc
 title: "RPC - Remote Procedure Call"
+description: "원격 프로시저 호출(RPC)로 네트워크 너머 함수를 호출하는 기술과 활용"
 ---
 ## 1. 등장 배경
 https://en.wikipedia.org/wiki/Remote_procedure_call#History_and_origins

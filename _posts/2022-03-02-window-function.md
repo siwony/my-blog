@@ -6,6 +6,7 @@ layout: post
 tags:
 - sql
 title: "[SQL] Window Function"
+description: "SQL 윈도우 함수로 그룹별 집계와 순위 계산하는 방법"
 ---
 : 행과 행 간의 관계를 정의하기 위해 제공되는 함수다.
 

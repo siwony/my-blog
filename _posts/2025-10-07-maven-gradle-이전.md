@@ -8,6 +8,7 @@ tags:
 - maven
 - build
 title: "[Gradle] Maven에서 Gradle로 이전"
+description: "Maven 프로젝트를 Gradle 빌드 시스템으로 마이그레이션하는 단계별 가이드와 설정 변환 방법"
 ---
 
 # Maven 에서 Gradle로 이전

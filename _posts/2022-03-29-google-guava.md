@@ -8,6 +8,7 @@ tags:
 - coding
 - development
 title: "Google Guava"
+description: "Google이 제공하는 Java 핵심 라이브러리 Guava의 주요 기능과 컴렉션, 유틸리티 클래스 활용법"
 ---
 ### 배경
 

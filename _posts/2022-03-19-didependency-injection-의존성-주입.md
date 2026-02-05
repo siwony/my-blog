@@ -6,6 +6,7 @@ layout: post
 tags:
 - spring
 title: "DI(Dependency Injection, 의존성 주입)"
+description: "의존성 주입(DI) 패턴으로 객체 간 결합도를 낮추는 방법"
 ---
 : 어떤 객체가 사용하는 의존객체를 직접 만들어서 사용하는것이 아니라 주입받아 사용하는 방법  
 >즉 클래스안에 `new` 연산자가 들어가 있지 않고 외부에서 객체를 주입해주는것

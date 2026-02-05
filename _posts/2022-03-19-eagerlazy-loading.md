@@ -7,6 +7,7 @@ tags:
 - spring
 - jpa
 title: "[JPA] Eager/LAZY loading"
+description: "JPA에서 연관 엔터티를 즉시/지연 로딩하는 Eager/Lazy Loading 전략"
 ---
 ### 과연 Member만 조회할 때 Team도 조회해야 할까?
 <img width=400px src="/assets/images/posts/jpa/when-member-get-team.png">

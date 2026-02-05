@@ -8,6 +8,7 @@ tags:
 - jpa
 - data-jpa
 title: "Spring Data JPA"
+description: "JPA 구현체를 간편하게 사용할 수 있는 Spring Data JPA의 기본 개념과 Repository 패턴 활용"
 ---
 > 이 md는 [김영한씨의 실전! 스프링 데이터 JPA](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-JPA-%EC%8B%A4%EC%A0%84/) 라는 강의를 보고 정리합니다.
 

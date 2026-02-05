@@ -5,6 +5,7 @@ date: '2022-03-19'
 layout: post
 tags:
 title: "동시성 & 병렬성 - Concurrency & Parallelism"
+description: "동시성(Concurrency)과 병렬성(Parallelism)의 개념 차이와 멀티태스킹/멀티프로세싱 구분"
 ---
 ### 동시성 & 병렬성 요약
 <img src="/assets/images/posts/cs/concurrency-and-parallelism.png">

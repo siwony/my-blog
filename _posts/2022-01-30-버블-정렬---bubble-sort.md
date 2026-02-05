@@ -5,6 +5,7 @@ date: '2022-01-30'
 layout: post
 tags:
 title: "버블 정렬 - Bubble Sort"
+description: "인접한 요소를 비교하며 정렬하는 버블 정렬 알고리즘의 동작과 구현"
 ---
 - 서로 인접한 두 원소를 검사하여 정렬하는 알고리즘이다.
 - 시간 복잡도 : O(N^2)

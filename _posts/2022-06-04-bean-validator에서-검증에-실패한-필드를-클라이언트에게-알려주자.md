@@ -7,6 +7,7 @@ tags:
 - spring-mvc
 - spring
 title: "Bean Validator에서 검증에 실패한 필드를 클라이언트에게 알려주자!"
+description: "Spring Bean Validator에서 @Valid 검증 실패 시 BindingResult로 에러 필드 정보를 클라이언트에 전달하는 방법"
 ---
 Spring Boot에서 Bean Validator는 `@Valid`가 달린 인수에 대해 검증이 실패하게 된다면 `MethodArgumentNotValidException`를 던지게 된다.  
 이를 이용해 클라이언트가 보낸 잘못된 데이터를 다음과 같이 예쁜(?) Json 메세지로 반환해보자

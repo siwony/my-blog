@@ -8,6 +8,7 @@ tags:
 - coding
 - development
 title: "JVM, JDK, JRE"
+description: "Java Virtual Machine, Java Development Kit, Java Runtime Environment의 개념과 관계, 차이점"
 ---
 ### JVM - Java Virtual Machine
 > WORA - Write Once Run Anywhere

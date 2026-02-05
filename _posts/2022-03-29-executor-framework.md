@@ -7,6 +7,7 @@ tags:
 - concurrent
 - java
 title: "[Java] Executor Framework"
+description: "Java의 스레드 풀 관리를 위한 Executor Framework와 ExecutorService, ThreadPoolExecutor 활용법"
 ---
 : 고수준 (High-Level) Concurrency 프로그래밍를 지원하는 Framework
 

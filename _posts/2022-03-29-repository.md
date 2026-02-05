@@ -8,6 +8,7 @@ tags:
 - jpa
 - data-jpa
 title: "[Jpa] Repository"
+description: "Spring Data JPA의 Repository 인터페이스와 JpaRepository, CrudRepository의 공통 메서드 활용법"
 ---
 
 ## Spring Data JPA 사용전

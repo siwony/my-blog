@@ -6,6 +6,7 @@ layout: post
 tags:
 - docker
 title: "Docker install"
+description: "Linux/macOS에서 Docker를 설치하고 초기 설정하는 가이드"
 ---
 ## ubuntu
 

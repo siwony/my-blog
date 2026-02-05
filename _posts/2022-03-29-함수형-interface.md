@@ -8,6 +8,7 @@ tags:
 - java
 - java8
 title: "[Java] 함수형 interface"
+description: "Java 8에서 도입된 함수형 인터페이스의 개념과 람다식, Predicate, Function, Consumer 등 주요 인터페이스 활용법"
 ---
 - **추상 메서드가 1개만 있으면 모두 함수형 `interface`이다.**
 - 정적(`static`) 메서드, 디폴트(`default`) 메서드가 있을 수 있다.

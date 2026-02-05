@@ -6,6 +6,7 @@ layout: post
 tags:
 - java
 title: "Java Beans"
+description: "Java Beans 규약과 EJB와의 차이점, getter/setter 패턴과 활용 방법"
 ---
 
 # Java Beans

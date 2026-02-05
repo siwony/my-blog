@@ -8,6 +8,7 @@ tags:
 - coding
 - development
 title: "[Java] POJO(Plain Old JAVA Object)"
+description: "특정 기술에 종속되지 않는 순수 Java 객체 POJO의 개념과 Spring에서의 활용"
 ---
 : 오래된 방식의 간단한 자바 오브젝트  
 

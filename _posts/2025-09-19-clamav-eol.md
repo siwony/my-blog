@@ -8,6 +8,7 @@ tags:
 - antivirus
 - eol
 title: "EOL(End Of Life) 정책"
+description: "ClamAV 안티바이러스 소프트웨어의 지원 종료(EOL) 정책과 버전 업그레이드 관리 가이드"
 ---
 
 해당 글은 2025년 09월 19일에 작성되었습니다. 최신 LTS버전인 1.4버전에 지원은 2027년에 끝나므로 참고해주세요

@@ -8,6 +8,7 @@ tags:
 - jpa
 - JPQL
 title: "[JPA] Fetch Join"
+description: "N+1 문제를 해결하기 위한 JPA Fetch Join의 개념과 성능 최적화 활용법"
 ---
 Fetch Join은 일반적인 SQL JOIN이 아닌 JPQL에서 성능 최적화를 위해 제공하는 기능이다.  
 **Fetch Join은 연관된 엔터티 혹은 컬렉션을 한번에 조회하는 기능이다.** (한방쿼리)

@@ -6,6 +6,7 @@ layout: post
 tags:
 - nodejs
 title: "Node.js 에 MySQL 연결하기"
+description: "Node.js 애플리케이션에 MySQL 모듈을 설치하고 데이터베이스에 연결하는 방법"
 ---
 ## MySQL 모듈을 설치합니다.
 ```bash

@@ -5,6 +5,7 @@ date: '2021-02-06'
 layout: post
 tags:
 title: "DevOps(Development + Operations)"
+description: "개발과 운영의 통합으로 소프트웨어 배포 주기를 단축하는 DevOps 문화와 실천 방법"
 ---
 : SW 개발자와 정보기술 전문가 간의 소통, 협업 및 통합을 강조하는 개발 환경이나 문화, 방식 및 도구의 조합
 > **개발자** 는 계속해서 새로운것을 도입하고 싶어하지만, **Ops** 들은 안정성을 최우선으로 여긴다.  

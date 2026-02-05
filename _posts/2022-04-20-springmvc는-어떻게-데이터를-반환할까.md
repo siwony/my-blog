@@ -7,6 +7,7 @@ tags:
 - spring-mvc
 - spring
 title: "SpringMVC는 어떻게 데이터를 반환할까?"
+description: "Spring MVC의 HttpMessageConverter와 @ResponseBody를 통한 JSON 직렬화 반환 과정"
 ---
 > 부제: `ViewResolver`와 `MessageConverter`
 

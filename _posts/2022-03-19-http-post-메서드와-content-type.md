@@ -7,6 +7,7 @@ tags:
 - spring-mvc
 - spring
 title: "[Spring MVP] HTTP POST 메서드와 Content-Type"
+description: "HTTP POST 요청의 Content-Type별 데이터 전송 방식과 Spring MVC 처리 방법"
 ---
 Spring Boot를 사용해 API서버를 만들면 POST메서드를 통해 요청을 받을 때 body에 JSON형태로 통신한다는 전제로 개발을 하게 된다.  
 

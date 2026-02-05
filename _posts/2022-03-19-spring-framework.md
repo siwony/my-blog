@@ -6,6 +6,7 @@ layout: post
 tags:
 - spring
 title: "Spring Framework"
+description: "자바 엔터프라이즈 애플리케이션 개발을 위한 경량화된 Spring Framework의 특징과 모듈"
 ---
 *Spring Framework*는 자바 플랫폼을 위한 오픈소스 애플리케이션으로써, **엔터프라이즈급 애플리케이션**을 개발하기 위한 모든 기능들을 종합적으로 제공하는 **경량화**된 솔루션이다
 

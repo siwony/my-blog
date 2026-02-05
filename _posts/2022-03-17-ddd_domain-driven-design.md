@@ -7,6 +7,7 @@ tags:
 - coding
 - development
 title: "DDD(Domain Driven Design)"
+description: "도메인 중심 설계(DDD)로 복잡한 비즈니스 로직을 효과적으로 모델링하는 방법"
 ---
 : 도메인을 중심으로 하는 개발 방식이다.  
 &rarr; 도메인에 관련된 문제를 해결하는것.

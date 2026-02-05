@@ -8,6 +8,7 @@ tags:
 - antivirus
 - configuration
 title: "ClamAV conf 메뉴얼 freshclam.conf(5)"
+description: "ClamAV 바이러스 데이터베이스 업데이트를 위한 freshclam.conf 설정 파일 메뉴얼"
 ---
 
 [https://manpages.debian.org/testing/clamav-freshclam/freshclam.conf.5.en.html](https://manpages.debian.org/testing/clamav-freshclam/freshclam.conf.5.en.html)

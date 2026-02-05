@@ -7,6 +7,7 @@ tags:
 - gradle
 - build-tool
 title: "Java Plan Archive"
+description: "Java Plain JAR와 Executable JAR의 차이점과 Gradle에서 JAR 파일 생성 방법"
 ---
 
 - `-plan` 이 붙은 jar 파일이며

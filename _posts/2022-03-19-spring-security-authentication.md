@@ -7,6 +7,7 @@ tags:
 - spring
 - spring-security
 title: "Spring Security Authentication"
+description: "Spring Security에서 사용자 인증을 처리하는 Authentication 객체의 구조와 동작 원리"
 ---
 ### Spring Security에서의 로그인
 : authenticated 가 true인 Authentication 객체를 SecurityContext 에 갖고 있는 상태를 말한다. 단 Authentication이 AnonymousAuthenticationToken 만 아니면 된다.

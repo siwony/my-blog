@@ -6,6 +6,7 @@ layout: post
 tags:
 - Memory
 title: "Stack Frame"
+description: "함수 호출 시 스택 메모리에 생성되는 Stack Frame의 구조와 역할"
 ---
 ### 메모리에서 Stack이란?
 

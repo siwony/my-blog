@@ -6,6 +6,7 @@ layout: post
 tags:
 - java
 title: "[Java] Wrapper class"
+description: "Primitive 타입을 객체로 다루기 위한 Wrapper 클래스와 Auto Boxing/Unboxing 기능"
 ---
 #### 왜 사용할까?
 - 객체지향 프로그래밍에서 모든 것은 객체로 다루어져야 한다.

@@ -5,6 +5,7 @@ date: '2020-12-25'
 layout: post
 tags:
 title: "Component"
+description: "소프트웨어 재사용을 위한 독립적이고 호환 가능한 최소 단위인 컴포넌트의 개념과 중요성"
 ---
 ### Component 개념 유래
 

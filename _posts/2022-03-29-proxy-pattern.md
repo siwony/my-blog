@@ -9,6 +9,7 @@ tags:
 - Design-pattern
 - java
 title: "Proxy Pattern"
+description: "대리 객체를 통해 접근 제어, 지연 초기화, 로깅 등을 처리하는 프록시 디자인 패턴"
 ---
 
 # Proxy Pattern

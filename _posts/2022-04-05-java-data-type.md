@@ -8,6 +8,7 @@ tags:
 - grammar
 - java
 title: "[Java] Data Type"
+description: "Java의 기본형(primitive)과 참조형(reference) 데이터 타입 종류와 특징"
 ---
 
 ## 종류

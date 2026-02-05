@@ -6,6 +6,7 @@ layout: post
 tags:
 - OOP
 title: "객체 지향 프로그래밍(Object Oriented Programming) 한눈에 보기"
+description: "OOP의 4대 특성(추상화, 캐슈화, 상속, 다형성)과 SOLID 원칙을 한눈에 정리"
 ---
 > 객체지향 프로그래밍은 추상화, 캡슐화, 정보은닉, 상속, 등 시스템의 복잡성을 제어할 수 있는 다양한 장치들을 제공한다.
 > <p align=right>- 어느 객체지향 개발자가&nbsp&nbsp</p>

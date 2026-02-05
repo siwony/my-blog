@@ -5,6 +5,7 @@ date: '2021-03-28'
 layout: post
 tags:
 title: "Ds_store gitignore"
+description: "macOS의 .DS_Store 파일을 Git 저장소에서 제외하는 .gitignore 설정 방법"
 ---
 MacOs 에서 개발을 할 때 거슬리는 것은 mac의 cache file인 Ds_store가 프로젝트 폴더에 생기는 것이다.  
 실제로 본인은 협업 프로젝트에서 .Ds_store를 엄청 올려버렸다.. ex([jubjub](https://github.com/GSM-Web-Technology/Jup-Jup-Server))  

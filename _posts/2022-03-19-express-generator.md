@@ -6,6 +6,7 @@ layout: post
 tags:
 - nodejs
 title: "[NodeJS] express-generator"
+description: "Express 프레임워크의 기본 구조를 자동 생성하는 express-generator 패키지 사용법"
 ---
 : `Express-generator`라는 패키지를 통해서 프레임워크에 필요한 `pakage.json`과 기본 구조를 잡을 수 있는 패키지 이다.
 ### install 및 express 프로젝트 만들기

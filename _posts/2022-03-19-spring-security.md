@@ -7,6 +7,7 @@ tags:
 - spring
 - spring-security
 title: "Spring Security"
+description: "Spring 기반 애플리케이션의 보안을 담당하는 Spring Security 프레임워크"
 ---
 : **스프링 기반의 어플리케이션의 보안(인증, 권한)을 담당하는 프레임워크**
 - 보안 관련 체계적인 옵션 지원

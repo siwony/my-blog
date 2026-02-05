@@ -8,6 +8,7 @@ tags:
 - development
 - java
 title: "[Java] Reference와 GC"
+description: "Java의 Strong, Soft, Weak, Phantom Reference 종류와 Garbage Collector의 상호작용"
 ---
 최초의 Java에서는 GC작업에 애플리케이션의 사용자 코드가 관여하지 않도록 구현되어 있었지만 GC작업에서 좀 더 다양한 방법으로 객체를 처리하기 위해 JDK1.2부터 `java.lang.ref` 패키지를 추가하여 제한적으로 사용자 코드와 GC가 상호작용할 수 있게 되었다.
 

@@ -7,6 +7,7 @@ tags:
 - spring
 - spring-security
 title: "Spring Security Filter"
+description: "Spring Security의 보안 처리를 담당하는 필터 체인의 구조와 동작 방식"
 ---
 >Spring Security는 서블릿 컨테이너를 지나기 전에 필터를 통해 인증, 인가를 한다.
 

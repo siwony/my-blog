@@ -6,6 +6,7 @@ layout: post
 tags:
 - spring
 title: "Bean Life Cycle"
+description: "Spring Bean의 생명주기와 초기화/소멸 콜백 메서드"
 ---
 ### Bean Life Cycle에 대해 왜 알아야 할까?
 **IoC의 이점을 얻으려면 컨테이너로 가는 애플리케이션의 흐름에 대한 부분적인 제어를 포기해야 한다.** == 인스턴스화

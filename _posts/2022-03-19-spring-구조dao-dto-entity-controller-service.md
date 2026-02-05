@@ -6,6 +6,7 @@ layout: post
 tags:
 - spring
 title: "Spring 구조(DAO, DTO, Entity, Controller, Service)"
+description: "Spring 애플리케이션의 계층별 구조와 DAO, DTO, Entity, Controller, Service 역할 설명"
 ---
 ### 전체구조 
 

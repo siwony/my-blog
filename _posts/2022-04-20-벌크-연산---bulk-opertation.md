@@ -7,6 +7,7 @@ tags:
 - spring
 - jpa
 title: "[JPA] 벌크 연산 - Bulk Opertation"
+description: "JPA의 벌크 연산으로 대량 데이터를 효율적으로 업데이트/삭제하는 방법과 영속성 컨텍스트 관리"
 ---
 > `executeUpdate()`
 - 여러 건을 하나의 쿼리로 수정하거나 삭제하는 방법

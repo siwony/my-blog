@@ -7,6 +7,7 @@ tags:
 - spring
 - jpa
 title: "JPA(Java Persistence API)"
+description: "자바 ORM 표준 기술인 JPA의 개념과 엔터티 매핑, 영속성 컨텍스트"
 ---
 : **데이터를 영속화 하는 API**
 

@@ -7,6 +7,7 @@ tags:
 - gradle
 - build-tool
 title: "Gradle에서 jar file의 이름을 변경하는 방법"
+description: "Gradle 빌드 시 생성되는 JAR 파일의 이름을 archiveFileName으로 커스터마이징하는 방법"
 ---
 일반적으로 gradle에서 jar파일을 얻으려면 `gradle build`명령어를 사용하게 된다. 그러면 프로젝트 루트를 기준으로 `/build/lib` 하위에 jar파일이 생성된다.  
 

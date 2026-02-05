@@ -7,6 +7,7 @@ tags:
 - spring
 - transaction
 title: "Spring Transaction Propagation - 스프링 트랜잭션 전파속성"
+description: "Spring에서 트랜잭션 경계에서 트랜잭션 전파 동작을 제어하는 Propagation 속성 (REQUIRED, REQUIRES_NEW, NESTED 등)"
 ---
 트랜잭션을 시작하거나 기존 트랜잭션에 참여하는 방법을 결정하는 속성이다.
 

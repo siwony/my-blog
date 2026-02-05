@@ -9,6 +9,7 @@ tags:
 - java
 - java-collection-framework
 title: "[Java] 리스트 순회중 만난 ConcurrentModificationException"
+description: "컴렉션 순회 중 수정 시 발생하는 ConcurrentModificationException 원인과 Iterator, CopyOnWriteArrayList 해결법"
 ---
 ### 1. 문제의 발생과 배경
 알고리즘을 풀다가 리스트를 `enhanced for loop(for each)`를 통해 순회하며  `List.remove()`연산을 해야 하는 상황이 있었다. 필자는 아무렇지 않게 순회중 `List.remove()` 연산을 하게 되었는데 `ConcurrentModificationException`가 발생하였다.

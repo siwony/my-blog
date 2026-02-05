@@ -5,6 +5,7 @@ date: '2022-03-17'
 layout: post
 tags:
 title: "URI?, URL?, URN?"
+description: "리소스 식별자 URI, 리소스 위치 URL, 리소스 이름 URN의 개념과 차이"
 ---
 <p align="center"><img width=600 src="/assets/images/posts/network/uri-url-urn.png"></p>
 

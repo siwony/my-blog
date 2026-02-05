@@ -6,6 +6,7 @@ layout: post
 tags:
 - kotlin
 title: "[Kotlin] 엘비스 연산자 - Elvis Operation"
+description: "Kotlin의 엘비스 연산자(?:)로 null 처리를 간결하게 하는 방법"
 ---
 - 엘비스 연산자는 `?:`로 표현된다.
 - 왼쪽 객체가 non-null이면 그 객체의 값이 리턴되고, `null`이면 `?:` 의 오른쪽 값을 리턴한다.

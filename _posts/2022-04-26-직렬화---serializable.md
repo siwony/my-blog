@@ -8,6 +8,7 @@ tags:
 - coding
 - development
 title: "[Java] 직렬화 - Serializable"
+description: "Java 객체를 바이트 스트림으로 변환하는 직렬화의 개념과 Serializable 인터페이스, transient 키워드 활용"
 ---
 > [Java Object Serialization Spec](https://docs.oracle.com/javase/8/docs/platform/serialization/spec/serialTOC.html)
 

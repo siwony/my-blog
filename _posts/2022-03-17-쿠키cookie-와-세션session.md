@@ -6,6 +6,7 @@ layout: post
 tags:
 - web
 title: "쿠키(cookie) 와 세션(session)"
+description: "HTTP의 무상태성을 보완하기 위한 쿠키와 세션의 개념과 차이점"
 ---
 ### 쿠키(Cookie)와 세션(Session)을 사용하는 이유
 - HTTP 프로토콜은 **Connectionless(비연결성)** 과 **Stateless(비상태성)** 라는 특징을 가지고 있다.  

@@ -8,6 +8,7 @@ tags:
 - jvm
 - interface
 title: "Kotlin interface에서 구현된 메서드와 JVM 플랫폼"
+description: "Kotlin interface의 구현 메서드가 JVM 바이트코드로 변환되는 과정과 DefaultImpls 클래스"
 ---
 # 발표 동기
 

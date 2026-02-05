@@ -5,6 +5,7 @@ date: '2020-12-20'
 layout: post
 tags:
 title: "관계형 데이터베이스 - Relational database"
+description: "테이블 구조로 데이터 간 관계를 표현하는 관계형 데이터베이스(RDBMS)의 개념과 SQL 기반 관리"
 ---
 : table로 이루어져 있고, 이 table은 key 와 value의 관계를 나타낸다
   이처럼 데이터의 종속성을 관계(relationship)로 표현하는것  

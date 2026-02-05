@@ -6,6 +6,7 @@ layout: post
 tags:
 - java
 title: "[Java] Exception (예외)"
+description: "Checked와 Unchecked Exception의 차이, 예외 처리 방법과 변환 전략"
 ---
 
 ### 오류(Error)와 예외(Exception)

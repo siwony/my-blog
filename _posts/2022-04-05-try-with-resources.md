@@ -7,6 +7,7 @@ tags:
 - grammar
 - java
 title: "[Java] try-with-resources"
+description: "Java 7의 자동 자원 관리 구문 try-with-resources로 안전하게 자원을 닫는 방법"
 ---
 해당 문법은 `try(...)`에서 선언된 객체들에 대해 try가 종료될 떄 자동으로 자원을 해제해주는 기능히다.
 

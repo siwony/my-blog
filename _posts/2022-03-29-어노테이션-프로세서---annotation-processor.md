@@ -7,6 +7,7 @@ tags:
 - 바이트코드-제어-방법
 - java
 title: "[Java] 어노테이션 프로세서 - Annotation Processor"
+description: "컴파일 시점에 어노테이션 정보를 처리하여 코드를 생성하는 자바 어노테이션 프로세서의 동작 원리와 활용 방법"
 ---
 [Oracle 공식문서](https://docs.oracle.com/javase/8/docs/api/javax/annotation/processing/Processor.html)
 

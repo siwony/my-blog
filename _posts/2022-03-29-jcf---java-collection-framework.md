@@ -7,6 +7,7 @@ tags:
 - java
 - java-collection-framework
 title: "JCF - Java Collection Framework"
+description: "Java 컴렉션 프레임워크의 List, Set, Map 인터페이스와 구현 클래스 특징 및 사용법"
 ---
 
 # JCF - Java Collection Framework

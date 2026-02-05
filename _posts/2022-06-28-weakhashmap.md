@@ -9,6 +9,7 @@ tags:
 - development
 - java
 title: "[Java] WeakHashMap"
+description: "Weak Reference를 활용한 WeakHashMap의 동작 원리와 메모리 누수 방지"
 ---
 
 더 이상 사용하지 않는 객체를 GC할 때 자동으로 삭제해주는 Map

@@ -7,6 +7,7 @@ tags:
 - Design-pattern
 - java
 title: "Decorator Pattern"
+description: "기존 객체의 기능을 동적으로 확장하고 결합하는 데코레이터 디자인 패턴"
 ---
 : 객체의 결합 을 통해 기능을 동적으로 유연하게 확장 할 수 있게 해주는 패턴
 - 기본 뼈대(클래스)는 유지하되, 이후 필요한 형태로 꾸밀 때 사용한다.

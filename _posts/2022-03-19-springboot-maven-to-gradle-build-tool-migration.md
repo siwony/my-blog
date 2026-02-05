@@ -7,6 +7,7 @@ tags:
 - gradle
 - build-tool
 title: "SpringBoot Maven to Gradle build tool migration!"
+description: "Spring Boot 프로젝트의 빌드 툴을 Maven에서 Gradle로 마이그레이션하는 방법"
 ---
 ## Intro
 > SpringBoot 개발초기에는 Gradle이 무서운줄 알았다. 하지만 배포를 하다 보니까 Maven이 더 무섭더라.

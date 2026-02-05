@@ -6,6 +6,7 @@ layout: post
 tags:
 - http
 title: "더 나은 URI API를 설계 하는 방법과 HTTP method"
+description: "RESTful API 설계를 위한 URI 구조와 HTTP 메서드 활용 방법"
 ---
 **좋은 API설계는 리소스를 식별해야 한다.**
 

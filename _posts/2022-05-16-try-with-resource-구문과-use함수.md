@@ -10,6 +10,7 @@ tags:
 - development
 
 title: "try-with-resource 구문과 use함수"
+description: "Java의 try-with-resource 구문과 Kotlin의 use 함수로 리소스를 안전하게 닫기"
 ---
 Java에서는 자원을 close를 해야 할 떄 [`try-with-resources`]({% post_url 2022-04-05-try-with-resources %})문으로 자원이 일을 한 후 자동으로 `close()`를 호출해주는 구문이 있다.
 

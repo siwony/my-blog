@@ -7,6 +7,7 @@ tags:
 - 바이트코드-제어-방법
 - java
 title: "[Java] 다이나믹 프록시 - Dynamic Proxy"
+description: "Java에서 런타임에 인터페이스를 구현하는 프록시 객체를 동적으로 생성하는 Dynamic Proxy 패턴"
 ---
 런타임에 특정 인터페이스들을 구현하는 클래스 또는 인스턴스를 만드는 기술
 - [공식문서](https://docs.oracle.com/javase/8/docs/technotes/guides/reflection/proxy.html)

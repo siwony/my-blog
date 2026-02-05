@@ -7,6 +7,7 @@ tags:
 - spring
 - jpa
 title: "JPA Auditing"
+description: "JPA에서 엔터티의 생성/수정 시간을 자동으로 기록하는 Auditing 기능"
 ---
 
 # JPA Auditing

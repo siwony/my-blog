@@ -6,6 +6,7 @@ layout: post
 tags:
 - build-tool
 title: "Build Tool"
+description: "Maven, Gradle 등 소프트웨어 빌드 자동화 도구의 종류와 특징"
 ---
 : 빌드 도구는 빌드 자동화를 시켜주는 실행가능한 프로그램만들어 주는 프로그램을 말한다.
 

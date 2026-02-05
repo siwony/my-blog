@@ -11,5 +11,5 @@
     reading-time="{{ include.post.content | strip_html | number_of_words | divided_by: 200 | plus: 1 }}">
   </post-metadata>
   
-  <p>{{ include.post.excerpt | clean_excerpt | truncatewords: 30 }}</p>
+  <p>{% if include.post.description %}{{ include.post.description }}{% else %}{{ include.post.excerpt | clean_excerpt | truncatewords: 30 }}{% endif %}</p>
 </article>

@@ -8,6 +8,7 @@ tags:
 - performance
 - optimization
 title: "불필요한 TDL scan 제외로 tomcat 구동시간 개선하기"
+description: "Tomcat 시작 시 불필요한 TLD(Tag Library Descriptor) 스캔을 제외하여 구동 시간을 단축하는 방법"
 ---
 
 tomcat 환경에서 개발하다보면 간혹 아래와 같은 로그가 보일때가 있다.

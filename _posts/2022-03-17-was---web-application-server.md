@@ -6,6 +6,7 @@ layout: post
 tags:
 - web
 title: "WAS - Web Application Server"
+description: "동적 컨텐츠 제공을 위한 웹 애플리케이션 서버(WAS)의 개념과 역할"
 ---
 : DB 조회나 다양한 로직 처리를 요구하는 동적인 컨텐츠를 제공하기 위해 만들어진 Application Server
 >ex) Tomcat, JBoss, Jeus, Web Sphere 등...

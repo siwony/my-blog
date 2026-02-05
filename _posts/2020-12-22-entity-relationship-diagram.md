@@ -5,6 +5,7 @@ date: '2020-12-22'
 layout: post
 tags:
 title: "Entity relationship Diagram"
+description: "개체와 속성, 개체 간 관계를 도표로 표현하는 ERD의 개념과 관계 표현법"
 ---
 : 개체 속성과 개체 간 관계를 도표로 표현헌것.
 

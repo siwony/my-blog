@@ -6,6 +6,7 @@ layout: post
 tags:
 - protocol
 title: "IP - Internet Protocol"
+description: "인터넷 통신을 위한 기본 프로토콜인 IP의 개념과 구조, IPv4/IPv6"
 ---
 인터넷 통신을 하기 위한 최소한의 규칙이라고 할 수 있다.
 

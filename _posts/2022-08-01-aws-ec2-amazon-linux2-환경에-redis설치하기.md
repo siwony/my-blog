@@ -8,6 +8,7 @@ tags:
 - ec2
 - aws
 title: "AWS EC2 + Amazon linux2 환경에 redis설치하기"
+description: "AWS EC2 Amazon Linux 2 환경에 Redis를 설치하고 구성하는 단계별 가이드"
 ---
 
 ### 1. 사전과정

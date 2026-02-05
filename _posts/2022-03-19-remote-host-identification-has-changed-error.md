@@ -6,6 +6,7 @@ layout: post
 tags:
 - ssh
 title: "REMOTE HOST IDENTIFICATION HAS CHANGED Error"
+description: "SSH 접속 시 REMOTE HOST IDENTIFICATION HAS CHANGED 에러가 발생할 때 known_hosts 파일 수정 해결법"
 ---
 어느날 AWS ec2에 SSH접속시 다음과 같은 에러가 나왔다.
 ```sh

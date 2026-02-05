@@ -7,6 +7,7 @@ tags:
 - spring-boot
 - spring
 title: "Spring Boot file Req, Res 처리"
+description: "Spring Boot에서 파일 업로드 요청과 파일 다운로드 응답을 처리하는 방법"
 ---
 ### 동기
 [JubJub](https://github.com/GSM-Web-Technology/Jup-Jup-Server)프로젝트에서 기자재 정보와 기자재이미지를 DB에 저장하는 기능의 필요하다.

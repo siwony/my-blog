@@ -6,6 +6,7 @@ layout: post
 tags:
 - nodejs
 title: "Node,Js 설치(mac)"
+description: "macOS 환경에서 Node.js를 설치하고 개발 환경을 구축하는 방법"
 ---
 ## 설치 
 터미널에 `brew install node` 를 입력하면 Node.js 가 설치됩니다.

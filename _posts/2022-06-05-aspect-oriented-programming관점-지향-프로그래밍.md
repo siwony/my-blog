@@ -7,6 +7,7 @@ tags:
 - spring
 - spring-triangle
 title: "Aspect Oriented Programming(관점 지향 프로그래밍)"
+description: "Spring AOP로 횡단 관심사를 분리하여 코드 중복을 줄이는 방법과 Advice, Pointcut, Weaving 개념"
 ---
 : 애플리케이션에서의 **관심사의 분리(기능의 분리), 핵심적인 기능에서 부가적인 기능을 분리한다.**  
 분리한 부가기능을 `Aspect`라는 독특한 모듈형태로 만들어서 설계하고 개발하는 방법

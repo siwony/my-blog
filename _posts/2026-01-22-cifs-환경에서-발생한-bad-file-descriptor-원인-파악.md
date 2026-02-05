@@ -5,6 +5,7 @@ date: 2026-01-22 19:22:34 +0900
 categories: linux
 tags: [사내발표, java, linux]
 author: jeongcool
+description: "CIFS 마운트 환경에서 noserverino 옵션으로 인한 inode 불일치로 Bad file descriptor 발생 원인과 serverino 옵션으로 해결하는 과정"
 ---
 
 # 개요

@@ -7,6 +7,7 @@ tags:
 - spring
 - jpa
 title: "[JPA] 객체와 테이블 매핑(annotation)"
+description: "JPA에서 @Entity, @Table, @Column 등 어노테이션을 사용해 객체와 테이블을 매핑하는 방법"
 ---
 ## @Entity
 : 컬럼 매핑

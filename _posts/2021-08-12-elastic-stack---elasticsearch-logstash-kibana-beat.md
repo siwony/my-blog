@@ -5,6 +5,7 @@ date: '2021-08-12'
 layout: post
 tags:
 title: "Elastic Stack - Elasticsearch, Logstash, Kibana + Beats"
+description: "로그 수집, 검색, 시각화를 위한 Elastic Stack(ELK) 구성 요소와 활용"
 ---
 > ELK &rarr; Elastic Stack(ELK Stack)
 

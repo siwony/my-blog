@@ -7,6 +7,7 @@ tags:
 - Design-pattern
 - java
 title: "Facade Pattern"
+description: "복잡한 서브시스템에 대한 통합된 인터페이스를 제공하는 파사드 디자인 패턴"
 ---
 : 어떤 서브시스템의 일련의 인터페이스에 대한 통합된 인터페이스를 제공한다.
 

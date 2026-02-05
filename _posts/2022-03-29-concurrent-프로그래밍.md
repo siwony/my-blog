@@ -7,6 +7,7 @@ tags:
 - concurrent
 - java
 title: "[Java] Concurrent 프로그래밍"
+description: "동시에 여러 작업을 진행하는 동시성 프로그래밍의 개념과 Java에서의 구현 방법"
 ---
 
 - 동시에 여러 작업을 진행할 수 있는 프로그래밍

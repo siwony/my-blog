@@ -6,6 +6,7 @@ layout: post
 tags:
 - spring
 title: '@Autowired를 이용한 필드주입 보다 생성자 주입을 해야하는가?'
+description: "Spring에서 @Autowired 필드 주입보다 생성자 주입을 권장하는 이유와 장점"
 ---
 ### 요약
 - [**순환참조 오류의 방지**](#순환참조-오류의-방지)

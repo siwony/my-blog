@@ -7,6 +7,7 @@ tags:
 - grammar
 - java
 title: "[Java] 변수의 scope, static"
+description: "Java 변수의 유효범위(scope)와 static 키워드로 클래스 멤버를 정의하는 방법"
 ---
 ## scope
 **프로그램상에서 사용되는 변수의 사용가능한 범위**

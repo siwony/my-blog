@@ -7,6 +7,7 @@ tags:
 - java
 - api
 title: "[Java] Enumeration 와 Iterator"
+description: "컴렉션 순회를 위한 Enumeration과 Iterator 인터페이스의 차이점과 사용법"
 ---
 > Enumeration 와 Iterator는 서로 동작하는 것이 비슷하다.  
 > 먼저 이 두 개를 알기 전에 `Fail-fast` 방식에 대해 알아야 한다.

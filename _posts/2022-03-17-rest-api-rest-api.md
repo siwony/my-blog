@@ -6,6 +6,7 @@ layout: post
 tags:
 - http
 title: "REST, API, REST API"
+description: "REST 아키텍처 원칙을 따르는 RESTful API의 개념과 설계 방법"
 ---
 ## REST Representational State Transfer (표현 상태 전이)
 : "웹에 존재하는 모든 자원(이미지, 동영상, DB 자원)에 고유한 URL을 부여해 활용"하는 것, 자원을 정의 및 자원에 대한 주소를 지정하는 방법을 의미한다.  

@@ -7,6 +7,7 @@ tags:
 - maven
 - build-tool
 title: "Plugin-not-found 해결방법"
+description: "Maven 빌드 시 Plugin not found 에러가 발생할 때의 원인과 해결 방법"
 ---
 어느날 intellij에서 maven 기반 SpringBoot 프로젝트를 하고있었는데 다음과 같은 에러가 났다.
 

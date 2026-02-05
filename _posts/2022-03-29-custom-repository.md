@@ -8,6 +8,7 @@ tags:
 - jpa
 - data-jpa
 title: "[Jpa] Custom Repository"
+description: "Spring Data JPA의 기본 Repository를 확장하여 커스텀 기능을 추가하는 방법과 구현 패턴"
 ---
 #### 왜 필요할까?  
 

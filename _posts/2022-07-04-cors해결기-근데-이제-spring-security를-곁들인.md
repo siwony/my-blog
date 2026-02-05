@@ -7,6 +7,7 @@ tags:
 - spring
 - spring-security
 title: "CORS해결기 근데 이제 Spring Security를 곁들인"
+description: "Spring Security가 적용된 환경에서 CORS 정책을 설정하고 문제를 해결하는 방법"
 ---
 Web Application 처음 프론트엔드 백앤드로 나눠서 협업을 진행하다보면 한번쯤 CORS에러를 겪는다. 
 

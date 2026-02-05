@@ -8,6 +8,7 @@ tags:
 - performance
 - index
 title: "mongodb 실행계획 분석 및 인덱스로 API 성능 개선"
+description: "MongoDB explain()으로 실행계획을 분석하고 적절한 인덱스를 설계하여 API 성능을 개선한 과정"
 ---
 # 문제의 쿼리
 

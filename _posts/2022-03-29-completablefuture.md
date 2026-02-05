@@ -7,6 +7,7 @@ tags:
 - concurrent
 - java
 title: "[Java] CompletableFuture"
+description: "Java 8의 비동기 프로그래밍을 위한 CompletableFuture 인터페이스와 메서드 체이닝, 예외 처리 방법"
 ---
 `비동기 - Asynchronous` 프로그래밍에 대한 여러 기능을 제공하는 인터페이스.
 > [공식 문서](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletionStage.html)

@@ -8,6 +8,7 @@ tags:
 - java
 - java8
 title: "[Java] 메소드 레퍼런스 - Method Reference"
+description: "Java 8에서 람다 표현식을 더 간결하게 표현할 수 있는 메소드 레퍼런스 문법과 활용"
 ---
 : Lambda 표현식을 더 간단하게 표현하는 방법이다.
 - 메소드 레퍼런스를 이해 하려면 Lambda를 먼저 이해해야 한다.

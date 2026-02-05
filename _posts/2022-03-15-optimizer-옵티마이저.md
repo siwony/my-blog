@@ -5,6 +5,7 @@ date: '2022-03-15'
 layout: post
 tags:
 title: "Optimizer - 옵티마이저"
+description: "데이터베이스 쿼리 실행 계획을 최적화하는 옵티마이저의 동작 원리"
 ---
 사용자가 질의한 SQL 문에 대해 최적의 실행방법을 결정하는 역할을 수행한다.
 

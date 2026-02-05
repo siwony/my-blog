@@ -7,6 +7,7 @@ tags:
 - data-modeling
 - sqld
 title: "[SQLD] 3-2. 반정규화 - Denormalization"
+description: "성능 향상을 위해 정규화된 데이터베이스를 의도적으로 반정규화하는 기법"
 ---
 : 정규화된 엔터티, 속성, 관계에 대해 성능 향상을 목적으로 중복, 통합, 분리 등을 수행하는 데이터 모델링 기법이다.
 

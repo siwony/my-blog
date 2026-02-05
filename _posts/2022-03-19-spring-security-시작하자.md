@@ -7,6 +7,7 @@ tags:
 - spring
 - spring-security
 title: "Spring security 시작하자"
+description: "Spring Security를 처음 시작하는 사람을 위한 기본 개념과 설정 방법"
 ---
 ### 의존성 추가
 #### Maven

@@ -6,6 +6,7 @@ layout: post
 tags:
 - spring
 title: "URL의 Character Set 이 UTF-8이 아니라서 생기는 문제"
+description: "Tomcat의 URL Character Set이 UTF-8이 아니어서 발생하는 한글 인코딩 문제 해결법"
 ---
 ### 배경
 

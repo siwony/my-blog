@@ -7,6 +7,7 @@ tags:
 - Design-pattern
 - java
 title: "Strategy Pattern(전략 패턴)"
+description: "알고리즘을 바꾸거나 확장할 때 유용한 전략 디자인 패턴과 객체 간 결합도 감소 방법"
 ---
 #### 참고자료
 - [김영한 인프런 핵심 원리 - 고급편](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%95%B5%EC%8B%AC-%EC%9B%90%EB%A6%AC-%EA%B3%A0%EA%B8%89%ED%8E%B8)

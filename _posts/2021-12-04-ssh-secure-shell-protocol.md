@@ -6,6 +6,7 @@ layout: post
 tags:
 - ssh
 title: "SSH (Secure Shell Protocol)"
+description: "공개 네트워크에서 안전한 원격 접속을 위한 SSH 프로토콜의 개념과 키 기반 인증 방식"
 ---
 : 네트워크 프로토콜 중 하나로 **컴퓨터와 컴퓨터가 인터넷과 같은 Public Network를 통해 서로 통신을 할 때 보안적으로 안전하게 통신을 하기 위해 사용하는 프로토콜**
 

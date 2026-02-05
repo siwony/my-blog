@@ -7,6 +7,7 @@ tags:
 - spring
 - spring-security
 title: "Sprint Security의 다양한 Filter"
+description: "Spring Security에서 보안 처리를 위해 사용되는 다양한 필터들의 종류와 역할"
 ---
 ### HeaderWriterFilter
 : 응답 헤더에 security 관련 헤더를 추가해주는 역할을 담당한다.

@@ -7,6 +7,7 @@ tags:
 - concurrent
 - java
 title: "Thread Pool"
+description: "스레드 생성 비용을 줄이고 재사용하는 스레드 풀 개념과 구현 방법"
 ---
 
 # Thread Pool

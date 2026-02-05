@@ -7,6 +7,7 @@ tags:
 - concurrent
 - java
 title: "[Java] Callable과 Future"
+description: "Runnable과 달리 결과를 반환할 수 있는 Callable 인터페이스와 비동기 작업 결과를 처리하는 Future"
 ---
 `Callable`은 `Runnable`과 다르게 작업(task)의 결과를 받을 수 있다.  
 그리고 `ExecutorService`를 이용해 `Callable`의 작업물을 `Future`객체로 감싸서 받을 수 있다.

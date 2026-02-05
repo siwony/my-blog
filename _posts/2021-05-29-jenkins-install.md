@@ -6,6 +6,7 @@ layout: post
 tags:
 - jenkins
 title: "jenkins install"
+description: "CI/CD 자동화를 위한 Jenkins 설치 및 초기 구성 방법"
 ---
 ## ubuntu
 

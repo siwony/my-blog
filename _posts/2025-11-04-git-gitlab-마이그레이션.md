@@ -9,6 +9,7 @@ tags:
 - migration
 - mirroring
 title: "사내 Git → GitLab 마이그레이션 및 미러링 설정 가이드"
+description: "사내 Git 저장소를 GitLab으로 마이그레이션하고 자동 미러링을 설정하는 전체 프로세스 가이드"
 ---
 
 ## 1. 개요

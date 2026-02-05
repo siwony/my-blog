@@ -7,6 +7,7 @@ tags:
 - spring
 - spring-triangle
 title: "PSA - Portable Service Abstraction"
+description: "환경과 기술의 변경에 관계없이 일관된 방식으로 기술에 접근하도록 하는 Spring PSA 개념"
 ---
 PSA는 `서비스 지향 아키텍처 - SOA`에서 적용되는 설계원칙인 `서비스 추상화 - Service Abstraction`에 휴대용 이라는 뜻을 가진 Portable이 붙어진 용어이다. 
 
