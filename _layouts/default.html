@@ -18,22 +18,24 @@
     <!-- Critical CSS (인라인) - LCP/FCP 최적화 -->
     <style>{% include critical.css %}</style>
     
-    <!-- Font Preloading -->
+    <!-- Font Preloading - Only critical fonts -->
     <link rel="preload" href="{{ '/assets/fonts/inter-latin-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ '/assets/fonts/inter-latin-600.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ '/assets/fonts/Pretendard-Regular.subset.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="{{ '/assets/fonts/Pretendard-SemiBold.subset.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
     
-    <!-- Common CSS - Loaded on all pages -->
-    <link rel="stylesheet" href="{{ '/assets/css/common.css' | relative_url }}">
+    <!-- Common CSS (Non-blocking) - Loaded on all pages -->
+    <link rel="preload" href="{{ '/assets/css/common.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ '/assets/css/common.css' | relative_url }}"></noscript>
     
-    <!-- Page-specific CSS (Conditional loading) -->
+    <!-- Page-specific CSS (Non-blocking, conditional loading) -->
     {% if page.layout == 'post' %}
-    <link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
+    <link rel="preload" href="{{ '/assets/css/post.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}"></noscript>
     {% elsif page.layout == 'category' %}
-    <link rel="stylesheet" href="{{ '/assets/css/category.css' | relative_url }}">
+    <link rel="preload" href="{{ '/assets/css/category.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ '/assets/css/category.css' | relative_url }}"></noscript>
     {% else %}
-    <link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}">
+    <link rel="preload" href="{{ '/assets/css/home.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}"></noscript>
     {% endif %}
     
     <!-- Prism.js CSS (지연 로딩 - 코드 블록용) -->
