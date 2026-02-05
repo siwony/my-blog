@@ -1,7 +1,7 @@
 ---
 author: jeongcool
 categories: devops
-date: '2025-11-04'
+date: '2025-11-04 14:00:00 +0900'
 layout: post
 tags:
 - git
