@@ -30,7 +30,7 @@ kramdown:
 incremental: false
 
 plugins:
-  - jekyll-feed
+  # - jekyll-feed  # RSS 2.0 커스텀 피드 사용 (네이버 호환성)
   # - jekyll-sitemap  # 한글 URL 인코딩 방지를 위해 커스텀 sitemap.xml 사용
   - jekyll-seo-tag
 
