@@ -22,20 +22,16 @@
     <link rel="preload" href="{{ '/assets/fonts/inter-latin-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ '/assets/fonts/Pretendard-Regular.subset.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
     
-    <!-- Common CSS (Non-blocking) - Loaded on all pages -->
-    <link rel="preload" href="{{ '/assets/css/common.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ '/assets/css/common.css' | relative_url }}"></noscript>
+    <!-- Common CSS - Loaded on all pages (synchronous for layout stability) -->
+    <link rel="stylesheet" href="{{ '/assets/css/common.css' | relative_url }}">
     
-    <!-- Page-specific CSS (Non-blocking, conditional loading) -->
+    <!-- Page-specific CSS (Conditional loading) -->
     {% if page.layout == 'post' %}
-    <link rel="preload" href="{{ '/assets/css/post.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}"></noscript>
+    <link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
     {% elsif page.layout == 'category' %}
-    <link rel="preload" href="{{ '/assets/css/category.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ '/assets/css/category.css' | relative_url }}"></noscript>
+    <link rel="stylesheet" href="{{ '/assets/css/category.css' | relative_url }}">
     {% else %}
-    <link rel="preload" href="{{ '/assets/css/home.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}"></noscript>
+    <link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}">
     {% endif %}
     
     <!-- Prism.js CSS (지연 로딩 - 코드 블록용) -->
