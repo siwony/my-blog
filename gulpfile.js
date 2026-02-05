@@ -28,16 +28,13 @@ const isProduction = yargs.argv.production || process.env.NODE_ENV === 'producti
 const paths = {
   js: {
     src: [
-      'assets/js/**/*.js',
-      '!assets/js/prism/**/*.min.js', // Prism minified 파일 제외
-      '!assets/js/**/*.min.js' // 모든 .min.js 파일 제외
+      'assets/js/**/*.js'
     ],
     dest: '_site/assets/js/'
   },
   css: {
     src: [
-      'assets/css/**/*.css',
-      '!assets/css/**/*.min.css' // 모든 .min.css 파일 제외
+      'assets/css/**/*.css'
     ],
     dest: '_site/assets/css/'
   },
@@ -138,6 +135,7 @@ function bundlePrism() {
 }
 
 // Critical CSS 추출 태스크 - above-the-fold CSS 추출
+// common.css + page-specific CSS를 기반으로 각 페이지별 critical CSS 추출
 async function extractCritical(done) {
   if (!isProduction) {
     console.log('Development mode: Critical CSS extraction skipped');
@@ -147,20 +145,26 @@ async function extractCritical(done) {
   console.log('Extracting critical CSS...');
   
   const criticalModule = await loadCritical();
-  const pages = ['_site/index.html', '_site/blog.html'];
+  
+  // 각 페이지별 CSS 매핑
+  const pages = [
+    { path: '_site/index.html', css: ['assets/css/common.css', 'assets/css/home.css'] },
+    { path: '_site/blog.html', css: ['assets/css/common.css', 'assets/css/home.css'] }
+  ];
+  
   const allCriticalCSS = [];
   
-  for (const pagePath of pages) {
-    if (!fs.existsSync(pagePath)) {
-      console.log(`Skipping ${pagePath} - file not found`);
+  for (const page of pages) {
+    if (!fs.existsSync(page.path)) {
+      console.log(`Skipping ${page.path} - file not found`);
       continue;
     }
     
     try {
       const { css } = await criticalModule.generate({
         base: '_site/',
-        src: pagePath.replace('_site/', ''),
-        css: ['assets/css/style.css'],
+        src: page.path.replace('_site/', ''),
+        css: page.css,
         width: 1300,
         height: 900,
         extract: false,
@@ -174,7 +178,7 @@ async function extractCritical(done) {
         allCriticalCSS.push(css);
       }
     } catch (err) {
-      console.error(`Critical CSS error for ${pagePath}:`, err.message);
+      console.error(`Critical CSS error for ${page.path}:`, err.message);
     }
   }
   

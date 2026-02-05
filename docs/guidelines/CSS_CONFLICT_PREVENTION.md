@@ -88,21 +88,44 @@ category-sidebar {
 
 ## CSS 계층 구조
 
+### 현재 파일 구조 (페이지별 분할)
 ```
-styles/
-├── base/
-│   ├── reset.css         # CSS 리셋
-│   ├── variables.css     # CSS 변수
-│   └── typography.css    # 기본 타이포그래피
-├── components/
-│   ├── blog-header.css
-│   ├── blog-sidebar.css
-│   ├── blog-post.css
-│   └── blog-metadata.css
-├── vendors/
-│   ├── prism-override.css    # Prism.js 커스터마이징
-│   └── ninja-keys-override.css
-└── main.css             # 메인 스타일시트
+assets/css/
+├── common.css           # 공통 (13KB)
+│   ├── CSS 변수 (:root)
+│   ├── 글꼴 (@font-face)
+│   ├── 헤더/푸터
+│   └── 기본 스타일
+├── home.css             # 홈/블로그 (7.6KB)
+│   ├── 히어로 섹션
+│   ├── 포스트 프리뷰
+│   └── 페이지네이션
+├── post.css             # 포스트 (16KB)
+│   ├── 포스트 콘텐츠
+│   ├── TOC 사이드바
+│   ├── 코드 블록 기본 스타일
+│   └── Prism.js 커스텀 스타일
+├── category.css         # 카테고리 (4KB)
+│   ├── 카테고리 그리드
+│   └── 포스트 카드
+└── style.css.bak        # 원본 아카이브
+
+웹 컴포넌트 (인라인 스타일):
+├── category-sidebar.js  # 96 lines inline CSS
+└── post-metadata.js     # 133 lines inline CSS
+```
+
+### 조건부 로딩 전략
+```liquid
+<!-- _layouts/default.html -->
+<link rel="stylesheet" href="/assets/css/common.css">
+{% if page.layout == 'post' %}
+  <link rel="stylesheet" href="/assets/css/post.css">
+{% elsif page.url == '/' or page.url == '/blog.html' %}
+  <link rel="stylesheet" href="/assets/css/home.css">
+{% elsif page.layout == 'category' %}
+  <link rel="stylesheet" href="/assets/css/category.css">
+{% endif %}
 ```
 
 ## 충돌 감지 및 예방

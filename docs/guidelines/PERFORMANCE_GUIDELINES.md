@@ -97,7 +97,11 @@ test('100개 코드 블록을 500ms 이내에 처리해야 함', () => {
 
 ### CSS Optimization
 ```css
-/* 필요한 스타일만 포함 */
+/* 필요한 스타일만 포함 - 페이지별 분할 */
+/* common.css (13KB): 글꼴, 변수, 헤더/푸터, 기본 스타일 */
+/* home.css (7.6KB): 히어로, 포스트-프리뷰, 페이지네이션 */
+/* post.css (16KB): 포스트 콘텐트, TOC, 테이블, 코드 */
+/* category.css (4KB): 카테고리 그리드, 포스트 카드 */
 pre[class*="language-"] {
     /* 하드웨어 가속 활용 */
     transform: translateZ(0);
@@ -281,9 +285,15 @@ async function extractCritical() {
 <!-- Critical CSS 인라인 -->
 <style>{% include critical.css %}</style>
 
-<!-- 나머지 CSS 지연 로딩 -->
-<link rel="preload" href="/assets/css/style.css" as="style" 
-      onload="this.onload=null;this.rel='stylesheet'">
+<!-- 페이지별 조건부 CSS 로딩 -->
+<link rel="stylesheet" href="/assets/css/common.css">
+{% if page.layout == 'post' %}
+  <link rel="stylesheet" href="/assets/css/post.css">
+{% elsif page.url == '/' or page.url == '/blog.html' %}
+  <link rel="stylesheet" href="/assets/css/home.css">
+{% elsif page.layout == 'category' %}
+  <link rel="stylesheet" href="/assets/css/category.css">
+{% endif %}
 ```
 
 ---
@@ -456,11 +466,19 @@ post-metadata:not(:defined) {
 
 | 파일 | 크기 | 비고 |
 |------|------|------|
-| `style.css` (gzipped) | ~7.0KB | 미사용 CSS 제거 후 |
+| `common.css` | ~13KB | 모든 페이지 공통 (글꼴, 변수, 헤더/푸터) |
+| `home.css` | ~7.6KB | 홈/블로그 페이지 전용 |
+| `post.css` | ~16KB | 포스트 페이지 전용 |
+| `category.css` | ~4KB | 카테고리 페이지 전용 |
 | `prism.bundle.min.js` | 37KB | 6개 파일 통합 |
 | `ninja-keys.bundle.min.js` | 52KB | 80+ 모듈 통합 |
 | `photoswipe.bundle.min.js` | 67KB | 2개 ESM 통합 |
 | `critical.css` | ~4.5KB | 인라인용 |
+
+**성능 개선 결과**:
+- 홈 페이지: 39KB → 20.6KB CSS (47% 감소)
+- 포스트 페이지: 39KB → 29KB CSS (26% 감소)
+- 카테고리 페이지: 39KB → 17KB CSS (56% 감소)
 
 ### 🔗 관련 커밋
 

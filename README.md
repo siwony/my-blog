@@ -254,6 +254,59 @@ npm run test:ci
 
 ## 🎨 핵심 기능
 
+### 🚀 CSS 최적화 (2025-02-05)
+
+Google PageSpeed Insights의 "불필요한 CSS 줄이기" 권장사항을 반영하여 대폭적인 CSS 최적화를 수행했습니다.
+
+#### 📦 CSS 파일 분리 전략
+기존의 단일 `style.css` (52KB)를 페이지 타입별로 4개 파일로 분리:
+
+- **common.css** (13KB) - 폰트, CSS 변수, 헤더/푸터 등 모든 페이지 공통 스타일
+- **home.css** (7.6KB) - 홈/블로그 리스트 페이지 전용
+- **post.css** (16KB) - 포스트 상세 페이지 전용
+- **category.css** (4KB) - 카테고리 페이지 전용
+
+#### 📊 성능 개선 결과
+- **홈/블로그 페이지**: 39KB → 20.6KB (**47% 감소**)
+- **포스트 페이지**: 39KB → 29KB (**26% 감소**)
+- **카테고리 페이지**: 39KB → 17KB (**56% 감소**)
+
+#### 🎯 조건부 CSS 로딩
+`_layouts/default.html`에서 Liquid 템플릿을 활용한 페이지별 조건부 로딩:
+
+```liquid
+{% if page.layout == 'post' %}
+  <link rel="preload" href="{{ '/assets/css/post.css' | relative_url }}" as="style">
+{% elsif page.layout == 'category' %}
+  <link rel="preload" href="{{ '/assets/css/category.css' | relative_url }}" as="style">
+{% else %}
+  <link rel="preload" href="{{ '/assets/css/home.css' | relative_url }}" as="style">
+{% endif %}
+```
+
+#### 🧩 웹 컴포넌트 인라인 스타일
+외부 CSS로 스타일링할 수 없는 웹 컴포넌트 문제 해결:
+
+- **category-sidebar.js**: 96줄의 인라인 CSS 추가 (카테고리 네비게이션, 반응형 브레이크포인트)
+- **post-metadata.js**: 133줄의 인라인 CSS 추가 (메타데이터, 뱃지, 태그 스타일)
+
+#### 🛠️ 빌드 시스템 개선
+**gulpfile.js 수정사항**:
+- `.min.css` 파일 제외 규칙 제거 → Prism CSS 파일 정상 복사
+- `.min.js` 파일 제외 규칙 제거 → 번들 JavaScript 파일 정상 복사
+- 다중 CSS 파일 처리 지원
+
+#### 📝 주요 기술적 결정사항
+1. **Prism CSS 유지**: 코드 블럭 스타일은 Prism.js의 Material Theme 사용
+2. **인라인 코드 스타일**: Notion 스타일 인라인 코드는 post.css에서 관리
+3. **기본 코드 블럭**: Prism 미적용 코드 블럭을 위한 폴백 스타일 제공
+4. **목차 개선**: TOC 줄 간격 조정 (line-height: 1.3, margin-bottom: 0.25rem)
+
+#### 🔧 문제 해결
+- **404 에러**: Prism CSS/JS 파일 로딩 실패 → gulpfile.js 제외 규칙 제거로 해결
+- **웹 컴포넌트 스타일**: 외부 CSS 미적용 → 인라인 스타일로 해결
+- **중복 스타일**: 웹 컴포넌트 스타일을 외부 CSS에서 제거하여 중복 방지
+
 ### ⚡ VS Code 스타일 명령 팔레트
 - **단축키**: `Cmd+K` (Mac) 또는 `Ctrl+K` (Windows/Linux)
 - **실시간 검색**: 타이핑과 동시에 결과 표시

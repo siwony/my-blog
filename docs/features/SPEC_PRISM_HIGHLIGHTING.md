@@ -51,7 +51,10 @@ Jekyll 블로그에 Prism.js syntax highlighting을 통합하여 코드 블록�
 
 ### File Structure
 ```
-assets/css/style.css          # Prism.js 커스텀 스타일
+assets/css/
+├── common.css           # 글꼴, 변수, 헤더/푸터
+├── post.css             # Prism.js 커스텀 스타일 포함
+└── ...                  # 기타 페이지별 CSS
 _layouts/default.html         # Prism.js 초기화 스크립트
 tests/                        # Jest 테스트 스위트
 ├── setup.js                  # 테스트 환경 설정

@@ -25,8 +25,15 @@ Jekyll 기반 기술 블로그에 Prism.js syntax highlighting을 통합한 시�
 ```
 Browser Environment
 ├── HTML Structure (_layouts/default.html)
-├── CSS Styling (assets/css/style.css)
-├── Prism.js Core Library (CDN)
+├── CSS Styling (Conditional Loading)
+│   ├── assets/css/common.css (13KB - 모든 페이지)
+│   ├── assets/css/home.css (7.6KB - 홈/블로그 페이지)
+│   ├── assets/css/post.css (16KB - 포스트 페이지)
+│   └── assets/css/category.css (4KB - 카테고리 페이지)
+├── Web Components (Inline Styles)
+│   ├── category-sidebar.js (96 lines inline CSS)
+│   └── post-metadata.js (133 lines inline CSS)
+├── Prism.js Core Library (Self-hosted)
 ├── Prism.js Plugins
 │   ├── AutoLoader
 │   ├── Line Numbers
@@ -85,9 +92,10 @@ Markdown → Kramdown → HTML → Prism.js → Highlighted Code
 
 ### Jekyll Integration
 - **Configuration**: `_config.yml` - Rouge 비활성화
-- **Layout**: `_layouts/default.html` - Prism.js 로딩
-- **Styling**: `assets/css/style.css` - 커스텀 테마
+- **Layout**: `_layouts/default.html` - Prism.js 로딩 및 조건부 CSS 로딩
+- **Styling**: `assets/css/` - 페이지별 분할 CSS (common/home/post/category)
 - **Content**: `_posts/*.md` - 코드 블록 마크다운
+- **Build**: `gulpfile.js` - CSS/JS 빌드 및 번들링
 
 ### External Dependencies
 - **CDN**: Cloudflare CDN for Prism.js resources

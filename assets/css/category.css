@@ -1,0 +1,218 @@
+/* ============================================
+   Category Page Styles
+   ============================================ */
+
+/* Category Page Layout */
+.category-page {
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.category-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.category-header h1 {
+  font-size: var(--blog-title-font-size);
+  font-weight: var(--blog-title-font-weight);
+  line-height: var(--blog-title-line-height);
+  letter-spacing: var(--blog-title-letter-spacing);
+  color: var(--blog-title-color);
+  margin-bottom: 0.5rem;
+}
+
+.category-description {
+  font-size: var(--blog-description-font-size);
+  font-weight: var(--blog-description-font-weight);
+  line-height: var(--blog-description-line-height);
+  color: var(--blog-description-color);
+  margin: 0;
+}
+
+/* Posts Grid */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.post-card {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: #3b82f6;
+}
+
+.post-card-content {
+  padding: 1.5rem;
+}
+
+/* Post Preview (for category cards) */
+.post-preview {
+  padding: var(--blog-spacing-xl) 0;
+  position: relative;
+  min-height: 120px;
+  contain: layout style;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.post-preview:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--blog-border-color);
+}
+
+.post-preview h3 {
+  margin: 0 0 var(--blog-spacing-sm) 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.post-preview h3 a {
+  color: var(--blog-text-color);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.post-preview h3 a:hover {
+  color: var(--blog-primary-color);
+}
+
+.post-preview p {
+  margin: var(--blog-spacing-sm) 0 0 0;
+  color: var(--blog-text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* Category List (in post preview) */
+.post-list .post-preview {
+  margin-bottom: 0;
+}
+
+#posts-list .post-preview {
+  margin-bottom: 0;
+}
+
+/* Empty Category State */
+.empty-category {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #6c757d;
+}
+
+.empty-category h3 {
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.back-home {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-home:hover {
+  color: #1e40af;
+}
+
+/* Category Navigation Bottom */
+.category-navigation-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  border-top: 2px solid #e9ecef;
+  margin-top: 2rem;
+}
+
+.nav-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+/* Post Metadata - Minimal styles (most moved to component inline) */
+.metadata-label {
+  font-weight: var(--blog-font-weight-bold);
+  color: var(--blog-text-muted);
+  margin-right: var(--blog-spacing-xs);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+  .category-page {
+    padding: 1rem;
+  }
+  
+  .category-header h1 {
+    font-size: var(--blog-title-font-size);
+  }
+  
+  .posts-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .post-card-content {
+    padding: 1.25rem;
+  }
+  
+  .category-navigation-bottom {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .meta-separator {
+    display: none;
+  }
+  
+  .post-tags-inline {
+    margin-top: var(--blog-spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-link {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}

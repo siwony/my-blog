@@ -1,0 +1,570 @@
+/* ============================================
+   @font-face Declarations
+   - Inter: Latin characters (self-hosted)
+   - Pretendard: Korean characters (self-hosted subset, 2350 chars)
+   ============================================ */
+
+/* Inter - Latin (self-hosted) with CLS-reducing metric overrides */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/inter-latin-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 100%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/inter-latin-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 100%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/inter-latin-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 100%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/inter-latin-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 100%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+/* Pretendard - Korean (self-hosted subset, 2350 frequently used characters) with CLS-reducing metric overrides */
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/Pretendard-Regular.subset.woff2') format('woff2');
+  size-adjust: 100%;
+  ascent-override: 88%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/fonts/Pretendard-Medium.subset.woff2') format('woff2');
+  size-adjust: 100%;
+  ascent-override: 88%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/Pretendard-SemiBold.subset.woff2') format('woff2');
+  size-adjust: 100%;
+  ascent-override: 88%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/Pretendard-Bold.subset.woff2') format('woff2');
+  size-adjust: 100%;
+  ascent-override: 88%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+}
+
+/* CSS Variables for conflict prevention and maintainability */
+:root {
+  /* Blog-specific color palette */
+  --blog-primary-color: #2563eb;
+  --blog-primary-hover: #1d4ed8;
+  --blog-secondary-color: #64748b;
+  --blog-text-color: #1e293b;
+  --blog-text-muted: #64748b;
+  --blog-bg-color: #ffffff;
+  --blog-bg-secondary: #f8fafc;
+  --blog-border-color: #e2e8f0;
+  
+  /* Spacing system */
+  --blog-spacing-xs: 0.25rem;
+  --blog-spacing-sm: 0.5rem;
+  --blog-spacing-md: 1rem;
+  --blog-spacing-lg: 1.5rem;
+  --blog-spacing-xl: 2rem;
+  --blog-spacing-2xl: 3rem;
+  --blog-spacing-3xl: 4rem;
+  
+  /* Font Family - Inter for Latin, Pretendard for Korean */
+  --blog-font-family: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Title - 페이지/포스트 메인 제목 */
+  --blog-title-font-size: 2.5rem;
+  --blog-title-font-weight: 700;
+  --blog-title-line-height: 1.2;
+  --blog-title-letter-spacing: -0.02em;
+  --blog-title-color: #2c3e50;
+  
+  /* Description - 설명, 요약 텍스트 */
+  --blog-description-font-size: 1.125rem;
+  --blog-description-font-weight: 400;
+  --blog-description-line-height: 1.6;
+  --blog-description-color: #495057;
+  
+  /* Text - 본문 텍스트 */
+  --blog-text-font-size: 1rem;
+  --blog-text-line-height: 1.8;
+  --blog-text-letter-spacing: 0.01em;
+  
+  /* Small Text - 메타 정보, 날짜 등 */
+  --blog-small-font-size: 0.875rem;
+  --blog-small-color: #6c757d;
+  
+  /* Caption - 태그, 레이블 등 */
+  --blog-caption-font-size: 0.75rem;
+  --blog-caption-font-weight: 500;
+  --blog-caption-line-height: 1.4;
+  --blog-caption-letter-spacing: 0.02em;
+  
+  /* Legacy font sizes (backward compatibility) */
+  --blog-font-size-sm: 0.75rem;
+  --blog-font-size-md: 0.875rem;
+  --blog-font-weight-normal: 400;
+  --blog-font-weight-medium: 500;
+  --blog-font-weight-bold: 600;
+  
+  /* Border radius */
+  --blog-border-radius-sm: 0.25rem;
+  --blog-border-radius-md: 0.5rem;
+  --blog-border-radius-lg: 1rem;
+  
+  /* Shadows */
+  --blog-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  /* Component-specific colors */
+  --blog-category-bg: var(--blog-primary-color);
+  --blog-category-color: white;
+  --blog-category-hover-bg: var(--blog-primary-hover);
+  --blog-tag-bg: var(--blog-secondary-color);
+  --blog-tag-color: white;
+}
+
+/* Base Styles */
+html, body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  min-height: 100%;
+}
+
+body { 
+  font-family: var(--blog-font-family); 
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--blog-text-color);
+  background-color: var(--blog-bg-color);
+  margin: 0; 
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   Site Layout
+   ============================================ */
+
+.site-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container { 
+  width: 100%;
+  max-width: 1100px; 
+  margin: 0 auto; 
+  padding: 0 var(--blog-spacing-lg);
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+/* ============================================
+   Header Styles
+   ============================================ */
+
+.site-header {
+  background: var(--blog-bg-color);
+  border-bottom: 1px solid var(--blog-border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--blog-spacing-lg);
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--blog-spacing-sm);
+  text-decoration: none;
+  color: var(--blog-text-color);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.site-logo:hover {
+  color: var(--blog-primary-color);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--blog-spacing-xl);
+}
+
+.site-nav ul {
+  display: flex;
+  align-items: center;
+  gap: var(--blog-spacing-lg);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  text-decoration: none;
+  color: var(--blog-text-muted);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: color 0.15s ease;
+  padding: var(--blog-spacing-xs) 0;
+  position: relative;
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+  color: var(--blog-text-color);
+}
+
+.site-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--blog-primary-color);
+  border-radius: 1px;
+}
+
+/* ============================================
+   Footer Styles
+   ============================================ */
+
+.site-footer {
+  margin-top: auto;
+  padding: var(--blog-spacing-2xl) 0;
+  background: var(--blog-bg-secondary);
+  border-top: 1px solid var(--blog-border-color);
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--blog-spacing-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--blog-spacing-lg);
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--blog-spacing-lg);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: var(--blog-text-muted);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--blog-spacing-xs);
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover {
+  color: var(--blog-primary-color);
+}
+
+.footer-links svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.footer-copyright {
+  color: var(--blog-text-muted);
+  font-size: 0.875rem;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    --blog-title-font-size: 2rem;
+    --blog-description-font-size: 1rem;
+    --blog-text-font-size: 0.95rem;
+  }
+  
+  body {
+    font-size: 16px;
+  }
+  
+  .header-inner {
+    height: 56px;
+    padding: 0 var(--blog-spacing-md);
+  }
+  
+  .site-logo {
+    font-size: 1.125rem;
+  }
+  
+  .site-nav ul {
+    gap: var(--blog-spacing-md);
+  }
+  
+  .site-nav a {
+    font-size: 0.875rem;
+  }
+  
+  .container {
+    padding: 0 var(--blog-spacing-md);
+  }
+  
+  .footer-inner {
+    padding: 0 var(--blog-spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --blog-title-font-size: 1.75rem;
+    --blog-description-font-size: 0.95rem;
+    --blog-text-font-size: 0.9rem;
+  }
+  
+  .site-nav ul {
+    gap: var(--blog-spacing-sm);
+  }
+}
+
+/* ============================================
+   Inline Code Styles (Global)
+   ============================================ */
+
+code:not([class*="language-"]) {
+  background: #f7f6f3;
+  color: #eb5757;
+  padding: 0.2em 0.4em;
+  border-radius: 0.3em;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Consolas', 'Courier New', monospace;
+  font-size: 0.85em;
+  font-weight: 500;
+  border: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+code:not([class*="language-"]):hover {
+  background: #f1f0ed;
+  transition: background-color 0.15s ease;
+}
+
+a code:not([class*="language-"]) {
+  color: #eb5757;
+  text-decoration: none;
+}
+
+a:hover code:not([class*="language-"]) {
+  background: #f1f0ed;
+}
+
+h1 code:not([class*="language-"]),
+h2 code:not([class*="language-"]),
+h3 code:not([class*="language-"]),
+h4 code:not([class*="language-"]),
+h5 code:not([class*="language-"]),
+h6 code:not([class*="language-"]) {
+  font-size: 0.9em;
+  vertical-align: baseline;
+}
+
+@media (prefers-color-scheme: dark) {
+  code:not([class*="language-"]) {
+    background: rgba(255, 255, 255, 0.055);
+    color: #ff6b6b;
+  }
+  
+  code:not([class*="language-"]):hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 768px) {
+  code:not([class*="language-"]) {
+    font-size: 0.8em;
+    padding: 0.15em 0.3em;
+    word-break: break-all;
+    white-space: normal;
+  }
+}
+
+/* Command Palette (Ninja Keys) - Global */
+ninja-keys {
+  --ninja-width: 640px;
+  --ninja-backdrop-filter: blur(16px);
+  --ninja-overflow: hidden;
+  --ninja-text-color: #1f2937;
+  --ninja-font-size: 16px;
+  --ninja-top: 20%;
+  
+  --ninja-key-border-radius: 0.25rem;
+  --ninja-accent-color: #3b82f6;
+  --ninja-secondary-background-color: rgb(239, 241, 244);
+  --ninja-secondary-text-color: #6b7280;
+  
+  --ninja-selected-background: #3b82f6;
+  --ninja-selected-text-color: #ffffff;
+  --ninja-icon-color: var(--ninja-secondary-text-color);
+  --ninja-icon-size: 1.2em;
+  --ninja-separate-border: 1px solid rgb(226, 232, 240);
+  
+  --ninja-footer-background: rgba(242, 242, 247, 0.8);
+  
+  --ninja-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+ninja-keys .ninja-input-wrapper {
+  padding: 1rem 1rem 0.5rem 1rem;
+}
+
+ninja-keys .ninja-input {
+  font-size: 1.1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  color: #1f2937 !important;
+}
+
+ninja-keys .ninja-results-container {
+  max-height: 60vh;
+}
+
+ninja-keys .ninja-action {
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  margin: 0 0.5rem;
+  color: #1f2937 !important;
+  transition: all 0.2s ease;
+}
+
+ninja-keys .ninja-action[aria-selected="true"],
+ninja-keys .ninja-action.ninja-selected,
+ninja-keys .ninja-action:hover {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+ninja-keys .ninja-action[aria-selected="true"] *,
+ninja-keys .ninja-action.ninja-selected *,
+ninja-keys .ninja-action:hover * {
+  color: #ffffff !important;
+}
+
+ninja-keys .ninja-action:first-child {
+  margin-top: 0.5rem;
+}
+
+ninja-keys .ninja-action:last-child {
+  margin-bottom: 0.5rem;
+}
+
+.search-hint {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: var(--ninja-font-family);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.search-hint:hover {
+  opacity: 1;
+}
+
+.search-hint kbd {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-family: inherit;
+}

@@ -24,9 +24,21 @@
     <link rel="preload" href="{{ '/assets/fonts/Pretendard-Regular.subset.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ '/assets/fonts/Pretendard-SemiBold.subset.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
     
-    <!-- 사이트 CSS (Non-blocking with preload) -->
-    <link rel="preload" href="{{ '/assets/css/style.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}"></noscript>
+    <!-- Common CSS (Non-blocking) - Loaded on all pages -->
+    <link rel="preload" href="{{ '/assets/css/common.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ '/assets/css/common.css' | relative_url }}"></noscript>
+    
+    <!-- Page-specific CSS (Non-blocking, conditional loading) -->
+    {% if page.layout == 'post' %}
+    <link rel="preload" href="{{ '/assets/css/post.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}"></noscript>
+    {% elsif page.layout == 'category' %}
+    <link rel="preload" href="{{ '/assets/css/category.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ '/assets/css/category.css' | relative_url }}"></noscript>
+    {% else %}
+    <link rel="preload" href="{{ '/assets/css/home.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}"></noscript>
+    {% endif %}
     
     <!-- Prism.js CSS (지연 로딩 - 코드 블록용) -->
     <link rel="stylesheet" href="{{ '/assets/css/prism/prism-material-theme.css' | relative_url }}" media="print" onload="this.media='all'">

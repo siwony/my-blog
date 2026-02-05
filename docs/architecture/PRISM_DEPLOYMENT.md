@@ -60,11 +60,15 @@ bundle exec jekyll serve --livereload
 
 ### Asset Optimization
 ```bash
-# CSS 압축 (선택적)
-npx cssnano assets/css/style.css assets/css/style.min.css
+# Gulp을 통한 CSS/JS 빌드 및 번들링
+npm run build:dev    # 개발 빌드
+npm run build:prod   # 프로덕션 빌드 (최적화)
 
-# JavaScript 압축 (CDN 사용으로 불필요)
-# Prism.js는 이미 minified 버전 사용
+# CSS 파일 구조 (4개로 분할)
+# - assets/css/common.css (13KB)
+# - assets/css/home.css (7.6KB)
+# - assets/css/post.css (16KB, Prism.js 스타일 포함)
+# - assets/css/category.css (4KB)
 ```
 
 ## CDN Configuration
