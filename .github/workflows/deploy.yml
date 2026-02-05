@@ -58,10 +58,10 @@ jobs:
         run: |
           aws s3 sync _site s3://${{ vars.S3_BUCKET }} --delete --size-only
 
-      - name: Fix feed.xml content-type
+      - name: Fix rss.xml content-type
         run: |
-          aws s3 cp _site/feed.xml s3://${{ vars.S3_BUCKET }}/feed.xml \
-            --content-type "application/atom+xml; charset=utf-8" \
+          aws s3 cp _site/rss.xml s3://${{ vars.S3_BUCKET }}/rss.xml \
+            --content-type "application/rss+xml; charset=utf-8" \
             --metadata-directive REPLACE
 
       - name: Invalidate CloudFront cache
