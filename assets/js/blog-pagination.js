@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return '#' + parts.join('&');
   }
 
-  function renderPage(page) {
+  function renderPage(page, skipScroll) {
     const totalPages = Math.max(1, Math.ceil(postsData.length / pageSize));
     if (page < 1) page = 1;
     if (page > totalPages) page = totalPages;
@@ -82,7 +82,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderControls(page, totalPages);
     history.replaceState(null, '', buildHash(page, pageSize));
-    window.scrollTo({ top: 0 });
+    if (!skipScroll) {
+      window.scrollTo({ top: 0 });
+    }
   }
 
   function createBtn(label, page, disabled, isNavBtn = false) {
@@ -157,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   const initialPage = hashParams.p ? parseInt(hashParams.p, 10) : 1;
-  renderPage(initialPage || 1);
+  renderPage(initialPage || 1, true); // skipScroll on initial load
 
   window.addEventListener('hashchange', function () {
     const params = parseHash();
@@ -180,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
     resizeTimer = setTimeout(function() {
       const params = parseHash();
       const currentPage = params.p ? parseInt(params.p, 10) : 1;
-      renderPage(currentPage);
+      renderPage(currentPage, true); // skipScroll on resize
     }, 250);
   });
 });
