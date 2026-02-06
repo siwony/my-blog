@@ -1,0 +1,33 @@
+.sidebar {
+  width: 250px;
+  background-color: #252526;
+  color: #cccccc;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #1e1e1e;
+}
+
+.sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.sidebar-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.sidebar-placeholder {
+  color: #666;
+  font-size: 13px;
+  font-style: italic;
+}
