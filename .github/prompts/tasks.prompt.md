@@ -1,10 +1,8 @@
 ---
-description: Generate an actionable, dependency-ordered tasks.md for the feature based on available design artifacts.
+description: Generate an actionable, dependency-ordered task list for a feature based on its specification and plan.
 ---
 
 **⚠️ MANDATORY: Before proceeding, read and follow `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` for all development work.**
-
-The user input to you can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
 
 User input:
 
@@ -12,76 +10,50 @@ $ARGUMENTS
 
 ## Prerequisites Check
 
-1. **REQUIRED**: Read `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` and ensure compliance with:
-   - Guidelines adherence protocols
-   - Atomic commit strategies  
-   - Architecture documentation requirements
-
+1. **REQUIRED**: Read `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md`
 2. **REQUIRED**: Review related documentation:
    - `docs/guidelines/TESTING_STRATEGY.md` - Testing approaches
    - `docs/guidelines/PERFORMANCE_GUIDELINES.md` - Performance standards
    - `docs/architecture/SYSTEM_ARCHITECTURE.md` - Current system state
 
+## Project Context
+
+Jekyll ~4.3 기반 기술 블로그:
+- **테스트**: Jest 29.7.0 (jsdom), `tests/` 디렉토리, `npm test`
+- **빌드**: Gulp + esbuild, `./dev.sh build`
+- **CI/CD**: GitHub Actions (`test.yml`, `deploy.yml`)
+
 ## Task Generation Workflow
 
-1. Run `.specify/scripts/bash/check-prerequisites.sh --json` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute.
-2. Load and analyze available design documents:
-   - Always read plan.md for tech stack and libraries
-   - IF EXISTS: Read data-model.md for entities
-   - IF EXISTS: Read contracts/ for API endpoints
-   - IF EXISTS: Read research.md for technical decisions
-   - IF EXISTS: Read quickstart.md for test scenarios
+1. **컨텍스트 로딩**:
+   - `docs/features/` 에서 대상 명세서 및 구현 계획 로딩
+   - 기존 테스트 구조 확인 (`tests/` 디렉토리)
+   - 현재 빌드 설정 확인 (`gulpfile.js`, `package.json`)
 
-   Note: Not all projects have all documents. For example:
-   - CLI tools might not have contracts/
-   - Simple libraries might not need data-model.md
-   - Generate tasks based on what's available
+2. **태스크 생성 규칙**:
+   - **Setup 태스크**: 의존성 설치, 설정 파일, 기본 구조
+   - **Test 태스크 [P]**: 각 기능별 테스트 파일 (TDD)
+   - **Core 태스크**: 핵심 구현 (컴포넌트, 플러그인, 스타일)
+   - **Integration 태스크**: 기존 시스템 통합 (레이아웃, 빌드 파이프라인)
+   - **Polish 태스크 [P]**: 최적화, 문서 업데이트
 
-3. Generate tasks following the template:
-   - Use `.specify/templates/tasks-template.md` as the base
-   - Replace example tasks with actual tasks based on:
-     * **Setup tasks**: Project init, dependencies, linting
-     * **Test tasks [P]**: One per contract, one per integration scenario
-     * **Core tasks**: One per entity, service, CLI command, endpoint
-     * **Integration tasks**: DB connections, middleware, logging
-     * **Polish tasks [P]**: Unit tests, performance, docs
+3. **의존성 기반 정렬**:
+   - Setup → Tests → Core → Integration → Polish
+   - 같은 파일 수정 = 순차적 (no [P])
+   - 다른 파일 수정 = 병렬 가능 [P]
+   - 테스트 먼저 작성 (TDD approach)
 
-4. Task generation rules:
-   - Each contract file → contract test task marked [P]
-   - Each entity in data-model → model creation task marked [P]
-   - Each endpoint → implementation task (not parallel if shared files)
-   - Each user story → integration test marked [P]
-   - Different files = can be parallel [P]
-   - Same file = sequential (no [P])
+4. **태스크 형식**:
+   ```
+   ### T001: [태스크 제목]
+   - **Phase**: Setup | Test | Core | Integration | Polish
+   - **Files**: 영향받는 파일 경로
+   - **Parallel**: [P] 또는 Sequential
+   - **Depends on**: T000 (의존 태스크)
+   - **Description**: 구체적인 작업 내용
+   ```
 
-5. Order tasks by dependencies:
-   - Setup before everything
-   - Tests before implementation (TDD)
-   - Models before services
-   - Services before endpoints
-   - Core before integration
-   - Everything before polish
-
-6. Include parallel execution examples:
-   - Group [P] tasks that can run together
-   - Show actual Task agent commands
-
-7. Create FEATURE_DIR/tasks.md with:
-   - Correct feature name from implementation plan
-   - Numbered tasks (T001, T002, etc.)
-   - Clear file paths for each task
-   - Dependency notes
-   - Parallel execution guidance
-
-7. **MANDATORY Post-Work Actions** (per AI_DEVELOPMENT_GUIDELINES.md):
+5. **MANDATORY Post-Work Actions**:
    - Commit task breakdown atomically
-   - Ensure tasks align with testing strategy from `docs/guidelines/TESTING_STRATEGY.md`
-   - Verify tasks follow performance guidelines
-
-8. Report completion with:
-   - Task count and organization summary
-   - Confirmation of guideline compliance
-
-Context for task generation: $ARGUMENTS
-
-The tasks.md should be immediately executable - each task must be specific enough that an LLM can complete it without additional context.
+   - Ensure tasks align with `docs/guidelines/TESTING_STRATEGY.md`
+   - Verify tasks follow `docs/guidelines/PERFORMANCE_GUIDELINES.md`

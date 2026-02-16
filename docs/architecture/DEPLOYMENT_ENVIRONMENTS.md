@@ -1,119 +1,137 @@
 # 배포 환경 구성 가이드
 
-이 프로젝트는 여러 환경에서의 배포를 지원합니다.
+이 프로젝트는 GitHub Actions를 통한 자동 배포와 로컬 개발 환경을 지원합니다.
 
-## 📋 환경별 파일 매핑
+## 📋 환경별 구성
 
 ### 개발 환경 (Development)
-- **Docker Compose**: `docker-compose.yml`
-- **Caddyfile**: `Caddyfile`
-- **포트**: 8081 (HTTP), 2019 (관리자)
+- **설정 파일**: `_config.yml` + `_config_development.yml`
+- **URL**: `http://localhost:4000`
+- **특징**: 초안 포함, 증분 빌드, 라이브 리로드
 - **용도**: 로컬 개발 및 테스트
 
-### 테스트 환경 (Test)
-- **Docker Compose**: `docker-compose.yml` 
-- **Caddyfile**: `Caddyfile.test`
-- **포트**: 8082 (HTTP)
-- **용도**: 배포 전 최종 테스트
-
-### 홈서버 환경 (Homeserver)
-- **Docker Compose**: `docker-compose.homeserver.yml`
-- **Caddyfile**: `Caddyfile.homeserver`
-- **포트**: 8443 (HTTPS), 8080 (HTTP 리다이렉트)
-- **용도**: 가정용 서버 배포 (DDNS + Let's Encrypt)
+### 프로덕션 환경 (Production)
+- **설정 파일**: `_config.yml` + `_config_production.yml`
+- **URL**: `https://blog.siwony.xyz`
+- **호스팅**: AWS S3 + CloudFront
+- **배포**: GitHub Actions (OIDC 인증)
+- **특징**: 최적화된 빌드, 초안 미포함, 캐시 무효화
 
 ## 🚀 배포 방법
 
+### 프로덕션 자동 배포
+`main` 브랜치에 푸시하면 GitHub Actions가 자동으로 배포합니다:
+
+```
+1. 카테고리 페이지 자동 동기화 (scripts/sync_categories.sh)
+2. Jekyll 프로덕션 빌드
+3. AWS S3에 동기화
+4. RSS content-type 수정
+5. CloudFront 캐시 무효화
+```
+
 ### 개발 환경
 ```bash
-# 방법 1: Makefile 사용
-make dev                    # Jekyll 개발 서버
-make deploy                 # Docker 컨테이너 배포
+# 방법 1: dev.sh 사용 (권장)
+./dev.sh serve                    # 기본 개발 서버 (포트 4000)
+./dev.sh serve --port 3000        # 특정 포트로 실행
+./dev.sh serve --drafts           # 초안 포함
 
 # 방법 2: 직접 명령어
-bundle exec jekyll serve --watch --drafts
-docker-compose up -d
+bundle exec jekyll serve --config _config.yml,_config_development.yml
 ```
 
-### 홈서버 환경
+### 프로덕션 로컬 테스트
 ```bash
-# 방법 1: 전용 스크립트 사용 (권장)
-./deploy-homeserver.sh                  # 전체 배포
-./deploy-homeserver.sh --build-only     # Jekyll 빌드만
-./deploy-homeserver.sh --deploy-only    # Docker 배포만
-./deploy-homeserver.sh --status         # 상태 확인
-
-# 방법 2: Makefile 사용
-make homeserver-deploy      # 전체 배포
-make homeserver-status      # 상태 확인
-make homeserver-logs        # 로그 확인
-
-# 방법 3: 수동 배포
-JEKYLL_ENV=production bundle exec jekyll build
-docker-compose -f docker-compose.homeserver.yml up -d
+# 프로덕션 빌드 후 로컬에서 테스트 (포트 8080)
+./dev.sh test-prod
 ```
 
-## ⚙️ 홈서버 설정 가이드
+## ⚙️ 설정 파일 구성
 
-### 1. 도메인 및 DDNS 설정
-1. **Caddyfile.homeserver 수정**:
-   ```
-   yourdomain.com → 실제 도메인으로 변경
-   your-email@example.com → 실제 이메일로 변경
-   ```
+### _config.yml (공통)
+- 사이트 기본 설정 (title, author, URL)
+- Kramdown 설정 (GFM, syntax_highlighter: none)
+- 퍼머링크 패턴: `/:categories/:title/`
+- 기본 레이아웃: `post`
+- 제외 파일 목록
 
-2. **Namecheap DDNS 설정** (동적 IP 사용 시):
-   - Domain List → Manage → Advanced DNS → Dynamic DNS → ON
-   - Dynamic DNS Password 복사
-   - ddclient 설정:
-     ```bash
-     sudo apt install ddclient
-     sudo nano /etc/ddclient.conf
-     ```
+### _config_development.yml
+```yaml
+url: "http://localhost:4000"
+show_drafts: true
+incremental: true
+livereload: true
+```
 
-### 2. 포트 포워딩 설정
-라우터에서 다음 포트를 포워딩하세요:
-- **8443** (외부) → **443** (내부 서버) - HTTPS
-- **8080** (외부) → **80** (내부 서버) - HTTP 리다이렉트 (선택사항)
+### _config_production.yml
+```yaml
+url: "https://blog.siwony.xyz"
+show_drafts: false
+incremental: false
+future: false
+unpublished: false
+```
 
-### 3. 방화벽 설정
+## 📦 빌드 파이프라인
+
+### 개발 빌드
 ```bash
-# Ubuntu/Debian
-sudo ufw allow 8443
-sudo ufw allow 8080
-
-# CentOS/RHEL
-sudo firewall-cmd --permanent --add-port=8443/tcp
-sudo firewall-cmd --permanent --add-port=8080/tcp
-sudo firewall-cmd --reload
+./dev.sh build
+# → npm run bundle:all (esbuild)
+# → Jekyll build (dev config)
+# → gulp build:dev (sourcemaps 포함)
 ```
 
-### 4. 서비스 접근
-- **HTTPS**: `https://yourdomain.com:8443`
-- **HTTP**: `http://yourdomain.com:8080` (자동으로 HTTPS로 리다이렉트)
-
-## 🔧 유지보수
-
-### 콘텐츠 업데이트
+### 프로덕션 빌드
 ```bash
-# 홈서버
-./deploy-homeserver.sh --build-only && ./deploy-homeserver.sh --restart
+./dev.sh build --production
+# → npm run bundle:all (esbuild)
+# → Jekyll build (production config)
+# → gulp build:prod (minify + critical CSS)
 ```
 
-### 로그 확인
-```bash
-# 홈서버
-./deploy-homeserver.sh --logs
-docker-compose -f docker-compose.homeserver.yml logs -f
+### Gulp 태스크
+| 태스크 | 설명 |
+|--------|------|
+| `clean` | `_site/` 정리 (search-data.json 보존) |
+| `js` | JS 최적화 (프로덕션: uglify, 개발: sourcemaps) |
+| `css` | CSS 최적화 (프로덕션: cleanCSS level 2) |
+| `bundlePrism` | Prism.js 6개 플러그인 → 단일 번들 |
+| `html` | HTML 최적화 (프로덕션: htmlmin) |
+| `extractCritical` | Critical CSS 추출 → `_includes/critical.css` |
+
+## 🔧 CI/CD 워크플로우
+
+### 배포 워크플로우 (deploy.yml)
+```
+트리거: main 브랜치 push
+├── Checkout
+├── Ruby 3.3 설정
+├── 카테고리 동기화 + 자동 커밋
+├── Jekyll 프로덕션 빌드
+├── AWS OIDC 인증
+├── S3 동기화 (--delete --size-only)
+├── RSS content-type 수정
+└── CloudFront 캐시 무효화
 ```
 
-### 문제 해결
-1. **TLS 핸드셰이크 타임아웃**: 포트 8443이 제대로 포워딩되었는지 확인
-2. **잘못된 인증서**: 도메인 설정과 DNS 동기화 확인
-3. **사이트가 서빙되지 않음**: `_site` 디렉토리가 존재하는지 확인
+### 테스트 워크플로우 (test.yml)
+```
+트리거: push / pull request
+├── Node.js 설정
+├── npm install
+├── Jest 테스트 실행
+└── Codecov 커버리지 업로드
+```
 
 ## 📦 의존성
 
-- **Ruby & Bundler**: Jekyll 빌드용
-- **Docker & Docker Compose**: 컨테이너 배포용
-- **Make**: 빌드 자동화용 (선택사항)
+- **Ruby 3.x+**: Jekyll 빌드
+- **Bundler 2.0+**: Ruby 의존성 관리
+- **Node.js 20.x+**: 테스트 및 빌드 도구 (Jest, Gulp, esbuild)
+- **AWS CLI**: S3 동기화 및 CloudFront 관리 (CI/CD 환경)
+
+---
+
+📅 마지막 업데이트: 2026년 2월

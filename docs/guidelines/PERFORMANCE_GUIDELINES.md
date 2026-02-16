@@ -21,7 +21,7 @@ Prism.js syntax highlighting의 성능 최적화를 위한 가이드라인과 �
 ### 1. Lazy Loading
 ```javascript
 // Autoloader 플러그인 사용으로 필요한 언어만 로딩
-Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/';
+Prism.plugins.autoloader.languages_path = '/assets/js/prism/components/';
 ```
 
 **Benefits**:
@@ -29,17 +29,23 @@ Prism.plugins.autoloader.languages_path = 'https://cdnjs.cloudflare.com/ajax/lib
 - 네트워크 요청 최적화
 - 사용하지 않는 언어 파일 제외
 
-### 2. CDN 최적화
+### 2. 로컬 호스팅 + 번들링
 ```html
-<!-- 지리적으로 가까운 CDN 서버 사용 -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-github.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<!-- Prism.js 번들 (6개 플러그인 → 단일 파일, 37KB) -->
+<script src="/assets/js/prism/prism.bundle.min.js" defer></script>
+
+<!-- Ninja Keys 번들 (80+ ESM → 단일 IIFE, 52KB) -->
+<script src="/assets/js/ninja-keys.bundle.min.js" defer></script>
+
+<!-- PhotoSwipe 번들 (2 ESM → 단일 IIFE, 67KB) -->
+<script src="/assets/js/photoswipe.bundle.min.js" defer></script>
 ```
 
 **Benefits**:
-- 빠른 파일 다운로드
+- 외부 CDN 의존성 제거 (안정성 확보)
+- 요청 체이닝 제거 (1,778ms → 단일 요청)
 - 브라우저 캐싱 활용
-- 서버 부하 분산
+- CloudFront CDN 통한 글로벌 배포
 
 ### 3. DOM 최적화
 ```javascript

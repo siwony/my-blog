@@ -15,7 +15,7 @@ Jekyll 기반 기술 블로그에 Prism.js syntax highlighting을 통합한 시�
                               ▼                        ▼
                        ┌──────────────────┐    ┌─────────────────┐
                        │   Static Files   │    │   Prism.js      │
-                       │   (HTML/CSS)     │    │   (CDN)         │
+                       │   (HTML/CSS)     │    │   (Self-hosted) │
                        └──────────────────┘    └─────────────────┘
 ```
 
@@ -57,7 +57,11 @@ Jekyll Content Processing
 Jest Testing Framework
 ├── Unit Tests (tests/prism.test.js)
 ├── Integration Tests (tests/prism-integration.test.js)
-├── Performance Tests (tests/prism-performance.test.js)
+├── Blog Feature Tests (tests/blog-features.test.js)
+├── Category Display Tests (tests/category-tags-display.test.js)
+├── Web Component Tests
+│   ├── tests/category-sidebar.test.js
+│   └── tests/post-metadata.test.js
 ├── Test Environment Setup (tests/setup.js)
 └── Custom Test Runner (scripts/test-runner.js)
 ```
@@ -80,11 +84,19 @@ Markdown → Kramdown → HTML → Prism.js → Highlighted Code
    ├── Generate HTML pages
    └── Copy static assets
 
-2. Browser Loading
+2. Gulp Build Pipeline
+   ├── Clean output directory
+   ├── Minify JS (production) / Sourcemaps (dev)
+   ├── Minify CSS (production) / Sourcemaps (dev)
+   ├── Bundle Prism.js (6 plugins → 1 file)
+   ├── Minify HTML (production)
+   └── Extract Critical CSS (production)
+
+3. Browser Loading
    ├── Load HTML page
-   ├── Fetch CSS from CDN
-   ├── Fetch JS from CDN
-   ├── Execute initialization
+   ├── Apply Critical CSS (inlined)
+   ├── Fetch page-specific CSS
+   ├── Load bundled JS (defer)
    └── Apply syntax highlighting
 ```
 
@@ -98,25 +110,25 @@ Markdown → Kramdown → HTML → Prism.js → Highlighted Code
 - **Build**: `gulpfile.js` - CSS/JS 빌드 및 번들링
 
 ### External Dependencies
-- **CDN**: Cloudflare CDN for Prism.js resources
-- **GitHub**: Source code hosting and CI/CD
+- **AWS S3 + CloudFront**: 정적 사이트 호스팅 및 CDN
+- **GitHub Actions**: CI/CD 파이프라인
 - **Jekyll**: Static site generation
-- **Node.js**: Testing environment
+- **Node.js**: Testing and build environment
 
 ## Security Architecture
 
 ### Content Security Policy
 ```
 default-src 'self'
-script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com
+script-src 'self' 'unsafe-inline'
 style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com
-connect-src 'self' https://cdnjs.cloudflare.com
+connect-src 'self'
 ```
 
 ### Trusted Sources
-- Cloudflare CDN (primary)
-- GitHub Pages (hosting)
-- Local assets (fallback)
+- Self-hosted assets (primary)
+- cdnjs.cloudflare.com (GitHub Markdown CSS only)
+- AWS S3 + CloudFront (production hosting)
 
 ## Performance Architecture
 
@@ -138,34 +150,35 @@ connect-src 'self' https://cdnjs.cloudflare.com
 ### Environments
 ```
 Development
-├── Local Jekyll server
-├── Unminified assets
+├── Local Jekyll server (dev.sh serve)
+├── Sourcemaps enabled
 ├── Debug logging enabled
-└── Live reload
+├── Live reload
+└── Drafts included
 
 Production
-├── GitHub Pages hosting
-├── Minified assets
-├── Production optimizations
-└── Performance monitoring
+├── AWS S3 + CloudFront hosting
+├── Minified assets (Gulp)
+├── Critical CSS inlined
+├── Bundled JS (esbuild + Gulp)
+└── GZIP compression
 ```
 
 ### CI/CD Pipeline
 ```
 GitHub Actions
-├── Code Quality Checks
-│   ├── ESLint
-│   └── Prettier
-├── Automated Testing
-│   ├── Jest Unit Tests
-│   ├── Integration Tests
-│   └── Performance Tests
-├── Build Process
-│   ├── Jekyll Build
+├── Category Auto-sync
+│   └── scripts/sync_categories.sh
+├── Automated Testing (.github/workflows/test.yml)
+│   ├── Jest Tests
+│   └── Codecov Coverage
+├── Build Process (.github/workflows/deploy.yml)
+│   ├── Jekyll Build (production config)
 │   └── Asset Optimization
 └── Deployment
-    ├── GitHub Pages
-    └── Status Monitoring
+    ├── S3 Sync
+    ├── RSS Content-Type Fix
+    └── CloudFront Cache Invalidation
 ```
 
 ## Scalability Considerations
@@ -206,22 +219,24 @@ Functional Metrics
 ## Technology Stack
 
 ### Core Technologies
-- **Jekyll 3.9.x**: Static site generator
-- **Prism.js 1.29.0**: Syntax highlighting
-- **Kramdown**: Markdown parser
+- **Jekyll ~4.3**: Static site generator
+- **Prism.js 1.29.0**: Syntax highlighting (self-hosted, bundled)
+- **Kramdown**: Markdown parser (GFM)
 - **Liquid**: Template engine
 
 ### Development Tools
-- **Jest**: Testing framework
-- **Node.js**: Development environment
+- **Jest 29.7.0**: Testing framework
+- **Gulp 4.0.2**: Build automation (CSS/JS minification, bundling)
+- **esbuild**: JavaScript bundling (Ninja Keys, PhotoSwipe)
+- **Node.js 20.x**: Development environment
 - **npm**: Package management
 - **GitHub Actions**: CI/CD
 
 ### Infrastructure
-- **GitHub Pages**: Hosting
-- **Cloudflare CDN**: Asset delivery
+- **AWS S3**: Static file hosting
+- **AWS CloudFront**: CDN distribution
+- **GitHub Actions (OIDC)**: Automated deployment
 - **Git**: Version control
-- **GitHub**: Repository hosting
 
 ## Design Patterns
 

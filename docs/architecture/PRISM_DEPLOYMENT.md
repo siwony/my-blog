@@ -28,20 +28,20 @@
 
 ### Development Environment
 ```yaml
-# _config.yml (development)
-environment: development
-prism_debug: true
-minify_css: false
-minify_js: false
+# _config_development.yml
+url: "http://localhost:4000"
+show_drafts: true
+incremental: true
+livereload: true
 ```
 
 ### Production Environment
 ```yaml
-# _config.yml (production)
-environment: production
-prism_debug: false
-minify_css: true
-minify_js: true
+# _config_production.yml
+url: "https://blog.siwony.xyz"
+show_drafts: false
+incremental: false
+future: false
 ```
 
 ## Build Process
@@ -49,20 +49,23 @@ minify_js: true
 ### Jekyll Build
 ```bash
 # Development build
-bundle exec jekyll build
+./dev.sh build
 
 # Production build
-JEKYLL_ENV=production bundle exec jekyll build
+./dev.sh build --production
 
-# Serve locally for testing
-bundle exec jekyll serve --livereload
+# Production build + local test (port 8080)
+./dev.sh test-prod
 ```
 
 ### Asset Optimization
 ```bash
 # Gulp을 통한 CSS/JS 빌드 및 번들링
-npm run build:dev    # 개발 빌드
-npm run build:prod   # 프로덕션 빌드 (최적화)
+# build:dev  → sourcemaps 포함
+# build:prod → minify + critical CSS 추출
+
+# esbuild을 통한 JS 번들링
+npm run bundle:all    # ninja-keys + photoswipe 번들링
 
 # CSS 파일 구조 (4개로 분할)
 # - assets/css/common.css (13KB)
@@ -71,26 +74,35 @@ npm run build:prod   # 프로덕션 빌드 (최적화)
 # - assets/css/category.css (4KB)
 ```
 
-## CDN Configuration
+## Asset Hosting Configuration
 
-### Primary CDN (Cloudflare)
+### Self-hosted (Current)
+Prism.js는 로컬에서 셋프 호스팅되며, Gulp로 번들링됩니다:
 ```html
-<!-- CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-github.min.css" rel="stylesheet" />
+<!-- CSS (지연 로딩) -->
+<link rel="stylesheet" href="/assets/css/prism/prism-material-theme.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/assets/css/prism/prism-toolbar.min.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/assets/css/prism/prism-line-numbers.min.css" media="print" onload="this.media='all'">
 
-<!-- JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<!-- JavaScript (단일 번들, defer) -->
+<script src="/assets/js/prism/prism.bundle.min.js" defer></script>
 ```
 
-### Fallback Strategy
-```html
-<!-- Fallback for CDN failure -->
-<script>
-if (!window.Prism) {
-    document.write('<script src="/assets/js/prism-fallback.min.js"><\/script>');
+### Bundle Process (Gulp)
+```javascript
+// gulpfile.js - bundlePrism 태스크
+function bundlePrism() {
+  return gulp.src([
+    'assets/js/prism/prism.min.js',
+    'assets/js/prism/prism-autoloader.min.js',
+    'assets/js/prism/prism-line-numbers.min.js',
+    'assets/js/prism/prism-toolbar.min.js',
+    'assets/js/prism/prism-copy-to-clipboard.min.js',
+    'assets/js/prism/prism-show-language.min.js'
+  ], { allowEmpty: true })
+    .pipe(concat('prism.bundle.min.js'))
+    .pipe(gulp.dest('assets/js/prism/'));
 }
-</script>
 ```
 
 ## Security Considerations
@@ -99,44 +111,30 @@ if (!window.Prism) {
 ```html
 <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+    script-src 'self' 'unsafe-inline';
     style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
-    connect-src 'self' https://cdnjs.cloudflare.com;
+    connect-src 'self';
 ">
 ```
 
-### Subresource Integrity
-```html
-<!-- SRI hashes for CDN resources -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-github.min.css" 
-      rel="stylesheet" 
-      integrity="sha512-..." 
-      crossorigin="anonymous" />
-```
+> **참고**: Prism.js가 로컬 호스팅되므로 CDN에 대한 script-src 허용이 필요하지 않습니다.
+> 외부 CDN은 GitHub Markdown CSS (`cdnjs.cloudflare.com`)만 허용됩니다.
 
 ## Performance Optimization
 
-### HTTP Headers
-```nginx
-# Nginx configuration example
-location ~* \.(css|js)$ {
-    expires 1y;
-    add_header Cache-Control "public, immutable";
-    add_header Vary "Accept-Encoding";
-    gzip on;
-    gzip_vary on;
-    gzip_comp_level 6;
-    gzip_types text/css application/javascript;
-}
-```
+### CloudFront Caching
+AWS CloudFront가 CDN 역할을 수행하며, 정적 자산에 대해 캐싱을 제공합니다.
 
 ### Preloading Critical Resources
 ```html
-<!-- Preload critical CSS -->
-<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-github.min.css" as="style">
+<!-- Critical CSS 인라인 -->
+<style>{% include critical.css %}</style>
 
-<!-- Preconnect to CDN -->
-<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<!-- 페이지별 CSS 조건부 로딩 -->
+<link rel="stylesheet" href="/assets/css/common.css">
+{% if page.layout == 'post' %}
+  <link rel="stylesheet" href="/assets/css/post.css">
+{% endif %}
 ```
 
 ## Monitoring & Alerting

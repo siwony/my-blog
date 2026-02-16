@@ -9,7 +9,6 @@ AI가 개발 작업을 수행할 때 **반드시** 따라야 하는 필수 지�
 **모든 기능 개발 시 docs/guidelines를 우선 참조하고 준수해야 합니다.**
 
 #### 필수 확인 사항:
-- [ ] [`PROJECT_CONSTITUTION.md`](./PROJECT_CONSTITUTION.md) - 프로젝트 핵심 원칙
 - [ ] [`PERFORMANCE_GUIDELINES.md`](./PERFORMANCE_GUIDELINES.md) - 성능 최적화 기준
 - [ ] [`CSS_CONFLICT_PREVENTION.md`](./CSS_CONFLICT_PREVENTION.md) - CSS 충돌 방지 전략
 - [ ] [`TESTING_STRATEGY.md`](./TESTING_STRATEGY.md) - 테스팅 접근법
@@ -70,7 +69,6 @@ test: Add integration tests for search
 #### 업데이트 대상 문서:
 - [`docs/architecture/SYSTEM_ARCHITECTURE.md`](../architecture/SYSTEM_ARCHITECTURE.md)
 - [`docs/architecture/DEPLOYMENT_ENVIRONMENTS.md`](../architecture/DEPLOYMENT_ENVIRONMENTS.md)
-- [`docs/architecture/SECURITY_HEADERS.md`](../architecture/SECURITY_HEADERS.md)
 
 #### 문서 현행화 시점:
 1. 🏗️ **시스템 구조 변경 시**: 컴포넌트 추가/제거, 데이터 플로우 변경

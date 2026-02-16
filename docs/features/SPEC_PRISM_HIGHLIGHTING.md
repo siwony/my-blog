@@ -27,12 +27,10 @@ Jekyll 블로그에 Prism.js syntax highlighting을 통합하여 코드 블록�
 ### Dependencies
 ```json
 {
-  "jekyll": "3.9.5",
+  "jekyll": "~4.3",
   "webrick": "1.8+",
   "kramdown-parser-gfm": "1.1+",
-  "jekyll-feed": "0.17.0",
-  "jekyll-sitemap": "1.4.0",
-  "sassc": "2.4.0",
+  "jekyll-seo-tag": "latest",
   "jest": "29.7.0",
   "jest-environment-jsdom": "29.7.0",
   "prism-core": "1.29.0",
@@ -47,7 +45,7 @@ Jekyll 블로그에 Prism.js syntax highlighting을 통합하여 코드 블록�
 ### Configuration Changes
 1. Jekyll `_config.yml`: Rouge highlighter 비활성화
 2. Kramdown syntax highlighting 비활성화
-3. Prism.js CDN 링크 추가
+3. Prism.js 로컬 셋프 호스팅 (번들링된 단일 파일)
 
 ### File Structure
 ```
@@ -65,12 +63,13 @@ tests/                        # Jest 테스트 스위트
 ## Implementation
 
 ### Phase 1: Library Integration ✅
-- CDN을 통한 Prism.js 라이브러리 로딩
+- 로컬 셋프 호스팅을 통한 Prism.js 라이브러리 로딩
 - 필수 플러그인 설정
 - 기본 초기화 스크립트 작성
+- Gulp 번들링 (6개 플러그인 → 단일 파일)
 
 ### Phase 2: Styling ✅
-- GitHub 테마 기반 커스텀 CSS
+- Material Design 테마 기반 커스텀 CSS
 - 반응형 디자인 구현
 - 기존 Jekyll 테마와의 통합
 
@@ -117,8 +116,8 @@ tests/                        # Jest 테스트 스위트
 - 테스트 커버리지: 95% 이상
 
 ## Dependencies
-- Jekyll 3.9.x
-- Kramdown parser
+- Jekyll ~4.3
+- Kramdown parser (GFM)
 - Modern browsers (ES6+ support)
 
 ## Timeline
@@ -126,6 +125,6 @@ tests/                        # Jest 테스트 스위트
 - **Total Duration**: 1일
 
 ## Related Documents
-- [Testing Strategy](../testing/jest-testing-strategy.md)
-- [Performance Guidelines](../performance/prism-performance.md)
-- [Deployment Guide](../deployment/prism-deployment.md)
+- [Testing Strategy](../guidelines/TESTING_STRATEGY.md)
+- [Performance Guidelines](../guidelines/PERFORMANCE_GUIDELINES.md)
+- [Prism Deployment](../architecture/PRISM_DEPLOYMENT.md)

@@ -1,10 +1,8 @@
 ---
-description: Perform a non-destructive cross-artifact consistency and quality analysis across spec.md, plan.md, and tasks.md after task generation.
+description: Perform a non-destructive cross-artifact consistency and quality analysis across feature spec, plan, and tasks.
 ---
 
 **⚠️ MANDATORY: Before proceeding, read and follow `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` for all development work.**
-
-The user input to you can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
 
 User input:
 
@@ -12,113 +10,56 @@ $ARGUMENTS
 
 ## Prerequisites Check
 
-1. **REQUIRED**: Read `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md` and ensure compliance with:
-   - Guidelines adherence protocols
-   - Atomic commit strategies  
-   - Architecture documentation requirements
-
+1. **REQUIRED**: Read `docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md`
 2. **REQUIRED**: Review related documentation:
-   - `docs/guidelines/PROJECT_CONSTITUTION.md` - Core project principles
    - `docs/architecture/SYSTEM_ARCHITECTURE.md` - Current system state
    - `docs/guidelines/TESTING_STRATEGY.md` - Testing standards
 
 ## Analysis Workflow
 
-Goal: Identify inconsistencies, duplications, ambiguities, and underspecified items across the three core artifacts (`spec.md`, `plan.md`, `tasks.md`) before implementation. This command MUST run only after `/tasks` has successfully produced a complete `tasks.md`.
+Goal: 기능 명세서, 구현 계획, 태스크 목록 간의 일관성, 중복, 모호성, 누락 사항을 식별합니다.
 
-STRICTLY READ-ONLY: Do **not** modify any files. Output a structured analysis report. Offer an optional remediation plan (user must explicitly approve before any follow-up editing commands would be invoked manually).
+**STRICTLY READ-ONLY**: 파일을 수정하지 않습니다. 구조화된 분석 리포트만 출력합니다.
 
-Constitution Authority: The project constitution (`.specify/memory/constitution.md`) is **non-negotiable** within this analysis scope. Constitution conflicts are automatically CRITICAL and require adjustment of the spec, plan, or tasks—not dilution, reinterpretation, or silent ignoring of the principle. If a principle itself needs to change, that must occur in a separate, explicit constitution update outside `/analyze`.
+1. **아티팩트 로딩**:
+   - `docs/features/` 에서 대상 명세서 로딩
+   - 명세서 내 구현 계획 및 태스크 목록 파싱
+   - 기존 구현 코드와 대조 (해당되는 경우)
 
-Execution steps:
+2. **분석 카테고리**:
+   - **중복 탐지**: 유사/중복 요구사항 식별
+   - **모호성 탐지**: 측정 기준 없는 모호한 표현 (빠른, 안정적, 직관적 등)
+   - **미명세**: 동사만 있고 측정 가능한 결과가 없는 요구사항
+   - **커버리지 갭**: 태스크에 매핑되지 않은 요구사항, 요구사항 없는 태스크
+   - **비일관성**: 용어 차이, 데이터 모델 불일치, 태스크 순서 모순
+   - **프로젝트 정합성**: 기존 아키텍처/가이드라인과의 충돌
 
-1. Run `.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks` once from repo root and parse JSON for FEATURE_DIR and AVAILABLE_DOCS. Derive absolute paths:
-   - SPEC = FEATURE_DIR/spec.md
-   - PLAN = FEATURE_DIR/plan.md
-   - TASKS = FEATURE_DIR/tasks.md
-   Abort with an error message if any required file is missing (instruct the user to run missing prerequisite command).
+3. **심각도 분류**:
+   - **CRITICAL**: 핵심 요구사항 누락, 요구사항 간 충돌
+   - **HIGH**: 중복 요구사항, 테스트 불가능한 기준
+   - **MEDIUM**: 용어 불일치, 비기능 태스크 누락
+   - **LOW**: 문체 개선, 경미한 중복
 
-2. Load artifacts:
-   - Parse spec.md sections: Overview/Context, Functional Requirements, Non-Functional Requirements, User Stories, Edge Cases (if present).
-   - Parse plan.md: Architecture/stack choices, Data Model references, Phases, Technical constraints.
-   - Parse tasks.md: Task IDs, descriptions, phase grouping, parallel markers [P], referenced file paths.
-   - Load constitution `.specify/memory/constitution.md` for principle validation.
+4. **분석 리포트 출력**:
 
-3. Build internal semantic models:
-   - Requirements inventory: Each functional + non-functional requirement with a stable key (derive slug based on imperative phrase; e.g., "User can upload file" -> `user-can-upload-file`).
-   - User story/action inventory.
-   - Task coverage mapping: Map each task to one or more requirements or stories (inference by keyword / explicit reference patterns like IDs or key phrases).
-   - Constitution rule set: Extract principle names and any MUST/SHOULD normative statements.
+   ### Analysis Report
+   | ID | Category | Severity | Location | Summary | Recommendation |
+   |----|----------|----------|----------|---------|----------------|
 
-4. Detection passes:
-   A. Duplication detection:
-      - Identify near-duplicate requirements. Mark lower-quality phrasing for consolidation.
-   B. Ambiguity detection:
-      - Flag vague adjectives (fast, scalable, secure, intuitive, robust) lacking measurable criteria.
-      - Flag unresolved placeholders (TODO, TKTK, ???, <placeholder>, etc.).
-   C. Underspecification:
-      - Requirements with verbs but missing object or measurable outcome.
-      - User stories missing acceptance criteria alignment.
-      - Tasks referencing files or components not defined in spec/plan.
-   D. Constitution alignment:
-      - Any requirement or plan element conflicting with a MUST principle.
-      - Missing mandated sections or quality gates from constitution.
-   E. Coverage gaps:
-      - Requirements with zero associated tasks.
-      - Tasks with no mapped requirement/story.
-      - Non-functional requirements not reflected in tasks (e.g., performance, security).
-   F. Inconsistency:
-      - Terminology drift (same concept named differently across files).
-      - Data entities referenced in plan but absent in spec (or vice versa).
-      - Task ordering contradictions (e.g., integration tasks before foundational setup tasks without dependency note).
-      - Conflicting requirements (e.g., one requires to use Next.js while other says to use Vue as the framework).
+   ### Coverage Summary
+   | Requirement | Has Task? | Task IDs | Notes |
+   
+   ### Metrics
+   - Total Requirements / Total Tasks
+   - Coverage % 
+   - Ambiguity Count / Critical Issues Count
 
-5. Severity assignment heuristic:
-   - CRITICAL: Violates constitution MUST, missing core spec artifact, or requirement with zero coverage that blocks baseline functionality.
-   - HIGH: Duplicate or conflicting requirement, ambiguous security/performance attribute, untestable acceptance criterion.
-   - MEDIUM: Terminology drift, missing non-functional task coverage, underspecified edge case.
-   - LOW: Style/wording improvements, minor redundancy not affecting execution order.
-
-6. Produce a Markdown report (no file writes) with sections:
-
-   ### Specification Analysis Report
-   | ID | Category | Severity | Location(s) | Summary | Recommendation |
-   |----|----------|----------|-------------|---------|----------------|
-   | A1 | Duplication | HIGH | spec.md:L120-134 | Two similar requirements ... | Merge phrasing; keep clearer version |
-   (Add one row per finding; generate stable IDs prefixed by category initial.)
-
-   Additional subsections:
-   - Coverage Summary Table:
-     | Requirement Key | Has Task? | Task IDs | Notes |
-   - Constitution Alignment Issues (if any)
-   - Unmapped Tasks (if any)
-   - Metrics:
-     * Total Requirements
-     * Total Tasks
-     * Coverage % (requirements with >=1 task)
-     * Ambiguity Count
-     * Duplication Count
-     * Critical Issues Count
-
-7. At end of report, output a concise Next Actions block:
-   - If CRITICAL issues exist: Recommend resolving before `/implement`.
-   - If only LOW/MEDIUM: User may proceed, but provide improvement suggestions.
-   - Provide explicit command suggestions: e.g., "Run /specify with refinement", "Run /plan to adjust architecture", "Manually edit tasks.md to add coverage for 'performance-metrics'".
-
-8. Ask the user: "Would you like me to suggest concrete remediation edits for the top N issues?" (Do NOT apply them automatically.)
+5. **Next Actions**:
+   - CRITICAL 이슈가 있으면: 구현 전 해결 권장
+   - LOW/MEDIUM만 있으면: 구현 진행 가능, 개선 제안 제공
+   - 구체적인 수정 명령어 제안
 
 Behavior rules:
-- NEVER modify files.
-- NEVER hallucinate missing sections—if absent, report them.
-- KEEP findings deterministic: if rerun without changes, produce consistent IDs and counts.
-- LIMIT total findings in the main table to 50; aggregate remainder in a summarized overflow note.
-- If zero issues found, emit a success report with coverage statistics and proceed recommendation.
-
-## Post-Analysis Actions
-
-**MANDATORY** (per AI_DEVELOPMENT_GUIDELINES.md):
-- If critical issues found, recommend specific remediation steps
-- Reference relevant guidelines documentation for issue resolution
-- Ensure analysis follows project constitution principles
-
-Context: $ARGUMENTS
+- NEVER modify files
+- 발견사항이 없으면 성공 리포트 + 커버리지 통계 출력
+- 최대 50개 발견사항, 초과분은 요약 처리

@@ -46,12 +46,17 @@ Jekyll 템플릿에서 동적 데이터를 전달하는 방법:
 ```
 assets/js/
 ├── category-sidebar.js    # 웹 컴포넌트 구현
-├── command-palette.js     # 명령 팔레트
-└── blog-pagination.js     # 페이지네이션
+├── post-metadata.js       # 포스트 메타데이터 웹 컴포넌트
+├── command-palette.js     # 명령 팔레트 (Ninja Keys)
+├── blog-pagination.js     # 페이지네이션
+├── heading-anchors.js     # 헤딩 앵커 링크
+├── image-viewer.js        # PhotoSwipe 이미지 뷰어
+└── toc-scrollspy.js       # 목차 스크롤스파이
 
 tests/
-├── category-sidebar.test.js  # 컴포넌트 테스트
-├── blog-features.test.js     # 통합 테스트
+├── category-sidebar.test.js  # CategorySidebar 테스트
+├── post-metadata.test.js     # PostMetadata 테스트
+├── blog-features.test.js     # 블로그 기능 통합 테스트
 └── setup.js                  # 테스트 환경 설정
 
 _layouts/

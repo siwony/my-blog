@@ -51,8 +51,6 @@ exclude:
   - Gemfile.lock
   - vendor/
   - node_modules/
-  - "*.scss"
-  - "_sass/"
   - _site
   - .jekyll-cache
   - .jekyll-metadata
@@ -61,41 +59,22 @@ exclude:
   - package-lock.json
   - gulpfile.js
   - "*.py"
-  # Docker and deployment files
-  - Dockerfile
-  - docker-compose*.yml
-  - Caddyfile*
-  - DOCKER_DEPLOYMENT.md
-  - Makefile
-  # Build and deployment scripts
   - "*.sh"
-  - build.sh
-  - deploy.sh
-  - deploy-homeserver.sh
-  - dev.sh
-  - serve.sh
+  - "*.log"
+  - "*.scss"
   # Development and testing
-  - debug.html
   - test-report.html
   - tests/
   - logs/
   - scripts/
-  - "*.log"
-  - "*.sh"
-  - README.md
-  - JEST_TEST_GUIDE.md
-  - TIL_*.md
-  - test-report.html
-  - tests/
+  - docs/
   - archive/
+  - coverage/
+  - README.md
+  - TIL_*.md
+  - "**/*test.js"
+  - "**/*spec.js"
+  # Environment and VCS
   - .venv/
   - .git/
   - .gitignore
-  # Development scripts and documentation
-  - scripts/
-  - docs/
-  # Node.js and testing files
-  - jest.config.js
-  - "**/*test.js"
-  - "**/*spec.js"
-  - coverage/

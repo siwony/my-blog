@@ -20,28 +20,21 @@ Prism.js 구문 강조와 웹 컴포넌트를 활용한 모던 기술 블로그�
 
 - **AI 작업자**: [`docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md`](./docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md) ⚠️ **필수 읽기**
 - **개발자**: [`docs/architecture/SYSTEM_ARCHITECTURE.md`](./docs/architecture/SYSTEM_ARCHITECTURE.md)에서 시스템 전체 이해
-- **배포 담당자**: [`docs/architecture/DEPLOYMENT_ENVIRONMENTS.md`](./docs/architecture/DEPLOYMENT_ENVIRONMENTS.md)에서 배포 옵션 확인
+- **배포 담당자**: [`docs/architecture/DEPLOYMENT_ENVIRONMENTS.md`](./docs/architecture/DEPLOYMENT_ENVIRONMENTS.md)에서 CI/CD 파이프라인 확인
 
 ### 📖 문서 카테고리
 
 #### 🔧 [Features](./docs/features/) - 시스템 기능
 - **[Prism.js 구문 강조](./docs/features/PRISM_FEATURES.md)** - 코드 하이라이팅 시스템 전체 개요
-- **[웹 컴포넌트](./docs/features/WEB_COMPONENTS.md)** - CategorySidebar 등 모듈식 컴포넌트
-- **[호스팅 기능](./docs/features/HOSTING_FEATURE.md)** - 로컬/홈서버 호스팅 설정
+- **[웹 컴포넌트](./docs/features/WEB_COMPONENTS.md)** - CategorySidebar, PostMetadata 등 모듈식 컴포넌트
 - **[구문 강조 스펙](./docs/features/SPEC_PRISM_HIGHLIGHTING.md)** - Prism.js 상세 기술 스펙
-- **[TOC 기능](./docs/features/TOC_FEATURE.md)** - 목차 자동 생성 기능
-- **[이미지 자동 리사이징](./docs/features/IMG_AUTO_RESIZE.md)** - 반응형 이미지 처리
-- **[HTML 특수문자 처리](./docs/features/HTML_특수문자_FEAETURE.md)** - 특수문자 이스케이프 처리
 
 #### 🏗️ [Architecture](./docs/architecture/) - 시스템 설계
 - **[시스템 아키텍처](./docs/architecture/SYSTEM_ARCHITECTURE.md)** - 전체 시스템 구조 및 컴포넌트
-- **[배포 환경](./docs/architecture/DEPLOYMENT_ENVIRONMENTS.md)** - 다양한 배포 옵션 (Local/Homeserver/Cloud)
-- **[홈서버 배포](./docs/architecture/HOMESERVER_DEPLOYMENT.md)** - 홈서버 전용 배포 가이드
-- **[보안 헤더](./docs/architecture/SECURITY_HEADERS.md)** - Caddy 보안 설정
-- **[Prism 배포](./docs/architecture/PRISM_DEPLOYMENT.md)** - Prism.js 통합 배포 전략
+- **[배포 환경](./docs/architecture/DEPLOYMENT_ENVIRONMENTS.md)** - GitHub Actions → AWS S3 + CloudFront 배포
+- **[Prism 배포](./docs/architecture/PRISM_DEPLOYMENT.md)** - Prism.js 로컬 호스팅 및 번들링 전략
 
 #### 📋 [Guidelines](./docs/guidelines/) - 개발 가이드라인
-- **[프로젝트 헌법](./docs/guidelines/PROJECT_CONSTITUTION.md)** - 핵심 개발 원칙
 - **[AI 개발 가이드라인](./docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md)** - AI 작업자 필수 준수사항
 - **[테스팅 전략](./docs/guidelines/TESTING_STRATEGY.md)** - Jest 기반 테스트 접근법
 - **[성능 가이드라인](./docs/guidelines/PERFORMANCE_GUIDELINES.md)** - 최적화 전략
@@ -108,8 +101,9 @@ Prism.js 구문 강조와 웹 컴포넌트를 활용한 모던 기술 블로그�
 - **Prism.js** - 구문 강조 라이브러리
 
 ### 프론트엔드 기술
-- **웹 컴포넌트** - CategorySidebar 모듈식 아키텍처
-- **명령 팔레트** - Ninja Keys 기반 VS Code 스타일 검색
+- **웹 컴포넌트** - CategorySidebar, PostMetadata 모듈식 아키텍처
+- **명령 팔레트** - Ninja Keys 기반 VS Code 스타일 검색 (로컬 번들)
+- **PhotoSwipe** - 이미지 라이트박스 뷰어 (로컬 번들)
 - **반응형 CSS** - 모바일 친화적 디자인
 - **Material Design** - Prism.js 테마 기반 UI
 
@@ -119,9 +113,11 @@ Prism.js 구문 강조와 웹 컴포넌트를 활용한 모던 기술 블로그�
 - **Ruby 스크립트** - 콘텐츠 생성 및 검색 데이터 자동화
 
 ### 배포 환경
-- **Caddy Server** - HTTP/2, HTTPS 자동 인증서
-- **Docker** - 컨테이너화 배포
-- **홈서버** - 자체 호스팅 옵션## ⚡ Quick Start
+- **AWS S3 + CloudFront** - 정적 사이트 호스팅 및 CDN
+- **GitHub Actions** - CI/CD 자동 배포 (OIDC 인증)
+- **esbuild** - JavaScript 번들링 (Ninja Keys, PhotoSwipe)
+
+## ⚡ Quick Start
 
 ### 1. 저장소 클론 및 의존성 설치
 ```bash
@@ -221,15 +217,22 @@ npm run test:ci
 ├── _posts/              # 블로그 포스트 (Markdown)
 ├── _plugins/            # Jekyll 플러그인
 │   ├── autolink_scrub.rb       # 자동 링크 처리
+│   ├── excerpt_filter.rb       # 발췌문 필터
 │   └── search_data_generator.rb # 검색 데이터 생성
 ├── assets/              # 정적 자산
-│   ├── css/            # 스타일시트
-│   ├── js/             # JavaScript (웹 컴포넌트, 명령 팔레트)
-│   │   ├── category-sidebar.js   # 카테고리 사이드바 컴포넌트
-│   │   ├── command-palette.js    # 명령 팔레트 컴포넌트
-│   │   ├── blog-pagination.js    # 블로그 페이지네이션
-│   │   ├── post-metadata.js      # 포스트 메타데이터
-│   │   └── prism/                # Prism.js 구문 강조 라이브러리
+│   ├── css/            # 스타일시트 (common/home/post/category)
+│   ├── fonts/          # 로컬 폰트 (Inter, Pretendard 서브셋)
+│   ├── js/             # JavaScript
+│   │   ├── category-sidebar.js        # 카테고리 사이드바 웹 컴포넌트
+│   │   ├── command-palette.js         # 명령 팔레트 (Ninja Keys)
+│   │   ├── blog-pagination.js         # 블로그 페이지네이션
+│   │   ├── post-metadata.js           # 포스트 메타데이터 웹 컴포넌트
+│   │   ├── heading-anchors.js         # 헤딩 앵커 링크
+│   │   ├── image-viewer.js            # PhotoSwipe 이미지 뷰어
+│   │   ├── toc-scrollspy.js           # 목차 스크롤스파이
+│   │   ├── ninja-keys.bundle.min.js   # Ninja Keys 번들 (esbuild)
+│   │   ├── photoswipe.bundle.min.js   # PhotoSwipe 번들 (esbuild)
+│   │   └── prism/                     # Prism.js (번들 + 20개 언어)
 │   └── images/         # 이미지 자산
 ├── docs/                # 📚 종합 프로젝트 문서
 │   ├── features/       # 시스템 기능 문서
@@ -237,19 +240,19 @@ npm run test:ci
 │   └── guidelines/     # 개발 가이드라인
 ├── tests/               # Jest 테스트 파일
 ├── scripts/             # 자동화 스크립트
-│   ├── generate_posts.rb         # 포스트 생성 도구
 │   ├── create_category.rb        # 카테고리 생성 도구
+│   ├── generate_posts.rb         # 포스트 생성 도구
 │   ├── generate_search_data.rb   # 검색 데이터 생성
-│   └── css-conflict-detector.js  # CSS 충돌 감지
-├── category/            # 카테고리 페이지
+│   ├── sync_categories.sh        # 카테고리 자동 동기화 (CI용)
+│   ├── css-conflict-detector.js  # CSS 충돌 감지
+│   └── test-runner.js            # 테스트 러너 (HTML 리포트 생성)
+├── category/            # 카테고리 페이지 (19개)
+├── .github/workflows/   # GitHub Actions CI/CD
+│   ├── deploy.yml      # S3 + CloudFront 배포
+│   └── test.yml        # Jest 테스트 + Codecov
 ├── dev.sh              # 📦 통합 개발 도구 스크립트
-├── deploy.sh           # 배포 스크립트
-├── deploy-homeserver.sh # 홈서버 배포 스크립트
-├── docker-compose.yml  # Docker 배포 설정
-├── docker-compose.homeserver.yml # 홈서버 Docker 설정
-├── Caddyfile           # Caddy 웹서버 설정
 ├── gulpfile.js         # Gulp 빌드 자동화
-└── Makefile            # Make 명령어
+└── package.json        # Node.js 의존성 및 빌드 스크립트
 ```
 
 ## 🎨 핵심 기능
@@ -276,11 +279,11 @@ Google PageSpeed Insights의 "불필요한 CSS 줄이기" 권장사항을 반영
 
 ```liquid
 {% if page.layout == 'post' %}
-  <link rel="preload" href="{{ '/assets/css/post.css' | relative_url }}" as="style">
+  <link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
 {% elsif page.layout == 'category' %}
-  <link rel="preload" href="{{ '/assets/css/category.css' | relative_url }}" as="style">
+  <link rel="stylesheet" href="{{ '/assets/css/category.css' | relative_url }}">
 {% else %}
-  <link rel="preload" href="{{ '/assets/css/home.css' | relative_url }}" as="style">
+  <link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}">
 {% endif %}
 ```
 
@@ -325,37 +328,27 @@ Google PageSpeed Insights의 "불필요한 CSS 줄이기" 권장사항을 반영
 - **모듈식 설계**: 재사용 가능한 컴포넌트
 - **Jekyll 데이터 통합**: 서버사이드 데이터와 클라이언트 컴포넌트 연동
 
-## 배포 옵션
+## 배포
 
-다양한 배포 환경을 지원합니다. 자세한 내용은 [`docs/architecture/DEPLOYMENT_ENVIRONMENTS.md`](./docs/architecture/DEPLOYMENT_ENVIRONMENTS.md)를 참조하세요.
+### 🚀 프로덕션 배포 (자동)
+`main` 브랜치에 푸시하면 GitHub Actions가 자동으로 배포합니다:
+1. 카테고리 페이지 자동 동기화
+2. Jekyll 프로덕션 빌드
+3. AWS S3에 동기화
+4. CloudFront 캐시 무효화
 
 ### 📱 로컬 개발
 ```bash
-./dev.sh serve                # 기본 개발 서버
+./dev.sh serve                # 기본 개발 서버 (포트 4000)
 ./dev.sh build --production   # 프로덕션 모드 빌드
-./dev.sh test-prod            # 프로덕션 빌드 후 로컬 테스트
+./dev.sh test-prod            # 프로덕션 빌드 후 로컬 테스트 (포트 8080)
 ```
-
-### 🏠 홈서버 배포
-```bash
-# Docker Compose로 배포
-docker-compose up -d
-
-# 홈서버 전용 설정으로 배포
-docker-compose -f docker-compose.homeserver.yml up -d
-
-# 배포 스크립트 사용
-./deploy-homeserver.sh
-```
-
-상세한 홈서버 배포 가이드: [`docs/architecture/HOMESERVER_DEPLOYMENT.md`](./docs/architecture/HOMESERVER_DEPLOYMENT.md)
 
 ## 🔧 개발 환경 요구사항
 
 - **Ruby** 3.x+ (Jekyll 실행)
 - **Bundler** 2.0+ (Ruby 의존성 관리)
 - **Node.js** 20.x+ (테스트 및 빌드 도구)
-- **Docker** (선택적, 컨테이너 배포용)
 
 ## 🤝 기여 가이드
 

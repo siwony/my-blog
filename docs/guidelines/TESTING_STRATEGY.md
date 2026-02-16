@@ -82,10 +82,12 @@ const testCases = [
 ### GitHub Actions Workflow
 ```yaml
 # .github/workflows/test.yml
-- Node.js 16.x, 18.x, 20.x 매트릭스 테스트
-- 자동 커버리지 리포트
-- ESLint 코드 품질 검사
-- Prettier 포맷팅 검증
+- Node.js 20.x
+- npm ci
+- 카테고리 동기화 검증
+- Jest 테스트 실행
+- 커버리지 리포트 (Codecov)
+- HTML 테스트 리포트 생성
 ```
 
 ### Quality Gates

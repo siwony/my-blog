@@ -29,6 +29,7 @@ Prism.js를 도입하여 다음 기능들을 구현했습니다:
    - **Toolbar** (`prism-toolbar.min.js`): 툴바 컨테이너
    - **Copy to Clipboard** (`prism-copy-to-clipboard.min.js`): 클립보드 복사 기능
    - **Show Language** (`prism-show-language.min.js`): 언어명 표시
+3. **Bundled Output**: `prism.bundle.min.js` (37KB) - Gulp로 6개 파일을 단일 번들로 통합
 3. **CSS Themes**: 
    - Material Design 테마 (`prism-material-theme.css`)
    - 툴바 스타일 (`prism-toolbar.min.css`)
@@ -68,6 +69,7 @@ assets/
 │   └── prism-line-numbers.min.css    # 라인 번호 스타일
 └── js/prism/
     ├── prism.min.js                  # 코어 라이브러리
+    ├── prism.bundle.min.js           # ⚡ Gulp 번들 (6개 통합, 37KB)
     ├── prism-autoloader.min.js       # 언어 자동 로딩
     ├── prism-toolbar.min.js          # 툴바 플러그인
     ├── prism-copy-to-clipboard.min.js # 복사 기능
@@ -97,21 +99,18 @@ assets/
 ```
 
 ### 3. HTML Integration
-`_layouts/default.html`에서의 로딩 순서:
+`_layouts/default.html`에서의 로딩 방식:
 ```html
-<!-- CSS 먼저 로드 -->
-<link rel="stylesheet" href="{{ '/assets/css/prism/prism-material-theme.css' | relative_url }}">
-<link rel="stylesheet" href="{{ '/assets/css/prism/prism-toolbar.min.css' | relative_url }}">
-<link rel="stylesheet" href="{{ '/assets/css/prism/prism-line-numbers.min.css' | relative_url }}">
+<!-- CSS (지연 로딩 - 코드 블록용) -->
+<link rel="stylesheet" href="{{ '/assets/css/prism/prism-material-theme.css' | relative_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ '/assets/css/prism/prism-toolbar.min.css' | relative_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ '/assets/css/prism/prism-line-numbers.min.css' | relative_url }}" media="print" onload="this.media='all'">
 
-<!-- JavaScript 로드 (순서 중요!) -->
-<script src="{{ '/assets/js/prism/prism.min.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/prism/prism-autoloader.min.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/prism/prism-toolbar.min.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/prism/prism-copy-to-clipboard.min.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/prism/prism-show-language.min.js' | relative_url }}"></script>
-<script src="{{ '/assets/js/prism/prism-line-numbers.min.js' | relative_url }}"></script>
+<!-- JavaScript (단일 번들, defer로 비차단) -->
+<script src="{{ '/assets/js/prism/prism.bundle.min.js' | relative_url }}" defer></script>
 ```
+
+> **참고**: 개별 플러그인 파일들은 Gulp의 `bundlePrism` 태스크에 의해 `prism.bundle.min.js`로 통합됩니다. CSS는 `media="print" onload="this.media='all'"` 패턴으로 지연 로딩합니다.
 
 ### 4. Auto-initialization
 DOM 로드 후 자동 설정:
@@ -245,6 +244,6 @@ console.log('Languages:', Object.keys(Prism.languages));
 
 ---
 
-📅 **마지막 업데이트**: 2025년 11월 6일  
-🔧 **현재 버전**: Prism.js 1.29.0 (Material Theme)  
+📅 **마지막 업데이트**: 2026년 2월  
+🔧 **현재 버전**: Prism.js 1.29.0 (Material Theme, Self-hosted Bundle)  
 📚 **관련 문서**: [`../architecture/SYSTEM_ARCHITECTURE.md`](../architecture/SYSTEM_ARCHITECTURE.md)
