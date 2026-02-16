@@ -98,6 +98,13 @@ cmd_serve() {
     
     check_deps
     
+    # .min 파일 및 번들 생성
+    if command -v npm &> /dev/null && [ -f "package.json" ]; then
+        echo -e "${YELLOW}📦 JS/CSS minify & bundle 중...${NC}"
+        npm run minify:sources 2>/dev/null || true
+        npm run bundle:all 2>/dev/null || true
+    fi
+    
     echo -e "${BLUE}🚀 개발 서버 시작${NC}"
     echo "=================================="
     echo -e "${GREEN}📍 URL: http://localhost:$port${NC}"
