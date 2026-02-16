@@ -23,30 +23,30 @@
     <link rel="preload" href="{{ '/assets/fonts/Pretendard-Regular.subset.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
     
     <!-- Common CSS - Loaded on all pages (synchronous for layout stability) -->
-    <link rel="stylesheet" href="{{ '/assets/css/common.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/common.min.css' | relative_url }}">
     
     <!-- Page-specific CSS (Conditional loading) -->
     {% if page.layout == 'post' %}
-    <link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/post.min.css' | relative_url }}">
     {% elsif page.layout == 'category' %}
-    <link rel="stylesheet" href="{{ '/assets/css/category.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/category.min.css' | relative_url }}">
     {% else %}
-    <link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/home.min.css' | relative_url }}">
     {% endif %}
     
     <!-- Prism.js CSS (지연 로딩 - 코드 블록용) -->
-    <link rel="stylesheet" href="{{ '/assets/css/prism/prism-material-theme.css' | relative_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ '/assets/css/prism/prism-material-theme.min.css' | relative_url }}" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{{ '/assets/css/prism/prism-toolbar.min.css' | relative_url }}" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{{ '/assets/css/prism/prism-line-numbers.min.css' | relative_url }}" media="print" onload="this.media='all'">
     <noscript>
-        <link rel="stylesheet" href="{{ '/assets/css/prism/prism-material-theme.css' | relative_url }}">
+        <link rel="stylesheet" href="{{ '/assets/css/prism/prism-material-theme.min.css' | relative_url }}">
         <link rel="stylesheet" href="{{ '/assets/css/prism/prism-toolbar.min.css' | relative_url }}">
         <link rel="stylesheet" href="{{ '/assets/css/prism/prism-line-numbers.min.css' | relative_url }}">
     </noscript>
 
     <!-- PhotoSwipe CSS (지연 로딩 - 이미지 뷰어용) -->
-    <link rel="stylesheet" href="{{ '/assets/css/photoswipe/photoswipe.css' | relative_url }}" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="{{ '/assets/css/photoswipe/photoswipe.css' | relative_url }}"></noscript>
+    <link rel="stylesheet" href="{{ '/assets/css/photoswipe/photoswipe.min.css' | relative_url }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ '/assets/css/photoswipe/photoswipe.min.css' | relative_url }}"></noscript>
     
     <!-- GitHub Markdown Table Styles (지연 로딩) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.4.0/github-markdown-light.min.css" media="print" onload="this.media='all'">
@@ -104,20 +104,20 @@
     </script>
     
     <!-- Command Palette (Ninja Keys) -->
-    <script src="{{ '/assets/js/command-palette.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/command-palette.min.js' | relative_url }}" defer></script>
     
     <!-- Category Sidebar Web Component -->
-    <script src="{{ '/assets/js/category-sidebar.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/category-sidebar.min.js' | relative_url }}" defer></script>
     
     <!-- Post Metadata Web Component -->
-    <script src="{{ '/assets/js/post-metadata.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/post-metadata.min.js' | relative_url }}" defer></script>
     
     <!-- PhotoSwipe Image Viewer (번들링됨 - request chaining 제거) -->
     <script src="{{ '/assets/js/photoswipe.bundle.min.js' | relative_url }}" defer></script>
-    <script src="{{ '/assets/js/image-viewer.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/image-viewer.min.js' | relative_url }}" defer></script>
     
     <!-- Heading Anchor Links -->
-    <script src="{{ '/assets/js/heading-anchors.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/heading-anchors.min.js' | relative_url }}" defer></script>
     
     <!-- GitHub Table Enhancer -->
     <script>

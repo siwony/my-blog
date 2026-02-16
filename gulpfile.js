@@ -40,7 +40,11 @@ const paths = {
   },
   css: {
     src: [
-      'assets/css/**/*.css'
+      'assets/css/**/*.css',
+      '!assets/css/**/*.min.css'
+    ],
+    minified: [
+      'assets/css/**/*.min.css'
     ],
     dest: '_site/assets/css/'
   },
@@ -134,6 +138,12 @@ function processJS() {
 function copyMinifiedJS() {
   return gulp.src(paths.js.minified)
     .pipe(gulp.dest(paths.js.dest));
+}
+
+// 이미 minified된 CSS 파일 복사 (재처리 없이)
+function copyMinifiedCSS() {
+  return gulp.src(paths.css.minified)
+    .pipe(gulp.dest(paths.css.dest));
 }
 
 // CSS processing - compress only in production
@@ -245,18 +255,50 @@ async function extractCritical(done) {
   done();
 }
 
+// 소스 디렉토리에 .min.js 파일 생성 (Jekyll serve에서도 minified 제공)
+function minifySourceJS() {
+  return gulp.src(paths.js.src)
+    .pipe(terser({
+      ecma: 2015,
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        unused: true,
+        dead_code: true,
+        passes: 2
+      },
+      mangle: true,
+      format: { comments: false }
+    }))
+    .pipe(collapseTemplateWhitespace())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('assets/js/'));
+}
+
+// 소스 디렉토리에 .min.css 파일 생성
+function minifySourceCSS() {
+  return gulp.src(paths.css.src)
+    .pipe(cleanCSS({ compatibility: 'ie8', level: 2 }))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('assets/css/'));
+}
+
+const minifySources = gulp.parallel(minifySourceJS, minifySourceCSS);
+
 // Build tasks
-const buildDev = gulp.series(clean, gulp.parallel(processJS, copyMinifiedJS, processCSS), bundlePrism, processHTML);
-const buildProd = gulp.series(clean, gulp.parallel(processJS, copyMinifiedJS, processCSS), bundlePrism, processHTML, extractCritical);
+const buildDev = gulp.series(clean, gulp.parallel(processJS, copyMinifiedJS, processCSS, copyMinifiedCSS), bundlePrism, processHTML);
+const buildProd = gulp.series(clean, gulp.parallel(processJS, copyMinifiedJS, processCSS, copyMinifiedCSS), bundlePrism, processHTML, extractCritical);
 
 // Export tasks
 exports.clean = clean;
 exports.processJS = processJS;
 exports.copyMinifiedJS = copyMinifiedJS;
 exports.processCSS = processCSS;
+exports.copyMinifiedCSS = copyMinifiedCSS;
 exports.processHTML = processHTML;
 exports.bundlePrism = bundlePrism;
 exports.extractCritical = extractCritical;
+exports.minifySources = minifySources;
 exports.watch = watch;
 exports['build:dev'] = buildDev;
 exports['build:prod'] = buildProd;
