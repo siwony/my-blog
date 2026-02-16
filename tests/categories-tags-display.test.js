@@ -30,7 +30,7 @@ describe('Categories and Tags Display', () => {
       const layoutPath = path.join(__dirname, '..', '_layouts', 'default.html');
       const content = fs.readFileSync(layoutPath, 'utf8');
       
-      expect(content).toContain('post-metadata.js');
+      expect(content).toContain('post-metadata.min.js');
     });
 
     test('should use web component for category and tag display', () => {
@@ -154,7 +154,7 @@ describe('Categories and Tags Display', () => {
         expect(content).toContain('<post-metadata');
         expect(content).toContain('categories=');
         expect(content).toContain('tags=');
-        expect(content).toContain('post-metadata.js');
+        expect(content).toContain('post-metadata.min.js');
       }
     });
 
@@ -163,7 +163,7 @@ describe('Categories and Tags Display', () => {
       
       if (fs.existsSync(builtBlogPath)) {
         const content = fs.readFileSync(builtBlogPath, 'utf8');
-        expect(content).toContain('"tags"');
+        expect(content).toMatch(/["']?tags["']?\s*:/);  // HTML minification may strip quotes
         expect(content).toContain('window.__posts');
       }
     });

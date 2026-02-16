@@ -108,7 +108,7 @@ describe('PostMetadata Integration', () => {
       const layoutPath = path.join(__dirname, '..', '_layouts', 'default.html');
       const layoutContent = fs.readFileSync(layoutPath, 'utf8');
       
-      expect(layoutContent).toContain('post-metadata.js');
+      expect(layoutContent).toContain('post-metadata.min.js');
     });
   });
 

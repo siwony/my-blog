@@ -91,7 +91,7 @@ describe('Blog Features', () => {
       
       const content = fs.readFileSync(layoutPath, 'utf8');
       expect(content).toContain('ninja-keys');
-      expect(content).toContain('command-palette.js');
+      expect(content).toContain('command-palette.min.js');
     });
   });
 
