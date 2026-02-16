@@ -50,10 +50,15 @@ show_help() {
     echo "  deps               의존성 업데이트"
     echo "  install            의존성 설치"
     echo ""
+    echo -e "${CYAN}자동완성:${NC}"
+    echo "  completions [셸]   자동완성 스크립트 출력 (zsh/bash)"
+    echo "  setup-completions  자동완성 설정 방법 안내"
+    echo ""
     echo -e "${CYAN}예시:${NC}"
     echo "  ./dev.sh serve --port 3000 --drafts"
     echo "  ./dev.sh build --production --clean"
     echo "  ./dev.sh new-post"
+    echo "  source <(./dev.sh completions)    # 자동완성 즉시 활성화"
     echo ""
 }
 
@@ -297,6 +302,156 @@ cmd_install() {
     fi
 }
 
+# 함수: 자동완성 스크립트 생성
+cmd_completions() {
+    local shell_type="${1:-auto}"
+
+    # 셸 자동 감지
+    if [ "$shell_type" = "auto" ]; then
+        if [ -n "$ZSH_VERSION" ] || [[ "$SHELL" == */zsh ]]; then
+            shell_type="zsh"
+        else
+            shell_type="bash"
+        fi
+    fi
+
+    case "$shell_type" in
+        zsh)
+            cat << 'ZSHCOMP'
+# dev.sh zsh 자동완성
+# 아래 중 하나를 ~/.zshrc에 추가하세요:
+#   eval "$(./dev.sh completions zsh)"
+#   source <(./dev.sh completions zsh)
+
+_dev_sh() {
+    local -a commands serve_opts build_opts
+    commands=(
+        'serve:개발 서버 시작'
+        'build:사이트 빌드'
+        'test-prod:프로덕션 빌드 후 로컬 테스트'
+        'new-post:새 포스트 생성'
+        'stats:블로그 통계'
+        'sync-categories:카테고리 페이지 자동 동기화'
+        'clean:캐시 및 빌드 파일 정리'
+        'deps:의존성 업데이트'
+        'install:의존성 설치'
+        'completions:자동완성 스크립트 출력'
+        'help:도움말 출력'
+    )
+
+    serve_opts=(
+        '--port:포트 지정 (기본: 4000)'
+        '--drafts:초안 포함'
+        '--livereload:라이브 리로드 활성화'
+    )
+
+    build_opts=(
+        '--production:프로덕션 모드'
+        '--clean:빌드 전 캐시 정리'
+    )
+
+    completions_opts=(
+        'zsh:zsh 자동완성 스크립트'
+        'bash:bash 자동완성 스크립트'
+    )
+
+    if (( CURRENT == 2 )); then
+        _describe 'command' commands
+    elif (( CURRENT >= 3 )); then
+        case "${words[2]}" in
+            serve)
+                _describe 'option' serve_opts
+                ;;
+            build)
+                _describe 'option' build_opts
+                ;;
+            completions)
+                _describe 'shell' completions_opts
+                ;;
+        esac
+    fi
+}
+
+compdef _dev_sh dev.sh
+compdef _dev_sh ./dev.sh
+ZSHCOMP
+            ;;
+        bash)
+            cat << 'BASHCOMP'
+# dev.sh bash 자동완성
+# 아래를 ~/.bashrc 또는 ~/.bash_profile에 추가하세요:
+#   eval "$(./dev.sh completions bash)"
+#   source <(./dev.sh completions bash)
+
+_dev_sh_completions() {
+    local cur prev commands
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    commands="serve build test-prod new-post stats sync-categories clean deps install completions help"
+
+    if [ "$COMP_CWORD" -eq 1 ]; then
+        COMPREPLY=( $(compgen -W "$commands" -- "$cur") )
+        return 0
+    fi
+
+    case "${COMP_WORDS[1]}" in
+        serve)
+            COMPREPLY=( $(compgen -W "--port --drafts --livereload" -- "$cur") )
+            ;;
+        build)
+            COMPREPLY=( $(compgen -W "--production --clean" -- "$cur") )
+            ;;
+        completions)
+            COMPREPLY=( $(compgen -W "zsh bash" -- "$cur") )
+            ;;
+    esac
+    return 0
+}
+
+complete -F _dev_sh_completions dev.sh
+complete -F _dev_sh_completions ./dev.sh
+BASHCOMP
+            ;;
+        *)
+            echo -e "${RED}❌ 지원하지 않는 셸: $shell_type${NC}"
+            echo -e "${YELLOW}💡 사용법: ./dev.sh completions [zsh|bash]${NC}"
+            return 1
+            ;;
+    esac
+}
+
+# 함수: 자동완성 설정 안내
+cmd_setup_completions() {
+    local shell_type
+    if [ -n "$ZSH_VERSION" ] || [[ "$SHELL" == */zsh ]]; then
+        shell_type="zsh"
+        local rc_file="~/.zshrc"
+    else
+        shell_type="bash"
+        local rc_file="~/.bashrc"
+    fi
+
+    echo -e "${CYAN}⌨️  자동완성 설정 안내${NC}"
+    echo "=================================="
+    echo ""
+    echo -e "${GREEN}감지된 셸: $shell_type${NC}"
+    echo ""
+    echo -e "${YELLOW}설정 방법:${NC}"
+    echo ""
+    echo "  아래 줄을 ${rc_file}에 추가하세요:"
+    echo ""
+    echo -e "  ${CYAN}eval \"\$($(cd "$(dirname "$0")" && pwd)/$(basename "$0") completions $shell_type)\"${NC}"
+    echo ""
+    echo -e "${YELLOW}또는 바로 적용하려면:${NC}"
+    echo ""
+    echo -e "  ${CYAN}source <(./dev.sh completions $shell_type)${NC}"
+    echo ""
+    echo -e "${GREEN}💡 설정 후 새 터미널을 열거나 'source ${rc_file}'를 실행하세요.${NC}"
+    echo -e "${GREEN}💡 그러면 ./dev.sh <Tab>으로 명령어 자동완성을 사용할 수 있습니다.${NC}"
+}
+
 # 메인 실행
 case "${1:-help}" in
     serve)      shift; cmd_serve "$@" ;;
@@ -308,6 +463,8 @@ case "${1:-help}" in
     clean)      cmd_clean ;;
     deps)       cmd_deps ;;
     install)    cmd_install ;;
+    completions) shift; cmd_completions "$@" ;;
+    setup-completions) cmd_setup_completions ;;
     help|--help|-h) show_help ;;
     *)
         echo -e "${RED}❌ 알 수 없는 명령어: $1${NC}"
