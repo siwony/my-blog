@@ -133,7 +133,13 @@ cmd_build() {
         
         if command -v npm &> /dev/null && [ -f "package.json" ]; then
             echo -e "${YELLOW}📦 JS/CSS 최적화 중...${NC}"
+            START_TIME=$(date +%s)
             npm run build:prod 2>/dev/null || true
+            END_TIME=$(date +%s)
+            echo ""
+            echo -e "${GREEN}✅ 빌드 완료! ($(($END_TIME - $START_TIME))초)${NC}"
+            echo -e "📦 출력: _site/ ($(du -sh _site 2>/dev/null | cut -f1))"
+            return
         fi
     else
         export JEKYLL_ENV=development

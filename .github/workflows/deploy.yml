@@ -29,6 +29,15 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
       - name: Sync categories
         run: |
           chmod +x scripts/sync_categories.sh
@@ -42,11 +51,11 @@ jobs:
           git diff --staged --quiet || git commit -m "[bot] Sync categories"
           git push || echo "Nothing to push"
 
-      - name: Build Jekyll (production)
+      - name: Build (bundle + Jekyll + Gulp minification)
         env:
           JEKYLL_ENV: production
           NODE_ENV: production
-        run: bundle exec jekyll build --config _config.yml,_config_production.yml
+        run: npm run build:prod
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4

@@ -25,15 +25,15 @@ describe('Blog Features', () => {
   });
 
   describe('Category System', () => {
-    test('should have category script', () => {
+    test('should have category sync script', () => {
       const fs = require('fs');
       const path = require('path');
       
-      const scriptPath = path.join(__dirname, '..', 'scripts', 'create_category.rb');
+      const scriptPath = path.join(__dirname, '..', 'scripts', 'sync_categories.sh');
       expect(fs.existsSync(scriptPath)).toBe(true);
       
       const content = fs.readFileSync(scriptPath, 'utf8');
-      expect(content).toContain('create_category_page');
+      expect(content).toContain('sync');
     });
 
     test('should have category layout', () => {

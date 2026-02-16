@@ -160,18 +160,12 @@ bundle exec jekyll serve
 
 ### 📂 카테고리 관리
 ```bash
-# 새 카테고리 자동 생성
-ruby scripts/create_category.rb "카테고리명"
-
-# 기존 카테고리 목록 확인
-ruby scripts/create_category.rb --list
+# 카테고리 자동 동기화 (추가/삭제)
+./scripts/sync_categories.sh --verbose
 ```
 
-### 🔍 검색 데이터 업데이트
-```bash
-# 새 포스트 추가 후 검색 데이터 갱신
-ruby scripts/generate_search_data.rb
-```
+### 🔍 검색 데이터
+검색 데이터는 Jekyll 빌드 시 `_plugins/search_data_generator.rb` 플러그인이 자동으로 생성합니다.
 
 ## 🧪 테스트 및 품질 보증
 
@@ -240,12 +234,7 @@ npm run test:ci
 │   └── guidelines/     # 개발 가이드라인
 ├── tests/               # Jest 테스트 파일
 ├── scripts/             # 자동화 스크립트
-│   ├── create_category.rb        # 카테고리 생성 도구
-│   ├── generate_posts.rb         # 포스트 생성 도구
-│   ├── generate_search_data.rb   # 검색 데이터 생성
-│   ├── sync_categories.sh        # 카테고리 자동 동기화 (CI용)
-│   ├── css-conflict-detector.js  # CSS 충돌 감지
-│   └── test-runner.js            # 테스트 러너 (HTML 리포트 생성)
+│   └── sync_categories.sh        # 카테고리 자동 동기화 (CI용)
 ├── category/            # 카테고리 페이지 (19개)
 ├── .github/workflows/   # GitHub Actions CI/CD
 │   ├── deploy.yml      # S3 + CloudFront 배포
