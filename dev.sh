@@ -249,8 +249,8 @@ cmd_stats() {
         echo ""
         
         echo -e "${YELLOW}📅 최근 포스트:${NC}"
-        ls -1t _posts/*.md 2>/dev/null | head -5 | while read file; do
-            title=$(grep "^title:" "$file" 2>/dev/null | sed 's/title: *"\?\(.*\)"\?/\1/' | head -1)
+        ls -1 _posts/*.md 2>/dev/null | sort -r | head -5 | while read file; do
+            title=$(grep "^title:" "$file" 2>/dev/null | head -1 | sed -E 's/^title: *"?//' | sed -E 's/"? *$//')
             date=$(basename "$file" | cut -d'-' -f1-3)
             echo "  $date - $title"
         done
