@@ -98,12 +98,11 @@ Prism.js 구문 강조와 웹 컴포넌트를 활용한 모던 기술 블로그�
 `./dev.sh` 명령어와 옵션을 Tab 키로 자동완성할 수 있습니다. zsh와 bash를 모두 지원합니다.
 
 ```bash
-# 현재 터미널에 즉시 적용
-source <(./dev.sh completions)
+# 자동 설정 (권장) — 프로젝트 경로를 감지하여 ~/.zshrc에 자동 등록
+./dev.sh setup-completions
 
-# 영구 설정 (셸 시작 시 자동 로드)
-# 아래 줄을 ~/.zshrc 또는 ~/.bashrc에 추가
-eval "$(./dev.sh completions)"
+# 현재 터미널에만 즉시 적용 (일회성)
+source <(./dev.sh completions)
 ```
 
 설정 후 사용 예시:
@@ -112,11 +111,6 @@ eval "$(./dev.sh completions)"
 ./dev.sh serve <Tab>          # --port, --drafts, --livereload 옵션 표시
 ./dev.sh build <Tab>          # --production, --clean 옵션 표시
 ./dev.sh completions <Tab>    # zsh, bash 셸 선택
-```
-
-자동완성 설정 방법을 자세히 보려면:
-```bash
-./dev.sh setup-completions
 ```
 ## 📚 기술 스택
 

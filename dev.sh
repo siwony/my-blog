@@ -52,7 +52,7 @@ show_help() {
     echo ""
     echo -e "${CYAN}자동완성:${NC}"
     echo "  completions [셸]   자동완성 스크립트 출력 (zsh/bash)"
-    echo "  setup-completions  자동완성 설정 방법 안내"
+    echo "  setup-completions  셸 설정 파일에 자동완성 자동 등록"
     echo ""
     echo -e "${CYAN}예시:${NC}"
     echo "  ./dev.sh serve --port 3000 --drafts"
@@ -422,34 +422,76 @@ BASHCOMP
     esac
 }
 
-# 함수: 자동완성 설정 안내
+# 함수: 자동완성 설정 안내 및 자동 등록
 cmd_setup_completions() {
     local shell_type
+    local rc_file_display
+    local rc_file_path
     if [ -n "$ZSH_VERSION" ] || [[ "$SHELL" == */zsh ]]; then
         shell_type="zsh"
-        local rc_file="~/.zshrc"
+        rc_file_display="~/.zshrc"
+        rc_file_path="$HOME/.zshrc"
     else
         shell_type="bash"
-        local rc_file="~/.bashrc"
+        rc_file_display="~/.bashrc"
+        rc_file_path="$HOME/.bashrc"
     fi
 
-    echo -e "${CYAN}⌨️  자동완성 설정 안내${NC}"
+    # 프로젝트 루트 경로 자동 감지
+    local project_root
+    project_root="$(cd "$(dirname "$0")" && pwd)"
+    local rel_path="${project_root/#$HOME/\$HOME}"
+
+    # rc 파일에 추가할 줄
+    local completion_marker="# dev.sh 자동완성 (${project_root})"
+    local completion_line="[[ -f \"${rel_path}/dev.sh\" ]] && eval \"\$(\"${rel_path}/dev.sh\" completions ${shell_type})\""
+
+    echo -e "${CYAN}⌨️  자동완성 설정${NC}"
     echo "=================================="
     echo ""
     echo -e "${GREEN}감지된 셸: $shell_type${NC}"
+    echo -e "${GREEN}프로젝트 경로: $project_root${NC}"
     echo ""
-    echo -e "${YELLOW}설정 방법:${NC}"
+
+    # 이미 등록되어 있는지 확인
+    if [ -f "$rc_file_path" ] && grep -qF "dev.sh completions" "$rc_file_path" && grep -qF "$project_root" "$rc_file_path"; then
+        echo -e "${GREEN}✅ 이미 ${rc_file_display}에 등록되어 있습니다.${NC}"
+        echo ""
+        echo -e "${YELLOW}💡 제거하려면 ${rc_file_display}에서 아래 줄을 삭제하세요:${NC}"
+        echo -e "  ${CYAN}${completion_marker}${NC}"
+        echo -e "  ${CYAN}${completion_line}${NC}"
+        return 0
+    fi
+
+    # 사용자에게 자동 등록 여부 확인
+    echo -e "${YELLOW}${rc_file_display}에 자동완성을 등록하시겠습니까?${NC}"
+    read -p "(y/n): " answer
     echo ""
-    echo "  아래 줄을 ${rc_file}에 추가하세요:"
-    echo ""
-    echo -e "  ${CYAN}eval \"\$($(cd "$(dirname "$0")" && pwd)/$(basename "$0") completions $shell_type)\"${NC}"
-    echo ""
-    echo -e "${YELLOW}또는 바로 적용하려면:${NC}"
-    echo ""
-    echo -e "  ${CYAN}source <(./dev.sh completions $shell_type)${NC}"
-    echo ""
-    echo -e "${GREEN}💡 설정 후 새 터미널을 열거나 'source ${rc_file}'를 실행하세요.${NC}"
-    echo -e "${GREEN}💡 그러면 ./dev.sh <Tab>으로 명령어 자동완성을 사용할 수 있습니다.${NC}"
+
+    if [[ "$answer" =~ ^[Yy]$ ]]; then
+        # rc 파일에 자동 추가
+        {
+            echo ""
+            echo "$completion_marker"
+            echo "$completion_line"
+        } >> "$rc_file_path"
+
+        echo -e "${GREEN}✅ ${rc_file_display}에 자동완성이 등록되었습니다!${NC}"
+        echo ""
+        echo -e "${YELLOW}적용하려면:${NC}"
+        echo -e "  ${CYAN}source ${rc_file_display}${NC}"
+        echo ""
+        echo -e "${GREEN}💡 또는 새 터미널을 열면 자동으로 적용됩니다.${NC}"
+    else
+        echo -e "${YELLOW}수동으로 설정하려면 아래 줄을 ${rc_file_display}에 추가하세요:${NC}"
+        echo ""
+        echo -e "  ${CYAN}${completion_marker}${NC}"
+        echo -e "  ${CYAN}${completion_line}${NC}"
+        echo ""
+        echo -e "${YELLOW}또는 현재 터미널에서 바로 적용:${NC}"
+        echo ""
+        echo -e "  ${CYAN}source <(./dev.sh completions $shell_type)${NC}"
+    fi
 }
 
 # 메인 실행
