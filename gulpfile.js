@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const uglify = require('gulp-uglify');
+const terser = require('gulp-terser');
 const cleanCSS = require('gulp-clean-css');
 const htmlmin = require('gulp-htmlmin');
 const rename = require('gulp-rename');
@@ -10,6 +10,7 @@ const yargs = require('yargs');
 const concat = require('gulp-concat');
 const fs = require('fs');
 const path = require('path');
+const { Transform } = require('stream');
 
 // critical은 ESM 모듈이므로 동적 import 사용
 let critical;
@@ -28,7 +29,12 @@ const isProduction = yargs.argv.production || process.env.NODE_ENV === 'producti
 const paths = {
   js: {
     src: [
-      'assets/js/**/*.js'
+      'assets/js/**/*.js',
+      '!assets/js/**/*.min.js',
+      '!assets/js/*-entry.js'
+    ],
+    minified: [
+      'assets/js/**/*.min.js'
     ],
     dest: '_site/assets/js/'
   },
@@ -66,23 +72,67 @@ function clean() {
   ]);
 }
 
+// 템플릿 리터럴 내 불필요한 공백 축소 (HTML/CSS 문자열)
+// Terser가 템플릿 리터럴의 줄바꿈을 이스케이프된 \n으로 변환하므로
+// 이스케이프된 \n + 주변 공백을 축소하고, CSS 속성 간 불필요 공백도 제거
+function collapseTemplateWhitespace() {
+  return new Transform({
+    objectMode: true,
+    transform(file, enc, cb) {
+      if (file.isNull()) return cb(null, file);
+      if (file.isStream()) return cb(new Error('Streams not supported'));
+
+      let content = file.contents.toString();
+
+      // 1) 이스케이프된 줄바꿈(\n) + 주변 공백을 단일 공백으로 축소
+      content = content.replace(/\\n\s*/g, ' ');
+
+      // 2) 연속 공백을 단일 공백으로 축소
+      content = content.replace(/ {2,}/g, ' ');
+
+      // 3) CSS 셀렉터/속성 주변 불필요 공백 제거
+      content = content.replace(/\s*{\s*/g, '{');
+      content = content.replace(/\s*}\s*/g, '}');
+      content = content.replace(/\s*;\s*/g, ';');
+      content = content.replace(/\s*:\s*/g, ':');
+      content = content.replace(/\s*,\s*/g, ',');
+
+      // 4) 삼항/조건 연산자의 콜론은 복원 (a?b:c 패턴)
+      //    CSS 콜론과 구분: CSS는 property:value 형태, JS는 ?...: 형태
+      //    위에서 공백 제거한 것 중 JS 연산자 주변은 terser가 이미 처리했으므로 안전
+
+      file.contents = Buffer.from(content);
+      cb(null, file);
+    }
+  });
+}
+
 // JavaScript processing - compress only in production
 function processJS() {
   return gulp.src(paths.js.src)
     .pipe(gulpIf(!isProduction, sourcemaps.init()))
-    .pipe(gulpIf(isProduction, uglify({
+    .pipe(gulpIf(isProduction, terser({
+      ecma: 2015,
       compress: {
         drop_console: true, // 콘솔 로그 제거 (프로덕션)
         drop_debugger: true,
         unused: true,
-        dead_code: true
+        dead_code: true,
+        passes: 2
       },
       mangle: true,
-      output: {
+      format: {
         comments: false // 주석 제거
       }
     })))
+    .pipe(gulpIf(isProduction, collapseTemplateWhitespace()))
     .pipe(gulpIf(!isProduction, sourcemaps.write('.')))
+    .pipe(gulp.dest(paths.js.dest));
+}
+
+// 이미 minified된 JS 파일 복사 (재처리 없이)
+function copyMinifiedJS() {
+  return gulp.src(paths.js.minified)
     .pipe(gulp.dest(paths.js.dest));
 }
 
@@ -196,12 +246,13 @@ async function extractCritical(done) {
 }
 
 // Build tasks
-const buildDev = gulp.series(clean, gulp.parallel(processJS, processCSS), bundlePrism, processHTML);
-const buildProd = gulp.series(clean, gulp.parallel(processJS, processCSS), bundlePrism, processHTML, extractCritical);
+const buildDev = gulp.series(clean, gulp.parallel(processJS, copyMinifiedJS, processCSS), bundlePrism, processHTML);
+const buildProd = gulp.series(clean, gulp.parallel(processJS, copyMinifiedJS, processCSS), bundlePrism, processHTML, extractCritical);
 
 // Export tasks
 exports.clean = clean;
 exports.processJS = processJS;
+exports.copyMinifiedJS = copyMinifiedJS;
 exports.processCSS = processCSS;
 exports.processHTML = processHTML;
 exports.bundlePrism = bundlePrism;

@@ -30,6 +30,7 @@
     "gulp-if": "^3.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-sourcemaps": "^3.0.0",
+    "gulp-terser": "^2.1.0",
     "gulp-uglify": "^3.0.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
@@ -58,12 +59,15 @@
     ],
     "reporters": [
       "default",
-      ["jest-html-reporters", {
-        "publicPath": "./tests/reports",
-        "filename": "test-report.html",
-        "pageTitle": "My Tech Blog - Test Report",
-        "expand": true
-      }]
+      [
+        "jest-html-reporters",
+        {
+          "publicPath": "./tests/reports",
+          "filename": "test-report.html",
+          "pageTitle": "My Tech Blog - Test Report",
+          "expand": true
+        }
+      ]
     ]
   },
   "dependencies": {
