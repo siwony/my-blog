@@ -1,0 +1,4 @@
+display_name: My Tech Blog AI Ops
+short_description: Repo-specific workflow for my-tech-blog; start at docs/ai hub, follow checklists/tests, and use repo docs as source of truth.
+default_prompt: |
+  Use the My Tech Blog AI Ops skill. Begin at docs/ai/README.md, then follow CHECKLIST -> TASK_PLAYBOOK. Open referenced repo docs for details (DOC_MAP.yml shows paths). Keep commits atomic, update architecture/docs when changed, and run the listed tests before finishing.
