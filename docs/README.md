@@ -4,28 +4,31 @@
 
 ## 📖 문서 구조
 
-### � [Features](./features/)
+### 🤖 [AI Ops Hub](./ai/)
+AI·에이전트 작업 전용 진입점과 체크리스트/플레이북/문서 인덱스 제공
+
+### 🎨 [Features](./features/)
 시스템의 다양한 기능들에 대한 문서
 - Prism.js 구문 강조 기능
 - 웹 컴포넌트 및 호스팅 기능
 
-### �️ [Architecture](./architecture/)
+### 🏛️ [Architecture](./architecture/)
 시스템 아키텍처와 배포 관련 문서
 - 시스템 설계 및 구조
 - 배포 환경 및 보안 구성
 
-### � [Guidelines](./guidelines/)
+### 📋 [Guidelines](./guidelines/)
 개발, 성능, 테스팅 가이드라인
 - 프로젝트 원칙 및 개발 표준
 - 성능 최적화 및 테스팅 전략
 
 ## 🎯 빠른 시작
 
-1. **AI 작업자**: [Guidelines](./guidelines/) → [`AI_DEVELOPMENT_GUIDELINES.md`](./guidelines/AI_DEVELOPMENT_GUIDELINES.md)에서 필수 준수 사항 확인 ⚠️
-2. **개발자용**: [Architecture](./architecture/) → [`SYSTEM_ARCHITECTURE.md`](./architecture/SYSTEM_ARCHITECTURE.md)에서 전체 시스템 이해
-3. **배포용**: [Architecture](./architecture/) → [`DEPLOYMENT_ENVIRONMENTS.md`](./architecture/DEPLOYMENT_ENVIRONMENTS.md)에서 배포 옵션 확인
-4. **기능 확인**: [Features](./features/) → [`PRISM_FEATURES.md`](./features/PRISM_FEATURES.md)에서 구문 강조 기능 검토
-5. **테스팅**: [Guidelines](./guidelines/) → [`TESTING_STRATEGY.md`](./guidelines/TESTING_STRATEGY.md)에서 테스트 접근법 학습
+0. **AI 작업자**: [`AI Ops Hub`](./ai/) → `CHECKLIST` → `TASK_PLAYBOOK` 순서로 시작 ⚠️
+1. **개발자용**: [Architecture](./architecture/) → [`SYSTEM_ARCHITECTURE.md`](./architecture/SYSTEM_ARCHITECTURE.md)에서 전체 시스템 이해
+2. **배포용**: [Architecture](./architecture/) → [`DEPLOYMENT_ENVIRONMENTS.md`](./architecture/DEPLOYMENT_ENVIRONMENTS.md)에서 배포 옵션 확인
+3. **기능 확인**: [Features](./features/) → [`PRISM_FEATURES.md`](./features/PRISM_FEATURES.md)에서 구문 강조 기능 검토
+4. **테스팅**: [Guidelines](./guidelines/) → [`TESTING_STRATEGY.md`](./guidelines/TESTING_STRATEGY.md)에서 테스트 접근법 학습
 
 ## 📝 기여 가이드
 

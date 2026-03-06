@@ -1,0 +1,90 @@
+# docs index for AI/RAG consumption
+- title: Docs Overview
+  path: docs/README.md
+  tags: [index, navigation, human]
+  summary: 상위 문서 인덱스와 카테고리별 링크 제공
+  last_updated: 2026-02-01
+
+- title: AI Ops Hub
+  path: docs/ai/README.md
+  tags: [ai, entrypoint, navigation]
+  summary: AI 전용 진입점과 빠른 시작 링크
+  last_updated: 2026-03-06
+
+- title: AI Quick Checklist
+  path: docs/ai/CHECKLIST.md
+  tags: [ai, checklist]
+  summary: 작업 전·중·후 필수 점검 항목
+  last_updated: 2026-03-06
+
+- title: AI Task Playbook
+  path: docs/ai/TASK_PLAYBOOK.md
+  tags: [ai, playbook]
+  summary: 시나리오별 단계와 필수 테스트
+  last_updated: 2026-03-06
+
+- title: AI Development Guidelines
+  path: docs/guidelines/AI_DEVELOPMENT_GUIDELINES.md
+  tags: [guideline, ai, mandatory]
+  summary: AI 작업 시 필수 원칙과 커밋/문서 갱신 규칙
+  last_updated: 2025-11-06
+
+- title: Markdown Metadata
+  path: docs/guidelines/MARKDOWN_METADATA.md
+  tags: [guideline, metadata]
+  summary: Jekyll Front Matter 및 파일명 규칙
+  last_updated: unknown
+
+- title: Performance Guidelines
+  path: docs/guidelines/PERFORMANCE_GUIDELINES.md
+  tags: [guideline, performance]
+  summary: 성능 최적화 기준과 체크리스트
+  last_updated: unknown
+
+- title: CSS Conflict Prevention
+  path: docs/guidelines/CSS_CONFLICT_PREVENTION.md
+  tags: [guideline, css]
+  summary: CSS 충돌 방지 전략과 네임스페이스 규칙
+  last_updated: unknown
+
+- title: Testing Strategy
+  path: docs/guidelines/TESTING_STRATEGY.md
+  tags: [guideline, testing]
+  summary: Jest 기반 테스트 접근법과 커버리지 목표
+  last_updated: unknown
+
+- title: System Architecture
+  path: docs/architecture/SYSTEM_ARCHITECTURE.md
+  tags: [architecture]
+  summary: 전체 시스템 구조와 컴포넌트 관계
+  last_updated: unknown
+
+- title: Deployment Environments
+  path: docs/architecture/DEPLOYMENT_ENVIRONMENTS.md
+  tags: [architecture, deployment]
+  summary: GitHub Actions → AWS S3/CloudFront 파이프라인
+  last_updated: unknown
+
+- title: Prism Deployment
+  path: docs/architecture/PRISM_DEPLOYMENT.md
+  tags: [architecture, prism]
+  summary: Prism.js 로컬 호스팅 및 번들링 가이드
+  last_updated: unknown
+
+- title: Prism Features
+  path: docs/features/PRISM_FEATURES.md
+  tags: [feature, prism]
+  summary: Prism.js 구문 강조 기능 개요
+  last_updated: unknown
+
+- title: Prism Highlighting Spec
+  path: docs/features/SPEC_PRISM_HIGHLIGHTING.md
+  tags: [feature, prism, spec]
+  summary: 하이라이트 스펙 세부 명세
+  last_updated: unknown
+
+- title: Web Components
+  path: docs/features/WEB_COMPONENTS.md
+  tags: [feature, web-components]
+  summary: 커스텀 웹 컴포넌트 사용법과 구조
+  last_updated: unknown
