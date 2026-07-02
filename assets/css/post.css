@@ -107,31 +107,31 @@
 }
 
 .post-content h2::before {
-  content: "## ";
+  content: "# ";
   color: var(--blog-text-muted);
   font-weight: 400;
 }
 
 .post-content h3::before {
-  content: "### ";
+  content: "# ";
   color: var(--blog-text-muted);
   font-weight: 400;
 }
 
 .post-content h4::before {
-  content: "#### ";
+  content: "# ";
   color: var(--blog-text-muted);
   font-weight: 400;
 }
 
 .post-content h5::before {
-  content: "##### ";
+  content: "# ";
   color: var(--blog-text-muted);
   font-weight: 400;
 }
 
 .post-content h6::before {
-  content: "###### ";
+  content: "# ";
   color: var(--blog-text-muted);
   font-weight: 400;
 }
