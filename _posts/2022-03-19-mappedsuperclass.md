@@ -10,7 +10,7 @@ title: '[JPA] @MappedSuperclass'
 description: "JPA에서 공통 매핑 정보를 상속하기 위한 @MappedSuperclass 어노테이션"
 ---
 
-# @MappedSuperclass
+## @MappedSuperclass
 <img width=450px src="/assets/images/posts/jpa/mapped-superclass.png">
 
 - 공통 매핑정보가 필요할 때 사용한다.(id, name)

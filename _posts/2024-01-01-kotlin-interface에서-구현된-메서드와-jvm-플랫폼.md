@@ -10,7 +10,7 @@ tags:
 title: "Kotlin interface에서 구현된 메서드와 JVM 플랫폼"
 description: "Kotlin interface의 구현 메서드가 JVM 바이트코드로 변환되는 과정과 DefaultImpls 클래스"
 ---
-# 발표 동기
+## 발표 동기
 
 ![회사에 던진 의문점](/assets/images/posts/2024-kotlin-interface-jvm/회사에던진의문.png)
 
@@ -18,7 +18,7 @@ description: "Kotlin interface의 구현 메서드가 JVM 바이트코드로 변
 
 ~~박사 학위가 생겨서 좋네요~~
 
-# Kotlin interface in JVM
+## Kotlin interface in JVM
 
 Kotlin의 interface는 아래와 같이 메서드를 구현을 할 수 있습니다.
 
@@ -117,7 +117,7 @@ public interface 인터페이스 {
 }
 ```
 
-# Kotlin 1.2
+## Kotlin 1.2
 
 kotlin1.2 부터 Java 8를 대상으로 `@JvmDefault`를 이용해 default method를 지원하기 시작했습니다. 다만 `-Xjvm-default` 컴파일 옵션에서만 작동합니다.
 
@@ -132,24 +132,24 @@ class BirdPerson : Alien
 
 하지만 kotlin1.4 `@JvmDefault`는 Deprecated 되었습니다.
 
-# Kotlin 1.4 ~ 현재
+## Kotlin 1.4 ~ 현재
 
 인터페이스에서 기본 메서드를 생성하기 위한 새로운 모드 2개
 
-## -Xjvm-default=all
+### -Xjvm-default=all
 
 - default method만 존재하고, DefaultImpls 객체가 더 이상 없음
 
-## -Xjvm-default=all-compatibility
+### -Xjvm-default=all-compatibility
 
 - binary compatibility(이진 호환성)을 보장하는 모드
 - default method와 DefaultImpls 둘 다 생기지만 DefaultImpls method는 정의된 default method를 호출하도록 함
 
-# 더 찾아보면 좋은 문서들
+## 더 찾아보면 좋은 문서들
 
 - [Kotlin 1.4-M3: Generating Default Methods in Interfaces | The Kotlin Blog](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-m3-generating-default-methods-in-interfaces/) - 발표의 베이스가 되는 글
 - [Get started with Kotlin/JVM | Kotlin](https://kotlinlang.org/docs/jvm-get-started.html) - JVM 생태계에서 개발하면 한번 쯤 훑어 보는게 좋은 문서
 
-# Reference
+## Reference
 
 - [Kotlin 1.4-M3: Generating Default Methods in Interfaces | The Kotlin Blog](https://blog.jetbrains.com/kotlin/2020/07/kotlin-1-4-m3-generating-default-methods-in-interfaces/)

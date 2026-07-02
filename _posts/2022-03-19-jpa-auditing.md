@@ -10,11 +10,11 @@ title: "JPA Auditing"
 description: "JPA에서 엔터티의 생성/수정 시간을 자동으로 기록하는 Auditing 기능"
 ---
 
-# JPA Auditing
-### 사용동기
+## JPA Auditing
+#### 사용동기
 > MembershipApi를 만들면서 유저 가입일을 추가해보고싶었다.
 
-### Auditing 활성화
+#### Auditing 활성화
 자신의 SpringBoot Application class에 `@EnableJpaAuditing`를 추가한다.
 ```java
 @EnableJpaAuditing //추가한것
@@ -27,7 +27,7 @@ public class Aouth2Application {
 }
 ```
 
-### JPA Auditing으로 생성시간/수정시간 자동화
+#### JPA Auditing으로 생성시간/수정시간 자동화
 ```java
 @Getter
 @MappedSuperclass
@@ -48,8 +48,8 @@ public abstract class BaseTimeEntity {
 - ``@CreatedDate``: Entity가 생성되어 저장될 때 시간이 자동 저장된다.
 - ``@LastModifiedDate`` : 조회한 Entity의 값이 변경할 때 시간이 자동저장된다
 
-## 내 프로젝트에 적용
-### UserEntity
+### 내 프로젝트에 적용
+#### UserEntity
 ```java
 @Entity
 @Table(name = "user")

@@ -13,7 +13,7 @@ description: "Docker Compose를 사용하여 GitLab을 컸테이너로 간편하
 
 docker compose로 GItLab을 설치하는 가이드를 작성한다.
 
-# 설치할 디랙토리 생성
+## 설치할 디랙토리 생성
 
 최소 2.5GB이상 여유 공간이 존재해야 한다.
 
@@ -48,7 +48,7 @@ sudo chown -R $USER:$USER /data/gitlab
 sudo chmod -R 755 /data/gitlab
 ```
 
-# docker-compose.yml 파일 준비
+## docker-compose.yml 파일 준비
 
 위에서 GitLab 작업 디렉토리에 docker-compose.yml 파일을 생성한다.
 
@@ -82,13 +82,13 @@ services:
       - './data:/var/opt/gitlab'
 ```
 
-## GitLab Enterprise Edition을 설치한 이유
+### GitLab Enterprise Edition을 설치한 이유
 
 - Community Edition과 동일한 기능을 가짐
 - 이후 언제든지 유로 기능을 체험하고 싶으면 새 인스턴스를 설치할 필요가 없이 단순히 활성화하면됨
 - 버튼 한번으로 Enterprise Edition을 사용할 수 있음
 
-# GitLab 시작
+## GitLab 시작
 
 작업 디렉터리에서 아래 명령을 실행하여 GitLab을 시작한다.
 
@@ -96,7 +96,7 @@ services:
 docker compose up -d
 ```
 
-# 초기 비밀번호 확인
+## 초기 비밀번호 확인
 
 아래 명령을 실행하여 GItLab root 계정의 초기 패스워드를 확인한다.
 
@@ -104,6 +104,6 @@ docker compose up -d
 docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 ```
 
-# GitLab 설치 확인
+## GitLab 설치 확인
 
 80포트로 GitLab web에 접속하여 확인한다.

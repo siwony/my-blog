@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title | default: site.title }}</title>
+    <!-- title은 아래 SEO 태그가 자동 생성합니다 (중복 방지) -->
     
     <!-- Favicon - 검색 봇 및 다양한 브라우저 지원 -->
     <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" type="image/svg+xml">
@@ -67,6 +67,7 @@
                     <ul>
                         <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>Home</a></li>
                         <li><a href="{{ '/blog/' | relative_url }}"{% if page.url contains '/blog' %} class="active"{% endif %}>Blog</a></li>
+                        <li><a href="{{ '/resume/' | relative_url }}"{% if page.url contains '/resume' %} class="active"{% endif %}>Resume</a></li>
                     </ul>
                 </nav>
             </div>

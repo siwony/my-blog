@@ -11,25 +11,25 @@ title: "[Gradle] Maven에서 Gradle로 이전"
 description: "Maven 프로젝트를 Gradle 빌드 시스템으로 마이그레이션하는 단계별 가이드와 설정 변환 방법"
 ---
 
-# Maven 에서 Gradle로 이전
+## Maven 에서 Gradle로 이전
 
 Maven에서 Gradle로 이전하는 방법은 꽤 쉽다. `gradle init` 명령어를 통해 쉽게 이전이 가능하다
 
 gradle이 `pom.xml` 를 읽어서 gradle 프로젝트로 알아서 변환해준다.
 
-# Gradle 설치방법
+## Gradle 설치방법
 
-## Windows - chocolatey
+### Windows - chocolatey
 
 1. 관리자 모드로 Powershell 실행
 2. `choco install gradle` 입력
 
-## Mac - Homebrew
+### Mac - Homebrew
 
 1. open terminal
 2. `brew install gradle` 입력
 
-# gradle init
+## gradle init
 
 프로젝트에서 `gradle init` 을 하는 방법에 대해 기술한다.
 
@@ -64,7 +64,7 @@ pom.xml이 있는 프로젝트에서 `gradle init` 을 호출하는 경우 Maven
 
 - `./gradlew build` or `./gradlew.bat build`
 
-## 생성된 파일 설명
+### 생성된 파일 설명
 
 - `gradle`
     - 해당 디랙토리는 gradle에 대한 wapper와 version catalog기능에서 사용되는 `libs.versions.toml` 파일을 담고있다.
@@ -85,15 +85,15 @@ pom.xml이 있는 프로젝트에서 `gradle init` 을 호출하는 경우 Maven
     - gradle에 대한 설정 파일이다.
     - 프로젝트 수준 저장소 설정을 정의하고, 앱을 빌드할 때 포함해야 하는 모듈을 Gradle에 알려준다.
 
-# 이전 후 확인해야 하는 사항들
+## 이전 후 확인해야 하는 사항들
 
 maven 에서 gradle로 이전시 확인이 필요한 부분에 대해 기술한다.
 
-## 버전 카탈로그 확인
+### 버전 카탈로그 확인
 
 `project-root/gradle/libs.versions.toml` 파일에 모든 의존성에 대한 버전이 명시되어 있다. 적절히 버전을 풀어서 build.gradle에 dependencies에 명시하거나 아니면 spring boot bom 과 같이 버전 메니징 관련된 코드는 제거하는 등 작업이 필요하다.
 
-## Spring Boot 프로젝트를 gradle로 이전하는 경우
+### Spring Boot 프로젝트를 gradle로 이전하는 경우
 
 maven에서 적용한 spring boot의 dependency manage (BOM)이 적용되지 않으므로 수동으로 plugin을 추가해야 한다.
 
@@ -119,7 +119,7 @@ plugins { // plugin 선언
 
 아래와 같이 선언이 되어야 spring boot관련 의존성에 대해 버전명시 없이 사용이 가능하다.
 
-## Querydsl 사용
+### Querydsl 사용
 
 querydsl은 아래와 같이 annotationProcessor를 명시해야 한다.
 
@@ -138,7 +138,7 @@ dependencies {
 
 querydsl의 표준 annotationProcessor를 통해 QClass를 생성해야 build시 정상적인 querydsl 사용이 가능하다.
 
-## Lombok 사용
+### Lombok 사용
 
 lombok사용시 다음과 같이 annotationProcessor를 명시해야 한다.
 
@@ -151,7 +151,7 @@ dependencies {
 }
 ```
 
-# Referenece
+## Referenece
 
 - https://shanepark.tistory.com/360
 - https://docs.gradle.org/current/javadoc/org/gradle/buildinit/tasks/InitBuild.html?utm_source=chatgpt.com - Generate build using new APIs and behavior 관련 레퍼런스
